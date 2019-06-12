@@ -1,7 +1,9 @@
 package com.secretk.move
 
 import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.orange.bean.ShopBean
 import com.zhuzichu.orange.bean.SortBean
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
@@ -18,5 +20,7 @@ interface Repository {
         cid: Int,
         back: Int,
         min_id: Int
-    ): Observable<BaseRes<List<SortBean>>>
+    ): Flowable<BaseRes<List<ShopBean>>>
+
+    fun getShopSort(): Flowable<BaseRes<List<SortBean>>>
 }

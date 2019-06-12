@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
         <variable name="viewModel" type="com.zhuzichu.orange.sort.SortViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                app:itemBinding="@{viewModel.itemBind}"
+                app:items="@{viewModel.list}"
+                app:diffConfig="@{viewModel.diff}"
+                tools:itemCount="13"
+                tools:listitem="@layout/item_sort_left"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
     </LinearLayout>
 </layout>

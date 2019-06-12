@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import com.trello.rxlifecycle3.LifecycleProvider
 import com.trello.rxlifecycle3.LifecycleTransformer
+import io.reactivex.Flowable
+import io.reactivex.FlowableTransformer
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -61,20 +63,20 @@ fun <T> bindToLifecycle(@NonNull lifecycle: LifecycleProvider<*>): LifecycleTran
 /**
  * 线程调度器
  */
-fun <T> schedulersTransformer(): ObservableTransformer<T, T> {
-    return ObservableTransformer { observable ->
+fun <T> schedulersTransformer(): FlowableTransformer<T, T> {
+    return FlowableTransformer { observable ->
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 }
 
-fun <T> exceptionTransformer(): ObservableTransformer<T, T> {
-    return ObservableTransformer { observable ->
+fun <T> exceptionTransformer(): FlowableTransformer<T, T> {
+    return FlowableTransformer { observable ->
         observable.onErrorResumeNext(HttpResponseFunc())
     }
 }
 
-private class HttpResponseFunc<T> : Function<Throwable, Observable<T>> {
-    override fun apply(t: Throwable): Observable<T> {
-        return Observable.error(ExceptionHandle.handleException(t))
+private class HttpResponseFunc<T> : Function<Throwable, Flowable<T>> {
+    override fun apply(t: Throwable): Flowable<T> {
+        return Flowable.error(ExceptionHandle.handleException(t))
     }
 }

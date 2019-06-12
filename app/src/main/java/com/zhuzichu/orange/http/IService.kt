@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.http
 
-import com.zhuzichu.mvvm.http.AppConfig.BASE_URL
 import com.zhuzichu.mvvm.http.AppRetrofit
 
 /**
@@ -16,7 +15,7 @@ private const val HAODANKU_URL = "http://v2.api.haodanku.com"
 
 interface IService {
     fun getHaoDankuService(): HaoDankuService {
-        return AppRetrofit.getRetrofit(BASE_URL)
+        return AppRetrofit.getRetrofit(HAODANKU_URL)
             .create(HaoDankuService::class.java)
     }
 
