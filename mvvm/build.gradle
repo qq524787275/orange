@@ -1,0 +1,86 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    api 'androidx.multidex:multidex:2.0.1'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    api "android.arch.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    api "android.arch.work:work-runtime-ktx:$rootProject.workVersion"
+    api "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    api "androidx.core:core-ktx:$rootProject.ktxVersion"
+    api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    api "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    api "androidx.room:room-runtime:$rootProject.roomVersion"
+
+    api("com.github.bumptech.glide:glide:$rootProject.glideVersion") {
+        exclude group: "com.android.support"
+    }
+    api "com.github.bumptech.glide:okhttp3-integration:$rootProject.glideVersion"
+
+    api "com.google.android.material:material:$rootProject.materialVersion"
+    api "com.google.code.gson:gson:$rootProject.gsonVersion"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    api "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    api "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    api "com.trello.rxlifecycle3:rxlifecycle:$rootProject.rxlifecycleVersion"
+    api "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxlifecycleVersion"
+    api "com.afollestad.material-dialogs:core:$rootProject.materialDialogsVersion"
+    api "com.orhanobut:logger:$rootProject.loggerVersion"
+    api "com.jakewharton.rxbinding3:rxbinding-core:$rootProject.rxbindingVersion"
+    api "me.majiajie:pager-bottom-tab-strip:$rootProject.bottomTabStripVersion"
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'
+
+    api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$rootProject.adapterVersion"
+    api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$rootProject.adapterVersion"
+
+    api "com.airbnb.android:lottie:$rootProject.lottieVersion"
+
+    api "me.jessyan:autosize:$rootProject.autosizeVerson"
+
+    api "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    api("com.squareup.retrofit2:converter-simplexml:$rootProject.retrofitVersion") {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+
+}

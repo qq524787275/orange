@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.MainViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+    >
+        <LinearLayout
+                android:id="@+id/layout_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
+        <FrameLayout
+                android:id="@+id/layout_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.zhuzichu.mvvm.view.viewpager.NoTouchViewPager
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="56dp"/>
+
+            <me.majiajie.pagerbottomtabstrip.PageNavigationView
+                    android:id="@+id/bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_gravity="bottom"
+                    android:elevation="8dp"
+                    android:background="@color/white"
+            />
+        </FrameLayout>
+
+    </FrameLayout>
+</layout>

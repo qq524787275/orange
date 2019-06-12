@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="View">
+        <attr name="isGone" format="boolean"/>
+        <attr name="onClickCommand"/>
+        <attr name="onLongClickCommand"/>
+        <attr name="onFocusChangeCommand"/>
+        <attr name="onTouchCommand"/>
+        <attr name="isThrottleFirst"/>
+        <attr name="currentView"/>
+        <attr name="widthHeightRatio" format="float"/>
+        <attr name="widthPadding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SmartRefreshLayout">
+        <attr name="onRefreshCommand"/>
+        <attr name="onLoadMoreCommand"/>
+    </declare-styleable>
+
+    <declare-styleable name="TextView">
+        <attr name="isSelected" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ImageView">
+        <attr name="url"/>
+        <attr name="request_width" format="integer"/>
+        <attr name="request_height" format="integer"/>
+        <attr name="placeholderRes" format="reference|color"/>
+        <attr name="onSuccessCommand" format="reference"/>
+        <attr name="onFailureCommand" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="MultiStateView">
+        <attr name="msv_loadingView" format="reference"/>
+        <attr name="msv_emptyView" format="reference"/>
+        <attr name="msv_errorView" format="reference"/>
+        <attr name="msv_viewState" format="enum">
+            <enum name="content" value="0"/>
+            <enum name="error" value="1"/>
+            <enum name="empty" value="2"/>
+            <enum name="loading" value="3"/>
+        </attr>
+        <attr name="msv_animateViewChanges" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerView" parent="AdapterView">
+        <attr name="lineManager" format="reference"/>
+        <attr name="itemBinding" format="reference"/>
+        <attr name="diffConfig" format="reference"/>
+        <attr name="onScrollChangeCommand" format="reference"/>
+        <attr name="onScrollStateChangedCommand" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="AdapterView">
+        <attr name="itemView"/>
+        <attr name="items"/>
+        <attr name="adapter"/>
+        <attr name="dropDownItemView" format="reference"/>
+        <attr name="itemIds" format="reference"/>
+        <attr name="itemIsEnabled" format="reference"/>
+        <attr name="onScrollStateChangedCommand"/>
+        <attr name="onScrollChangeCommand"/>
+        <attr name="onLoadMoreCommand" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="Banner">
+        <attr name="bannerImages"/>
+        <attr name="delay_time" format="integer"/>
+        <attr name="scroll_time" format="integer"/>
+        <attr name="is_auto_play" format="boolean"/>
+        <attr name="title_background" format="color|reference"/>
+        <attr name="title_textcolor" format="color"/>
+        <attr name="title_textsize" format="dimension"/>
+        <attr name="title_height" format="dimension"/>
+        <attr name="indicator_width" format="dimension"/>
+        <attr name="indicator_height" format="dimension"/>
+        <attr name="indicator_margin" format="dimension"/>
+        <attr name="indicator_drawable_selected" format="reference"/>
+        <attr name="indicator_drawable_unselected" format="reference"/>
+        <attr name="banner_layout" format="reference"/>
+        <attr name="banner_default_image" format="reference"/>
+        <attr name="image_scale_type" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="center_crop" value="1"/>
+            <enum name="center_inside" value="2"/>
+            <enum name="fit_center" value="3"/>
+            <enum name="fit_end" value="4"/>
+            <enum name="fit_start" value="5"/>
+            <enum name="fit_xy" value="6"/>
+            <enum name="matrix" value="7"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="flFlow" format="boolean"/>
+        <attr name="flChildSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flMinChildSpacing" format="dimension"/>
+        <attr name="flChildSpacingForLastRow" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+            <enum name="align" value="-65537"/>
+        </attr>
+        <attr name="flRowSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flRtl" format="boolean"/>
+        <attr name="flMaxRows" format="integer"/>
+        <attr name="flRowVerticalGravity" format="enum">
+            <enum name="auto" value="-65536"/>
+            <enum name="top" value="0x30"/>
+            <enum name="center" value="0x10"/>
+            <enum name="bottom" value="0x50"/>
+        </attr>
+        <attr name="android:gravity"/>
+    </declare-styleable>
+</resources>

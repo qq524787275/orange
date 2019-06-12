@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_main"
+            app:startDestination="@id/mainFragment"
+            tools:ignore="UnusedNavigation">
+
+    <fragment android:id="@+id/mainFragment"
+              android:name="com.zhuzichu.orange.MainFragment"
+              android:label="MainFragment"
+              tools:layout="@layout/fragment_main"/>
+
+    <fragment android:id="@+id/mineFragment"
+              android:name="com.zhuzichu.orange.mine.MineFragment"
+              android:label="MineFragment"
+              tools:layout="@layout/fragment_mine"/>
+
+    <fragment android:id="@+id/sortFragment"
+              android:name="com.zhuzichu.orange.sort.SortFragment"
+              android:label="SortFragment"
+              tools:layout="@layout/fragment_sort"/>
+</navigation>
