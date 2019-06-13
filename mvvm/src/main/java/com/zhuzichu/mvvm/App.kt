@@ -11,6 +11,8 @@ import com.zhuzichu.mvvm.global.language.LangConfig
 import com.zhuzichu.mvvm.global.language.Zh
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
+import me.yokeyword.fragmentation.Fragmentation
+
 
 /**
  * Created by Android Studio.
@@ -29,6 +31,19 @@ open class App : Application() {
         context = this
         LangConfig.initLang(Zh())
         initAutoSize()
+        initFragmention()
+    }
+
+    private fun initFragmention() {
+        Fragmentation.builder()
+            // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
+            .stackViewMode(Fragmentation.BUBBLE)
+            .debug(true) // 实际场景建议.debug(BuildConfig.DEBUG)
+            /**
+             * 可以获取到[me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning]
+             * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
+             */
+            .install()
     }
 
     private fun initAutoSize() {

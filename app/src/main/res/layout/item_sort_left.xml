@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="item" type="com.zhuzichu.orange.sort.SortItemViewModel"/>
+        <variable name="item" type="com.zhuzichu.orange.sort.ItemLeftViewModel"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,6 +10,7 @@
                  android:layout_width="match_parent"
                  android:foreground="?attr/selectableItemBackground"
                  app:onClickCommand="@{item.clickItem}"
+                 android:background="@{item.selected?@color/colorBackground:@color/white}"
                  android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"

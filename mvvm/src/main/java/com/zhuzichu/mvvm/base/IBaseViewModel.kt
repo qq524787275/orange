@@ -36,14 +36,6 @@ interface IBaseViewModel : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause(){}
 
-    fun onEnterAnimationEnd(){}
+    fun onLazyInitView(){}
 
-    //第一次fragment可见（进行初始化工作）
-    fun onFirstUserVisible() {}
-
-    //fragment可见（切换回来或者onResume）
-    fun onUserVisible() {}
-
-    //fragment不可见（切换掉或者onPause）
-    fun onUserInvisible() {}
 }

@@ -49,6 +49,7 @@
         <attr name="diffConfig" format="reference"/>
         <attr name="onScrollChangeCommand" format="reference"/>
         <attr name="onScrollStateChangedCommand" format="reference"/>
+        <attr name="gridLayoutManager" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="AdapterView">

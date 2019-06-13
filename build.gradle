@@ -22,7 +22,6 @@ buildscript {
         ktxVersion = '1.0.1'
         lifecycleVersion = '2.0.0'
         materialVersion = '1.0.0'
-        navigationVersion = '1.0.0-alpha09'
         recyclerViewVersion = '1.0.0'
         roomVersion = '2.1.0-alpha03'
         runnerVersion = '1.0.1'
@@ -40,7 +39,8 @@ buildscript {
         retrofitVersion = "2.4.0"
         adapterVersion = "3.0.0"
         lottieVersion = "3.0.6"
-        autosizeVerson="0.9.5"
+        autosizeVerson = "0.9.5"
+        fragmentationxVersion = "1.0.0"
     }
 
     repositories {
@@ -56,7 +56,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
     }
 }
 

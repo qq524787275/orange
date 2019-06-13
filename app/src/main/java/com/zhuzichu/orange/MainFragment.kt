@@ -5,6 +5,7 @@ import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.utils.toColor
 import com.zhuzichu.mvvm.widget.BottomTabView
 import com.zhuzichu.orange.databinding.FragmentMainBinding
+import com.zhuzichu.orange.home.HomeFragmnet
 import com.zhuzichu.orange.mine.MineFragment
 import com.zhuzichu.orange.sort.SortFragment
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -22,7 +23,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
-    private val mFragments = listOf<Fragment>(SortFragment(), MineFragment())
+    private val mFragments = listOf<Fragment>(HomeFragmnet(), SortFragment(), MineFragment())
 
     override fun initView() {
         val navigationController = bottom.custom()
@@ -30,6 +31,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                 newItem(
                     R.mipmap.main_tab_home_page_normal,
                     R.mipmap.main_tab_home_page_selected, "主页"
+                )
+            )
+            .addItem(
+                newItem(
+                    R.mipmap.main_tab_project_normal,
+                    R.mipmap.main_tab_project_selected, "分类"
                 )
             )
             .addItem(

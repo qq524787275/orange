@@ -15,4 +15,9 @@ import com.zhuzichu.orange.databinding.FragmentSortBinding
 class SortFragment : BaseFragment<FragmentSortBinding, SortViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_sort
     override fun bindVariableId(): Int = BR.viewModel
+
+    override fun initView() {
+        super.initView()
+        mViewModel.showLoading()
+    }
 }

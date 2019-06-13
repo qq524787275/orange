@@ -11,6 +11,7 @@ import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
+import me.yokeyword.fragmentation.ISupportFragment
 
 /**
  * Created by Android Studio.
@@ -40,11 +41,11 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         return uc
     }
 
-    fun showLoadingDialog(){
+    fun showLoadingDialog() {
         uc.getShowLoadingDialogEvent().call()
     }
 
-    fun hideLoadingDialog(){
+    fun hideLoadingDialog() {
         uc.getHideLoadingDialogEvent().call()
     }
 
@@ -71,9 +72,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         throwable.printStackTrace()
     }
 
-    fun startFragment(id: Int) {
+    fun startFragment(fragment: ISupportFragment) {
         val params = HashMap<String, Any>()
-        params[ParameterField.ID] = id
+        params[ParameterField.FRAGMENT] = fragment
         uc.getStartFragmentEvent().postValue(params)
     }
 
@@ -129,7 +130,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     object ParameterField {
-        var ID = "ID"
+        var FRAGMENT = "FRAGMENT"
         var CLASS = "CLASS"
         var BUNDLE = "BUNDLE"
         var POP = "POP"

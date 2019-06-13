@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="com.zhuzichu.mvvm.databinding.recyclerview.LineManagers"/>
+        <variable name="item" type="com.zhuzichu.orange.sort.SortItemRightViewModel"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.data.next_name}"
+                tools:text="男装"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_sort_right_image"
+                tools:itemCount="1"
+                app:diffConfig="@{item.diff}"
+                app:items="@{item.list}"
+                app:gridLayoutManager="@{3}"
+                app:itemBinding="@{item.itemBind}"
+                app:lineManager="@{LineManagers.both()}"/>
+
+    </LinearLayout>
+</layout>

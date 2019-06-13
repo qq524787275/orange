@@ -8,16 +8,14 @@ import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
 import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.BR
-import com.zhuzichu.mvvm.base.BaseRes
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.mvvm.utils.bindToLifecycle
+import com.zhuzichu.mvvm.utils.exceptionTransformer
+import com.zhuzichu.mvvm.utils.itemBindingOf
+import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.bean.SortBean
 import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.functions.Function
-import org.intellij.lang.annotations.Flow
+
 
 /**
  * Created by Android Studio.
@@ -25,23 +23,18 @@ import org.intellij.lang.annotations.Flow
  * User: zhuzichu
  * Date: 2019-06-12
  * Time: 16:42
+ * @see R.layout.fragment_sort
  */
 @SuppressLint("CheckResult")
 class SortViewModel(application: Application) : BaseViewModel(application) {
 
     var current = 0
-
-    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_left)
-
-    private val mutableLiveData = MutableLiveData<List<SortItemViewModel>>().apply { value = ArrayList() }
-
-    val list: LiveData<List<Any>> = Transformations.map<List<SortItemViewModel>, List<Any>>(mutableLiveData) {
-        it
-    }
-
-    val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
+    val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_left)
+    private val leftLiveData = MutableLiveData<List<ItemLeftViewModel>>().apply { value = ArrayList() }
+    val leftList: LiveData<List<Any>> = Transformations.map(leftLiveData) { it }
+    val leftDiff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if (oldItem is SortItemViewModel && newItem is SortItemViewModel) {
+            return if (oldItem is ItemLeftViewModel && newItem is ItemLeftViewModel) {
                 oldItem.sortBean.cid == newItem.sortBean.cid
             } else oldItem == newItem
         }
@@ -51,7 +44,18 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    override fun onFirstUserVisible() {
+    val rightItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_right)
+    private val rightLiveData = MutableLiveData<List<SortItemRightViewModel>>().apply { value = ArrayList() }
+    val rightList: LiveData<List<Any>> = Transformations.map(rightLiveData) { it }
+    val rightDiff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
+
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
+
+    }
+
+    override fun onLazyInitView() {
         loadShopSort()
     }
 
@@ -67,20 +71,42 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
                 Flowable.fromIterable(it)
             }
             .map {
-                SortItemViewModel(this, it)
+                ItemLeftViewModel(this, it)
             }
             .toList()
             .subscribe({
-                it[current].isSelected.set(true)
-                mutableLiveData.value = it
+                leftLiveData.value = it
+                updateRight(it[current])
+                showContent()
+            }, {
+                showError()
+                handleThrowable(it)
+            })
+    }
+
+    private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
+        itemLeftViewModel.isSelected.set(true)
+        Flowable.fromArray(itemLeftViewModel.sortBean.data)
+            .compose(bindToLifecycle(getLifecycleProvider()))
+            .compose(schedulersTransformer())
+            .flatMap {
+                Flowable.fromIterable(it)
+            }
+            .map {
+                SortItemRightViewModel(this, it)
+            }
+            .toList()
+            .subscribe({
+                rightLiveData.value = it
             }, {
                 handleThrowable(it)
             })
     }
 
-    fun selectItem(sortBean: SortItemViewModel) {
-        sortBean.isSelected.set(true)
-        mutableLiveData.value?.get(current)?.isSelected?.set(false)
-        current = mutableLiveData.value?.indexOf(sortBean)!!
+    fun selectLeftItem(itemLeftViewModel: ItemLeftViewModel) {
+        itemLeftViewModel.isSelected.set(true)
+        leftLiveData.value?.get(current)?.isSelected?.set(false)
+        current = leftLiveData.value?.indexOf(itemLeftViewModel)!!
+        updateRight(itemLeftViewModel)
     }
 }

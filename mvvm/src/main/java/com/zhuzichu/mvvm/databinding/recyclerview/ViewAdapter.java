@@ -2,6 +2,7 @@ package com.zhuzichu.mvvm.databinding.recyclerview;
 
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.zhuzichu.mvvm.databinding.command.BindingCommand;
 
@@ -13,6 +14,13 @@ public class ViewAdapter {
     @BindingAdapter("lineManager")
     public static void setLineManager(RecyclerView recyclerView, LineManagers.LineManagerFactory lineManagerFactory) {
         recyclerView.addItemDecoration(lineManagerFactory.create(recyclerView));
+    }
+
+    @BindingAdapter(value = {"gridLayoutManager"}, requireAll = false)
+    public static void setGridLayoutManager(final RecyclerView recyclerView, final int spanCount) {
+        GridLayoutManager layoutManager = new GridLayoutManager(recyclerView.getContext(), spanCount);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
 
