@@ -55,11 +55,7 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    override fun onLazyInitView() {
-        loadShopSort()
-    }
-
-    private fun loadShopSort() {
+    fun loadShopSort() {
         RepositoryImpl.getShopSort()
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange
+package com.zhuzichu.orange.main
 
 import android.os.Parcelable
 import androidx.fragment.app.Fragment

@@ -1,9 +1,11 @@
-package com.zhuzichu.orange
+package com.zhuzichu.orange.main
 
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.utils.toColor
 import com.zhuzichu.mvvm.widget.BottomTabView
+import com.zhuzichu.orange.BR
+import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
 import com.zhuzichu.orange.home.HomeFragmnet
 import com.zhuzichu.orange.mine.MineFragment

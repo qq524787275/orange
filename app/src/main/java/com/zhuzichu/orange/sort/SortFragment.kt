@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.sort
 
+import android.os.Bundle
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -19,5 +20,9 @@ class SortFragment : BaseFragment<FragmentSortBinding, SortViewModel>() {
     override fun initView() {
         super.initView()
         mViewModel.showLoading()
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        mViewModel.loadShopSort()
     }
 }

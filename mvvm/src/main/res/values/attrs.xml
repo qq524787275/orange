@@ -18,7 +18,7 @@
     </declare-styleable>
 
     <declare-styleable name="TextView">
-        <attr name="isSelected" format="boolean"/>
+        <attr name="strikethrough" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="ImageView">

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange
+package com.zhuzichu.orange.main
 
 import android.content.Context
 import android.content.Intent

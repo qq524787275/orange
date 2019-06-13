@@ -1,6 +1,7 @@
 package com.secretk.move
 
 import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.bean.ShopBean
 import com.zhuzichu.orange.bean.SortBean
 import io.reactivex.Flowable
@@ -22,5 +23,17 @@ interface Repository {
         min_id: Int
     ): Flowable<BaseRes<List<ShopBean>>>
 
-    fun getShopSort(): Flowable<BaseRes<List<SortBean>>>
+
+    fun getShopSort(
+
+    ): Flowable<BaseRes<List<SortBean>>>
+
+
+    fun searchShop(
+        keyword: String,
+        back: Int,
+        sort: Int,
+        cid: Int,
+        min_id: Int
+    ): Flowable<BaseRes<List<SearchBean>>>
 }

@@ -36,6 +36,4 @@ interface IBaseViewModel : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause(){}
 
-    fun onLazyInitView(){}
-
 }

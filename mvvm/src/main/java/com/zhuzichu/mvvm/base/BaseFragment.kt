@@ -76,9 +76,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         mViewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             run {
                 val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-                getPreFragment()::class.java.`package`.name.logi()
-                getTopFragment()::class.java.`package`.name.logi()
-                parentFragment!!::class.java.`package`.name.logi()
                 (parentFragment as BaseFragment<*, *>).start(fragment)
             }
         })
@@ -233,7 +230,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      */
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         mDelegate.onLazyInitView(savedInstanceState)
-        mViewModel.onLazyInitView()
     }
 
     /**

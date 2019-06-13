@@ -3,6 +3,8 @@ package com.zhuzichu.mvvm.base
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -72,8 +74,11 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         throwable.printStackTrace()
     }
 
-    fun startFragment(fragment: ISupportFragment) {
+    fun startFragment(fragment: Fragment, bundle: Bundle? = null) {
         val params = HashMap<String, Any>()
+        if (bundle != null) {
+            fragment.arguments = bundle
+        }
         params[ParameterField.FRAGMENT] = fragment
         uc.getStartFragmentEvent().postValue(params)
     }
