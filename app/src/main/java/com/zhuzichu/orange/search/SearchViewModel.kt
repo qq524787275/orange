@@ -2,14 +2,19 @@ package com.zhuzichu.orange.search
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.text.Html
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
 import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
+import com.zhuzichu.mvvm.databinding.command.BindingAction
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.bindToLifecycle
+import com.zhuzichu.mvvm.utils.exceptionTransformer
+import com.zhuzichu.mvvm.utils.itemBindingOf
+import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import io.reactivex.Flowable
@@ -23,6 +28,22 @@ import io.reactivex.Flowable
  */
 @SuppressLint("CheckResult")
 class SearchViewModel(application: Application) : BaseViewModel(application) {
+    private var back = 10
+    private var cid = 0
+    private var sort = 0
+    private var min_id = 1
+    private var keyword = ""
+    //封装一个界面发生改变的观察者
+    val uc = UIChangeObservable()
+
+    inner class UIChangeObservable {
+        //下拉刷新完成
+        val finishRefreshing = SingleLiveEvent<Any>()
+        //上拉加载完成
+        val finishLoadmore = SingleLiveEvent<Any>()
+        //上拉加载完成 并且到最后一数据
+        val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
+    }
 
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search)
     private val liveData = MutableLiveData<List<ItemSearchViewModel>>().apply {
@@ -41,12 +62,28 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    fun searchShop(keyWord: String) {
-        RepositoryImpl.searchShop(keyWord, 10, 0, 0, 1)
+    val onRefreshCommand = BindingCommand<Any>(BindingAction {
+        min_id = 1
+        searchShop(this.keyword)
+    })
+    val onLoadMoreCommand = BindingCommand<Any>(BindingAction {
+        searchShop(this.keyword)
+    })
+
+    fun searchShop(keyword: String) {
+        this.keyword = keyword
+        RepositoryImpl.searchShop(this.keyword, back, sort, cid, min_id)
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
-            .map { it.data }
+            .map {
+                if (min_id == 1) {
+                    liveData.value = ArrayList()
+                    uc.finishRefreshing.call()
+                }
+                min_id = it.min_id
+                it.data
+            }
             .flatMap {
                 Flowable.fromIterable(it)
             }
@@ -56,9 +93,16 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
             }
             .toList()
             .subscribe({
-                liveData.value = it
+                if (it.size < back) {
+                    uc.finishLoadMoreWithNoMoreData.call()
+                } else {
+                    uc.finishLoadmore.call()
+                }
+                liveData.value = liveData.value!! + it
+                showContent()
             }, {
                 handleThrowable(it)
+                uc.finishLoadmore.call()
             })
     }
 }

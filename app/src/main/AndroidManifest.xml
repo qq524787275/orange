@@ -30,6 +30,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true"
+
             android:name="com.zhuzichu.mvvm.App">
 
         <meta-data
@@ -40,7 +42,9 @@
                 android:name="design_height_in_dp"
                 android:value="667"/>
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.MainActivity"
+                  android:resizeableActivity="false"
+                  android:configChanges="screenLayout|orientation">
 
         </activity>
 

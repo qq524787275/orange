@@ -89,6 +89,7 @@ public class ExceptionHandle {
      * 约定异常 这个具体规则需要与服务端或者领导商讨定义
      */
     public class ERROR {
+        public static final int NO_DATA = 0;
         /**
          * 密码错误
          */

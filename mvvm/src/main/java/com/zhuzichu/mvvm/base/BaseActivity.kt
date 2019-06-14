@@ -8,8 +8,11 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.ContentFrameLayout
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
+import com.zhuzichu.mvvm.utils.toColor
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import java.util.*
 
 /**
  * Created by Android Studio.
@@ -37,8 +40,18 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         return mDelegate.extraTransaction()
     }
 
+    private fun initConfiguration() {
+        Locale.setDefault(Locale.CHINA)
+        resources.configuration.locale = Locale.CHINESE
+        resources.updateConfiguration(resources.configuration, resources.displayMetrics)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        initConfiguration()
         super.onCreate(savedInstanceState)
+        QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColor())
+        QMUIStatusBarHelper.setStatusBarLightMode(this)
         mDelegate.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         initContainer(savedInstanceState)

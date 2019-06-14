@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.mvvm.view.loading.DialogMaker
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -37,7 +36,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     lateinit var mViewModel: VM
     lateinit var mContentView: View
     lateinit var multiStateView: MultiStateView
-    private val mDelegate = SupportFragmentDelegate(this)
+    val mDelegate = SupportFragmentDelegate(this)
     private lateinit var mActivity: FragmentActivity
 
     abstract fun setLayoutId(): Int

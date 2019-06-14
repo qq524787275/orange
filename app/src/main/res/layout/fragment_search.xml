@@ -11,15 +11,25 @@
                   android:layout_height="match_parent"
                   android:background="@color/colorBackground">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:diffConfig="@{viewModel.diff}"
-                app:itemBinding="@{viewModel.itemBind}"
-                app:gridLayoutManager="@{2}"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_search"
-                app:items="@{viewModel.list}"
-        />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:srlEnablePreviewInEditMode="false"
+                app:onRefreshCommand="@{viewModel.onRefreshCommand}"
+                app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:diffConfig="@{viewModel.diff}"
+                    app:itemBinding="@{viewModel.itemBind}"
+                    app:gridLayoutManager="@{2}"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_search"
+                    app:items="@{viewModel.list}"
+            />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </layout>
