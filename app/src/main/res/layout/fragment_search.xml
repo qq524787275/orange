@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.mvvm.databinding.recyclerview.LineManagers"/>
+        <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
         <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchViewModel"/>
     </data>
 
@@ -39,6 +41,22 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackground"
+                android:textColor="@color/colorPrimary"
+                android:padding="15dp"
+                android:text="@string/history_record"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:items="@{viewModel.list}"
+                app:itemBinding="@{viewModel.itemBind}"
+                app:diffConfig="@{viewModel.diff}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:lineManager="@{LineManagers.both()}"
+                android:layout_weight="1"/>
     </LinearLayout>
 </layout>

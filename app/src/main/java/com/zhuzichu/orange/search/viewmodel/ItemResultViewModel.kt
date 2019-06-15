@@ -15,13 +15,7 @@ class ItemResultViewModel(viewModel: SearchResultViewModel, var searchBean: Sear
     ItemViewModel<SearchResultViewModel>(viewModel) {
 
     val clickItem = BindingCommand<Any>(BindingAction {
-        //        searchBean.itemshorttitle.toast()
-        DbRepositoryImpl.getSearchHistoryList()
-            .compose(bindToLifecycle(viewModel.getLifecycleProvider()))
-            .compose(schedulersTransformer())
-            .subscribe {
-                it.size.toast()
-            }
+        searchBean.itemshorttitle.toast()
     })
 
 }

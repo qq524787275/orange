@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -54,7 +55,8 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     private val liveData = MutableLiveData<List<ItemResultViewModel>>().apply {
         value = ArrayList()
     }
-    val list: LiveData<List<Any>> = Transformations.map(liveData) { it }
+    val list: LiveData<List<Any>> = map(liveData) { it }
+
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return if (oldItem is ItemResultViewModel && newItem is ItemResultViewModel) {
@@ -78,6 +80,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
     fun searchShop(keyword: String) {
         this.keyword = keyword
+        viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyword) }
         NetRepositoryImpl.searchShop(this.keyword, back, sort, cid, min_id)
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
@@ -88,18 +91,14 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                     uc.finishRefreshing.call()
                 }
                 min_id = it.min_id
-                it.data
+                val list = mutableListOf<ItemResultViewModel>()
+                it.data.forEach { item ->
+                    item.itempic.plus("_310x310.jpg")
+                    list.add(ItemResultViewModel(this, item))
+                }
+                list
             }
-            .flatMap {
-                Flowable.fromIterable(it)
-            }
-            .map {
-                it.itempic.plus("_310x310.jpg")
-                ItemResultViewModel(this, it)
-            }
-            .toList()
             .subscribe({
-                viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyword) }
                 if (it.size < back) {
                     uc.finishLoadMoreWithNoMoreData.call()
                 } else {

@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">mvvm</string>
+    <string name="app_name">Orange</string>
 
     <string name="follow_status_0">+关 注</string>
     <string name="follow_status_1">已关注</string>
     <string name="personal_payment">人付款</string>
+    <string name="history_record">历史记录</string>
     <string name="rmb">¥</string>
 
 

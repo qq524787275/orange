@@ -70,16 +70,13 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
-            .flatMap {
-                Flowable.fromArray(it.general_classify)
-            }
-            .flatMap {
-                Flowable.fromIterable(it)
-            }
             .map {
-                ItemLeftViewModel(this, it)
+                val list = mutableListOf<ItemLeftViewModel>()
+                it.general_classify.forEach { itemClassify ->
+                    list.add(ItemLeftViewModel(this, itemClassify))
+                }
+                list
             }
-            .toList()
             .subscribe({
                 leftLiveData.value = it
                 updateRight(it[current])
@@ -91,28 +88,22 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
-        val list = ArrayList<Any>()
         itemLeftViewModel.isSelected.set(true)
         Flowable.fromArray(itemLeftViewModel.sortBean.data)
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
-            .flatMap {
-                Flowable.fromIterable(it)
-            }
             .map {
-                list.add(ItemTitleViewModel(this, it))
-                it.info
+                val list = mutableListOf<Any>()
+                it.forEach { itemData ->
+                    list.add(ItemTitleViewModel(this, itemData))
+                    itemData.info.forEach { itemInfo ->
+                        list.add(ItemImageViewModel(this, itemInfo))
+                    }
+                }
+                list
             }
-            .flatMap {
-                Flowable.fromIterable(it)
-            }
-            .map {
-                list.add(ItemImageViewModel(this, it))
-                it
-            }
-            .toList()
             .subscribe({
-                rightList.value = list
+                rightList.value = it
                 uc.rightRecyclerToTop.call()
             }, {
                 handleThrowable(it)

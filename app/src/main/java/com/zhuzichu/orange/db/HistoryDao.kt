@@ -1,9 +1,6 @@
 package com.zhuzichu.orange.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Flowable
 
 @Dao
@@ -14,4 +11,6 @@ interface HistoryDao {
     @Query("select * from search_history order by lastTime desc")
     fun queryAllSearchHistory(): Flowable<List<SearchHistory>>
 
+    @Delete
+    fun deleteSearchHistory(list: List<SearchHistory>)
 }
