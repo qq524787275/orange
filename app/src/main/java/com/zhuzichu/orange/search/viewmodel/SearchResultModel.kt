@@ -1,8 +1,7 @@
-package com.zhuzichu.orange.search
+package com.zhuzichu.orange.search.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -12,8 +11,8 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.databinding.command.BindingConsumer
-import com.zhuzichu.mvvm.databinding.recyclerview.ViewAdapter
+import com.zhuzichu.mvvm.http.exception.ExceptionHandle
+import com.zhuzichu.mvvm.http.exception.ResponseThrowable
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.exceptionTransformer
 import com.zhuzichu.mvvm.utils.itemBindingOf
@@ -30,7 +29,7 @@ import io.reactivex.Flowable
  * Time: 14:38
  */
 @SuppressLint("CheckResult")
-class SearchViewModel(application: Application) : BaseViewModel(application) {
+class SearchResultModel(application: Application) : BaseViewModel(application) {
     private var back = 10
     private var cid = 0
     private var sort = 0
@@ -46,18 +45,16 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         val finishLoadmore = SingleLiveEvent<Any>()
         //上拉加载完成 并且到最后一数据
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
-        //布局切换
-        val layoutManagerChange = SingleLiveEvent<Any>()
     }
 
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search)
-    private val liveData = MutableLiveData<List<ItemSearchViewModel>>().apply {
+    private val liveData = MutableLiveData<List<ItemResultViewModel>>().apply {
         value = ArrayList()
     }
     val list: LiveData<List<Any>> = Transformations.map(liveData) { it }
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if (oldItem is ItemSearchViewModel && newItem is ItemSearchViewModel) {
+            return if (oldItem is ItemResultViewModel && newItem is ItemResultViewModel) {
                 oldItem.searchBean.itemid == newItem.searchBean.itemid
             } else oldItem == newItem
         }
@@ -95,7 +92,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
             }
             .map {
                 it.itempic.plus("_310x310.jpg")
-                ItemSearchViewModel(this, it)
+                ItemResultViewModel(this, it)
             }
             .toList()
             .subscribe({
@@ -107,6 +104,13 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                 liveData.value = liveData.value!! + it
                 showContent()
             }, {
+                if (it is ResponseThrowable) {
+                    if (it.code == ExceptionHandle.ERROR.NO_DATA && liveData.value?.size == 0) {
+                        showEmpty()
+                    } else {
+                        showContent()
+                    }
+                }
                 handleThrowable(it)
                 uc.finishLoadmore.call()
             })

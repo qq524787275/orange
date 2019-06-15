@@ -2,7 +2,7 @@
 <layout>
     <data>
         <import type="com.zhuzichu.orange.R"/>
-        <variable name="item" type="com.zhuzichu.orange.search.ItemSearchViewModel"/>
+        <variable name="item" type="com.zhuzichu.orange.search.viewmodel.ItemResultViewModel"/>
     </data>
     <androidx.cardview.widget.CardView
             xmlns:android="http://schemas.android.com/apk/res/android"

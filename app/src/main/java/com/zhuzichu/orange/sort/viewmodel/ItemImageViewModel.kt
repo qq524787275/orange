@@ -1,11 +1,11 @@
-package com.zhuzichu.orange.sort
+package com.zhuzichu.orange.sort.viewmodel
 
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.bean.SortBean
-import com.zhuzichu.orange.search.SearchFragment
+import com.zhuzichu.orange.search.fragment.SearchResultFragment
 
 /**
  * Created by Android Studio.
@@ -19,9 +19,9 @@ class ItemImageViewModel(viewModel: SortViewModel, var info: SortBean.Data.Info)
 
     val clickItem = BindingCommand<Any>(BindingAction {
         viewModel.startFragment(
-            SearchFragment(),
+            SearchResultFragment(),
             bundleOf(
-                SearchFragment.KEYWORD to info.son_name
+                SearchResultFragment.KEYWORD to info.son_name
             )
         )
     })

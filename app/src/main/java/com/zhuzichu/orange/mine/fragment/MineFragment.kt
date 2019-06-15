@@ -1,9 +1,10 @@
-package com.zhuzichu.orange.mine
+package com.zhuzichu.orange.mine.fragment
 
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMineBinding
+import com.zhuzichu.orange.mine.viewmodel.MineViewModel
 
 /**
  * Created by Android Studio.

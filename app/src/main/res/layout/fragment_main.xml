@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.zhuzichu.orange.main.MainViewModel"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.main.viewmodel.MainViewModel"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="match_parent"

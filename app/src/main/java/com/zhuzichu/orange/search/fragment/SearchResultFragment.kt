@@ -1,15 +1,14 @@
-package com.zhuzichu.orange.search
+package com.zhuzichu.orange.search.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
-import com.zhuzichu.mvvm.utils.getRecyclerPosition
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.databinding.FragmentSearchBinding
-import kotlinx.android.synthetic.main.fragment_search.*
+import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
+import com.zhuzichu.orange.search.viewmodel.SearchResultModel
+import kotlinx.android.synthetic.main.fragment_search_result.*
 
 /**
  * Created by Android Studio.
@@ -18,14 +17,14 @@ import kotlinx.android.synthetic.main.fragment_search.*
  * Date: 2019-06-13
  * Time: 14:38
  */
-class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel>() {
+class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, SearchResultModel>() {
     companion object {
         const val KEYWORD = "keyword"
     }
 
     private val keyWord: String by bindArgument(KEYWORD)
 
-    override fun setLayoutId(): Int = R.layout.fragment_search
+    override fun setLayoutId(): Int = R.layout.fragment_search_result
 
     override fun bindVariableId(): Int = BR.viewModel
 

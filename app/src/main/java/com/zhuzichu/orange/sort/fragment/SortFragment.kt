@@ -1,10 +1,14 @@
-package com.zhuzichu.orange.sort
+package com.zhuzichu.orange.sort.fragment
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSortBinding
+import com.zhuzichu.orange.sort.viewmodel.SortViewModel
+import kotlinx.android.synthetic.main.fragment_sort.*
 
 /**
  * Created by Android Studio.
@@ -26,5 +30,12 @@ class SortFragment : BaseTopBarFragment<FragmentSortBinding, SortViewModel>() {
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         mViewModel.loadShopSort()
+    }
+
+    override fun initViewObservable() {
+        super.initViewObservable()
+        mViewModel.uc.rightRecyclerToTop.observe(this, Observer {
+            (right_recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
+        })
     }
 }

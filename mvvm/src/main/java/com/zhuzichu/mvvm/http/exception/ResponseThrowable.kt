@@ -9,10 +9,16 @@ package com.zhuzichu.mvvm.http.exception;
  */
 class ResponseThrowable : RuntimeException {
     lateinit var msg: String
+    var code: Int = -1
 
     constructor() {}
 
     constructor(msg: String) {
         this.msg = msg
+    }
+
+    constructor(msg: String, code: Int) {
+        this.msg = msg
+        this.code = code
     }
 }

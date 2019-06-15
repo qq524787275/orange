@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.main
+package com.zhuzichu.orange.main.fragment
 
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseFragment
@@ -7,9 +7,11 @@ import com.zhuzichu.mvvm.widget.BottomTabView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
-import com.zhuzichu.orange.home.HomeFragmnet
-import com.zhuzichu.orange.mine.MineFragment
-import com.zhuzichu.orange.sort.SortFragment
+import com.zhuzichu.orange.home.fragment.HomeFragmnet
+import com.zhuzichu.orange.main.viewmodel.MainViewModel
+import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
+import com.zhuzichu.orange.mine.fragment.MineFragment
+import com.zhuzichu.orange.sort.fragment.SortFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem
 
@@ -25,7 +27,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
-    private val mFragments = listOf<Fragment>(HomeFragmnet(), SortFragment(), MineFragment())
+    private val mFragments = listOf<Fragment>(
+        HomeFragmnet(),
+        SortFragment(), MineFragment()
+    )
 
     override fun initView() {
         val navigationController = bottom.custom()

@@ -3,7 +3,7 @@ package com.zhuzichu.orange
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.zhuzichu.orange.main.MainActivity
+import com.zhuzichu.orange.main.activity.MainActivity
 
 /**
  * Created by Android Studio.

@@ -1,9 +1,10 @@
-package com.zhuzichu.orange.home
+package com.zhuzichu.orange.home.fragment
 
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentHomeBinding
+import com.zhuzichu.orange.home.viewmodel.HomeViewModel
 
 /**
  * Created by Android Studio.

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.sort
+package com.zhuzichu.orange.sort.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
+import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
 import io.reactivex.Flowable
@@ -26,6 +27,11 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
  */
 @SuppressLint("CheckResult")
 class SortViewModel(application: Application) : BaseViewModel(application) {
+    val uc = UIChangeObservable()
+
+    inner class UIChangeObservable {
+        val rightRecyclerToTop = SingleLiveEvent<Any>()
+    }
 
     var current = 0
     val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_left)
@@ -107,6 +113,7 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
             .toList()
             .subscribe({
                 rightList.value = list
+                uc.rightRecyclerToTop.call()
             }, {
                 handleThrowable(it)
             })

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.search
+package com.zhuzichu.orange.search.viewmodel
 
 
 import com.zhuzichu.mvvm.base.ItemViewModel
@@ -8,8 +8,8 @@ import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.bean.SearchBean
 
 
-class ItemSearchViewModel(viewModel: SearchViewModel, var searchBean: SearchBean) :
-    ItemViewModel<SearchViewModel>(viewModel) {
+class ItemResultViewModel(viewModel: SearchResultModel, var searchBean: SearchBean) :
+    ItemViewModel<SearchResultModel>(viewModel) {
 
     val clickItem = BindingCommand<Any>(BindingAction {
         searchBean.itemshorttitle.toast()

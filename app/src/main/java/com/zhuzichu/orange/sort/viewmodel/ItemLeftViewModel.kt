@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.sort
+package com.zhuzichu.orange.sort.viewmodel
 
 import androidx.databinding.ObservableBoolean
 import com.zhuzichu.mvvm.base.ItemViewModel

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.mine
+package com.zhuzichu.orange.main.viewmodel
 
 import android.app.Application
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -8,7 +8,7 @@ import com.zhuzichu.mvvm.base.BaseViewModel
  * Blog: zhuzichu.com
  * User: zhuzichu
  * Date: 2019-06-12
- * Time: 16:43
+ * Time: 15:21
  */
-class MineViewModel(application: Application) : BaseViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application) {
 }

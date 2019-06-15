@@ -9,13 +9,13 @@
     <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Whoops! Something went wrong" />
+            android:text="哎呀！出了点问题" />
 
     <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/retry"
             style="?android:borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Retry" />
+            android:text=" 重试" />
 
 </LinearLayout>

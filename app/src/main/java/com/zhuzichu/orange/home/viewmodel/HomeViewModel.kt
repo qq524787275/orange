@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.main
+package com.zhuzichu.orange.home.viewmodel
 
 import android.app.Application
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -7,8 +7,8 @@ import com.zhuzichu.mvvm.base.BaseViewModel
  * Created by Android Studio.
  * Blog: zhuzichu.com
  * User: zhuzichu
- * Date: 2019-06-12
- * Time: 15:21
+ * Date: 2019-06-13
+ * Time: 13:27
  */
-class MainViewModel(application: Application) : BaseViewModel(application) {
+class HomeViewModel(application: Application) : BaseViewModel(application) {
 }

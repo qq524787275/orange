@@ -74,7 +74,7 @@ public class ExceptionHandle {
             ex.msg = "主机地址未知";
             return ex;
         } else if (e instanceof ResponseThrowable) {
-            ex.msg = ((ResponseThrowable) e).msg;
+            ex = (ResponseThrowable) e;
             return ex;
         } else {
             ex.msg = "未知错误";

@@ -1,8 +1,9 @@
-package com.zhuzichu.orange.main
+package com.zhuzichu.orange.main.activity
 
 import android.content.Context
 import android.content.Intent
 import com.zhuzichu.mvvm.base.BaseActivity
+import com.zhuzichu.orange.main.fragment.MainFragment
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator

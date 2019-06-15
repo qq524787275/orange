@@ -117,5 +117,8 @@
  *;
 }
 
--dontwarn com.zhuzichu.**
--keep class com.zhuzichu.** {*;}
+
+-keep class com.zhuzichu.mvvm.base.BaseRes
+
+-dontwarn com.zhuzichu.orange.bean.**
+-keep com.zhuzichu.orange.bean.**{*;}

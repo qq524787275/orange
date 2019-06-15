@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.http.converter;
 
+import android.util.Log;
 import com.google.gson.Gson;
 import com.zhuzichu.mvvm.base.BaseRes;
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle;
@@ -45,11 +46,11 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
         if (code != 1) {
             switch (code) {
                 case ExceptionHandle.ERROR.PASSWORD_ERROR:
-                    throw new ResponseThrowable(result.getMsg());
-                    case ExceptionHandle.ERROR.NO_DATA:
-                        throw new ResponseThrowable("没有更多数据");
+                    throw new ResponseThrowable(result.getMsg(), code);
+                case ExceptionHandle.ERROR.NO_DATA:
+                    throw new ResponseThrowable("没有更多数据", code);
                 default:
-                    throw new ResponseThrowable("不清楚什么原因！");
+                    throw new ResponseThrowable("不清楚什么原因！", code);
             }
         }
     }
