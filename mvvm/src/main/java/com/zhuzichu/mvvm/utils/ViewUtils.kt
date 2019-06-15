@@ -17,5 +17,12 @@ fun closeRecyclerAnimator(recyclerView: RecyclerView) {
     recyclerView.itemAnimator?.moveDuration = 0
     recyclerView.itemAnimator?.removeDuration = 0
     (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        0.0f.toInt()
+    0.0f.toInt()
+}
+
+fun getRecyclerPosition(recyclerView: RecyclerView): Int {
+    if (recyclerView.childCount > 0) {
+        return (recyclerView.getChildAt(0).layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
+    }
+    return 0
 }

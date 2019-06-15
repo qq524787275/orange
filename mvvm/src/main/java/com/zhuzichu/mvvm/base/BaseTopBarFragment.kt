@@ -39,7 +39,7 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         rootView.addView(contentView)
 
         statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
-        topBarHeight = dip2px(40f)
+        topBarHeight = dip2px(50f)
 
         val statusBarLp = mStatuBar.layoutParams as FrameLayout.LayoutParams
         val topBarLp = mTopBar.layoutParams as FrameLayout.LayoutParams
@@ -70,11 +70,12 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         showTopBar()
     }
 
-    fun showTopBar(){
+    fun showTopBar() {
         mTopBar.visibility = View.VISIBLE
         contentLp.topMargin = topBarHeight.plus(statusbarHeight)
     }
-    fun hideTopbar(){
+
+    fun hideTopbar() {
         mTopBar.visibility = View.GONE
         contentLp.topMargin = statusbarHeight
     }

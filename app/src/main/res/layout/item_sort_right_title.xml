@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.zhuzichu.orange.sort.ItemTitleViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/next_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.data.next_name}"
+                    tools:text="男装"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:padding="10dp"
+            />
+
+            <View android:layout_width="match_parent"
+                  android:layout_centerVertical="true"
+                  android:background="@color/colorPrimary"
+                  android:layout_toStartOf="@+id/next_name"
+                  android:layout_marginStart="30dp"
+                  android:layout_height="1dp"/>
+
+            <View android:layout_width="match_parent"
+                  android:layout_centerVertical="true"
+                  android:background="@color/colorPrimary"
+                  android:layout_toEndOf="@id/next_name"
+                  android:layout_marginEnd="30dp"
+                  android:layout_height="1dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

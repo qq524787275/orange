@@ -24,7 +24,7 @@
                 tools:text="标题"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"/>
 

@@ -55,29 +55,62 @@
                                 android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/itemendprice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="¥ 123123123123123"
+                            android:text='@{@string/rmb+item.searchBean.itemendprice}'
+                            android:textSize="16sp"
+                            android:maxLines="1"
+                            android:maxEms="6"
+                            android:ellipsize="end"
+                            android:textColor="@color/colorRedPrimary"
+                            android:textStyle="bold|italic"
+                    />
+
+                    <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/itemprice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:strikethrough='@{"原价:"+item.searchBean.itemprice}'
-                            tools:text="原价:123"
-                            android:textSize="14sp"
-                            android:layout_alignParentRight="true"
-                            android:textColor="@color/colorSecondText"
+                            app:strikethrough='@{item.searchBean.itemprice}'
+                            tools:text="123123123123123123"
+                            android:textSize="12sp"
+                            android:maxLines="1"
+                            android:maxEms="6"
+                            android:ellipsize="end"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/itemendprice"
+                            android:textColor="@color/colorHint"
                     />
 
                     <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="券后:123"
+                            android:text='@{item.searchBean.itemsale+@string/personal_payment}'
+                            android:textSize="12sp"
+                            android:maxLines="1"
+                            android:maxEms="6"
+                            tools:text="销量 213132"
+                            android:layout_below="@+id/itemendprice"
+                            android:ellipsize="end"
+                            android:textColor="@color/colorSecondText"
+                    />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="60dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/bg_coupon_sc9"
+                            tools:text="2525252525"
+                            android:maxLines="1"
                             android:layout_alignParentRight="true"
                             android:layout_below="@+id/itemprice"
-                            android:text='@{"券后:"+item.searchBean.itemendprice}'
-                            android:textSize="16sp"
-                            android:textColor="@color/colorRedPrimary"
-                            android:textStyle="bold|italic"
-                    />
-                </RelativeLayout>
+                            android:ellipsize="end"
+                            android:text="@{item.searchBean.couponmoney+@string/rmb}"
+                            android:gravity="center"
+                            android:textColor="@color/white"/>
 
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

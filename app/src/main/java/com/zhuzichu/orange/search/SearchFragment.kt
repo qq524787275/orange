@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
+import com.zhuzichu.mvvm.utils.getRecyclerPosition
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchBinding
@@ -28,6 +30,7 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
+        setTitle(keyWord)
         mViewModel.showLoading()
     }
 

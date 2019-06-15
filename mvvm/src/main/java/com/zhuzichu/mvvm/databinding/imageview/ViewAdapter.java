@@ -15,7 +15,7 @@ public final class ViewAdapter {
             GlideApp.with(imageView)
                     .load(url)
                     .apply(new RequestOptions().placeholder(placeholderRes))
-                    .transition(DrawableTransitionOptions.withCrossFade(500))
+                    .transition(DrawableTransitionOptions.withCrossFade(250))
                     .into(imageView);
         }
     }

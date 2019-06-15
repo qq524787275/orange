@@ -3,4 +3,6 @@
 
     <string name="follow_status_0">+关 注</string>
     <string name="follow_status_1">已关注</string>
+    <string name="personal_payment">人付款</string>
+    <string name="rmb">¥</string>
 </resources>

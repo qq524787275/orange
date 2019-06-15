@@ -50,6 +50,7 @@
         <attr name="onScrollChangeCommand" format="reference"/>
         <attr name="onScrollStateChangedCommand" format="reference"/>
         <attr name="gridLayoutManager" format="integer"/>
+        <attr name="spanSizeLookup" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AdapterView">

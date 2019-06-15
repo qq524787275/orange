@@ -6,15 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.exceptionTransformer
-import com.zhuzichu.mvvm.utils.itemBindingOf
-import com.zhuzichu.mvvm.utils.schedulersTransformer
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
 import io.reactivex.Flowable
+import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 
 /**
@@ -44,15 +43,20 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    val rightItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_right)
-    private val rightLiveData = MutableLiveData<List<SortItemRightViewModel>>().apply { value = ArrayList() }
-    val rightList: LiveData<List<Any>> = Transformations.map(rightLiveData) { it }
-    val rightDiff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
 
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
-
+    val rightItemBind = OnItemBindClass<Any>().apply {
+        map<ItemImageViewModel>(BR.item, R.layout.item_sort_right_image)
+        map<ItemTitleViewModel>(BR.item, R.layout.item_sort_right_title)
+    }
+    val rightList = MutableLiveData<List<Any>>().apply { value = ArrayList() }
+    val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            val list = rightList.value
+            if (list?.get(position) is ItemTitleViewModel) {
+                return 3
+            }
+            return 1
+        }
     }
 
     fun loadShopSort() {
@@ -81,6 +85,7 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
+        val list = ArrayList<Any>()
         itemLeftViewModel.isSelected.set(true)
         Flowable.fromArray(itemLeftViewModel.sortBean.data)
             .compose(bindToLifecycle(getLifecycleProvider()))
@@ -89,11 +94,19 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
                 Flowable.fromIterable(it)
             }
             .map {
-                SortItemRightViewModel(this, it)
+                list.add(ItemTitleViewModel(this, it))
+                it.info
+            }
+            .flatMap {
+                Flowable.fromIterable(it)
+            }
+            .map {
+                list.add(ItemImageViewModel(this, it))
+                it
             }
             .toList()
             .subscribe({
-                rightLiveData.value = it
+                rightList.value = list
             }, {
                 handleThrowable(it)
             })

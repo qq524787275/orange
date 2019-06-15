@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.mvvm.databinding.recyclerview.LineManagers"/>
         <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
         <variable name="viewModel" type="com.zhuzichu.orange.sort.SortViewModel"/>
     </data>
@@ -20,18 +21,21 @@
                 tools:listitem="@layout/item_sort_left"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
+
         <View android:layout_width="1dp"
               android:layout_height="match_parent"
               android:background="@color/colorBackground"/>
+
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:diffConfig="@{viewModel.rightDiff}"
                 app:items="@{viewModel.rightList}"
+                app:lineManager="@{LineManagers.both()}"
+                app:spanSizeLookup="@{viewModel.spanSizeLookup}"
                 app:itemBinding="@{viewModel.rightItemBind}"
-                android:background="@color/colorBackground"
-                tools:listitem="@layout/item_sort_right"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_sort_right_image"
+                app:gridLayoutManager="@{3}"
+                tools:itemCount="1"
                 android:layout_weight="1"/>
     </LinearLayout>
 </layout>
