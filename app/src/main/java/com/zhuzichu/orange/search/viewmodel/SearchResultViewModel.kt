@@ -5,8 +5,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
-import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingAction
@@ -19,7 +19,10 @@ import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.repository.DbRepositoryImpl
+import com.zhuzichu.orange.repository.NetRepositoryImpl
 import io.reactivex.Flowable
+import kotlinx.coroutines.launch
 
 /**
  * Created by Android Studio.
@@ -75,7 +78,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
     fun searchShop(keyword: String) {
         this.keyword = keyword
-        RepositoryImpl.searchShop(this.keyword, back, sort, cid, min_id)
+        NetRepositoryImpl.searchShop(this.keyword, back, sort, cid, min_id)
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
@@ -96,6 +99,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
             }
             .toList()
             .subscribe({
+                viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyword) }
                 if (it.size < back) {
                     uc.finishLoadMoreWithNoMoreData.call()
                 } else {

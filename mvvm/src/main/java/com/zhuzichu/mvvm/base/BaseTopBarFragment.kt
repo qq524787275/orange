@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ViewDataBinding
 import com.zhuzichu.mvvm.R
@@ -23,6 +26,8 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
     private lateinit var mTitle: AppCompatTextView
     private lateinit var mStatuBar: View
     private lateinit var mTopBar: View
+    private lateinit var mRightLayout: LinearLayout;
+
     private var statusbarHeight: Int = 0
     private var topBarHeight: Int = 0
     private lateinit var contentLp: FrameLayout.LayoutParams
@@ -51,6 +56,7 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         topBarLp.topMargin = statusbarHeight
 
         mTitle = mTopBar.findViewById(R.id.title) as AppCompatTextView
+        mRightLayout = mTopBar.findViewById(R.id.layout_right) as LinearLayout
 
         if (setTitle() == null) {
             hideTopbar()
@@ -78,5 +84,16 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
     fun hideTopbar() {
         mTopBar.visibility = View.GONE
         contentLp.topMargin = statusbarHeight
+    }
+
+    fun addRightIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
+        val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_btn, null) as RelativeLayout
+        mRightLayout.addView(imageLayout)
+        imageLayout.layoutParams.height = topBarHeight
+        imageLayout.layoutParams.width = topBarHeight
+        val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
+        icon.setImageResource(iconId)
+        if (onClickListener != null)
+            imageLayout.setOnClickListener(onClickListener)
     }
 }

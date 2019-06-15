@@ -14,6 +14,7 @@ import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
 import android.app.LauncherActivity
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService
 
 
 /**
@@ -35,6 +36,11 @@ open class App : Application() {
         initAutoSize()
         initFragmention()
         initCrash()
+        initDebugDb()
+    }
+
+    private fun initDebugDb() {
+        SQLiteStudioService.instance().start(this)
     }
 
     private fun initCrash() {
@@ -46,7 +52,7 @@ open class App : Application() {
             .trackActivities(true) //是否跟踪Activity
             .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
             .restartActivity(LauncherActivity::class.java) //重新启动后的activity
-            //                .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
+            //           java     .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
             //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
             .apply()
     }

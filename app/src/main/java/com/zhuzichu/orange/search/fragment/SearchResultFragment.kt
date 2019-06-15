@@ -1,6 +1,8 @@
 package com.zhuzichu.orange.search.fragment
 
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
@@ -10,6 +12,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
 import com.zhuzichu.orange.search.viewmodel.SearchResultViewModel
 import kotlinx.android.synthetic.main.fragment_search_result.*
+import me.yokeyword.fragmentation.ISupportFragment
 
 /**
  * Created by Android Studio.
@@ -31,12 +34,14 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
 
     override fun initView() {
         setTitle(keyWord)
+        addRightIcon(R.mipmap.ic_search, View.OnClickListener {
+            mViewModel.startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)
+        })
         mViewModel.showLoading()
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
         mViewModel.searchShop(keyWord)
-        getSuperTopFragment()::class.java.name.toast()
     }
 
     override fun initViewObservable() {

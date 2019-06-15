@@ -7,12 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.secretk.move.RepositoryImpl
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.repository.NetRepositoryImpl
 import io.reactivex.Flowable
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
@@ -66,7 +66,7 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun loadShopSort() {
-        RepositoryImpl.getShopSort()
+        NetRepositoryImpl.getShopSort()
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())

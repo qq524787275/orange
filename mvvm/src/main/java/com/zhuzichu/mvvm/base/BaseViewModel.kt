@@ -3,16 +3,18 @@ package com.zhuzichu.mvvm.base
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import com.trello.rxlifecycle3.LifecycleProvider
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**
@@ -67,6 +69,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_LOADING)
     }
 
+    fun hideSoftKeyBoard() {
+        uc.getHideSoftKeyBoardEvent().call()
+    }
+
     fun handleThrowable(throwable: Throwable) {
         when (throwable) {
             is ResponseThrowable -> toast(throwable.msg)
@@ -74,12 +80,16 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         throwable.printStackTrace()
     }
 
-    fun startFragment(fragment: Fragment, bundle: Bundle? = null) {
+    fun startFragment(
+        fragment: Fragment,
+        bundle: Bundle? = null, @ISupportFragment.LaunchMode launchMode: Int? = ISupportFragment.STANDARD
+    ) {
         val params = HashMap<String, Any>()
         if (bundle != null) {
             fragment.arguments = bundle
         }
         params[ParameterField.FRAGMENT] = fragment
+        params[ParameterField.FRAGMENT_LAUNCHMODE] = launchMode.toString()
         uc.getStartFragmentEvent().postValue(params)
     }
 
@@ -100,6 +110,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         private val multiStateEvent: SingleLiveEvent<Int> = SingleLiveEvent()
         private val onShowLoadingDialog: SingleLiveEvent<Void> = SingleLiveEvent()
         private val onHideLoadingDialog: SingleLiveEvent<Void> = SingleLiveEvent()
+        private val hideSoftKeyBoardEvent: SingleLiveEvent<Void> = SingleLiveEvent()
 
         fun getHideLoadingDialogEvent(): SingleLiveEvent<Void> {
             return onHideLoadingDialog
@@ -129,12 +140,23 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
             return onBackPressedEvent
         }
 
+        fun getHideSoftKeyBoardEvent(): SingleLiveEvent<Void> {
+            return hideSoftKeyBoardEvent
+        }
+
         override fun observe(owner: LifecycleOwner, observer: Observer<in Any>) {
             super.observe(owner, observer)
         }
     }
 
+    @ExperimentalCoroutinesApi
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
+    }
+
     object ParameterField {
+        var FRAGMENT_LAUNCHMODE = "FRAGMENT_LAUNCHMODE"
         var FRAGMENT = "FRAGMENT"
         var CLASS = "CLASS"
         var BUNDLE = "BUNDLE"

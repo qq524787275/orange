@@ -3,10 +3,42 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchViewModel"/>
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="15dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch"
+                    android:text="@={viewModel.keyWord}"
+            />
+            <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    app:onClickCommand="@{viewModel.clickSearch}">
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/ic_search"/>
+            </RelativeLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 </layout>

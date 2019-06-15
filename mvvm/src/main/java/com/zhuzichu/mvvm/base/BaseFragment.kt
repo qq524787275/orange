@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.mvvm.view.loading.DialogMaker
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -76,7 +77,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         mViewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             run {
                 val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-                getSuperTopFragment().start(fragment)
+                val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
+                getSuperTopFragment().start(fragment, launchMode)
             }
         })
         //跳转到新Activity页面
@@ -115,6 +117,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
             }
         })
 
+        mViewModel.getUC().getHideSoftKeyBoardEvent().observe(this, Observer {
+            hideSoftInput()
+        })
     }
 
     override fun getSupportDelegate(): SupportFragmentDelegate {

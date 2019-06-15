@@ -1,11 +1,10 @@
-package com.secretk.move
+package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
 import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.bean.ShopBean
 import com.zhuzichu.orange.bean.SortBean
 import io.reactivex.Flowable
-import io.reactivex.Observable
 
 /**
  * Created by Android Studio.
@@ -14,7 +13,7 @@ import io.reactivex.Observable
  * Date: 2019-05-28
  * Time: 18:09
  */
-interface Repository {
+interface NetRepository {
 
     fun getShopList(
         nav: Int,
