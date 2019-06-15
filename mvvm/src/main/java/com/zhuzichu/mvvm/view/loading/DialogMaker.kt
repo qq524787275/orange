@@ -1,7 +1,6 @@
 package com.zhuzichu.mvvm.view.loading
 
 import android.content.Context
-import android.content.DialogInterface
 import java.lang.ref.WeakReference
 
 /**
@@ -27,8 +26,7 @@ object DialogMaker {
 
     fun showLoadingDialog(
         context: Context,
-        canCancelable: Boolean = false,
-        listener: DialogInterface.OnCancelListener? = null
+        canCancelable: Boolean = false
     ): LoadingDialog {
         var dialog = dialog
         if (dialog != null && dialog.context !== context) {

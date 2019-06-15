@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentationMagician
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
@@ -75,7 +76,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         mViewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             run {
                 val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-                (parentFragment as BaseFragment<*, *>).start(fragment)
+                getSuperTopFragment().start(fragment)
             }
         })
         //跳转到新Activity页面
@@ -505,6 +506,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         return SupportHelper.getTopFragment(fragmentManager!!)
     }
 
+    fun getSuperTopFragment(): BaseFragment<*, *> {
+        return FragmentationMagician.getActiveFragments(mActivity.supportFragmentManager)[0] as BaseFragment<*, *>
+    }
+
     fun getTopChildFragment(): ISupportFragment {
         return SupportHelper.getTopFragment(childFragmentManager)
     }
@@ -515,6 +520,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     fun getPreFragment(): ISupportFragment {
         return SupportHelper.getPreFragment(this)
     }
+
 
     /**
      * 获取栈内的fragment对象

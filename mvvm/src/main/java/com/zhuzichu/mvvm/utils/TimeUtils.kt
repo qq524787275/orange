@@ -25,7 +25,7 @@ fun getDifference(nowTime: Long, targetTime: Long): String {// 目标时间与�
 }
 
 fun getDifference(period: Long): String {// 根据毫秒差计算时间差
-    var result: String? = null
+    var result: String?
     /******* 计算出时间差中的年、月、日、天、时、分、秒  */
     val year = getYear(period)
     val month = getMonth(period - year * yearLevelValue)
@@ -156,7 +156,7 @@ private fun isYear(timeStamp: Long): Boolean {
 fun getTimeType(timeStamp: Long, pattern: String, addTime: Boolean): String {
     var pattern = pattern
     try {
-        var str = ""
+        var str: String
         val now = Calendar.getInstance()
         val ms =
             (1000 * (now.get(Calendar.HOUR_OF_DAY) * 3600 + now.get(Calendar.MINUTE) * 60 + now.get(Calendar.SECOND))).toLong()// 毫秒数

@@ -71,6 +71,7 @@ dependencies {
 
     api "me.jessyan:autosize:$rootProject.autosizeVerson"
 
+    api "me.yokeyword:fragmentationx:$rootProject.fragmentationxVersion"
     api "me.yokeyword:fragmentationx-core:$rootProject.fragmentationxVersion"
     api "me.yokeyword:fragmentationx-swipeback:$rootProject.fragmentationxVersion"
 

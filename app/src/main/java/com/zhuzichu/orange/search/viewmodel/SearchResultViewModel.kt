@@ -29,7 +29,7 @@ import io.reactivex.Flowable
  * Time: 14:38
  */
 @SuppressLint("CheckResult")
-class SearchResultModel(application: Application) : BaseViewModel(application) {
+class SearchResultViewModel(application: Application) : BaseViewModel(application) {
     private var back = 10
     private var cid = 0
     private var sort = 0
@@ -47,7 +47,7 @@ class SearchResultModel(application: Application) : BaseViewModel(application) {
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
     }
 
-    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search)
+    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search_result)
     private val liveData = MutableLiveData<List<ItemResultViewModel>>().apply {
         value = ArrayList()
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchResultModel"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchResultViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,7 +28,7 @@
                     app:itemBinding="@{viewModel.itemBind}"
                     app:gridLayoutManager="@{2}"
                     tools:itemCount="2"
-                    tools:listitem="@layout/item_search"
+                    tools:listitem="@layout/item_search_result"
                     app:items="@{viewModel.list}"
             />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

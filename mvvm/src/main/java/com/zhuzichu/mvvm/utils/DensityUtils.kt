@@ -94,9 +94,7 @@ fun getScreenWH(): String {
  * @return
  */
 fun getScreenDM(): DisplayMetrics {
-    var dm = DisplayMetrics()
-    dm = App.context.resources.displayMetrics
-    return dm
+    return App.context.resources.displayMetrics
 }
 
 

@@ -7,11 +7,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.zhuzichu.mvvm.crash.CaocConfig
 import com.zhuzichu.mvvm.global.language.LangConfig
 import com.zhuzichu.mvvm.global.language.Zh
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
+import android.app.LauncherActivity
 
 
 /**
@@ -32,6 +34,21 @@ open class App : Application() {
         LangConfig.initLang(Zh())
         initAutoSize()
         initFragmention()
+        initCrash()
+    }
+
+    private fun initCrash() {
+        CaocConfig.Builder.create()
+            .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
+            .enabled(true) //是否启动全局异常捕获
+            .showErrorDetails(true) //是否显示错误详细信息
+            .showRestartButton(true) //是否显示重启按钮
+            .trackActivities(true) //是否跟踪Activity
+            .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
+            .restartActivity(LauncherActivity::class.java) //重新启动后的activity
+            //                .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
+            //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
+            .apply()
     }
 
 
@@ -40,10 +57,6 @@ open class App : Application() {
             // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
             .stackViewMode(Fragmentation.BUBBLE)
             .debug(true) // 实际场景建议.debug(BuildConfig.DEBUG)
-            /**
-             * 可以获取到[me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning]
-             * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
-             */
             .install()
     }
 

@@ -55,7 +55,9 @@
 -keep public class com.google.vending.licensing.ILicensingService
 -keep public class com.android.vending.licensing.ILicensingService
 #androidx
+#javax.xml
 -keep class com.google.android.material.** {*;}
+-dontwarn androidx.**
 -keep class androidx.** {*;}
 -keep public class * extends androidx.**
 -keep interface androidx.** {*;}
@@ -117,8 +119,7 @@
  *;
 }
 
-
--keep class com.zhuzichu.mvvm.base.BaseRes
+-keep class com.zhuzichu.mvvm.base.BaseRes{*;}
 
 -dontwarn com.zhuzichu.orange.bean.**
--keep com.zhuzichu.orange.bean.**{*;}
+-keep class com.zhuzichu.orange.bean.**{*;}
