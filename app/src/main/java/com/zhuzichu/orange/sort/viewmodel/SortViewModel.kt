@@ -53,7 +53,8 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     val rightItemBind = OnItemBindClass<Any>().apply {
         map<ItemImageViewModel>(BR.item, R.layout.item_sort_right_image)
         map<ItemTitleViewModel>(BR.item, R.layout.item_sort_right_title)
-    }
+    }.toItemBinding()
+
     val rightList = MutableLiveData<List<Any>>().apply { value = ArrayList() }
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {

@@ -8,22 +8,21 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
-import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.exceptionTransformer
-import com.zhuzichu.mvvm.utils.itemBindingOf
-import com.zhuzichu.mvvm.utils.schedulersTransformer
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
-import io.reactivex.Flowable
+import com.zhuzichu.orange.sort.viewmodel.ItemTitleViewModel
 import kotlinx.coroutines.launch
+import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 /**
  * Created by Android Studio.
@@ -51,11 +50,19 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
     }
 
-    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search_result)
+    val itemBind = OnItemBindClass<Any>().apply {
+        map<ItemSearchLayoutViewModel>(BR.item, R.layout.item_search_layout)
+        map<ItemResultViewModel>(BR.item, R.layout.item_search_result)
+    }
     private val liveData = MutableLiveData<List<ItemResultViewModel>>().apply {
         value = ArrayList()
     }
-    val list: LiveData<List<Any>> = map(liveData) { it }
+    val list: LiveData<List<Any>> = map(liveData) { input ->
+        val list = ArrayList<Any>(input.size + 1)
+        list.add(ItemSearchLayoutViewModel(this))
+        list.addAll(input)
+        list
+    }
 
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
@@ -77,6 +84,14 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         searchShop(this.keyword)
     })
 
+
+    val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            if (position == 0)
+                return 2
+            return 1
+        }
+    }
 
     fun searchShop(keyword: String) {
         this.keyword = keyword

@@ -3,34 +3,43 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchResultViewModel"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="@color/colorBackground">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:orientation="vertical"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/colorBackground">
+
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                app:srlEnablePreviewInEditMode="false"
+                android:layout_height="match_parent"
                 app:onRefreshCommand="@{viewModel.onRefreshCommand}"
                 app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
+            <com.zhuzichu.mvvm.widget.StickyHeaderLayout
+                    android:id="@+id/sticky_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:diffConfig="@{viewModel.diff}"
-                    app:itemBinding="@{viewModel.itemBind}"
-                    app:gridLayoutManager="@{2}"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/item_search_result"
-                    app:items="@{viewModel.list}"
-            />
+                    android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:itemBinding="@{viewModel.itemBind}"
+                        app:spanSizeLookup="@{viewModel.spanSizeLookup}"
+                        app:gridLayoutManager="@{2}"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_search_result"
+                        app:items="@{viewModel.list}"
+                />
+            </com.zhuzichu.mvvm.widget.StickyHeaderLayout>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </LinearLayout>
+
+        <FrameLayout
+                android:id="@+id/sticky_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </FrameLayout>
 </layout>

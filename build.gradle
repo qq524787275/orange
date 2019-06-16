@@ -41,6 +41,7 @@ buildscript {
         lottieVersion = "3.0.6"
         autosizeVerson = "0.9.5"
         fragmentationxVersion = "1.0.0"
+        pagingVersion = "2.1.0-rc01"
     }
 
     repositories {

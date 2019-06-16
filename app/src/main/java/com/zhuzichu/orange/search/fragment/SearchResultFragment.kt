@@ -1,12 +1,10 @@
 package com.zhuzichu.orange.search.fragment
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
@@ -33,6 +31,12 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
+        sticky_layout.bindStickyHeader(sticky_header)
+        sticky_layout.registerTypePinnedHeader(
+            R.layout.item_search_layout
+        ) { _, _ ->
+            true
+        }
         setTitle(keyWord)
         addRightIcon(R.mipmap.ic_search, View.OnClickListener {
             mViewModel.startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)

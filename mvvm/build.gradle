@@ -42,6 +42,7 @@ dependencies {
     api "androidx.core:core-ktx:$rootProject.ktxVersion"
     api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    api "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     api "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     api "androidx.room:room-runtime:$rootProject.roomVersion"
     api "androidx.room:room-rxjava2:$rootProject.roomVersion"

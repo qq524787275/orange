@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="stickyHeaderId" format="reference"/>
+    <declare-styleable name="StickyHeaderLayout">
+        <attr name="stickyHeaderId"/>
+    </declare-styleable>
+
     <declare-styleable name="View">
         <attr name="isGone" format="boolean"/>
         <attr name="onClickCommand"/>
