@@ -7,6 +7,9 @@ import android.widget.Toast
 import androidx.multidex.MultiDex
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
+import com.alibaba.baichuan.trade.biz.AlibcTradeBiz
+import com.alibaba.baichuan.trade.common.AlibcTradeCommon
+import com.alibaba.baichuan.trade.common.Environment
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
