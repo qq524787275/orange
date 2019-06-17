@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
@@ -80,4 +80,28 @@ dependencies {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
+
+    //fastjson
+    api 'com.alibaba:fastjson:1.2.9'
+    //支付
+    api 'com.alibaba.alipay:alipaySingle:20160825@jar'
+    //登陆
+    api 'com.ali.auth.sdk:alibabauth_core:1.4.3@jar'
+    api 'com.ali.auth.sdk:alibabauth_ui:1.4.3@aar'
+    api 'com.ali.auth.sdk:alibabauth_ext:1.4.3@jar'
+    //安全基础
+    api 'com.taobao.android:securityguardaar3:5.1.96@aar'
+    //Mtop网关
+    api 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    //applink
+    api 'com.alibaba.sdk.android:alibc_link_partner:1.1.0.0'
+    //UT
+    api 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+    api 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    //联盟SDK
+    api 'com.alimama.tunion.sdk:tuniontradesdk:0.3.2'
+    //电商SDK
+    api 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.206'
+    api 'com.alibaba.sdk.android:alibc_trade_biz:3.1.1.206'
+    api 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.206'
 }

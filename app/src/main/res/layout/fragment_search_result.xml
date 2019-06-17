@@ -30,6 +30,7 @@
                         app:itemBinding="@{viewModel.itemBind}"
                         app:spanSizeLookup="@{viewModel.spanSizeLookup}"
                         app:gridLayoutManager="@{2}"
+                        app:diffConfig="@{viewModel.diff}"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_search_result"
                         app:items="@{viewModel.list}"
@@ -39,6 +40,7 @@
 
         <FrameLayout
                 android:id="@+id/sticky_header"
+                android:transitionName="@string/transition_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </FrameLayout>

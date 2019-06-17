@@ -8,4 +8,7 @@ interface DbRepository {
     suspend fun addSearchHistory(keyWord: String)
 
     fun getSearchHistoryList(): Flowable<List<SearchHistory>>
+
+    suspend fun deleteSearchHistory(list: List<SearchHistory>)
+
 }

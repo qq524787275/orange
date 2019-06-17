@@ -4,25 +4,56 @@
         <variable name="item" type="com.zhuzichu.orange.search.viewmodel.ItemHistoryViewModel"/>
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  app:onClickCommand="@{item.clickItem}"
-                  android:foreground="?attr/selectableItemBackgroundBorderless"
-                  android:background="@color/white">
+    <com.zhuzichu.mvvm.widget.SwipeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftEdgeSwipeOffset="0dp"
+            app:rightEdgeSwipeOffset="0dp"
+            app:clickToClose="true"
+    >
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="男装"
-                android:textColor="@color/colorSecondText"
-                android:textSize="14sp"
-                android:padding="15dp"
-                android:text="@{item.searchHistory.keyWord}"
-                android:layout_marginStart="10dp"
-        />
-    </LinearLayout>
+        <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBlueGreyPrimary"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="@string/delete"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    app:onClickCommand="@{item.onClickDelete}"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      app:onClickCommand="@{item.clickItem}"
+                      android:gravity="center_vertical"
+                      android:foreground="?attr/selectableItemBackgroundBorderless"
+                      android:layout_gravity="center_vertical"
+                      android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="男装"
+                    android:textColor="@color/colorSecondText"
+                    android:textSize="14sp"
+                    android:text="@{item.searchHistory.keyWord}"
+                    android:layout_marginStart="20dp"
+            />
+        </LinearLayout>
+
+
+    </com.zhuzichu.mvvm.widget.SwipeLayout>
 </layout>

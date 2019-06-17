@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
@@ -15,12 +14,14 @@ import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
-import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.mvvm.utils.bindToLifecycle
+import com.zhuzichu.mvvm.utils.exceptionTransformer
+import com.zhuzichu.mvvm.utils.map
+import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
-import com.zhuzichu.orange.sort.viewmodel.ItemTitleViewModel
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
@@ -48,6 +49,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val finishLoadmore = SingleLiveEvent<Any>()
         //上拉加载完成 并且到最后一数据
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
+        val clickGoSearchEvent = SingleLiveEvent<Any>()
     }
 
     val itemBind = OnItemBindClass<Any>().apply {

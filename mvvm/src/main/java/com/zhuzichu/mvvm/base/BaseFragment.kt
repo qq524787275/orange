@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.mvvm.view.loading.DialogMaker
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -76,7 +75,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         //跳入新Fragment页面
         mViewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             run {
-                val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
+                val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as BaseFragment<*, *>
                 val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
                 getSuperTopFragment().start(fragment, launchMode)
             }

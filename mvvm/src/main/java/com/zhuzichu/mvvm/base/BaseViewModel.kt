@@ -82,7 +82,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun startFragment(
         fragment: Fragment,
-        bundle: Bundle? = null, @ISupportFragment.LaunchMode launchMode: Int? = ISupportFragment.STANDARD
+        bundle: Bundle? = null,
+        @ISupportFragment.LaunchMode launchMode: Int? = ISupportFragment.STANDARD,
+        isShareAniamtion: Boolean? = false
     ) {
         val params = HashMap<String, Any>()
         if (bundle != null) {
@@ -156,12 +158,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     object ParameterField {
-        var FRAGMENT_LAUNCHMODE = "FRAGMENT_LAUNCHMODE"
-        var FRAGMENT = "FRAGMENT"
-        var CLASS = "CLASS"
-        var BUNDLE = "BUNDLE"
-        var POP = "POP"
-        var OPTIONS = "OPTIONS"
+        const val FRAGMENT_LAUNCHMODE = "FRAGMENT_LAUNCHMODE"
+        const val FRAGMENT = "FRAGMENT"
+        const val CLASS = "CLASS"
+        const val BUNDLE = "BUNDLE"
+        const val POP = "POP"
+        const val OPTIONS = "OPTIONS"
     }
 
 }

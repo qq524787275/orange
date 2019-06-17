@@ -1,9 +1,8 @@
 package com.zhuzichu.mvvm.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
-import com.zhuzichu.mvvm.R;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 
 import java.lang.reflect.Method;
@@ -119,6 +116,7 @@ public class StickyHeaderLayout extends FrameLayout {
         });
     }
 
+    @SuppressLint("NewApi")
     private void updateStickyView(boolean imperative) {
         RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
         if (adapter instanceof BindingRecyclerViewAdapter) {
@@ -138,7 +136,6 @@ public class StickyHeaderLayout extends FrameLayout {
 
                 mHeaderPosition = headerPosition;
                 //通过groupPosition获取当前组的组头position。这个组头就是我们需要吸顶的布局。
-                Log.i("zzc", "updateStickyView: " + headerPosition);
                 int viewType = bindAdapter.getItemViewType(headerPosition);
                 //如果当前的吸顶布局的类型和我们需要的一样，就直接获取它的ViewHolder，否则就回收。
                 View stickView = LayoutInflater.from(mContext).inflate(viewType, null);

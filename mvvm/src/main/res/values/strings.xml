@@ -5,8 +5,10 @@
     <string name="follow_status_1">已关注</string>
     <string name="personal_payment">人付款</string>
     <string name="history_record">历史记录</string>
+    <string name="search_hint">请输入搜索关键字</string>
+    <string name="define">确定</string>
+    <string name="delete">删除</string>
     <string name="rmb">¥</string>
-
 
 
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">发生意外错误。\n抱歉，给您带来不便。</string>
@@ -18,4 +20,6 @@
     <string name="customactivityoncrash_error_activity_error_details_copy">复制日志</string>
     <string name="customactivityoncrash_error_activity_error_details_copied">复制日志</string>
     <string name="customactivityoncrash_error_activity_error_details_clipboard_label">错误信息</string>
+
+    <string name="transition_search">transition_search</string>
 </resources>

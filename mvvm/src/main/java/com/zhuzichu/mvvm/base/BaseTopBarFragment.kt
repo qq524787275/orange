@@ -86,6 +86,10 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         contentLp.topMargin = statusbarHeight
     }
 
+    fun setStatusBarColor(color:Int){
+        mStatuBar.setBackgroundColor(color)
+    }
+
     fun addRightIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
         val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_btn, null) as RelativeLayout
         mRightLayout.addView(imageLayout)

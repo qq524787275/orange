@@ -11,14 +11,15 @@
                  android:foreground="?attr/selectableItemBackground"
                  app:onClickCommand="@{item.clickItem}"
                  android:background="@{item.selected?@color/colorBackground:@color/white}"
-                 android:layout_height="wrap_content">
+                 android:layout_height="45dp">
+
+        <View android:layout_width="5dp"
+              android:layout_height="match_parent"
+              android:background='@{item.selected?@color/colorPrimary:@color/transparent}'/>
+
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
                 android:layout_gravity="center"
                 android:text="@{item.sortBean.main_name}"
                 android:textColor='@{item.selected?@color/colorPrimary:@color/colorPrimaryText}'

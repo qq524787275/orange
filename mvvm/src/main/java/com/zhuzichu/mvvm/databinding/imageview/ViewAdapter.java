@@ -1,5 +1,7 @@
 package com.zhuzichu.mvvm.databinding.imageview;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
@@ -8,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zhuzichu.mvvm.global.glide.GlideApp;
 
 public final class ViewAdapter {
+
     @BindingAdapter(value = {"url", "placeholderRes"}, requireAll = false)
     public static void setImageUri(ImageView imageView, String url, int placeholderRes) {
         if (!TextUtils.isEmpty(url)) {
@@ -18,6 +21,14 @@ public final class ViewAdapter {
                     .transition(DrawableTransitionOptions.withCrossFade(250))
                     .into(imageView);
         }
+    }
+
+
+    @BindingAdapter("srcColor")
+    public static void srcColor(ImageView imageView, int color) {
+        Drawable mutate = imageView.getDrawable().mutate();
+        mutate.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        imageView.setImageDrawable(mutate);
     }
 }
 

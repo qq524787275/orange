@@ -12,41 +12,75 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
 
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="15dp">
+                android:background="@color/colorBackground"
+                android:transitionName="@string/transition_search"
+                android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/input"
+            <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:imeOptions="actionSearch"
-                    android:text="@={viewModel.keyWord}"
-            />
-            <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    app:onClickCommand="@{viewModel.clickSearch}">
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_search"/>
-            </RelativeLayout>
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:cardCornerRadius="5dp">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            app:srcColor="@{@color/colorHint}"
+                            android:src="@mipmap/ic_search"/>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/input"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/search_hint"
+                            android:layout_weight="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionSearch"
+                            android:text="@={viewModel.keyWord}"
+                            android:textSize="14sp"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorHint"
+                            android:background="@color/transparent"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    app:onClickCommand="@{viewModel.clickSearch}"
+                    android:text="@string/define"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBackground"
                 android:textColor="@color/colorPrimary"
-                android:padding="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/history_record"/>
 
         <androidx.recyclerview.widget.RecyclerView
