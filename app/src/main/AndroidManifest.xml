@@ -22,6 +22,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
     <application
             tools:ignore="GoogleAppIndexingWarning"
             android:allowBackup="true"
@@ -29,9 +32,9 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+            tools:replace="android:allowBackup"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
-
             android:name="com.zhuzichu.mvvm.App">
 
         <meta-data

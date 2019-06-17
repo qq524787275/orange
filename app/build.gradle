@@ -31,10 +31,27 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
+
+        debug {
+            storeFile file(RELEASE_STORE_FILE_RELEASE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
 
     buildTypes {
         release {
+            //删除无用资源
+            shrinkResources true
+            //删除无用代码
+            minifyEnabled true
+            //优化apk
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
             //删除无用资源
             shrinkResources true
             //删除无用代码

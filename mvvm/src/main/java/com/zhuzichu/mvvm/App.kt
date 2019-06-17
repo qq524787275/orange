@@ -57,6 +57,7 @@ open class App : Application() {
         })
     }
 
+
     private fun initDebugDb() {
         SQLiteStudioService.instance().start(this)
     }
