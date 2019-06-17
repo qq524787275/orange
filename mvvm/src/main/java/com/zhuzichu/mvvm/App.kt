@@ -14,6 +14,7 @@ import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
 import android.app.LauncherActivity
+import com.zhuzichu.mvvm.widget.MaterialHeader
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService
 
 
@@ -86,7 +87,8 @@ open class App : Application() {
             layout.setEnableLoadMoreWhenContentNotFull(false)
             layout.setEnableAutoLoadMore(true)//设置是否监听列表在滚动到底部时触发加载事件
             layout.setPrimaryColorsId(R.color.white, R.color.colorPrimaryText)//全局设置主题颜色
-            ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Scale)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+//            ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Scale)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+            MaterialHeader(context)
         }
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
             layout.setEnableFooterFollowWhenLoadFinished(true)//设置是否在全部加载结束之后Footer跟随内容

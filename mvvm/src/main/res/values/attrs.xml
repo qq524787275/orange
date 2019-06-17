@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="MaterialHeader">
+        <attr name="mhPrimaryColor" format="color"/>
+        <attr name="mhShadowColor" format="color"/>
+        <attr name="mhShadowRadius" format="dimension"/>
+        <attr name="mhShowBezierWave" format="boolean"/>
+    </declare-styleable>
 
     <attr name="stickyHeaderId" format="reference"/>
     <declare-styleable name="StickyHeaderLayout">
