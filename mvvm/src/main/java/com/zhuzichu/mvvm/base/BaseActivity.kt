@@ -24,12 +24,12 @@ import java.util.*
 
 abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
 
-    private val mDelegate = SupportActivityDelegate(this)
+    private val _delegate = SupportActivityDelegate(this)
 
     abstract fun setRootFragment(): ISupportFragment
 
     override fun getSupportDelegate(): SupportActivityDelegate {
-        return mDelegate
+        return _delegate
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
      */
     override fun extraTransaction(): ExtraTransaction {
-        return mDelegate.extraTransaction()
+        return _delegate.extraTransaction()
     }
 
     private fun initConfiguration() {
@@ -52,7 +52,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColor())
         QMUIStatusBarHelper.setStatusBarLightMode(this)
-        mDelegate.onCreate(savedInstanceState)
+        _delegate.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         initContainer(savedInstanceState)
     }
@@ -62,33 +62,33 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         container.id = R.id.delegate_containe
         setContentView(container)
         if (savedInstanceState == null) {
-            mDelegate.loadRootFragment(R.id.delegate_containe, setRootFragment())
+            _delegate.loadRootFragment(R.id.delegate_containe, setRootFragment())
         }
     }
 
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        mDelegate.onPostCreate(savedInstanceState)
+        _delegate.onPostCreate(savedInstanceState)
     }
 
     override fun onDestroy() {
-        mDelegate.onDestroy()
+        _delegate.onDestroy()
         super.onDestroy()
     }
 
     /**
-     * Note： return mDelegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
+     * Note： return _delegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
      */
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        return mDelegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev)
+        return _delegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev)
     }
 
     /**
      * 不建议复写该方法,请使用 [.onBackPressedSupport] 代替
      */
     override fun onBackPressed() {
-        mDelegate.onBackPressed()
+        _delegate.onBackPressed()
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * 请尽量复写该方法,避免复写onBackPress(),以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
      */
     override fun onBackPressedSupport() {
-        mDelegate.onBackPressedSupport()
+        _delegate.onBackPressedSupport()
     }
 
     /**
@@ -105,7 +105,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @return FragmentAnimator
      */
     override fun getFragmentAnimator(): FragmentAnimator {
-        return mDelegate.fragmentAnimator
+        return _delegate.fragmentAnimator
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * 设置Fragment内的全局动画
      */
     override fun setFragmentAnimator(fragmentAnimator: FragmentAnimator) {
-        mDelegate.fragmentAnimator = fragmentAnimator
+        _delegate.fragmentAnimator = fragmentAnimator
     }
 
     /**
@@ -127,11 +127,11 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @return FragmentAnimator对象
      */
     override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return mDelegate.onCreateFragmentAnimator()
+        return _delegate.onCreateFragmentAnimator()
     }
 
     override fun post(runnable: Runnable) {
-        mDelegate.post(runnable)
+        _delegate.post(runnable)
     }
 
     /****************************************以下为可选方法(Optional methods)******************************************************/
@@ -143,7 +143,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @param toFragment  目标Fragment
      */
     fun loadRootFragment(containerId: Int, toFragment: ISupportFragment) {
-        mDelegate.loadRootFragment(containerId, toFragment)
+        _delegate.loadRootFragment(containerId, toFragment)
     }
 
     fun loadRootFragment(
@@ -152,14 +152,14 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         addToBackStack: Boolean,
         allowAnimation: Boolean
     ) {
-        mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnimation)
+        _delegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnimation)
     }
 
     /**
      * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
      */
     fun loadMultipleRootFragment(containerId: Int, showPosition: Int, vararg toFragments: ISupportFragment) {
-        mDelegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
+        _delegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
     }
 
     /**
@@ -172,21 +172,21 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @param showFragment 需要show的Fragment
      */
     fun showHideFragment(showFragment: ISupportFragment) {
-        mDelegate.showHideFragment(showFragment)
+        _delegate.showHideFragment(showFragment)
     }
 
     /**
      * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
      */
     fun showHideFragment(showFragment: ISupportFragment, hideFragment: ISupportFragment) {
-        mDelegate.showHideFragment(showFragment, hideFragment)
+        _delegate.showHideFragment(showFragment, hideFragment)
     }
 
     /**
      * It is recommended to use [SupportFragment.start].
      */
     fun start(toFragment: ISupportFragment) {
-        mDelegate.start(toFragment)
+        _delegate.start(toFragment)
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @param launchMode Similar to Activity's LaunchMode.
      */
     fun start(toFragment: ISupportFragment, @ISupportFragment.LaunchMode launchMode: Int) {
-        mDelegate.start(toFragment, launchMode)
+        _delegate.start(toFragment, launchMode)
     }
 
     /**
@@ -203,7 +203,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * Launch an fragment for which you would like a result when it poped.
      */
     fun startForResult(toFragment: ISupportFragment, requestCode: Int) {
-        mDelegate.startForResult(toFragment, requestCode)
+        _delegate.startForResult(toFragment, requestCode)
     }
 
     /**
@@ -211,7 +211,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * Start the target Fragment and pop itself
      */
     fun startWithPop(toFragment: ISupportFragment) {
-        mDelegate.startWithPop(toFragment)
+        _delegate.startWithPop(toFragment)
     }
 
     /**
@@ -221,21 +221,21 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @see .start
      */
     fun startWithPopTo(toFragment: ISupportFragment, targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        mDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
+        _delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
     }
 
     /**
      * It is recommended to use [SupportFragment.replaceFragment].
      */
     fun replaceFragment(toFragment: ISupportFragment, addToBackStack: Boolean) {
-        mDelegate.replaceFragment(toFragment, addToBackStack)
+        _delegate.replaceFragment(toFragment, addToBackStack)
     }
 
     /**
      * Pop the fragment.
      */
     fun pop() {
-        mDelegate.pop()
+        _delegate.pop()
     }
 
     /**
@@ -249,7 +249,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @param includeTargetFragment 是否包含该fragment
      */
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment)
     }
 
     /**
@@ -257,7 +257,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
      */
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean, afterPopTransactionRunnable: Runnable) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
     }
 
     fun popTo(
@@ -266,7 +266,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
     }
 
     /**
@@ -275,7 +275,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * 可以通过该方法改变其内所有Fragment的默认背景。
      */
     fun setDefaultFragmentBackground(@DrawableRes backgroundRes: Int) {
-        mDelegate.defaultFragmentBackground = backgroundRes
+        _delegate.defaultFragmentBackground = backgroundRes
     }
 
     /**

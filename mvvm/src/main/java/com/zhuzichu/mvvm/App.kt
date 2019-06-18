@@ -1,19 +1,14 @@
 package com.zhuzichu.mvvm;
 
 import android.app.Application
-import android.app.LauncherActivity
 import android.content.Context
 import android.widget.Toast
 import androidx.multidex.MultiDex
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
-import com.alibaba.baichuan.trade.biz.AlibcTradeBiz
-import com.alibaba.baichuan.trade.common.AlibcTradeCommon
-import com.alibaba.baichuan.trade.common.Environment
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.zhuzichu.mvvm.crash.CaocConfig
 import com.zhuzichu.mvvm.global.language.LangConfig
 import com.zhuzichu.mvvm.global.language.Zh
 import com.zhuzichu.mvvm.widget.MaterialHeader
@@ -41,7 +36,6 @@ open class App : Application() {
         LangConfig.initLang(Zh())
         initAutoSize()
         initFragmention()
-        initCrash()
         initDebugDb()
         initSdk()
     }
@@ -64,21 +58,6 @@ open class App : Application() {
     private fun initDebugDb() {
         SQLiteStudioService.instance().start(this)
     }
-
-    private fun initCrash() {
-        CaocConfig.Builder.create()
-            .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
-            .enabled(true) //是否启动全局异常捕获
-            .showErrorDetails(true) //是否显示错误详细信息
-            .showRestartButton(true) //是否显示重启按钮
-            .trackActivities(true) //是否跟踪Activity
-            .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
-            .restartActivity(LauncherActivity::class.java) //重新启动后的activity
-            //           java     .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
-            //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
-            .apply()
-    }
-
 
     private fun initFragmention() {
         Fragmentation.builder()

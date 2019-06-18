@@ -25,52 +25,52 @@ import me.yokeyword.fragmentation.ISupportFragment
  * Time: 15:16
  */
 open class BaseViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
-    val context: Context = application.applicationContext
-    private val uc: UIChangeLiveData = UIChangeLiveData()
-    private lateinit var lifecycle: LifecycleProvider<*>
+    val _context: Context = application.applicationContext
+    private val _uc: UIChangeLiveData = UIChangeLiveData()
+    private lateinit var _lifecycle: LifecycleProvider<*>
     /**
      * 注入RxLifecycle生命周期
      *
      * @param lifecycle
      */
     fun injectLifecycleProvider(lifecycle: LifecycleProvider<*>) {
-        this.lifecycle = lifecycle
+        this._lifecycle = lifecycle
     }
 
     fun getLifecycleProvider(): LifecycleProvider<*> {
-        return lifecycle
+        return _lifecycle
     }
 
     fun getUC(): UIChangeLiveData {
-        return uc
+        return _uc
     }
 
     fun showLoadingDialog() {
-        uc.getShowLoadingDialogEvent().call()
+        _uc.getShowLoadingDialogEvent().call()
     }
 
     fun hideLoadingDialog() {
-        uc.getHideLoadingDialogEvent().call()
+        _uc.getHideLoadingDialogEvent().call()
     }
 
     fun showContent() {
-        uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_CONTENT)
+        _uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_CONTENT)
     }
 
     fun showError() {
-        uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_ERROR)
+        _uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_ERROR)
     }
 
     fun showEmpty() {
-        uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_EMPTY)
+        _uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_EMPTY)
     }
 
     fun showLoading() {
-        uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_LOADING)
+        _uc.getMultiStateEvent().postValue(MultiStateView.VIEW_STATE_LOADING)
     }
 
     fun hideSoftKeyBoard() {
-        uc.getHideSoftKeyBoardEvent().call()
+        _uc.getHideSoftKeyBoardEvent().call()
     }
 
     fun handleThrowable(throwable: Throwable) {
@@ -83,8 +83,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     fun startFragment(
         fragment: Fragment,
         bundle: Bundle? = null,
-        @ISupportFragment.LaunchMode launchMode: Int? = ISupportFragment.STANDARD,
-        isShareAniamtion: Boolean? = false
+        @ISupportFragment.LaunchMode launchMode: Int? = ISupportFragment.STANDARD
     ) {
         val params = HashMap<String, Any>()
         if (bundle != null) {
@@ -92,7 +91,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         }
         params[ParameterField.FRAGMENT] = fragment
         params[ParameterField.FRAGMENT_LAUNCHMODE] = launchMode.toString()
-        uc.getStartFragmentEvent().postValue(params)
+        _uc.getStartFragmentEvent().postValue(params)
     }
 
     fun startActivity(clz: Class<*>, bundle: Bundle? = null, isPop: Boolean? = false, options: Bundle? = null) {
@@ -101,7 +100,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         bundle?.let { params[ParameterField.BUNDLE] = it }
         options?.let { params[ParameterField.OPTIONS] = it }
         isPop?.let { params[ParameterField.POP] = it }
-        uc.getStartActivityEvent().postValue(params)
+        _uc.getStartActivityEvent().postValue(params)
     }
 
     inner class UIChangeLiveData : SingleLiveEvent<Any>() {

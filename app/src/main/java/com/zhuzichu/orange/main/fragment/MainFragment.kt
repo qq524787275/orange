@@ -8,8 +8,8 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
 import com.zhuzichu.orange.home.fragment.HomeFragmnet
-import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
+import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
 import com.zhuzichu.orange.sort.fragment.SortFragment
 import kotlinx.android.synthetic.main.fragment_main.*

@@ -29,7 +29,6 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     companion object {
         const val KEYWORD = "keyword"
     }
-
     private val keyWord: String by bindArgument(KEYWORD)
 
     override fun setLayoutId(): Int = R.layout.fragment_search_result
@@ -37,13 +36,6 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
-        mViewModel.showLoading()
-        sticky_layout.bindStickyHeader(sticky_header)
-        sticky_layout.registerTypePinnedHeader(
-            R.layout.item_search_layout
-        ) { _, _ ->
-            true
-        }
         setTitle(keyWord)
         addRightIcon(R.mipmap.ic_top, View.OnClickListener {
             (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
@@ -51,25 +43,25 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        mViewModel.searchShop(keyWord)
+        _viewModel.searchShop(keyWord)
     }
 
     override fun initViewObservable() {
-        mViewModel.uc.finishLoadmore.observe(this, Observer {
+        _viewModel.uc.finishLoadmore.observe(this, Observer {
             refresh.finishLoadMore()
         })
 
-        mViewModel.uc.finishRefreshing.observe(this, Observer {
+        _viewModel.uc.finishRefreshing.observe(this, Observer {
             refresh.finishRefresh()
             refresh.setNoMoreData(false)
         })
 
-        mViewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
+        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
             refresh.finishLoadMore()
             refresh.setNoMoreData(true)
         })
 
-        mViewModel.uc.clickGoSearchEvent.observe(this, Observer {
+        _viewModel.uc.clickGoSearchEvent.observe(this, Observer {
             val fragment = SearchFragment()
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 exitTransition = Fade()
@@ -80,10 +72,10 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
                 // 25.1.0以下的support包,Material过渡动画只有在进栈时有,返回时没有;
                 // 25.1.0+的support包，SharedElement正常
                 extraTransaction()
-                    .addSharedElement(sticky_header, App.context.resources.getString(R.string.transition_search))
+                    .addSharedElement(search_layout, App.context.resources.getString(R.string.transition_search))
                     .start(fragment, ISupportFragment.SINGLETASK)
             } else {
-                mViewModel.startFragment(fragment, launchMode = ISupportFragment.SINGLETASK)
+                _viewModel.startFragment(fragment, launchMode = ISupportFragment.SINGLETASK)
             }
         })
     }

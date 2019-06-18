@@ -22,14 +22,16 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
         alibcLogin.showLogin(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
                 Toast.makeText(
-                    context, "登录成功 ",
+                    _context, "登录成功 ",
                     Toast.LENGTH_LONG
                 ).show()
+
+                AlibcLogin.getInstance().session
             }
 
             override fun onFailure(code: Int, msg: String) {
                 Toast.makeText(
-                    context, "登录失败 ",
+                    _context, "登录失败 ",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -41,14 +43,14 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
         alibcLogin.logout(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
                 Toast.makeText(
-                    context, "登出成功 ",
+                    _context, "登出成功 ",
                     Toast.LENGTH_LONG
                 ).show()
             }
 
             override fun onFailure(i: Int, s: String) {
                 Toast.makeText(
-                    context, "登录失败 ",
+                    _context, "登录失败 ",
                     Toast.LENGTH_LONG
                 ).show()
             }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable name="item" type="com.zhuzichu.orange.search.viewmodel.ItemSearchIndicatorViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:foreground="?attr/selectableItemBackground"
+                 app:onClickCommand="@{item.clickItem}"
+                 android:layout_height="45dp">
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.title}"
+                    android:layout_gravity="center"
+                    tools:textColor="@color/colorPrimary"
+                    android:textColor='@{item.selected?@color/colorPrimary:@color/colorSecondText}'
+                    android:textSize="15sp"
+                    tools:text="男装"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility='@{(item.currentSort==1 || item.currentSort==2)?View.VISIBLE:View.GONE}'
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:srcColor="@{(item.currentSort==1 &amp;&amp; item.selected)?@color/colorPrimary:@color/colorSecondText}"
+                        android:src="@mipmap/ic_up"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:srcColor="@{(item.currentSort==2 &amp;&amp; item.selected)?@color/colorPrimary:@color/colorSecondText}"
+                        android:src="@mipmap/ic_down"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <View android:layout_width="50dp"
+              android:layout_height="3dp"
+              android:layout_gravity="bottom|center_horizontal"
+              tools:background="@color/colorPrimary"
+              android:background='@{item.selected?@color/colorPrimary:@color/transparent}'/>
+
+    </FrameLayout>
+</layout>

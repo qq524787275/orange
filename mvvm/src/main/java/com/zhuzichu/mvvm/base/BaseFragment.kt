@@ -33,12 +33,12 @@ import java.lang.reflect.ParameterizedType
  * Time: 15:15
  */
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
-    lateinit var mBind: V
-    lateinit var mViewModel: VM
-    lateinit var mContentView: View
-    lateinit var multiStateView: MultiStateView
-    val mDelegate = SupportFragmentDelegate(this)
-    private lateinit var mActivity: FragmentActivity
+    private lateinit var _bind: V
+    lateinit var _viewModel: VM
+    private lateinit var _contentView: View
+    private lateinit var _multiStateView: MultiStateView
+    private val _delegate = SupportFragmentDelegate(this)
+    private lateinit var _activity: FragmentActivity
 
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
@@ -46,18 +46,18 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val type = this.javaClass.genericSuperclass
-        if (type is ParameterizedType) mViewModel =
+        if (type is ParameterizedType) _viewModel =
             ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
-        lifecycle.addObserver(mViewModel)
-        mViewModel.injectLifecycleProvider(this)
-        mContentView = inflater.inflate(setLayoutId(), container, false)
-        mBind = DataBindingUtil.bind(mContentView)!!
-        mBind.setVariable(bindVariableId(), mViewModel)
-        multiStateView = inflater.inflate(R.layout.layout_multi_state, null) as MultiStateView
-        multiStateView.addView(mBind.root)
-        return multiStateView.also {
-            mBind.lifecycleOwner = this
-            mBind.executePendingBindings()
+        lifecycle.addObserver(_viewModel)
+        _viewModel.injectLifecycleProvider(this)
+        _contentView = inflater.inflate(setLayoutId(), container, false)
+        _bind = DataBindingUtil.bind(_contentView)!!
+        _bind.setVariable(bindVariableId(), _viewModel)
+        _multiStateView = inflater.inflate(R.layout.layout_multi_state, null) as MultiStateView
+        _multiStateView.addView(_bind.root)
+        return _multiStateView.also {
+            _bind.lifecycleOwner = this
+            _bind.executePendingBindings()
         }
     }
 
@@ -73,7 +73,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     //注册ViewModel与View的契约UI回调事件
     private fun registorUIChangeLiveDataCallBack() {
         //跳入新Fragment页面
-        mViewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
+        _viewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             run {
                 val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as BaseFragment<*, *>
                 val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
@@ -81,7 +81,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
             }
         })
         //跳转到新Activity页面
-        mViewModel.getUC().getStartActivityEvent().observe(this, Observer { params ->
+        _viewModel.getUC().getStartActivityEvent().observe(this, Observer { params ->
             run {
                 val clz = params[BaseViewModel.ParameterField.CLASS] as Class<*>
                 val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
@@ -97,32 +97,32 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
                     startActivity(intent)
                 }
                 if (isPop == true) {
-                    mActivity.finish()
+                    _activity.finish()
                 }
             }
         })
         //直接退出Activity页面
-        mViewModel.getUC().getFinishEvent().observe(this, Observer { mActivity.finish() })
+        _viewModel.getUC().getFinishEvent().observe(this, Observer { _activity.finish() })
         //有Fragment 退出fragment
-        mViewModel.getUC().getOnBackPressedEvent().observe(this, Observer { mActivity.onBackPressed() })
+        _viewModel.getUC().getOnBackPressedEvent().observe(this, Observer { _activity.onBackPressed() })
 
-        mViewModel.getUC().getShowLoadingDialogEvent()
-            .observe(this, Observer { DialogMaker.showLoadingDialog(mActivity) })
-        mViewModel.getUC().getHideLoadingDialogEvent().observe(this, Observer { DialogMaker.dismissLodingDialog() })
+        _viewModel.getUC().getShowLoadingDialogEvent()
+            .observe(this, Observer { DialogMaker.showLoadingDialog(_activity) })
+        _viewModel.getUC().getHideLoadingDialogEvent().observe(this, Observer { DialogMaker.dismissLodingDialog() })
 
-        mViewModel.getUC().getMultiStateEvent().observe(this, Observer { params ->
+        _viewModel.getUC().getMultiStateEvent().observe(this, Observer { params ->
             run {
-                multiStateView.viewState = params
+                _multiStateView.viewState = params
             }
         })
 
-        mViewModel.getUC().getHideSoftKeyBoardEvent().observe(this, Observer {
+        _viewModel.getUC().getHideSoftKeyBoardEvent().observe(this, Observer {
             hideSoftInput()
         })
     }
 
     override fun getSupportDelegate(): SupportFragmentDelegate {
-        return mDelegate
+        return _delegate
     }
 
     /**
@@ -130,63 +130,63 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
      */
     override fun extraTransaction(): ExtraTransaction {
-        return mDelegate.extraTransaction()
+        return _delegate.extraTransaction()
     }
 
     override fun onAttach(activity: Activity?) {
         super.onAttach(activity)
-        mDelegate.onAttach(activity!!)
-        mActivity = mDelegate.activity
+        _delegate.onAttach(activity!!)
+        _activity = _delegate.activity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mDelegate.onCreate(savedInstanceState)
+        _delegate.onCreate(savedInstanceState)
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mDelegate.onActivityCreated(savedInstanceState)
+        _delegate.onActivityCreated(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mDelegate.onSaveInstanceState(outState)
+        _delegate.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
         super.onResume()
-        mDelegate.onResume()
+        _delegate.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mDelegate.onPause()
+        _delegate.onPause()
     }
 
     override fun onDestroyView() {
-        mDelegate.onDestroyView()
+        _delegate.onDestroyView()
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        mDelegate.onDestroy()
+        _delegate.onDestroy()
         super.onDestroy()
-        if (::mViewModel.isInitialized)
-            lifecycle.removeObserver(mViewModel)
-        if (::mBind.isInitialized)
-            mBind.unbind()
+        if (::_viewModel.isInitialized)
+            lifecycle.removeObserver(_viewModel)
+        if (::_bind.isInitialized)
+            _bind.unbind()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        mDelegate.onHiddenChanged(hidden)
+        _delegate.onHiddenChanged(hidden)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        mDelegate.setUserVisibleHint(isVisibleToUser)
+        _delegate.setUserVisibleHint(isVisibleToUser)
     }
 
     /**
@@ -199,9 +199,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 前面的事务全部执行后 执行该Action
      *
      */
-    @Deprecated("Use {@link #post(Runnable)} instead.", ReplaceWith("mDelegate.enqueueAction(runnable)"))
+    @Deprecated("Use {@link #post(Runnable)} instead.", ReplaceWith("_delegate.enqueueAction(runnable)"))
     override fun enqueueAction(runnable: Runnable) {
-        mDelegate.enqueueAction(runnable)
+        _delegate.enqueueAction(runnable)
     }
 
     /**
@@ -214,7 +214,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 前面的事务全部执行后 执行该Action
      */
     override fun post(runnable: Runnable) {
-        mDelegate.post(runnable)
+        _delegate.post(runnable)
     }
 
     /**
@@ -222,7 +222,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 入栈动画 结束时,回调
      */
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        mDelegate.onEnterAnimationEnd(savedInstanceState)
+        _delegate.onEnterAnimationEnd(savedInstanceState)
     }
 
 
@@ -233,7 +233,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 同级下的 懒加载 ＋ ViewPager下的懒加载  的结合回调方法
      */
     override fun onLazyInitView(savedInstanceState: Bundle?) {
-        mDelegate.onLazyInitView(savedInstanceState)
+        _delegate.onLazyInitView(savedInstanceState)
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
     override fun onSupportVisible() {
-        mDelegate.onSupportVisible()
+        _delegate.onSupportVisible()
     }
 
     /**
@@ -254,14 +254,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
     override fun onSupportInvisible() {
-        mDelegate.onSupportInvisible()
+        _delegate.onSupportInvisible()
     }
 
     /**
      * Return true if the fragment has been supportVisible.
      */
     override fun isSupportVisible(): Boolean {
-        return mDelegate.isSupportVisible
+        return _delegate.isSupportVisible
     }
 
     /**
@@ -269,7 +269,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 设定当前Fragmemt动画,优先级比在SupportActivity里高
      */
     override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return mDelegate.onCreateFragmentAnimator()
+        return _delegate.onCreateFragmentAnimator()
     }
 
     /**
@@ -278,14 +278,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @return FragmentAnimator
      */
     override fun getFragmentAnimator(): FragmentAnimator {
-        return mDelegate.fragmentAnimator
+        return _delegate.fragmentAnimator
     }
 
     /**
      * 设置Fragment内的全局动画
      */
     override fun setFragmentAnimator(fragmentAnimator: FragmentAnimator) {
-        mDelegate.fragmentAnimator = fragmentAnimator
+        _delegate.fragmentAnimator = fragmentAnimator
     }
 
     /**
@@ -294,7 +294,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @return false则继续向上传递, true则消费掉该事件
      */
     override fun onBackPressedSupport(): Boolean {
-        return mDelegate.onBackPressedSupport()
+        return _delegate.onBackPressedSupport()
     }
 
     /**
@@ -306,7 +306,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .startForResult
      */
     override fun setFragmentResult(resultCode: Int, bundle: Bundle) {
-        mDelegate.setFragmentResult(resultCode, bundle)
+        _delegate.setFragmentResult(resultCode, bundle)
     }
 
     /**
@@ -318,7 +318,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .startForResult
      */
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle) {
-        mDelegate.onFragmentResult(requestCode, resultCode, data)
+        _delegate.onFragmentResult(requestCode, resultCode, data)
     }
 
     /**
@@ -332,7 +332,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .start
      */
     override fun onNewBundle(args: Bundle) {
-        mDelegate.onNewBundle(args)
+        _delegate.onNewBundle(args)
     }
 
     /**
@@ -341,7 +341,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .start
      */
     override fun putNewBundle(newBundle: Bundle) {
-        mDelegate.putNewBundle(newBundle)
+        _delegate.putNewBundle(newBundle)
     }
 
 
@@ -351,14 +351,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 隐藏软键盘
      */
     protected fun hideSoftInput() {
-        mDelegate.hideSoftInput()
+        _delegate.hideSoftInput()
     }
 
     /**
      * 显示软键盘,调用该方法后,会在onPause时自动隐藏软键盘
      */
     protected fun showSoftInput(view: View) {
-        mDelegate.showSoftInput(view)
+        _delegate.showSoftInput(view)
     }
 
     /**
@@ -368,18 +368,18 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @param toFragment  目标Fragment
      */
     fun loadRootFragment(containerId: Int, toFragment: ISupportFragment) {
-        mDelegate.loadRootFragment(containerId, toFragment)
+        _delegate.loadRootFragment(containerId, toFragment)
     }
 
     fun loadRootFragment(containerId: Int, toFragment: ISupportFragment, addToBackStack: Boolean, allowAnim: Boolean) {
-        mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim)
+        _delegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim)
     }
 
     /**
      * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
      */
     fun loadMultipleRootFragment(containerId: Int, showPosition: Int, vararg toFragments: ISupportFragment) {
-        mDelegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
+        _delegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
     }
 
     /**
@@ -392,39 +392,39 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @param showFragment 需要show的Fragment
      */
     fun showHideFragment(showFragment: ISupportFragment) {
-        mDelegate.showHideFragment(showFragment)
+        _delegate.showHideFragment(showFragment)
     }
 
     /**
      * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
      */
     fun showHideFragment(showFragment: ISupportFragment, hideFragment: ISupportFragment) {
-        mDelegate.showHideFragment(showFragment, hideFragment)
+        _delegate.showHideFragment(showFragment, hideFragment)
     }
 
     fun start(toFragment: ISupportFragment) {
-        mDelegate.start(toFragment)
+        _delegate.start(toFragment)
     }
 
     /**
      * @param launchMode Similar to Activity's LaunchMode.
      */
     fun start(toFragment: ISupportFragment, @ISupportFragment.LaunchMode launchMode: Int) {
-        mDelegate.start(toFragment, launchMode)
+        _delegate.start(toFragment, launchMode)
     }
 
     /**
      * Launch an fragment for which you would like a result when it poped.
      */
     fun startForResult(toFragment: ISupportFragment, requestCode: Int) {
-        mDelegate.startForResult(toFragment, requestCode)
+        _delegate.startForResult(toFragment, requestCode)
     }
 
     /**
      * Start the target Fragment and pop itself
      */
     fun startWithPop(toFragment: ISupportFragment) {
-        mDelegate.startWithPop(toFragment)
+        _delegate.startWithPop(toFragment)
     }
 
     /**
@@ -432,23 +432,23 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .start
      */
     fun startWithPopTo(toFragment: ISupportFragment, targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        mDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
+        _delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
     }
 
 
     fun replaceFragment(toFragment: ISupportFragment, addToBackStack: Boolean) {
-        mDelegate.replaceFragment(toFragment, addToBackStack)
+        _delegate.replaceFragment(toFragment, addToBackStack)
     }
 
     fun pop() {
-        mDelegate.pop()
+        _delegate.pop()
     }
 
     /**
      * Pop the child fragment.
      */
     fun popChild() {
-        mDelegate.popChild()
+        _delegate.popChild()
     }
 
     /**
@@ -462,7 +462,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @param includeTargetFragment 是否包含该fragment
      */
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment)
     }
 
     /**
@@ -470,7 +470,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
      */
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean, afterPopTransactionRunnable: Runnable) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
     }
 
     fun popTo(
@@ -479,11 +479,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
     }
 
     fun popToChild(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment)
+        _delegate.popToChild(targetFragmentClass, includeTargetFragment)
     }
 
     fun popToChild(
@@ -491,7 +491,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         includeTargetFragment: Boolean,
         afterPopTransactionRunnable: Runnable
     ) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
+        _delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
     }
 
     fun popToChild(
@@ -500,7 +500,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
     }
 
     /**
@@ -511,7 +511,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     }
 
     fun getSuperTopFragment(): BaseFragment<*, *> {
-        return FragmentationMagician.getActiveFragments(mActivity.supportFragmentManager)[0] as BaseFragment<*, *>
+        return FragmentationMagician.getActiveFragments(_activity.supportFragmentManager)[0] as BaseFragment<*, *>
     }
 
     fun getTopChildFragment(): ISupportFragment {
@@ -541,7 +541,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        return mDelegate.onCreateAnimation(transit, enter, nextAnim)
+        return _delegate.onCreateAnimation(transit, enter, nextAnim)
     }
 
 }

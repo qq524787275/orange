@@ -28,7 +28,7 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
                 if ((actionId == 0 || actionId == 3) && event != null) {
                     when (event.action) {
                         KeyEvent.ACTION_UP -> {
-                            mViewModel.clickSearch.execute()
+                            _viewModel.clickSearch.execute()
                         }
                         else -> {
                         }
@@ -41,6 +41,6 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        mViewModel.loadHistoryData()
+        _viewModel.loadHistoryData()
     }
 }

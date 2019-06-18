@@ -18,7 +18,12 @@ import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.indicators
  * Date: 2019-05-28
  * Time: 14:22
  */
-fun initMagicIndicator(context: Context?, titles: List<String>, viewPager: ViewPager, magicIndicator: MagicIndicator) {
+fun initMagicIndicator(
+    context: Context?, titles: List<String>,
+    viewPager: ViewPager? = null,
+    magicIndicator: MagicIndicator,
+    onClickItemListener: ((position: Int) -> Unit?)? = null
+) {
     val commonNavigator = CommonNavigator(context)
     commonNavigator.isSkimOver = true
     commonNavigator.isAdjustMode = true
@@ -30,11 +35,14 @@ fun initMagicIndicator(context: Context?, titles: List<String>, viewPager: ViewP
         override fun getTitleView(context: Context?, index: Int): IPagerTitleView {
             val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
             simplePagerTitleView.text = titles[index]
-            simplePagerTitleView.textSize = 18f
+            simplePagerTitleView.textSize = 16f
             simplePagerTitleView.setPadding(0, 0, 0, 0)
-            simplePagerTitleView.normalColor = R.color.colorPrimaryText.toColor()
+            simplePagerTitleView.normalColor = R.color.colorSecondText.toColor()
             simplePagerTitleView.selectedColor = R.color.colorPrimary.toColor()
-            simplePagerTitleView.setOnClickListener { viewPager.currentItem = index }
+            simplePagerTitleView.setOnClickListener {
+                onClickItemListener?.invoke(index)
+                viewPager?.currentItem = index
+            }
             return simplePagerTitleView
         }
 
@@ -42,7 +50,7 @@ fun initMagicIndicator(context: Context?, titles: List<String>, viewPager: ViewP
             val indicator = LinePagerIndicator(context)
             indicator.mode = LinePagerIndicator.MODE_EXACTLY
             indicator.lineHeight = dip2px(3f).toFloat()
-            indicator.lineWidth = dip2px(20f).toFloat()
+            indicator.lineWidth = dip2px(30f).toFloat()
             indicator.roundRadius = dip2px(3f).toFloat()
             indicator.setColors(R.color.colorPrimary.toColor())
             return indicator
@@ -51,7 +59,7 @@ fun initMagicIndicator(context: Context?, titles: List<String>, viewPager: ViewP
 
     magicIndicator.navigator = commonNavigator
 
-    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+    viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {
             magicIndicator.onPageScrollStateChanged(state)
         }

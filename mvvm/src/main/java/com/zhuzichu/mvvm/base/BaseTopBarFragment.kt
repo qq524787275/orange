@@ -23,14 +23,14 @@ import com.zhuzichu.mvvm.utils.toColor
  * Time: 16:28
  */
 abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : BaseFragment<V, VM>() {
-    private lateinit var mTitle: AppCompatTextView
-    private lateinit var mStatuBar: View
-    private lateinit var mTopBar: View
-    private lateinit var mRightLayout: LinearLayout;
+    private lateinit var _Title: AppCompatTextView
+    private lateinit var _statuBar: View
+    private lateinit var _topBar: View
+    private lateinit var _rightLayout: LinearLayout;
 
-    private var statusbarHeight: Int = 0
-    private var topBarHeight: Int = 0
-    private lateinit var contentLp: FrameLayout.LayoutParams
+    private var _statusbarHeight: Int = 0
+    private var _topBarHeight: Int = 0
+    private lateinit var _contentLp: FrameLayout.LayoutParams
 
     open fun setTitle(): String? = null
 
@@ -38,63 +38,63 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         val contentView = super.onCreateView(inflater, container, savedInstanceState)
         val rootView = inflater.inflate(R.layout.layout_base_topbar, null) as FrameLayout
 
-        mStatuBar = rootView.findViewById(R.id.status_bar)
-        mTopBar = rootView.findViewById(R.id.top_bar)
+        _statuBar = rootView.findViewById(R.id.status_bar)
+        _topBar = rootView.findViewById(R.id.top_bar)
 
         rootView.addView(contentView)
 
-        statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
-        topBarHeight = dip2px(50f)
+        _statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
+        _topBarHeight = dip2px(50f)
 
-        val statusBarLp = mStatuBar.layoutParams as FrameLayout.LayoutParams
-        val topBarLp = mTopBar.layoutParams as FrameLayout.LayoutParams
-        contentLp = contentView?.layoutParams as FrameLayout.LayoutParams
+        val statusBarLp = _statuBar.layoutParams as FrameLayout.LayoutParams
+        val topBarLp = _topBar.layoutParams as FrameLayout.LayoutParams
+        _contentLp = contentView?.layoutParams as FrameLayout.LayoutParams
 
-        statusBarLp.height = statusbarHeight
-        topBarLp.height = topBarHeight
+        statusBarLp.height = _statusbarHeight
+        topBarLp.height = _topBarHeight
 
-        topBarLp.topMargin = statusbarHeight
+        topBarLp.topMargin = _statusbarHeight
 
-        mTitle = mTopBar.findViewById(R.id.title) as AppCompatTextView
-        mRightLayout = mTopBar.findViewById(R.id.layout_right) as LinearLayout
+        _Title = _topBar.findViewById(R.id.title) as AppCompatTextView
+        _rightLayout = _topBar.findViewById(R.id.layout_right) as LinearLayout
 
         if (setTitle() == null) {
             hideTopbar()
         } else {
-            mTitle.text = setTitle()
+            _Title.text = setTitle()
             showTopBar()
         }
 
 
-        mStatuBar.setBackgroundColor(R.color.white.toColor())
-        mTopBar.setBackgroundColor(R.color.white.toColor())
+        _statuBar.setBackgroundColor(R.color.white.toColor())
+        _topBar.setBackgroundColor(R.color.white.toColor())
         return rootView
     }
 
     fun setTitle(title: String) {
-        mTitle.text = title
+        _Title.text = title
         showTopBar()
     }
 
     fun showTopBar() {
-        mTopBar.visibility = View.VISIBLE
-        contentLp.topMargin = topBarHeight.plus(statusbarHeight)
+        _topBar.visibility = View.VISIBLE
+        _contentLp.topMargin = _topBarHeight.plus(_statusbarHeight)
     }
 
     fun hideTopbar() {
-        mTopBar.visibility = View.GONE
-        contentLp.topMargin = statusbarHeight
+        _topBar.visibility = View.GONE
+        _contentLp.topMargin = _statusbarHeight
     }
 
     fun setStatusBarColor(color:Int){
-        mStatuBar.setBackgroundColor(color)
+        _statuBar.setBackgroundColor(color)
     }
 
     fun addRightIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
         val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_btn, null) as RelativeLayout
-        mRightLayout.addView(imageLayout)
-        imageLayout.layoutParams.height = topBarHeight
-        imageLayout.layoutParams.width = topBarHeight
+        _rightLayout.addView(imageLayout)
+        imageLayout.layoutParams.height = _topBarHeight
+        imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
         icon.setImageResource(iconId)
         if (onClickListener != null)

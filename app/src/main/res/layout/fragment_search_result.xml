@@ -3,45 +3,107 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchResultViewModel"/>
     </data>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 android:orientation="vertical"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@color/colorBackground">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground">
+
+        <com.google.android.material.appbar.AppBarLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackground">
+
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/search_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:transitionName="@string/transition_search"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:onClickCommand="@{viewModel.clickSearchLayout}"
+                    app:cardCornerRadius="5dp">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            app:srcColor="@{@color/colorHint}"
+                            android:src="@mipmap/ic_search"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/search_hint"
+                            android:textSize="14sp"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorHint"
+                            android:background="@color/transparent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:gridLayoutManager="@{3}"
+                    app:itemBinding="@{viewModel.itemBindIndicator}"
+                    app:items="@{viewModel.listIndicator}"
+                    android:background="@color/white"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:onRefreshCommand="@{viewModel.onRefreshCommand}"
                 app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
 
-            <com.zhuzichu.mvvm.widget.StickyHeaderLayout
-                    android:id="@+id/sticky_layout"
+            <com.zhuzichu.mvvm.view.layout.MultiStateView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:msv_emptyView="@layout/empty_view"
+                    app:msv_errorView="@layout/error_view"
+                    app:msv_loadingView="@layout/loading_view"
+                    app:viewState="@{viewModel.viewState}">
+
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:itemBinding="@{viewModel.itemBind}"
-                        app:spanSizeLookup="@{viewModel.spanSizeLookup}"
                         app:gridLayoutManager="@{2}"
                         app:diffConfig="@{viewModel.diff}"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_search_result"
                         app:items="@{viewModel.list}"
                 />
-            </com.zhuzichu.mvvm.widget.StickyHeaderLayout>
+            </com.zhuzichu.mvvm.view.layout.MultiStateView>
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <FrameLayout
-                android:id="@+id/sticky_header"
-                android:transitionName="@string/transition_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -30,16 +30,16 @@ class SortFragment : BaseTopBarFragment<FragmentSortBinding, SortViewModel>() {
         ) { _, _ ->
             true
         }
-        mViewModel.showLoading()
+        _viewModel.showLoading()
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
-        mViewModel.loadShopSort()
+        _viewModel.loadShopSort()
     }
 
     override fun initViewObservable() {
         super.initViewObservable()
-        mViewModel.uc.rightRecyclerToTop.observe(this, Observer {
+        _viewModel.uc.rightRecyclerToTop.observe(this, Observer {
             (right_recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
         })
     }

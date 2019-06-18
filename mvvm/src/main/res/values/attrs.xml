@@ -34,6 +34,7 @@
         <attr name="onLoadMoreCommand"/>
     </declare-styleable>
 
+
     <declare-styleable name="TextView">
         <attr name="strikethrough" format="string"/>
     </declare-styleable>
@@ -52,6 +53,7 @@
         <attr name="msv_loadingView" format="reference"/>
         <attr name="msv_emptyView" format="reference"/>
         <attr name="msv_errorView" format="reference"/>
+        <attr name="viewState" format="integer"/>
         <attr name="msv_viewState" format="enum">
             <enum name="content" value="0"/>
             <enum name="error" value="1"/>
@@ -137,19 +139,19 @@
 
     <declare-styleable name="SwipeLayout">
         <attr name="drag_edge">
-            <flag name="left" value="1" />
-            <flag name="right" value="2" />
-            <flag name="top" value="4" />
-            <flag name="bottom" value="8" />
+            <flag name="left" value="1"/>
+            <flag name="right" value="2"/>
+            <flag name="top" value="4"/>
+            <flag name="bottom" value="8"/>
         </attr>
-        <attr name="leftEdgeSwipeOffset" format="dimension" />
-        <attr name="rightEdgeSwipeOffset" format="dimension" />
-        <attr name="topEdgeSwipeOffset" format="dimension" />
-        <attr name="bottomEdgeSwipeOffset" format="dimension" />
+        <attr name="leftEdgeSwipeOffset" format="dimension"/>
+        <attr name="rightEdgeSwipeOffset" format="dimension"/>
+        <attr name="topEdgeSwipeOffset" format="dimension"/>
+        <attr name="bottomEdgeSwipeOffset" format="dimension"/>
         <attr name="show_mode" format="enum">
-            <enum name="lay_down" value="0" />
-            <enum name="pull_out" value="1" />
+            <enum name="lay_down" value="0"/>
+            <enum name="pull_out" value="1"/>
         </attr>
-        <attr name="clickToClose" format="boolean" />
+        <attr name="clickToClose" format="boolean"/>
     </declare-styleable>
 </resources>
