@@ -10,7 +10,7 @@
                  android:layout_width="match_parent"
                  android:foreground="?attr/selectableItemBackground"
                  app:onClickCommand="@{item.clickItem}"
-                 android:layout_height="45dp">
+                 android:layout_height="match_parent">
 
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"

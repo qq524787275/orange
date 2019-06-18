@@ -12,8 +12,8 @@ import com.zhuzichu.mvvm.global.glide.GlideApp;
 public final class ViewAdapter {
 
     @BindingAdapter(value = {"url", "placeholderRes"}, requireAll = false)
-    public static void setImageUri(ImageView imageView, String url, int placeholderRes) {
-        if (!TextUtils.isEmpty(url)) {
+    public static void setImageUri(ImageView imageView, Object url, int placeholderRes) {
+        if (url != null) {
             //使用Glide框架加载图片
             GlideApp.with(imageView)
                     .load(url)

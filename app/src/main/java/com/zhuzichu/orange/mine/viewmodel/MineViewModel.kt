@@ -16,6 +16,8 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
  * Time: 16:43
  */
 class MineViewModel(application: Application) : BaseViewModel(application) {
+
+
     val clickLogin = BindingCommand<Any>(BindingAction {
 
         val alibcLogin = AlibcLogin.getInstance()

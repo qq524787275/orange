@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.orange.R"/>
         <variable name="viewModel" type="com.zhuzichu.orange.search.viewmodel.SearchResultViewModel"/>
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -13,8 +14,6 @@
             android:background="@color/colorBackground">
 
         <com.google.android.material.appbar.AppBarLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,15 +60,34 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:gridLayoutManager="@{3}"
-                    app:itemBinding="@{viewModel.itemBindIndicator}"
-                    app:items="@{viewModel.listIndicator}"
-                    android:background="@color/white"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_indicator"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="45dp"
+                        android:layout_gravity="bottom"
+                        app:gridLayoutManager="@{3}"
+                        app:itemBinding="@{viewModel.itemBindIndicator}"
+                        app:items="@{viewModel.listIndicator}"
+                        android:background="@color/white"/>
+
+                <FrameLayout
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        app:onClickCommand="@{viewModel.onChangeSpanSize}"
+                        android:paddingEnd="15dp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:src="@mipmap/ic_col"
+                            android:layout_width="25dp"
+                            app:url="@{viewModel.spanSize==1?R.mipmap.ic_col:R.mipmap.ic_row}"
+                            android:layout_gravity="center"
+                            android:layout_height="25dp"/>
+                </FrameLayout>
+            </LinearLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -95,7 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:itemBinding="@{viewModel.itemBind}"
-                        app:gridLayoutManager="@{2}"
+                        app:gridLayoutManager="@{viewModel.spanSize}"
                         app:diffConfig="@{viewModel.diff}"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_search_result"

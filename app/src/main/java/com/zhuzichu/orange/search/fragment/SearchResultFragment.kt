@@ -11,11 +11,12 @@ import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.mvvm.widget.DetailTransition
 import com.zhuzichu.orange.BR
-import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
 import com.zhuzichu.orange.search.viewmodel.SearchResultViewModel
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import me.yokeyword.fragmentation.ISupportFragment
+import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.orange.R
 
 
 /**
@@ -29,6 +30,7 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     companion object {
         const val KEYWORD = "keyword"
     }
+
     private val keyWord: String by bindArgument(KEYWORD)
 
     override fun setLayoutId(): Int = R.layout.fragment_search_result
@@ -72,11 +74,29 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
                 // 25.1.0以下的support包,Material过渡动画只有在进栈时有,返回时没有;
                 // 25.1.0+的support包，SharedElement正常
                 extraTransaction()
-                    .addSharedElement(search_layout, App.context.resources.getString(R.string.transition_search))
+                    .addSharedElement(
+                        search_layout,
+                        App.context.resources.getString(com.zhuzichu.orange.R.string.transition_search)
+                    )
                     .start(fragment, ISupportFragment.SINGLETASK)
             } else {
                 _viewModel.startFragment(fragment, launchMode = ISupportFragment.SINGLETASK)
             }
+        })
+
+        _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
+            val layoutManager = recycler.layoutManager as GridLayoutManager
+            if (layoutManager.childCount <= 0) {
+                return@Observer
+            }
+            val findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val findLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+            findFirstVisibleItemPosition.logi()
+            findLastVisibleItemPosition.logi()
+            _viewModel.changeSpanSize()
+            recycler.postDelayed({
+                recycler.scrollToPosition(findLastVisibleItemPosition)
+            }, 50)
         })
     }
 }

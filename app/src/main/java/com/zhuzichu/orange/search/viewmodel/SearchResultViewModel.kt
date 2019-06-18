@@ -39,6 +39,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     private var min_id = 1
     private var keyword = ""
     private var currentIndicator = 0
+    val spanSize = ObservableInt(2)
     val viewState = ObservableInt(MultiStateView.VIEW_STATE_LOADING)
     //封装一个界面发生改变的观察者
     val uc = UIChangeObservable()
@@ -52,7 +53,13 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
 
         val clickGoSearchEvent = SingleLiveEvent<Any>()
+
+        val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
     }
+
+    val onChangeSpanSize = BindingCommand<Any>(BindingAction {
+        uc.onSpanSizeChangeEvent.call()
+    })
 
     val itemBind = OnItemBindClass<Any>().apply {
         map<ItemResultViewModel>(BR.item, R.layout.item_search_result)
@@ -117,7 +124,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                 val list = mutableListOf<ItemResultViewModel>()
                 it.data.forEach { item ->
                     item.itempic.plus("_310x310.jpg")
-                    list.add(ItemResultViewModel(this, item))
+                    list.add(ItemResultViewModel(this, item,spanSize))
                 }
                 list
             }
@@ -134,7 +141,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                     if (it.code == ExceptionHandle.ERROR.NO_DATA && liveData.value?.size == 0) {
                         viewState.set(MultiStateView.VIEW_STATE_EMPTY)
                     } else {
-                        viewState.set(MultiStateView.VIEW_STATE_ERROR)
+                        viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                     }
                 }
                 handleThrowable(it)
@@ -152,5 +159,11 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         min_id = 1
         searchShop(this.keyword)
         currentIndicator = position
+    }
+
+    fun changeSpanSize() {
+        spanSize.set(
+            if (spanSize.get() == 1) 2 else 1
+        )
     }
 }
