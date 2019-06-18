@@ -88,11 +88,10 @@ dependencies {
 
     //登陆
     api 'com.ali.auth.sdk:alibabauth_core:1.4.3@jar'
-    api 'com.ali.auth.sdk:alibabauth_ui:1.4.3@aar'
     api 'com.ali.auth.sdk:alibabauth_ext:1.4.3@jar'
 
     //安全基础
-    api 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    api 'com.taobao.android:securityguardaar3:5.1.96@aar'
 
     //Mtop网关
     api 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'

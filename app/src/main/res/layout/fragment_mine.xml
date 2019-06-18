@@ -7,13 +7,16 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
+                  android:gravity="center"
                   android:layout_height="match_parent">
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:onClickCommand="@{viewModel.clickLogin}"
                 android:text="登录"/>
 
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:onClickCommand="@{viewModel.clickLogout}"
                 android:text="注册"/>
     </LinearLayout>
 </layout>

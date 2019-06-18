@@ -59,12 +59,14 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
             val list = rightList.value
-            if (list?.get(position) is ItemTitleViewModel) {
+            if(list?.size!! >position)
+            if (list[position] is ItemTitleViewModel) {
                 return 3
             }
             return 1
         }
     }
+
 
     fun loadShopSort() {
         NetRepositoryImpl.getShopSort()
