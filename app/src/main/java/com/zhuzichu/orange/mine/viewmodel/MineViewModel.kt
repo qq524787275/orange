@@ -2,11 +2,16 @@ package com.zhuzichu.orange.mine.viewmodel
 
 import android.app.Application
 import android.widget.Toast
+import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
+import com.zhuzichu.mvvm.AppGlobal
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.showTradeOrder
+import com.zhuzichu.mvvm.utils.showTradeShopCart
+import com.zhuzichu.mvvm.utils.toast
 
 /**
  * Created by Android Studio.
@@ -17,18 +22,13 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
  */
 class MineViewModel(application: Application) : BaseViewModel(application) {
 
+    val global = AppGlobal
 
     val clickLogin = BindingCommand<Any>(BindingAction {
-
-        val alibcLogin = AlibcLogin.getInstance()
-        alibcLogin.showLogin(object : AlibcLoginCallback {
+        AlibcLogin.getInstance().showLogin(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
-                Toast.makeText(
-                    _context, "登录成功 ",
-                    Toast.LENGTH_LONG
-                ).show()
-
-                AlibcLogin.getInstance().session
+                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.session.set(AlibcLogin.getInstance().session)
             }
 
             override fun onFailure(code: Int, msg: String) {
@@ -41,22 +41,38 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val clickLogout = BindingCommand<Any>(BindingAction {
-        val alibcLogin = AlibcLogin.getInstance()
-        alibcLogin.logout(object : AlibcLoginCallback {
+        AlibcLogin.getInstance().logout(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
-                Toast.makeText(
-                    _context, "登出成功 ",
-                    Toast.LENGTH_LONG
-                ).show()
+                AppGlobal.isLogin.set(false)
+                AppGlobal.session.set(Session())
             }
 
             override fun onFailure(i: Int, s: String) {
                 Toast.makeText(
-                    _context, "登录失败 ",
+                    _context, "登出失败 ",
                     Toast.LENGTH_LONG
                 ).show()
             }
         })
     })
 
+    val goSetting = BindingCommand<Any>(BindingAction {
+        "暂未开发".toast()
+    })
+
+    val goActivies = BindingCommand<Any>(BindingAction {
+        "暂未开发".toast()
+    })
+
+    val goOrder = BindingCommand<Any>(BindingAction {
+        showTradeOrder(_activity)
+    })
+
+    val goShopCard = BindingCommand<Any>(BindingAction {
+        showTradeShopCart(_activity)
+    })
+
+    val goCollection = BindingCommand<Any>(BindingAction {
+        "暂未开发".toast()
+    })
 }

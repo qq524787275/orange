@@ -33,7 +33,7 @@ import java.lang.reflect.ParameterizedType
  * Time: 15:15
  */
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
-    private lateinit var _bind: V
+    lateinit var _bind: V
     lateinit var _viewModel: VM
     private lateinit var _contentView: View
     private lateinit var _multiStateView: MultiStateView
@@ -43,13 +43,13 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val type = this.javaClass.genericSuperclass
         if (type is ParameterizedType) _viewModel =
             ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
         lifecycle.addObserver(_viewModel)
         _viewModel.injectLifecycleProvider(this)
+        _viewModel._activity=_activity
         _contentView = inflater.inflate(setLayoutId(), container, false)
         _bind = DataBindingUtil.bind(_contentView)!!
         _bind.setVariable(bindVariableId(), _viewModel)

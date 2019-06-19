@@ -18,6 +18,7 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import kotlinx.coroutines.launch
@@ -55,6 +56,8 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val clickGoSearchEvent = SingleLiveEvent<Any>()
 
         val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
+
+        val clickItemResultEvent = SingleLiveEvent<SearchBean>()
     }
 
     val onChangeSpanSize = BindingCommand<Any>(BindingAction {
@@ -124,7 +127,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                 val list = mutableListOf<ItemResultViewModel>()
                 it.data.forEach { item ->
                     item.itempic.plus("_310x310.jpg")
-                    list.add(ItemResultViewModel(this, item,spanSize))
+                    list.add(ItemResultViewModel(this, item, spanSize))
                 }
                 list
             }

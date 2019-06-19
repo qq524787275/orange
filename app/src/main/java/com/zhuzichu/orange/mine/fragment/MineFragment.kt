@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.mine.fragment
 
-import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -22,4 +21,5 @@ class MineFragment : BaseTopBarFragment<FragmentMineBinding, MineViewModel>() {
         setTitle("我的")
 
     }
+
 }

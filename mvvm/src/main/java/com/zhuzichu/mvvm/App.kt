@@ -2,10 +2,7 @@ package com.zhuzichu.mvvm;
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
 import androidx.multidex.MultiDex
-import com.alibaba.baichuan.android.trade.AlibcTradeSDK
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
@@ -37,23 +34,8 @@ open class App : Application() {
         initAutoSize()
         initFragmention()
         initDebugDb()
-        initSdk()
+
     }
-
-    private fun initSdk() {
-        //电商SDK初始化
-        AlibcTradeSDK.asyncInit(this, object : AlibcTradeInitCallback {
-            override fun onSuccess() {
-                Toast.makeText(this@App, "初始化成功", Toast.LENGTH_SHORT).show()
-
-            }
-
-            override fun onFailure(code: Int, msg: String) {
-                Toast.makeText(this@App, "初始化失败,错误码=$code / 错误消息=$msg", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
 
     private fun initDebugDb() {
         SQLiteStudioService.instance().start(this)

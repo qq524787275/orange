@@ -2,7 +2,12 @@ package com.zhuzichu.orange
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
+import com.alibaba.baichuan.trade.biz.login.AlibcLogin
+import com.zhuzichu.mvvm.AppGlobal
 import com.zhuzichu.orange.main.activity.MainActivity
 
 /**
@@ -15,6 +20,7 @@ import com.zhuzichu.orange.main.activity.MainActivity
 class LauncherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initSdk()
         super.onCreate(savedInstanceState)
         if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
             finish()
@@ -22,5 +28,21 @@ class LauncherActivity : AppCompatActivity() {
         }
         MainActivity.start(this)
         finish()
+    }
+
+    private fun initSdk() {
+        //电商SDK初始化
+        AlibcTradeSDK.asyncInit(application, object : AlibcTradeInitCallback {
+            override fun onSuccess() {
+                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.session.set(AlibcLogin.getInstance().session)
+                Toast.makeText(this@LauncherActivity, "初始化成功" + AlibcLogin.getInstance().isLogin, Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            override fun onFailure(code: Int, msg: String) {
+                Toast.makeText(this@LauncherActivity, "初始化失败,错误码=$code / 错误消息=$msg", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

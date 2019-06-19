@@ -1,12 +1,12 @@
 package com.zhuzichu.orange.db
 
+import android.util.ArrayMap
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.zhuzichu.mvvm.App.Companion.context
-import com.zhuzichu.orange.AppGlobal
+import com.zhuzichu.mvvm.AppGlobal
 
 
 @Database(entities = [SearchHistory::class], version = 1, exportSchema = false)
@@ -16,25 +16,21 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         val DATABASE_NAME = "orange-db-"
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: AppDatabase? = null
+        val databaseCache = ArrayMap<String, AppDatabase>()
 
         fun getInstance(): AppDatabase {
-            return instance ?: synchronized(this) {
-                instance ?: buildDatabase().also { instance = it }
+            var appDatabase = databaseCache[AppGlobal.getAccount()]
+            if (appDatabase == null) {
+                appDatabase = buildDatabase()
+                databaseCache[AppGlobal.getAccount()] = appDatabase
             }
+            return appDatabase
         }
 
-        // Create and pre-populate the database. See this article for more details:
-        // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
         private fun buildDatabase(): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME + AppGlobal.getAccount())
                 .addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                    }
+
                 })
                 .build()
         }

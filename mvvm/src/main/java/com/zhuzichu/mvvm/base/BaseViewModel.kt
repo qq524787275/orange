@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.base
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
@@ -28,6 +29,9 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     val _context: Context = application.applicationContext
     private val _uc: UIChangeLiveData = UIChangeLiveData()
     private lateinit var _lifecycle: LifecycleProvider<*>
+    lateinit var _activity: Activity
+
+
     /**
      * 注入RxLifecycle生命周期
      *

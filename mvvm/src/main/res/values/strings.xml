@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Orange</string>
+    <string name="app_name">橙子街</string>
 
     <string name="follow_status_0">+关 注</string>
     <string name="follow_status_1">已关注</string>
@@ -9,6 +9,9 @@
     <string name="define">确定</string>
     <string name="delete">删除</string>
     <string name="login">登录</string>
+    <string name="order">订单</string>
+    <string name="shopcart">购物车</string>
+    <string name="collection">收藏</string>
     <string name="rmb">¥</string>
 
 
