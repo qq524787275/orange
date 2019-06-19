@@ -21,7 +21,6 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
     override fun initView() {
         setStatusBarColor(R.color.colorBackground.toColor())
         showSoftInput(input)
-
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 actionId.logi()

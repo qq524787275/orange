@@ -7,7 +7,7 @@ import com.zhuzichu.mvvm.widget.BottomTabView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
-import com.zhuzichu.orange.home.fragment.HomeFragmnet
+import com.zhuzichu.orange.home.fragment.HomeFragment
 import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
@@ -28,7 +28,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun bindVariableId(): Int = BR.viewModel
 
     private val mFragments = listOf<Fragment>(
-        HomeFragmnet(),
+        HomeFragment(),
         SortFragment(), MineFragment()
     )
 
@@ -37,7 +37,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             .addItem(
                 newItem(
                     R.mipmap.main_tab_home_page_normal,
-                    R.mipmap.main_tab_home_page_selected, "主页"
+                    R.mipmap.main_tab_home_page_selected, "首页"
                 )
             )
             .addItem(

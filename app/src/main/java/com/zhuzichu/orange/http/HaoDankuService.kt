@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.http
 
 import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.orange.bean.SalesBean
 import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.bean.ShopBean
 import com.zhuzichu.orange.bean.SortBean
@@ -40,4 +41,10 @@ interface HaoDankuService {
         @Path("min_id") min_id: Int
     ): Flowable<BaseRes<List<SearchBean>>>
 
+    @GET("sales_list/apikey/zhuzichu/sale_type/{sale_type}/back/{back}/min_id/{min_id}")
+    fun getSalersList(
+        @Path("back") back: Int,
+        @Path("sale_type") sale_type: Int,
+        @Path("min_id") min_id: Int
+    ): Flowable<BaseRes<List<SalesBean>>>
 }

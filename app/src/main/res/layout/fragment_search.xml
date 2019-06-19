@@ -28,15 +28,13 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    app:cardElevation="1dp"
                     app:cardCornerRadius="5dp">
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
+                        android:padding="10dp"
                         android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -71,6 +69,7 @@
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
                     app:onClickCommand="@{viewModel.clickSearch}"
+                    android:layout_marginRight="15dp"
                     android:text="@string/define"/>
         </LinearLayout>
 

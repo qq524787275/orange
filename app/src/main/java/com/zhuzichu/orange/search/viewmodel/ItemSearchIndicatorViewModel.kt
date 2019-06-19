@@ -37,6 +37,5 @@ class ItemSearchIndicatorViewModel(viewModel: SearchResultViewModel,var title: S
                 viewModel.selectIndcatorItem(this, sort[0])
             }
         }
-
     })
 }

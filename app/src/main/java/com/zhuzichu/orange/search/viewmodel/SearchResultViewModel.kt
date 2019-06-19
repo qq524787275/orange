@@ -21,8 +21,10 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.orange.search.fragment.SearchFragment
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
+import me.yokeyword.fragmentation.ISupportFragment
 
 /**
  * Created by Android Studio.
@@ -52,8 +54,6 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val finishLoadmore = SingleLiveEvent<Any>()
         //上拉加载完成 并且到最后一数据
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
-
-        val clickGoSearchEvent = SingleLiveEvent<Any>()
 
         val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
 
@@ -108,7 +108,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     })
 
     val clickSearchLayout = BindingCommand<Any>(BindingAction {
-        uc.clickGoSearchEvent.call()
+        startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)
     })
 
     fun searchShop(keyword: String) {

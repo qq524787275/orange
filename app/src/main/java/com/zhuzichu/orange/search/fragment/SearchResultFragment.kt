@@ -64,27 +64,6 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
             refresh.setNoMoreData(true)
         })
 
-        _viewModel.uc.clickGoSearchEvent.observe(this, Observer {
-            val fragment = SearchFragment()
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                exitTransition = Fade()
-                fragment.enterTransition = Fade()
-                fragment.sharedElementReturnTransition = DetailTransition()
-                fragment.sharedElementEnterTransition = DetailTransition()
-
-                // 25.1.0以下的support包,Material过渡动画只有在进栈时有,返回时没有;
-                // 25.1.0+的support包，SharedElement正常
-                extraTransaction()
-                    .addSharedElement(
-                        search_layout,
-                        App.context.resources.getString(com.zhuzichu.orange.R.string.transition_search)
-                    )
-                    .start(fragment, ISupportFragment.SINGLETASK)
-            } else {
-                _viewModel.startFragment(fragment, launchMode = ISupportFragment.SINGLETASK)
-            }
-        })
-
         _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
             val layoutManager = recycler.layoutManager as GridLayoutManager
             if (layoutManager.childCount <= 0) {

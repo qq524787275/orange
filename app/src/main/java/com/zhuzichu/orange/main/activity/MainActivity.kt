@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.zhuzichu.mvvm.base.BaseActivity
+import com.zhuzichu.mvvm.widget.FadeAnimator
 import com.zhuzichu.orange.main.fragment.MainFragment
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
@@ -23,7 +24,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreateFragmentAnimator(): FragmentAnimator {
         // 设置横向(和安卓4.x动画相同)
-        return DefaultHorizontalAnimator()
+        return FadeAnimator()
     }
 
 

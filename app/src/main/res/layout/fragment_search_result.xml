@@ -30,15 +30,13 @@
                     android:transitionName="@string/transition_search"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:onClickCommand="@{viewModel.clickSearchLayout}"
+                    app:cardElevation="1dp"
                     app:cardCornerRadius="5dp">
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
+                        android:padding="10dp"
                         android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatImageView

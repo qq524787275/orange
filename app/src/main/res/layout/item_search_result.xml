@@ -15,6 +15,7 @@
             app:onClickCommand="@{item.clickItem}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="5dp"
+            android:animateLayoutChanges="true"
             android:layout_margin="5dp">
         <LinearLayout
                 android:orientation="vertical"
@@ -69,8 +70,7 @@
                             android:maxEms="6"
                             android:ellipsize="end"
                             android:textColor="@color/colorRedPrimary"
-                            android:textStyle="bold|italic"
-                    />
+                            android:textStyle="bold|italic"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/itemprice"

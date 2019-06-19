@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.zhuzichu.orange.home.viewmodel.ItemRankingIndicatorViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  app:onClickCommand="@{item.clickItem}"
+                  android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="8dp"
+                android:layout_height="50dp">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@{item.isSelected()?@color/colorPrimary:@color/white}">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        app:url="@{item.isSelected()?item.icons.get(0):item.icons.get(1)}"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/icon"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="5dp"
+                        android:text="@{item.title}"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@{item.isSelected()?@color/white:@color/colorPrimary}"
+                        android:ellipsize="end"
+                        tools:text="今日单帮吧"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/icon"
+                        android:layout_marginStart="5dp"
+                        android:textSize="10sp"
+                        android:text="@{item.desc}"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:layout_below="@+id/title"
+                        android:ellipsize="end"
+                        android:textColor="@{item.isSelected()?@color/white:@color/colorPrimary}"
+                        tools:text="今日单帮吧今日单帮吧今日单帮吧今日单帮吧今"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</layout>
