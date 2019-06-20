@@ -29,6 +29,7 @@ class HomeFragment : BaseTopBarFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initView() {
         setStatusBarColor(R.color.colorBackground.toColor())
         viewpager.adapter = HomeFragmentPageAdapter(childFragmentManager, fragments)
+        viewpager.offscreenPageLimit = titles.size
         initMagicIndicator(
             activity, titles, viewpager, indicator
         )

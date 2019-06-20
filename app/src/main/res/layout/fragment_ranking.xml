@@ -20,15 +20,28 @@
                 app:items="@{viewModel.listIndicator}"
                 android:background="@color/white"/>
 
-        <androidx.core.widget.NestedScrollView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
-
-            <TextView android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:background="@color/colorBackground"/>
-
-        </androidx.core.widget.NestedScrollView>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:onRefreshCommand="@{viewModel.onRefreshCommand}"
+                app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+            <com.zhuzichu.mvvm.view.layout.MultiStateView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:msv_emptyView="@layout/empty_view"
+                    app:msv_errorView="@layout/error_view"
+                    app:msv_loadingView="@layout/loading_view"
+                    app:viewState="@{viewModel.viewState}">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_content"
+                        app:itemBinding="@{viewModel.itemBind}"
+                        app:items="@{viewModel.list}"
+                        android:layout_width="match_parent"
+                        app:gridLayoutManager="@{2}"
+                        android:layout_height="match_parent"/>
+            </com.zhuzichu.mvvm.view.layout.MultiStateView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </layout>
