@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingAction
@@ -18,11 +19,12 @@ import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.orange.search.viewmodel.ItemResultViewModel
 
 class RankingViewModel(application: Application) : BaseViewModel(application) {
     private var current = 0
     private var type: Int = 1
-    private var back = 10
+    private var back = 20
     private var min_id = 1
 
     val uc = UIChangeObservable()
@@ -32,6 +34,18 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
         val finishRefreshing = SingleLiveEvent<Any>()
     }
+
+    val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            return if (oldItem is ItemRankingViewModel && newItem is ItemRankingViewModel) {
+                oldItem.salesBean.itemid == newItem.salesBean.itemid
+            } else oldItem == newItem
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
+    }
+
     val onRefreshCommand = BindingCommand<Any>(BindingAction {
         min_id = 1
         updateData(this.type)
@@ -41,8 +55,8 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
     })
     val viewState = ObservableInt(MultiStateView.VIEW_STATE_LOADING)
 
-    val itemBind = itemBindingOf<ItemRankingViewModel>(BR.item, R.layout.item_ranking)
-    val list = MutableLiveData<List<ItemRankingViewModel>>().apply { value = ArrayList() }
+    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_ranking)
+    val list = MutableLiveData<List<Any>>().apply { value = ArrayList() }
     val itemBindIndicator = itemBindingOf<ItemRankingIndicatorViewModel>(BR.item, R.layout.item_ranking_indicator)
     val listIndicator = MutableLiveData<List<ItemRankingIndicatorViewModel>>().apply {
         value = listOf(
@@ -98,9 +112,14 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
                 val data = it.data
                 val mutableList = mutableListOf<ItemRankingViewModel>()
                 data.forEachIndexed { index, item ->
-                    mutableList.add(ItemRankingViewModel(this, item, index).apply {
-                        this.salesBean.itempic = this.salesBean.itempic.plus("_310x310.jpg")
-                    })
+                    mutableList.add(
+                        ItemRankingViewModel(
+                            this,
+                            item,
+                            ((list.value?.size ?: 0) + index + 1).toString()
+                        ).apply {
+                            this.salesBean.itempic = this.salesBean.itempic.plus("_310x310.jpg")
+                        })
                 }
                 mutableList
             }
@@ -117,8 +136,10 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
                     if (it.code == ExceptionHandle.ERROR.NO_DATA && list.value?.size == 0) {
                         viewState.set(MultiStateView.VIEW_STATE_EMPTY)
                     } else {
-                        viewState.set(MultiStateView.VIEW_STATE_ERROR)
+                        viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                     }
+                    handleThrowable(it)
+                    uc.finishLoadmore.call()
                 }
             })
     }

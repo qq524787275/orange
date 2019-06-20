@@ -1,7 +1,12 @@
 package com.zhuzichu.orange.home.viewmodel
 
+import com.ali.auth.third.ui.context.CallbackContext.activity
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.databinding.command.BindingAction
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.showTradeDetail
 import com.zhuzichu.orange.bean.SalesBean
+import com.zhuzichu.orange.checkLogin
 
 /**
  * Created by Android Studio.
@@ -13,7 +18,11 @@ import com.zhuzichu.orange.bean.SalesBean
 class ItemRankingViewModel(
     viewModel: RankingViewModel,
     var salesBean: SalesBean,
-    var index: Int
+    var top: String
 ) : ItemViewModel<RankingViewModel>(viewModel) {
-
+    val clickItem = BindingCommand<Any>(BindingAction {
+        checkLogin {
+            showTradeDetail(viewModel._activity, salesBean.itemid)
+        }
+    })
 }

@@ -38,6 +38,7 @@
                         android:id="@+id/recycler_content"
                         app:itemBinding="@{viewModel.itemBind}"
                         app:items="@{viewModel.list}"
+                        app:diffConfig="@{viewModel.diff}"
                         android:layout_width="match_parent"
                         app:gridLayoutManager="@{2}"
                         android:layout_height="match_parent"/>

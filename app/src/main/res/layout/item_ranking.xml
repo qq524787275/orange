@@ -11,10 +11,11 @@
             android:layout_width="match_parent"
             tools:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:onClickCommand="@{item.clickItem}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="5dp"
+            app:cardCornerRadius="1dp"
             android:animateLayoutChanges="true"
-            android:layout_margin="5dp">
+            android:layout_margin="7dp">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -30,6 +31,49 @@
                         app:url="@{item.salesBean.itempic}"
                         app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                         tools:src="@drawable/ic_launcher_background"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{item.top}"
+                        tools:text="100"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:paddingTop="5dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@mipmap/ic_ranking_top"/>
+
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="40dp"
+                              android:background="@color/black_translucent"
+                              android:layout_alignParentBottom="true"
+                              android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="40dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white"
+                            android:text="@{item.salesBean.itemshorttitle}"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            tools:text="哈哈哈哈哈哈"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="$1231"
+                            android:layout_marginRight="5dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorLimePrimary"
+                            android:text='@{@string/rmb+item.salesBean.itemendprice}'/>
+
+                </LinearLayout>
+
 
             </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
         </LinearLayout>
