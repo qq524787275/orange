@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.viewpager.widget.ViewPager
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
-import com.zhuzichu.mvvm.view.magicindicator.ScaleTransitionPagerTitleView
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.CommonNavigator
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
+import com.zhuzichu.mvvm.view.magicindicator.ext.titles.ScaleTransitionPagerTitleView
 
 /**
  * Created by Android Studio.
@@ -37,8 +37,8 @@ fun initMagicIndicator(
             simplePagerTitleView.text = titles[index]
             simplePagerTitleView.textSize = 16f
             simplePagerTitleView.setPadding(0, 0, 0, 0)
-            simplePagerTitleView.normalColor = R.color.colorSecondText.toColor()
-            simplePagerTitleView.selectedColor = R.color.colorPrimary.toColor()
+            simplePagerTitleView.normalColor = R.color.colorSecondText.toColorById()
+            simplePagerTitleView.selectedColor = R.color.colorPrimary.toColorById()
             simplePagerTitleView.setOnClickListener {
                 onClickItemListener?.invoke(index)
                 viewPager?.currentItem = index
@@ -52,7 +52,7 @@ fun initMagicIndicator(
             indicator.lineHeight = dip2px(3f).toFloat()
             indicator.lineWidth = dip2px(30f).toFloat()
             indicator.roundRadius = dip2px(3f).toFloat()
-            indicator.setColors(R.color.colorPrimary.toColor())
+            indicator.setColors(R.color.colorPrimary.toColorById())
             return indicator
         }
     }

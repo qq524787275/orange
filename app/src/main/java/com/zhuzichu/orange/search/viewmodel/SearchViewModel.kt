@@ -3,31 +3,41 @@ package com.zhuzichu.orange.search.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.Transformations.map
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.itemBindingOf
+import com.zhuzichu.mvvm.utils.map
 import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.db.SearchHistory
 import com.zhuzichu.orange.repository.DbRepositoryImpl
+import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
+import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList
+import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
+@SuppressLint("CheckResult")
 class SearchViewModel(application: Application) : BaseViewModel(application) {
-    private val mutableLiveData = MutableLiveData<List<ItemHistoryViewModel>>().apply {
-        value = ArrayList()
+    private val mutableLiveData = ObservableArrayList<ItemHistoryViewModel>()
+
+    private val hotLiveData = ObservableArrayList<ItemHistoryViewModel>()
+
+    val list = MergeObservableList<Any>()
+        .insertItem(ItemTitleViewModel(this, "历史记录"))
+        .insertList(mutableLiveData)
+        .insertItem(ItemTitleViewModel(this, "热搜记录"))
+        .insertList(hotLiveData)
+
+    val itemBind = OnItemBindClass<Any>().apply {
+        map<ItemHistoryViewModel>(BR.item, R.layout.item_search_history)
+        map<ItemTitleViewModel>(BR.item, R.layout.item_search_history_title)
     }
-
-    val list: LiveData<Any> = map(mutableLiveData) { it }
-
-    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_search_history)
 
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
@@ -71,7 +81,25 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                 list
             }
             .subscribe({
-                mutableLiveData.value = it
+                mutableLiveData.addAll(it)
+            }, {
+                handleThrowable(it)
+            })
+    }
+
+    fun loadHotKeyData() {
+        NetRepositoryImpl.getHotKeyList()
+            .compose(bindToLifecycle(getLifecycleProvider()))
+            .compose(schedulersTransformer())
+            .map {
+                val list = mutableListOf<ItemHistoryViewModel>()
+                it.data.forEach { item ->
+                    list.add(ItemHistoryViewModel(this, SearchHistory(item.keyword)))
+                }
+                list
+            }
+            .subscribe({
+                hotLiveData.addAll(it)
             }, {
                 handleThrowable(it)
             })

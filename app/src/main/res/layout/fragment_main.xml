@@ -24,14 +24,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="56dp"/>
 
-            <me.majiajie.pagerbottomtabstrip.PageNavigationView
+            <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
                     android:id="@+id/bottom"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_gravity="bottom"
-                    android:elevation="8dp"
-                    android:background="@color/white"
-            />
+                    android:background="@color/white"/>
         </FrameLayout>
 
     </FrameLayout>

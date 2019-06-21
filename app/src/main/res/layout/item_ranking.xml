@@ -33,14 +33,14 @@
                         tools:src="@drawable/ic_launcher_background"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:text="@{item.top}"
                         tools:text="100"
+                        app:fontPath="@string/font_bold"
                         android:gravity="center"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:paddingTop="5dp"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:background="@mipmap/ic_ranking_top"/>
 
@@ -68,13 +68,11 @@
                             tools:text="$1231"
                             android:layout_marginRight="5dp"
                             android:textSize="16sp"
-                            android:textStyle="bold"
+                            app:fontPath="@string/font_bold"
                             android:textColor="@color/colorLimePrimary"
                             android:text='@{@string/rmb+item.salesBean.itemendprice}'/>
 
                 </LinearLayout>
-
-
             </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

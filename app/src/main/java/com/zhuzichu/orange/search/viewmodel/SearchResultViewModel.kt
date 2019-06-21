@@ -66,7 +66,8 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
     val itemBind = OnItemBindClass<Any>().apply {
         map<ItemResultViewModel>(BR.item, R.layout.item_search_result)
-    }
+    }.toItemBinding()
+
     val itemBindIndicator = itemBindingOf<ItemSearchIndicatorViewModel>(BR.item, R.layout.item_search_indicator)
     val listIndicator = MutableLiveData<List<ItemSearchIndicatorViewModel>>().apply {
         value = listOf(

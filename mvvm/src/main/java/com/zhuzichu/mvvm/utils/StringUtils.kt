@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.utils
 
+import com.zhuzichu.mvvm.App
 import java.util.regex.Pattern
 
 /**
@@ -9,6 +10,11 @@ import java.util.regex.Pattern
  * Date: 2019-05-31
  * Time: 15:35
  */
+
+fun Int.toStringById(): String {
+    return App.context.resources.getString(this)
+}
+
 /**
  * 判断字符串是否为空
  *

@@ -67,10 +67,9 @@
                             android:text='@{@string/rmb+item.searchBean.itemendprice}'
                             android:textSize="16sp"
                             android:maxLines="1"
-                            android:maxEms="6"
                             android:ellipsize="end"
                             android:textColor="@color/colorRedPrimary"
-                            android:textStyle="bold|italic"/>
+                            app:fontPath="@string/font_bold"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/itemprice"
@@ -80,10 +79,10 @@
                             tools:text="123123123123123123"
                             android:textSize="12sp"
                             android:maxLines="1"
-                            android:maxEms="6"
                             android:ellipsize="end"
                             android:layout_marginTop="5dp"
                             android:layout_marginStart="5dp"
+                            app:fontPath="@string/font_book"
                             android:layout_toEndOf="@+id/itemendprice"
                             android:textColor="@color/colorHint"
                     />
@@ -94,8 +93,8 @@
                             android:text='@{item.searchBean.itemsale+@string/personal_payment}'
                             android:textSize="12sp"
                             android:maxLines="1"
-                            android:maxEms="6"
                             tools:text="销量 213132"
+                            app:fontPath="@string/font_book"
                             android:layout_below="@+id/itemendprice"
                             android:ellipsize="end"
                             android:textColor="@color/colorSecondText"
@@ -178,10 +177,9 @@
                         android:text='@{@string/rmb+item.searchBean.itemendprice}'
                         android:textSize="16sp"
                         android:maxLines="1"
-                        android:maxEms="6"
                         android:ellipsize="end"
                         android:textColor="@color/colorRedPrimary"
-                        android:textStyle="bold|italic"
+                        app:fontPath="@string/font_bold"
                 />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -191,8 +189,8 @@
                         tools:text="123123123123123123"
                         android:textSize="12sp"
                         android:maxLines="1"
-                        android:maxEms="6"
                         android:ellipsize="end"
+                        app:fontPath="@string/font_book"
                         android:textColor="@color/colorHint"
                 />
             </LinearLayout>
@@ -203,12 +201,12 @@
                     android:text='@{item.searchBean.itemsale+@string/personal_payment}'
                     android:textSize="12sp"
                     android:maxLines="1"
-                    android:maxEms="6"
                     tools:text="销量 213132"
                     android:ellipsize="end"
-                    android:layout_toRightOf="@+id/itempic"
+                    android:layout_toEndOf="@+id/itempic"
                     android:layout_above="@+id/layout_itemendprice"
                     android:textColor="@color/colorSecondText"
+                    app:fontPath="@string/font_book"
                     android:layout_marginBottom="5dp"
             />
         </RelativeLayout>

@@ -30,10 +30,10 @@ public class ClipPagerTitleView extends View implements IMeasurablePagerTitleVie
     }
 
     private void init(Context context) {
-        int textSize = (int) UIUtil.dip2px(context, 16);
+        int textSize = UIUtil.dip2px(context, 16);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setTextSize(textSize);
-        int padding = (int) UIUtil.dip2px(context, 10);
+        int padding = UIUtil.dip2px(context, 10);
         setPadding(padding, 0, padding, 0);
     }
 

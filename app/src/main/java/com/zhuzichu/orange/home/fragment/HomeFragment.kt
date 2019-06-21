@@ -1,9 +1,10 @@
 package com.zhuzichu.orange.home.fragment
 
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.initMagicIndicator
-import com.zhuzichu.mvvm.utils.toColor
+import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentHomeBinding
@@ -27,7 +28,7 @@ class HomeFragment : BaseTopBarFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
-        setStatusBarColor(R.color.colorBackground.toColor())
+        setStatusBarColor(R.color.colorBackground.toColorById())
         viewpager.adapter = HomeFragmentPageAdapter(childFragmentManager, fragments)
         viewpager.offscreenPageLimit = titles.size
         initMagicIndicator(

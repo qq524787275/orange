@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">橙子街</string>
-
+    <string name="font_bold">fonts/Quicksand_Bold.otf</string>
+    <string name="font_book">fonts/Quicksand_Book.otf</string>
+    <string name="font_light">fonts/Quicksand_Light.otf</string>
+    <string name="font_medium">fonts/Quicksand_Medium.ttf</string>
     <string name="follow_status_0">+关 注</string>
     <string name="follow_status_1">已关注</string>
     <string name="personal_payment">人付款</string>

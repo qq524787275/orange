@@ -23,7 +23,8 @@ buildscript {
         lifecycleVersion = '2.2.0-alpha01'
         materialVersion = '1.0.0'
         recyclerViewVersion = '1.0.0'
-        roomVersion = '2.1.0-rc01'
+        roomVersion = '2.1.0'
+        pagingVersion = "2.1.0"
         runnerVersion = '1.0.1'
         supportLibraryVersion = '1.0.2'
         uiAutomatorVersion = '2.2.0-alpha4'
@@ -34,14 +35,13 @@ buildscript {
         materialDialogsVersion = '2.0.0-rc7'
         loggerVersion = "2.2.0"
         rxbindingVersion = "3.0.0-alpha2"
-        bottomTabStripVersion = "2.3.0X"
         okhttpVersion = "3.10.0"
         retrofitVersion = "2.4.0"
         adapterVersion = "3.0.0"
         lottieVersion = "3.0.6"
         autosizeVerson = "0.9.5"
         fragmentationxVersion = "1.0.1"
-        pagingVersion = "2.1.0-rc01"
+        flexboxVerson = "1.1.0"
     }
 
     repositories {

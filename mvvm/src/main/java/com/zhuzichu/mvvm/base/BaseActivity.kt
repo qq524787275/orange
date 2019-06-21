@@ -1,6 +1,7 @@
 package com.zhuzichu.mvvm.base
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MotionEvent
@@ -9,9 +10,10 @@ import androidx.appcompat.widget.ContentFrameLayout
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
-import com.zhuzichu.mvvm.utils.toColor
+import com.zhuzichu.mvvm.utils.toColorById
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
 /**
@@ -46,11 +48,14 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         resources.updateConfiguration(resources.configuration, resources.displayMetrics)
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initConfiguration()
         super.onCreate(savedInstanceState)
-        QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColor())
+        QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColorById())
         QMUIStatusBarHelper.setStatusBarLightMode(this)
         _delegate.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

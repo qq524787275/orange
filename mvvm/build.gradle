@@ -45,6 +45,7 @@ dependencies {
     api "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     api "androidx.room:room-runtime:$rootProject.roomVersion"
     api "androidx.room:room-rxjava2:$rootProject.roomVersion"
+    api "com.google.android:flexbox:$rootProject.flexboxVerson"
     api("com.github.bumptech.glide:glide:$rootProject.glideVersion") {
         exclude group: "com.android.support"
     }
@@ -61,7 +62,6 @@ dependencies {
     api "com.afollestad.material-dialogs:core:$rootProject.materialDialogsVersion"
     api "com.orhanobut:logger:$rootProject.loggerVersion"
     api "com.jakewharton.rxbinding3:rxbinding-core:$rootProject.rxbindingVersion"
-    api "me.majiajie:pager-bottom-tab-strip:$rootProject.bottomTabStripVersion"
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'
     api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$rootProject.adapterVersion"
     api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$rootProject.adapterVersion"
@@ -79,7 +79,7 @@ dependencies {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
-
+    api 'uk.co.chrisjenx:calligraphy:2.3.0'
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'
 

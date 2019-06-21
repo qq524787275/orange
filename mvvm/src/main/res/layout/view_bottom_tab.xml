@@ -1,42 +1,23 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp">
 
-    <ImageView
-            android:id="@+id/icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-    />
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/bottom_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
 
-    <me.majiajie.pagerbottomtabstrip.internal.BaselineLayout
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bottom_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:clipToPadding="false"
-            android:paddingBottom="10dp">
+            android:textSize="12sp"
+            android:textColor="@color/colorSecondText"
+            android:layout_marginTop="6dp"/>
 
-        <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textSize="12sp"
-                tools:text="123"/>
-
-    </me.majiajie.pagerbottomtabstrip.internal.BaselineLayout>
-
-    <me.majiajie.pagerbottomtabstrip.internal.RoundMessageView
-            android:id="@+id/messages"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
-            android:translationX="14dp"/>
-
-</merge>
-
-
-
-
-
+</LinearLayout>

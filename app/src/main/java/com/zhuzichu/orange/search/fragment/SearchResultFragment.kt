@@ -1,23 +1,19 @@
 package com.zhuzichu.orange.search.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.transition.Fade
-import com.zhuzichu.mvvm.App
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.showTradeDetail
-import com.zhuzichu.mvvm.widget.DetailTransition
 import com.zhuzichu.orange.BR
+import com.zhuzichu.orange.R
 import com.zhuzichu.orange.checkLogin
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
 import com.zhuzichu.orange.search.viewmodel.SearchResultViewModel
 import kotlinx.android.synthetic.main.fragment_search_result.*
-import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -34,13 +30,13 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
 
     private val keyWord: String by bindArgument(KEYWORD)
 
-    override fun setLayoutId(): Int = com.zhuzichu.orange.R.layout.fragment_search_result
+    override fun setLayoutId(): Int = R.layout.fragment_search_result
 
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
         setTitle(keyWord)
-        addRightIcon(com.zhuzichu.orange.R.mipmap.ic_top, View.OnClickListener {
+        addRightIcon(R.mipmap.ic_top, View.OnClickListener {
             (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
         })
     }

@@ -1,10 +1,15 @@
-package com.zhuzichu.mvvm.view.magicindicator;
+package com.zhuzichu.mvvm.view.magicindicator.ext.titles;
 
 import android.content.Context;
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
+/**
+ * 带颜色渐变和缩放的指示器标题
+ * 博客: http://hackware.lucode.net
+ * Created by hackware on 2016/6/26.
+ */
 public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView {
-    private float mMinScale = 0.9f;
+    private float mMinScale = 0.75f;
 
     public ScaleTransitionPagerTitleView(Context context) {
         super(context);
@@ -22,18 +27,6 @@ public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView
         super.onLeave(index, totalCount, leavePercent, leftToRight);    // 实现颜色渐变
         setScaleX(1.0f + (mMinScale - 1.0f) * leavePercent);
         setScaleY(1.0f + (mMinScale - 1.0f) * leavePercent);
-    }
-
-    @Override
-    public void onSelected(int index, int totalCount) {
-        super.onSelected(index, totalCount);
-        getPaint().setFakeBoldText(true);
-    }
-
-    @Override
-    public void onDeselected(int index, int totalCount) {
-        super.onDeselected(index, totalCount);
-        getPaint().setFakeBoldText(false);
     }
 
     public float getMinScale() {

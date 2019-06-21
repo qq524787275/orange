@@ -3,9 +3,13 @@ package com.zhuzichu.orange.search.fragment
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.TextView
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.logi
-import com.zhuzichu.mvvm.utils.toColor
+import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchBinding
@@ -19,7 +23,13 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
-        setStatusBarColor(R.color.colorBackground.toColor())
+        recycler.layoutManager = FlexboxLayoutManager(context).apply {
+            justifyContent = JustifyContent.FLEX_START
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
+        }
+
+        setStatusBarColor(R.color.colorBackground.toColorById())
         showSoftInput(input)
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -41,5 +51,6 @@ class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
         _viewModel.loadHistoryData()
+        _viewModel.loadHotKeyData()
     }
 }

@@ -11,10 +11,10 @@ import com.zhuzichu.mvvm.App
  * Time: 12:42
  */
 
-fun getColor(id: Int): Int {
+fun getColorById(id: Int): Int {
     return ContextCompat.getColor(App.context, id)
 }
 
-fun Int.toColor(): Int {
+fun Int.toColorById(): Int {
     return ContextCompat.getColor(App.context, this)
 }

@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.home.viewmodel
 
-import com.ali.auth.third.ui.context.CallbackContext.activity
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand

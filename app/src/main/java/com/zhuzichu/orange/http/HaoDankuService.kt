@@ -1,12 +1,8 @@
 package com.zhuzichu.orange.http
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.SalesBean
-import com.zhuzichu.orange.bean.SearchBean
-import com.zhuzichu.orange.bean.ShopBean
-import com.zhuzichu.orange.bean.SortBean
+import com.zhuzichu.orange.bean.*
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -47,4 +43,8 @@ interface HaoDankuService {
         @Path("sale_type") sale_type: Int,
         @Path("min_id") min_id: Int
     ): Flowable<BaseRes<List<SalesBean>>>
+
+    @GET("hot_key/apikey/zhuzichu")
+    fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>>
+
 }

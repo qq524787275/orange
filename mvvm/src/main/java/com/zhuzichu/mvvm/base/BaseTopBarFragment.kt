@@ -13,7 +13,7 @@ import androidx.databinding.ViewDataBinding
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
-import com.zhuzichu.mvvm.utils.toColor
+import com.zhuzichu.mvvm.utils.toColorById
 
 /**
  * Created by Android Studio.
@@ -66,8 +66,8 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         }
 
 
-        _statuBar.setBackgroundColor(R.color.white.toColor())
-        _topBar.setBackgroundColor(R.color.white.toColor())
+        _statuBar.setBackgroundColor(R.color.white.toColorById())
+        _topBar.setBackgroundColor(R.color.white.toColorById())
         return rootView
     }
 
@@ -86,7 +86,7 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         _contentLp.topMargin = _statusbarHeight
     }
 
-    fun setStatusBarColor(color:Int){
+    fun setStatusBarColor(color: Int) {
         _statuBar.setBackgroundColor(color)
     }
 

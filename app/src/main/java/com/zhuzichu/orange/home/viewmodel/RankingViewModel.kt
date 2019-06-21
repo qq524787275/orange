@@ -19,7 +19,6 @@ import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.NetRepositoryImpl
-import com.zhuzichu.orange.search.viewmodel.ItemResultViewModel
 
 class RankingViewModel(application: Application) : BaseViewModel(application) {
     private var current = 0
@@ -38,7 +37,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return if (oldItem is ItemRankingViewModel && newItem is ItemRankingViewModel) {
-                oldItem.salesBean.itemid == newItem.salesBean.itemid
+                ((oldItem.salesBean.itemid == newItem.salesBean.itemid) && (oldItem.salesBean.itemendprice == newItem.salesBean.itemendprice))
             } else oldItem == newItem
         }
 

@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm;
+package com.zhuzichu.mvvm
 
 import android.app.Application
 import android.content.Context
@@ -13,6 +13,7 @@ import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 /**
@@ -34,7 +35,16 @@ open class App : Application() {
         initAutoSize()
         initFragmention()
         initDebugDb()
+        initFont()
 
+    }
+
+    private fun initFont() {
+        CalligraphyConfig.initDefault(
+            CalligraphyConfig.Builder()
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        )
     }
 
     private fun initDebugDb() {

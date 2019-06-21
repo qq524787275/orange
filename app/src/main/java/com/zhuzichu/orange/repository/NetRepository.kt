@@ -1,10 +1,7 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.SalesBean
-import com.zhuzichu.orange.bean.SearchBean
-import com.zhuzichu.orange.bean.ShopBean
-import com.zhuzichu.orange.bean.SortBean
+import com.zhuzichu.orange.bean.*
 import io.reactivex.Flowable
 
 /**
@@ -42,4 +39,6 @@ interface NetRepository {
         sale_type: Int,
         min_id: Int
     ):Flowable<BaseRes<List<SalesBean>>>
+
+    fun getHotKeyList():Flowable<BaseRes<List<HotKeyBean>>>
 }
