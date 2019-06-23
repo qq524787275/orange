@@ -21,19 +21,21 @@
                 app:itemBinding="@{viewModel.itemBindIndicator}"
                 app:items="@{viewModel.listIndicator}"/>
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refresh"
+        <com.zhuzichu.mvvm.view.layout.MultiStateView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
-            <com.zhuzichu.mvvm.view.layout.MultiStateView
+                app:msv_emptyView="@layout/empty_view"
+                app:msv_errorView="@layout/error_view"
+                app:msv_loadingView="@layout/loading_view"
+                app:viewState="@{viewModel.viewState}">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:msv_emptyView="@layout/empty_view"
-                    app:msv_errorView="@layout/error_view"
-                    app:msv_loadingView="@layout/loading_view"
-                    app:viewState="@{viewModel.viewState}">
+                    app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
                 <androidx.recyclerview.widget.RecyclerView
+
                         android:id="@+id/recycler_content"
                         app:itemBinding="@{viewModel.itemBind}"
                         app:items="@{viewModel.list}"
@@ -42,7 +44,9 @@
                         android:scrollbars="none"
                         android:overScrollMode="never"
                         android:layout_height="match_parent"/>
-            </com.zhuzichu.mvvm.view.layout.MultiStateView>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </com.zhuzichu.mvvm.view.layout.MultiStateView>
+
     </LinearLayout>
 </layout>

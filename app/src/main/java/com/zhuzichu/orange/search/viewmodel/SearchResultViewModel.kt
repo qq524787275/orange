@@ -55,13 +55,13 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         //上拉加载完成 并且到最后一数据
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
 
+        val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
+
         val clickItemResultEvent = SingleLiveEvent<SearchBean>()
     }
 
     val onChangeSpanSize = BindingCommand<Any>(BindingAction {
-        spanSize.set(
-            if (spanSize.get() == 1) 2 else 1
-        )
+        uc.onSpanSizeChangeEvent.call()
     })
 
     val itemBind = OnItemBindClass<Any>().apply {
@@ -165,4 +165,9 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         currentIndicator = position
     }
 
+    fun changeSpanSize() {
+        spanSize.set(
+            if (spanSize.get() == 1) 2 else 1
+        )
+    }
 }

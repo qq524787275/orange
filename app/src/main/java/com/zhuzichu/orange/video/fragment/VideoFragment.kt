@@ -1,11 +1,13 @@
 package com.zhuzichu.orange.video.fragment
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.orange.databinding.FragmentVideoBinding
 import com.zhuzichu.orange.video.viewmodel.VideoViewModel
+import kotlinx.android.synthetic.main.fragment_video.*
 
 
 class VideoFragment : BaseTopBarFragment<FragmentVideoBinding, VideoViewModel>() {
@@ -15,6 +17,23 @@ class VideoFragment : BaseTopBarFragment<FragmentVideoBinding, VideoViewModel>()
 
     override fun initView() {
         setTitle("视频秀")
+    }
+
+    override fun initViewObservable() {
+        _viewModel.uc.finishLoadmore.observe(this, Observer {
+            refresh.finishLoadMore()
+        })
+
+        _viewModel.uc.finishRefreshing.observe(this, Observer {
+            GSYVideoManager.releaseAllVideos()
+            refresh.finishRefresh()
+            refresh.setNoMoreData(false)
+        })
+
+        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
+            refresh.finishLoadMore()
+            refresh.setNoMoreData(true)
+        })
     }
 
     override fun onSupportInvisible() {

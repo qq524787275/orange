@@ -60,6 +60,21 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
             refresh.setNoMoreData(true)
         })
 
+        _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
+            val layoutManager = recycler.layoutManager as GridLayoutManager
+            if (layoutManager.childCount <= 0) {
+                return@Observer
+            }
+            val findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            _viewModel.changeSpanSize()
+            recycler.postDelayed({
+                (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
+                    findFirstVisibleItemPosition,
+                    0
+                )
+            }, 50)
+        })
+
         _viewModel.uc.clickItemResultEvent.observe(this, Observer {
             checkLogin {
                 showTradeDetail(activity, it.itemid)
