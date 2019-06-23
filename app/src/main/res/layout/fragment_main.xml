@@ -13,24 +13,25 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"/>
 
-        <FrameLayout
+        <LinearLayout
                 android:id="@+id/layout_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
             <com.zhuzichu.mvvm.view.viewpager.NoTouchViewPager
                     android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="56dp"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
             <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
                     android:id="@+id/bottom"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_gravity="bottom"
                     android:background="@color/white"/>
-        </FrameLayout>
+        </LinearLayout>
 
     </FrameLayout>
 </layout>

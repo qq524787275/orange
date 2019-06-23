@@ -13,6 +13,13 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun getVideoList(
+        cid: Int,
+        back: Int,
+        min_id: Int
+    ): Flowable<BaseRes<List<ShopBean>>>
+
+
     fun getShopList(
         nav: Int,
         cid: Int,
@@ -38,7 +45,17 @@ interface NetRepository {
         back: Int,
         sale_type: Int,
         min_id: Int
-    ):Flowable<BaseRes<List<SalesBean>>>
+    ): Flowable<BaseRes<List<SalesBean>>>
 
-    fun getHotKeyList():Flowable<BaseRes<List<HotKeyBean>>>
+    fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>>
+
+    fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>>
+
+    fun getBrandList(
+        back: Int,
+        min_id: Int
+    ): Flowable<BaseRes<List<BrandBean>>>
+
+    fun getTalentcat(): Flowable<BaseRes<TalentcatBean>>
+
 }

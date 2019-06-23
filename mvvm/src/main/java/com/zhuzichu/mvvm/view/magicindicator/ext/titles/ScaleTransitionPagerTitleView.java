@@ -1,6 +1,7 @@
 package com.zhuzichu.mvvm.view.magicindicator.ext.titles;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 /**
@@ -27,6 +28,16 @@ public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView
         super.onLeave(index, totalCount, leavePercent, leftToRight);    // 实现颜色渐变
         setScaleX(1.0f + (mMinScale - 1.0f) * leavePercent);
         setScaleY(1.0f + (mMinScale - 1.0f) * leavePercent);
+    }
+
+    @Override
+    public void onSelected(int index, int totalCount) {
+        setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+    }
+
+    @Override
+    public void onDeselected(int index, int totalCount) {
+        setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
     }
 
     public float getMinScale() {

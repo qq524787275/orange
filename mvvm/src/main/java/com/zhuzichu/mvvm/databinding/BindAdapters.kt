@@ -25,13 +25,16 @@ fun bindIsGone(view: View, isGone: Boolean) {
 }
 
 
-
 @BindingAdapter(value = ["onRefreshCommand", "onLoadMoreCommand"], requireAll = false)
 fun onRefreshAndLoadMoreCommand(
     layout: SmartRefreshLayout,
     onRefreshCommand: BindingCommand<Any>?,
     onLoadMoreCommand: BindingCommand<Any>?
 ) {
+    if (onRefreshCommand == null)
+        layout.setEnableRefresh(false)
+    if (onLoadMoreCommand == null)
+        layout.setEnableLoadMore(false)
     layout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
         override fun onLoadMore(refreshLayout: RefreshLayout) {
             onLoadMoreCommand?.execute()

@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.main.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseFragment
+import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.utils.toColorById
+import com.zhuzichu.orange.video.fragment.VideoFragment
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.CommonNavigator
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -17,12 +20,14 @@ import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.titles.Com
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
+import com.zhuzichu.orange.event.HomeEvent
 import com.zhuzichu.orange.home.fragment.HomeFragment
 import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
 import com.zhuzichu.orange.sort.fragment.SortFragment
 import kotlinx.android.synthetic.main.fragment_main.*
+
 
 /**
  * Created by Android Studio.
@@ -36,22 +41,25 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
-    private val mTitles = listOf("首页", "分类", "我的")
+    private val mTitles = listOf("首页", "分类", "视频秀", "我的")
     private val mImageNormals =
         listOf(
             R.mipmap.main_tab_home_page_normal,
             R.mipmap.main_tab_project_normal,
+            R.mipmap.main_tab_video_normal,
             R.mipmap.main_tab_mine_normal
         )
     private val mImageSeleteds = listOf(
         R.mipmap.main_tab_home_page_selected,
         R.mipmap.main_tab_project_selected,
+        R.mipmap.main_tab_video_selected,
         R.mipmap.main_tab_mine_selected
     )
 
     private val mFragments = listOf<Fragment>(
         HomeFragment(),
         SortFragment(),
+        VideoFragment(),
         MineFragment()
     )
 
@@ -63,7 +71,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             override
             fun getTitleView(context: Context?, index: Int): IPagerTitleView {
                 val commonPagerTitleView = CommonPagerTitleView(context)
-                val customLayout = LayoutInflater.from(context).inflate(R.layout.view_bottom_tab, null)
+                val customLayout =
+                    LayoutInflater.from(context).inflate(R.layout.view_bottom_tab, null)
                 val titleImg = customLayout.findViewById<View>(R.id.bottom_img) as ImageView
                 val titleText = customLayout.findViewById<View>(R.id.bottom_text) as TextView
                 titleImg.setImageResource(mImageNormals[index])
@@ -103,6 +112,30 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
         bottom.navigator = commonNavigator
         ViewPagerHelper.bind(bottom, content)
+    }
+
+    @SuppressLint("CheckResult")
+    override fun initVariable() {
+        RxBus.default.toObservable(HomeEvent.OnTowLevelEvent::class.java)
+            .compose(bindToLifecycle())
+            .subscribe {
+                if (it.state == HomeEvent.EXIT_TOW_LEVEL) {
+                    showBottom()
+                }
+
+                if (it.state == HomeEvent.ENTER_TOW_LEVEL) {
+                    hideBottom()
+                }
+            }
+    }
+
+    private fun hideBottom() {
+        bottom.visibility = View.GONE
+    }
+
+    private fun showBottom() {
+        bottom.visibility = View.VISIBLE
+
     }
 
 }

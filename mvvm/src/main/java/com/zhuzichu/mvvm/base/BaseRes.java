@@ -15,18 +15,29 @@ public class BaseRes<T> implements Serializable {
     private int min_id;
     private T general_classify;
     private T data;
+    private T item_info;
+
     private String total;
 
     public BaseRes() {
     }
 
-    public BaseRes(String msg, int code, int min_id, T general_classify, T data, String total) {
+    public BaseRes(String msg, int code, int min_id, T general_classify, T data, T item_info, String total) {
         this.msg = msg;
         this.code = code;
         this.min_id = min_id;
         this.general_classify = general_classify;
         this.data = data;
+        this.item_info = item_info;
         this.total = total;
+    }
+
+    public T getItem_info() {
+        return item_info;
+    }
+
+    public void setItem_info(T item_info) {
+        this.item_info = item_info;
     }
 
     public String getTotal() {

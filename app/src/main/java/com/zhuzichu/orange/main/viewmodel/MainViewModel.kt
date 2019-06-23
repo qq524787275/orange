@@ -11,4 +11,5 @@ import com.zhuzichu.mvvm.base.BaseViewModel
  * Time: 15:21
  */
 class MainViewModel(application: Application) : BaseViewModel(application) {
+
 }

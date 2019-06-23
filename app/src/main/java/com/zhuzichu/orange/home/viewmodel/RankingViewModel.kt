@@ -2,6 +2,7 @@ package com.zhuzichu.orange.home.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
@@ -19,6 +20,8 @@ import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.NetRepositoryImpl
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
 class RankingViewModel(application: Application) : BaseViewModel(application) {
     private var current = 0
@@ -55,7 +58,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
     val viewState = ObservableInt(MultiStateView.VIEW_STATE_LOADING)
 
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_ranking)
-    val list = MutableLiveData<List<Any>>().apply { value = ArrayList() }
+    val list = DiffObservableList<Any>(diff)
     val itemBindIndicator = itemBindingOf<ItemRankingIndicatorViewModel>(BR.item, R.layout.item_ranking_indicator)
     val listIndicator = MutableLiveData<List<ItemRankingIndicatorViewModel>>().apply {
         value = listOf(
@@ -89,6 +92,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
         val value = listIndicator.value!!
         val index = value.indexOf(item)
         min_id = 1
+        showLoadingDialog()
         updateData(item.type)
         value[current].isSelected.set(false)
         value[index].isSelected.set(true)
@@ -102,9 +106,10 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
+            .doFinally { hideLoadingDialog() }
             .map {
                 if (min_id == 1) {
-                    list.value = ArrayList()
+                    list.update(ArrayList())
                     uc.finishRefreshing.call()
                 }
                 min_id = it.min_id
@@ -115,7 +120,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
                         ItemRankingViewModel(
                             this,
                             item,
-                            ((list.value?.size ?: 0) + index + 1).toString()
+                            (list.size + index + 1).toString()
                         ).apply {
                             this.salesBean.itempic = this.salesBean.itempic.plus("_310x310.jpg")
                         })
@@ -128,11 +133,11 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
                 } else {
                     uc.finishLoadmore.call()
                 }
-                list.value = list.value!! + it
+                list.update(list + it)
                 viewState.set(MultiStateView.VIEW_STATE_CONTENT)
             }, {
                 if (it is ResponseThrowable) {
-                    if (it.code == ExceptionHandle.ERROR.NO_DATA && list.value?.size == 0) {
+                    if (it.code == ExceptionHandle.ERROR.NO_DATA && list.size == 0) {
                         viewState.set(MultiStateView.VIEW_STATE_EMPTY)
                     } else {
                         viewState.set(MultiStateView.VIEW_STATE_CONTENT)

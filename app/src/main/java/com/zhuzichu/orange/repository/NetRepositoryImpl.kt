@@ -13,6 +13,27 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+
+    override fun getVideoList(
+        cid: Int,
+        back: Int,
+        min_id: Int
+    ): Flowable<BaseRes<List<ShopBean>>> {
+        return getHaoDankuService().getShopList(4, cid, back, min_id)
+    }
+
+    override fun getTalentcat(): Flowable<BaseRes<TalentcatBean>> {
+        return getHaoDankuService().getTalentcat()
+    }
+
+    override fun getBrandList(back: Int, min_id: Int): Flowable<BaseRes<List<BrandBean>>> {
+        return getHaoDankuService().getBrandList(back, min_id)
+    }
+
+    override fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>> {
+        return getHaoDankuService().getDeserveList()
+    }
+
     override fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>> {
         return getHaoDankuService().getHotKeyList()
     }

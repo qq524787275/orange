@@ -19,14 +19,27 @@ import com.zhuzichu.orange.db.SearchHistory
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
+import io.reactivex.Flowable
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 @SuppressLint("CheckResult")
 class SearchViewModel(application: Application) : BaseViewModel(application) {
-    private val mutableLiveData = ObservableArrayList<ItemHistoryViewModel>()
+    val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            return if (oldItem is ItemHistoryViewModel && newItem is ItemHistoryViewModel) {
+                oldItem.searchHistory.keyWord == newItem.searchHistory.keyWord
+            } else oldItem == newItem
+        }
 
-    private val hotLiveData = ObservableArrayList<ItemHistoryViewModel>()
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
+    }
+
+    private val mutableLiveData = AsyncDiffObservableList<Any>(diff)
+
+    private val hotLiveData = AsyncDiffObservableList<Any>(diff)
 
     val list = MergeObservableList<Any>()
         .insertItem(ItemTitleViewModel(this, "历史记录"))
@@ -39,16 +52,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         map<ItemTitleViewModel>(BR.item, R.layout.item_search_history_title)
     }
 
-    val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if (oldItem is ItemHistoryViewModel && newItem is ItemHistoryViewModel) {
-                oldItem.searchHistory.keyWord == newItem.searchHistory.keyWord
-            } else oldItem == newItem
-        }
 
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
-    }
 
 
     val keyWord = MutableLiveData<String>()
@@ -74,14 +78,14 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .map {
-                val list = mutableListOf<ItemHistoryViewModel>()
+                val list = mutableListOf<Any>()
                 it.forEach { item ->
                     list.add(ItemHistoryViewModel(this, item))
                 }
                 list
             }
             .subscribe({
-                mutableLiveData.addAll(it)
+                mutableLiveData.update(it as List<Any>?)
             }, {
                 handleThrowable(it)
             })
@@ -91,15 +95,19 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         NetRepositoryImpl.getHotKeyList()
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
+            .map { it.data }
+            .flatMap { Flowable.fromIterable(it) }
+            .take(10)
+            .toList()
             .map {
-                val list = mutableListOf<ItemHistoryViewModel>()
-                it.data.forEach { item ->
+                val list = mutableListOf<Any>()
+                it.forEach { item ->
                     list.add(ItemHistoryViewModel(this, SearchHistory(item.keyword)))
                 }
                 list
             }
             .subscribe({
-                hotLiveData.addAll(it)
+                hotLiveData.update(it)
             }, {
                 handleThrowable(it)
             })

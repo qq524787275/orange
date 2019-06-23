@@ -14,6 +14,8 @@
                 android:id="@+id/recycler_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:overScrollMode="never"
                 android:layout_gravity="bottom"
                 app:gridLayoutManager="@{3}"
                 app:itemBinding="@{viewModel.itemBindIndicator}"
@@ -23,8 +25,6 @@
                 android:id="@+id/refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:onRefreshCommand="@{viewModel.onRefreshCommand}"
                 app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
             <com.zhuzichu.mvvm.view.layout.MultiStateView
                     android:layout_width="match_parent"
@@ -37,9 +37,10 @@
                         android:id="@+id/recycler_content"
                         app:itemBinding="@{viewModel.itemBind}"
                         app:items="@{viewModel.list}"
-                        app:diffConfig="@{viewModel.diff}"
                         android:layout_width="match_parent"
                         app:gridLayoutManager="@{2}"
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
                         android:layout_height="match_parent"/>
             </com.zhuzichu.mvvm.view.layout.MultiStateView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

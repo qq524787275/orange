@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             app:onClickCommand="@{item.clickItem}"
             android:gravity="center_vertical"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             app:cardCornerRadius="5dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center_vertical"
@@ -25,10 +25,10 @@
                 android:layout_width="wrap_content"
                 tools:text="男装"
                 android:textColor="@color/colorSecondText"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:padding="5dp"
+                android:padding="7dp"
                 android:text="@{item.searchHistory.keyWord}"/>
 
     </androidx.cardview.widget.CardView>

@@ -79,6 +79,7 @@ dependencies {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
+    api 'com.shuyu:GSYVideoPlayer:7.0.1'
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'

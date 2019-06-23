@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import com.ali.auth.third.core.model.Session
 
 object AppGlobal {
+
     val isLogin = ObservableBoolean(false)
     val session = ObservableField<Session>(Session())
 

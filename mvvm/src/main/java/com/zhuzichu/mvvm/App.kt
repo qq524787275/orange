@@ -74,10 +74,12 @@ open class App : Application() {
 
     init {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setEnableOverScrollDrag(false)//禁止越界拖动（1.0.4以上版本）
-            layout.setEnableOverScrollBounce(false)//关闭越界回弹功能
-            layout.setEnableLoadMoreWhenContentNotFull(false)
-            layout.setEnableAutoLoadMore(true)//设置是否监听列表在滚动到底部时触发加载事件
+            //全局设置（优先级最低）
+            layout.setEnableAutoLoadMore(true);
+            layout.setEnableOverScrollDrag(false);
+            layout.setEnableOverScrollBounce(true);
+            layout.setEnableLoadMoreWhenContentNotFull(true);
+            layout.setEnableScrollContentWhenRefreshed(true);
             layout.setPrimaryColorsId(R.color.white, R.color.colorPrimaryText)//全局设置主题颜色
 //            ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Scale)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             MaterialHeader(context)

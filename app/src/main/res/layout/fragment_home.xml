@@ -3,29 +3,125 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.home.viewmodel.HomeViewModel"/>
     </data>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
+            android:clipToPadding="false"
             android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-                android:orientation="vertical"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                app:srlAccentColor="@color/white"
+                android:layout_height="match_parent"
+                android:clipChildren="true"
+                app:onLoadMoreCommand="@null"
+                android:paddingTop="80dp">
+
+            <com.scwang.smartrefresh.layout.header.TwoLevelHeader
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:id="@+id/secondfloor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/image_secondfloor"/>
+                <ImageView
+                        android:id="@+id/secondfloor_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/image_secondfloor_content"
+                        android:alpha="0"/>
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                        android:id="@+id/classics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="80dp"/>
+            </com.scwang.smartrefresh.layout.header.TwoLevelHeader>
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:background="@color/colorBackground">
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <com.google.android.material.appbar.AppBarLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBackground">
+
+
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                app:cardCornerRadius="5dp"
+                                app:layout_scrollFlags="scroll">
+
+                            <com.zhuzichu.mvvm.view.banner.Banner
+                                    android:id="@+id/banner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_navigation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:gridLayoutManager="@{5}"
+                                android:background="@color/white"
+                                app:layout_scrollFlags="scroll"
+                                android:scrollbars="none"
+                                android:overScrollMode="never"
+                                app:itemBinding="@{viewModel.itemNavigation}"
+                                app:items="@{viewModel.listNavigation}"/>
+
+                        <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
+                                android:id="@+id/indicator"
+                                android:layout_width="match_parent"
+                                android:background="@color/white"
+                                android:layout_height="45dp"/>
+
+                    </com.google.android.material.appbar.AppBarLayout>
+
+
+                    <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewpager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </FrameLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+        <FrameLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
                 android:background="@color/colorBackground">
 
             <androidx.cardview.widget.CardView
-                    android:id="@+id/search_layout"
+                    android:id="@+id/search_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    app:layout_scrollFlags="scroll"
                     android:transitionName="@string/transition_search"
-                    app:layout_scrollFlags="scroll|enterAlways"
                     app:onClickCommand="@{viewModel.clickSearchLayout}"
                     app:cardElevation="1dp"
                     app:cardCornerRadius="5dp">
@@ -55,20 +151,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:background="@color/white"
-                    android:layout_height="45dp"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </FrameLayout>
+    </FrameLayout>
 </layout>
