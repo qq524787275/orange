@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
 
     <application
@@ -59,6 +59,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:exported="true" android:name="com.kepler.jd.sdk.KeplerBackActivity"
+                  android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="sdkbackb5137223b397ccdf124d09aff0c15c2e"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

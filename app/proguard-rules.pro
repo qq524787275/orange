@@ -140,6 +140,12 @@
 -keep class org.json.** {*;}
 -keep class com.ali.auth.**  {*;}
 
+-keep class com.jingdong.**{*;}
+-dontwarn com.jingdong.**
+-keep class com.jd.**{*;}
+-dontwarn com.jd.**
+-keep class com.kepler.**{*;}
+-dontwarn com.kepler.**
 
 -keep class com.shuyu.gsyvideoplayer.video.** { *; }
 -dontwarn com.shuyu.gsyvideoplayer.video.**

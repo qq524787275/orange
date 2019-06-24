@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
-import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.showTradeDetail
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -46,19 +45,19 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     }
 
     override fun initViewObservable() {
-        _viewModel.uc.finishLoadmore.observe(this, Observer {
-            refresh.finishLoadMore()
-        })
-
-        _viewModel.uc.finishRefreshing.observe(this, Observer {
-            refresh.finishRefresh()
-            refresh.setNoMoreData(false)
-        })
-
-        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
-            refresh.finishLoadMore()
-            refresh.setNoMoreData(true)
-        })
+//        _viewModel.uc.finishLoadmore.observe(this, Observer {
+//            refresh.finishLoadMore()
+//        })
+//
+//        _viewModel.uc.finishRefreshing.observe(this, Observer {
+//            refresh.finishRefresh()
+//            refresh.setNoMoreData(false)
+//        })
+//
+//        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
+//            refresh.finishLoadMore()
+//            refresh.setNoMoreData(true)
+//        })
 
         _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
             val layoutManager = recycler.layoutManager as GridLayoutManager

@@ -90,23 +90,6 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:onRefreshCommand="@{viewModel.onRefreshCommand}"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
-
-            <com.zhuzichu.mvvm.view.layout.MultiStateView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:msv_emptyView="@layout/empty_view"
-                    app:msv_errorView="@layout/error_view"
-                    app:msv_loadingView="@layout/loading_view"
-                    app:viewState="@{viewModel.viewState}">
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"
@@ -119,9 +102,8 @@
                         tools:listitem="@layout/item_search_result"
                         app:items="@{viewModel.list}"
                 />
-            </com.zhuzichu.mvvm.view.layout.MultiStateView>
 
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

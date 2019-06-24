@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.viewModelScope
+import androidx.paging.DataSource
+import androidx.paging.ItemKeyedDataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
@@ -87,6 +91,29 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         list.addAll(input)
         list
     }
+
+    val pagedList: LiveData<PagedList<Any>> =
+        LivePagedListBuilder(object : DataSource.Factory<Int, Any>() {
+            override fun create(): DataSource<Int, Any> =
+                object : ItemKeyedDataSource<Int,Any>() {
+                    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Any>) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Any>) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Any>) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun getKey(item: Any): Int {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                }
+        }, back).build()
 
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
