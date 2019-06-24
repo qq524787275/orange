@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.utils.toColorById
-import com.zhuzichu.orange.video.fragment.VideoFragment
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.CommonNavigator
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -21,6 +20,7 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
 import com.zhuzichu.orange.event.HomeEvent
+import com.zhuzichu.orange.find.fragment.FindFragment
 import com.zhuzichu.orange.home.fragment.HomeFragment
 import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
@@ -41,25 +41,25 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
-    private val mTitles = listOf("首页", "分类", "视频秀", "我的")
+    private val mTitles = listOf("首页", "分类", "发现", "我的")
     private val mImageNormals =
         listOf(
-            R.mipmap.main_tab_home_page_normal,
-            R.mipmap.main_tab_project_normal,
-            R.mipmap.main_tab_video_normal,
+            R.mipmap.main_tab_home_normal,
+            R.mipmap.main_tab_sort_normal,
+            R.mipmap.main_tab_find_normal,
             R.mipmap.main_tab_mine_normal
         )
     private val mImageSeleteds = listOf(
-        R.mipmap.main_tab_home_page_selected,
-        R.mipmap.main_tab_project_selected,
-        R.mipmap.main_tab_video_selected,
+        R.mipmap.main_tab_home_selected,
+        R.mipmap.main_tab_sort_selected,
+        R.mipmap.main_tab_find_selected,
         R.mipmap.main_tab_mine_selected
     )
 
     private val mFragments = listOf<Fragment>(
         HomeFragment(),
         SortFragment(),
-        VideoFragment(),
+        FindFragment(),
         MineFragment()
     )
 

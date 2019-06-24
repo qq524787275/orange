@@ -45,19 +45,19 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
     }
 
     override fun initViewObservable() {
-//        _viewModel.uc.finishLoadmore.observe(this, Observer {
-//            refresh.finishLoadMore()
-//        })
-//
-//        _viewModel.uc.finishRefreshing.observe(this, Observer {
-//            refresh.finishRefresh()
-//            refresh.setNoMoreData(false)
-//        })
-//
-//        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
-//            refresh.finishLoadMore()
-//            refresh.setNoMoreData(true)
-//        })
+        _viewModel.uc.finishLoadmore.observe(this, Observer {
+            refresh.finishLoadMore()
+        })
+
+        _viewModel.uc.finishRefreshing.observe(this, Observer {
+            refresh.finishRefresh()
+            refresh.setNoMoreData(false)
+        })
+
+        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
+            refresh.finishLoadMore()
+            refresh.setNoMoreData(true)
+        })
 
         _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
             val layoutManager = recycler.layoutManager as GridLayoutManager
