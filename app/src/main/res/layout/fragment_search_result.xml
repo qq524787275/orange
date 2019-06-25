@@ -68,6 +68,8 @@
                         android:layout_height="45dp"
                         android:layout_gravity="bottom"
                         app:gridLayoutManager="@{3}"
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
                         app:itemBinding="@{viewModel.itemBindIndicator}"
                         app:items="@{viewModel.listIndicator}"
                         android:background="@color/white"/>

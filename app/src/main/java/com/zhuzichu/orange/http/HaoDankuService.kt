@@ -60,4 +60,9 @@ interface HaoDankuService {
     @GET("talent_info/apikey/zhuzichu/talentcat/1")
     fun getTalentcat(): Flowable<BaseRes<TalentcatBean>>
 
+
+    @GET("selected_item/apikey/zhuzichu/min_id/{min_id}")
+    fun getSelectedItemList(
+        @Path("min_id") min_id: Int
+    ): Flowable<BaseRes<List<SelectedItemBean>>>
 }

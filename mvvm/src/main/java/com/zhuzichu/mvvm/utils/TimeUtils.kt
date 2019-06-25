@@ -1,6 +1,6 @@
 package com.zhuzichu.mvvm.utils
 
-import android.text.TextUtils
+import java.math.BigDecimal
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,293 +12,303 @@ import java.util.*
  * Date: 2019-05-31
  * Time: 14:41
  */
-private val yearLevelValue = (365 * 24 * 60 * 60 * 1000).toLong()
-private val monthLevelValue = (30 * 24 * 60 * 60 * 1000).toLong()
-private val dayLevelValue = (24 * 60 * 60 * 1000).toLong()
-private val hourLevelValue = (60 * 60 * 1000).toLong()
-private val minuteLevelValue = (60 * 1000).toLong()
-private val secondLevelValue: Long = 1000
-
-fun getDifference(nowTime: Long, targetTime: Long): String {// 目标时间与当前时间差
-    val period = targetTime - nowTime
-    return getDifference(period)
+fun isEarly(days: Int, time: Long): Boolean {
+    return currentTimeMillis() - time > days * 24 * 3600 * 1000
 }
 
-fun getDifference(period: Long): String {// 根据毫秒差计算时间差
-    var result: String?
-    /******* 计算出时间差中的年、月、日、天、时、分、秒  */
-    val year = getYear(period)
-    val month = getMonth(period - year * yearLevelValue)
-    val day = getDay(period - year * yearLevelValue - month * monthLevelValue)
-    val hour = getHour(period - year * yearLevelValue - month * monthLevelValue - day * dayLevelValue)
-    val minute =
-        getMinute(period - year * yearLevelValue - month * monthLevelValue - day * dayLevelValue - hour * hourLevelValue)
-    val second =
-        getSecond(period - year * yearLevelValue - month * monthLevelValue - day * dayLevelValue - hour * hourLevelValue - minute * minuteLevelValue)
-    if (year == 0) {
-        result = month.toString() + "月" + day + "天" + hour + "小时" + minute + "分" + second + "秒"
-        if (month == 0) {
-            result = day.toString() + "天" + hour + "小时" + minute + "分" + second + "秒"
-            /*if(day==0){
-                result = hour + "时" + minute + "分" + second + "秒";
-                if(hour==0){
-                    result = minute + "分" + second + "秒";
-                    if(minute==0){
-                        result = second + "秒";
-                        if(second==0){
-                            result="时间已到";
-                        }
-                    }
-                }
-            }*/
-        }
-    } else {
-        result = year.toString() + "年" + month + "月" + day + "天" + hour + "小时" + minute + "分" + second + "秒"
-    }
-    return result
+fun currentTimeSecond(): Int {
+    return (System.currentTimeMillis() / 1000).toInt()
 }
 
-fun getYear(period: Long): Int {
-    return (period / yearLevelValue).toInt()
+fun currentTimeMillis(): Long {
+    return System.currentTimeMillis()
 }
 
-fun getMonth(period: Long): Int {
-    return (period / monthLevelValue).toInt()
+fun getTsTimes(): LongArray {
+    val times = LongArray(2)
+
+    val calendar = Calendar.getInstance()
+
+    times[0] = calendar.timeInMillis / 1000
+
+    calendar.set(Calendar.HOUR_OF_DAY, 0)
+    calendar.set(Calendar.MINUTE, 0)
+    calendar.set(Calendar.SECOND, 0)
+
+    times[1] = calendar.timeInMillis / 1000
+
+    return times
 }
 
-fun getDay(period: Long): Int {
-    return (period / dayLevelValue).toInt()
+fun getFormatDatetime(year: Int, month: Int, day: Int): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd")
+    return formatter.format(GregorianCalendar(year, month, day).time)
 }
 
-fun getHour(period: Long): Int {
-    return (period / hourLevelValue).toInt()
-}
-
-fun getMinute(period: Long): Int {
-    return (period / minuteLevelValue).toInt()
-}
-
-fun getSecond(period: Long): Int {
-    return (period / secondLevelValue).toInt()
-}
-
-/**
- * 将一个时间戳转换成提示性时间字符串，如刚刚，1秒前
- * 若是当天，则显示时间12:00，若是其他时间（当年），月/日；其他年份，年/月/日
- * @param
- * @return
- */
-fun convertTimeToFormata(timeStamp: Long): String {
+fun getDateFromFormatString(formatDate: String): Date? {
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
     try {
-        var str = ""
-        val now = Calendar.getInstance()
-        val ms =
-            (1000 * (now.get(Calendar.HOUR_OF_DAY) * 3600 + now.get(Calendar.MINUTE) * 60 + now.get(Calendar.SECOND))).toLong()// 毫秒数
-        val ms_now = now.timeInMillis
-        val newTime = SimpleDateFormat("HH:mm").format(Date(timeStamp)).toString()
-        if (ms_now - timeStamp < ms) {
-            str = "今天 $newTime"
-        } else if (ms_now - timeStamp < ms + 24 * 3600 * 1000) {
-
-        }
-        return str
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-
-    return SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(timeStamp)).toString()
-}
-
-
-/**
- * 将一个时间戳转换成提示性时间字符串，如刚刚，1秒前
- * @param timeStamp
- * @return
- */
-fun convertTimeToFormat(timeStamp: Long): String {
-    return if (isNow(timeStamp)) {
-        SimpleDateFormat("HH:mm").format(timeStamp).toString()
-    } else if (isYear(timeStamp)) {//yyyy-MM-dd
-        SimpleDateFormat("MM/dd").format(timeStamp).toString()
-    } else {
-        SimpleDateFormat("yyyy/MM/dd").format(timeStamp).toString()
-    }
-}
-
-/**
- * 判断时间是不是今天
- * @return    是返回true，不是返回false
- */
-private fun isNow(timeStamp: Long): Boolean {
-    //当前时间
-    val now = Date()
-    val sf = SimpleDateFormat("yyyyMMdd")
-    //获取今天的日期
-    val nowDay = sf.format(now)
-    //对比的时间
-    val day = sf.format(Date(timeStamp))
-    return day == nowDay
-}
-
-/**
- * 判断时间是不是今年
- * @return    是返回true，不是返回false
- */
-private fun isYear(timeStamp: Long): Boolean {
-    //当前时间
-    val now = Calendar.getInstance()
-    return now.get(Calendar.YEAR).toString() == getTimeToMs1(timeStamp)
-}
-
-/**
- * 将时间改成今天、昨天、前天
- */
-fun getTimeType(timeStamp: Long, pattern: String, addTime: Boolean): String {
-    var pattern = pattern
-    try {
-        var str: String
-        val now = Calendar.getInstance()
-        val ms =
-            (1000 * (now.get(Calendar.HOUR_OF_DAY) * 3600 + now.get(Calendar.MINUTE) * 60 + now.get(Calendar.SECOND))).toLong()// 毫秒数
-        val ms_now = now.timeInMillis
-        val newTime = SimpleDateFormat("HH:mm").format(Date(timeStamp)).toString()
-        if (ms_now - timeStamp < ms) {
-            str = "今天 $newTime"
-        } else if (ms_now - timeStamp < ms + 24 * 3600 * 1000) {
-            pattern = "HH:mm"
-            val time = SimpleDateFormat(pattern).format(Date(timeStamp)).toString()
-            str = if (addTime) "昨天 $time" else "昨天"
-            //+newTime;
-        } /*else if (ms_now - timeStamp < (ms + 24 * 3600 * 1000 * 2)) {
-                str = "前天";
-				//+newTim;
-			}*/
-        else {
-            if (TextUtils.isEmpty(pattern))
-                pattern = "MM-dd"
-            str = SimpleDateFormat(pattern).format(Date(timeStamp)).toString()
-        }
-        return str
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-
-    return SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date(timeStamp)).toString()
-}
-
-/**
- * 获取系统当前时间
- *
- * @param pattern
- * @return
- */
-fun getTime(pattern: String): String {
-    val format = SimpleDateFormat(pattern)
-    val date = Date()
-    return format.format(date)
-}
-
-/**
- * 毫秒转字符串时间
- *
- * @param time
- * @param pattern 格式
- * @return
- */
-fun getMilltoTime(time: Long, pattern: String): String {
-    val format = SimpleDateFormat(pattern)
-    val date = Date(time)
-    return format.format(date)
-}
-
-/**
- * 字符串时间转毫秒
- *
- * @param time
- * @param pattern 格式
- * @return
- */
-fun getTimetoMill(time: String, pattern: String): Long {
-    try {
-        val c = Calendar.getInstance()
-        c.time = SimpleDateFormat(pattern).parse(time)
-        return c.timeInMillis
+        return sdf.parse(formatDate)
     } catch (e: ParseException) {
         e.printStackTrace()
     }
 
-    return 0
+    return null
 }
 
+fun getNowDatetime(): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    return formatter.format(Date())
+}
+
+fun getNow(): Int {
+    return (Date().time / 1000).toInt()
+}
+
+fun getNowDateTime(format: String): String {
+    val date = Date()
+
+    val df = SimpleDateFormat(format, Locale.getDefault())
+    return df.format(date)
+}
+
+fun getDateString(milliseconds: Long): String {
+    return getDateTimeString(milliseconds, "yyyyMMdd")
+}
+
+fun getTimeString(milliseconds: Long): String {
+    return getDateTimeString(milliseconds, "HHmmss")
+}
+
+fun getBeijingNowTimeString(format: String): String {
+    val timezone = TimeZone.getTimeZone("Asia/Shanghai")
+
+    val date = Date(currentTimeMillis())
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    formatter.timeZone = timezone
+
+    val gregorianCalendar = GregorianCalendar()
+    gregorianCalendar.timeZone = timezone
+    val prefix = if (gregorianCalendar.get(Calendar.AM_PM) == Calendar.AM) "上午" else "下午"
+
+    return prefix + formatter.format(date)
+}
+
+fun getBeijingNowTime(format: String): String {
+    val timezone = TimeZone.getTimeZone("Asia/Shanghai")
+
+    val date = Date(currentTimeMillis())
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    formatter.timeZone = timezone
+
+    return formatter.format(date)
+}
+
+fun getDateTimeString(milliseconds: Long, format: String): String {
+    val date = Date(milliseconds)
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    return formatter.format(date)
+}
+
+
+fun getFavoriteCollectTime(milliseconds: Long): String {
+    var showDataString = ""
+    val today = Date()
+    val date = Date(milliseconds)
+    val firstDateThisYear = Date(today.year, 0, 0)
+    if (!date.before(firstDateThisYear)) {
+        val dateformatter = SimpleDateFormat("MM-dd", Locale.getDefault())
+        showDataString = dateformatter.format(date)
+    } else {
+        val dateformatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        showDataString = dateformatter.format(date)
+    }
+    return showDataString
+}
+
+fun getTimeShowString(milliseconds: String, abbreviate: Boolean): String {
+    val long = java.lang.Long.parseLong(milliseconds)
+    return getTimeShowString(long*1000, abbreviate)
+}
+
+fun getTimeShowString(milliseconds: Long, abbreviate: Boolean): String {
+    val dataString: String
+    val timeStringBy24: String
+
+    val currentTime = Date(milliseconds)
+    val today = Date()
+    val todayStart = Calendar.getInstance()
+    todayStart.set(Calendar.HOUR_OF_DAY, 0)
+    todayStart.set(Calendar.MINUTE, 0)
+    todayStart.set(Calendar.SECOND, 0)
+    todayStart.set(Calendar.MILLISECOND, 0)
+    val todaybegin = todayStart.time
+    val yesterdaybegin = Date(todaybegin.time - 3600 * 24 * 1000)
+    val preyesterday = Date(yesterdaybegin.time - 3600 * 24 * 1000)
+
+    if (!currentTime.before(todaybegin)) {
+        dataString = "今天"
+    } else if (!currentTime.before(yesterdaybegin)) {
+        dataString = "昨天"
+    } else if (isSameWeekDates(currentTime, today)) {
+        dataString = getWeekOfDate(currentTime)
+    } else {
+        val dateformatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        dataString = dateformatter.format(currentTime)
+    }
+
+    val timeformatter24 = SimpleDateFormat("HH:mm", Locale.getDefault())
+    timeStringBy24 = timeformatter24.format(currentTime)
+
+    return if (abbreviate) {
+        if (!currentTime.before(todaybegin)) {
+            getTodayTimeBucket(currentTime)
+        } else {
+            dataString
+        }
+    } else {
+        "$dataString $timeStringBy24"
+    }
+}
 
 /**
- * 毫秒数转日期
+ * 根据不同时间段，显示不同时间
+ *
+ * @param date
+ * @return
  */
-fun getTimeToHH(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("HH")
-    return sdf.format(d).toString()
-}
-
-fun getTimeToHm(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("HH:mm")
-    return sdf.format(d).toString()
-}
-
-fun getTimeToHms(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("HH:mm:ss")
-    return sdf.format(d).toString()
-}
-
-fun getTimeToYMDHms(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    return sdf.format(d).toString()
+fun getTodayTimeBucket(date: Date): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val timeformatter0to11 = SimpleDateFormat("KK:mm", Locale.getDefault())
+    val timeformatter1to12 = SimpleDateFormat("hh:mm", Locale.getDefault())
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    if (hour >= 0 && hour < 5) {
+        return "凌晨 " + timeformatter0to11.format(date)
+    } else if (hour >= 5 && hour < 12) {
+        return "上午 " + timeformatter0to11.format(date)
+    } else if (hour >= 12 && hour < 18) {
+        return "下午 " + timeformatter1to12.format(date)
+    } else if (hour >= 18 && hour < 24) {
+        return "晚上 " + timeformatter1to12.format(date)
+    }
+    return ""
 }
 
 /**
- * 毫秒数转日期
+ * 根据日期获得星期
+ *
+ * @param date
+ * @return
  */
-fun getTimeToMs1(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("yyyy")
-    return sdf.format(d).toString()
+fun getWeekOfDate(date: Date): String {
+    val weekDaysName = arrayOf("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+    // String[] weekDaysCode = { "0", "1", "2", "3", "4", "5", "6" };
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val intWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
+    return weekDaysName[intWeek]
+}
+
+fun isSameDay(time1: Long, time2: Long): Boolean {
+    return isSameDay(Date(time1), Date(time2))
+}
+
+fun isSameDay(date1: Date, date2: Date): Boolean {
+    val cal1 = Calendar.getInstance()
+    val cal2 = Calendar.getInstance()
+    cal1.time = date1
+    cal2.time = date2
+
+    return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
 }
 
 /**
- * 毫秒数转日期
+ * 判断两个日期是否在同一周
+ *
+ * @param date1
+ * @param date2
+ * @return
  */
-fun getTimeToM(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("yyyy-MM-dd")
-    return sdf.format(d).toString()
+fun isSameWeekDates(date1: Date, date2: Date): Boolean {
+    val cal1 = Calendar.getInstance()
+    val cal2 = Calendar.getInstance()
+    cal1.time = date1
+    cal2.time = date2
+    val subYear = cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR)
+    if (0 == subYear) {
+        if (cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR))
+            return true
+    } else if (1 == subYear && 11 == cal2.get(Calendar.MONTH)) {
+        // 如果12月的最后一周横跨来年第一周的话则最后一周即算做来年的第一周
+        if (cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR))
+            return true
+    } else if (-1 == subYear && 11 == cal1.get(Calendar.MONTH)) {
+        if (cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR))
+            return true
+    }
+    return false
 }
 
-/**
- * 毫秒数转日期
- */
-fun getTimeToE(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("yyyy-MM-dd  EEEE")
-    return sdf.format(d).toString()
+fun getSecondsByMilliseconds(milliseconds: Long): Long {
+// if (seconds == 0) {
+    // seconds = 1;
+    // }
+    return BigDecimal((milliseconds.toFloat() / 1000.toFloat()).toDouble()).setScale(
+        0,
+        BigDecimal.ROUND_HALF_UP
+    ).toInt().toLong()
 }
 
-/**
- * 毫秒数转日期
- */
-fun getTimeMDHM(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("MM.dd HH:mm")
-    return sdf.format(d).toString()
+fun secToTime(time: Int): String {
+    var timeStr: String? = null
+    var hour = 0
+    var minute = 0
+    var second = 0
+    if (time <= 0)
+        return "00:00"
+    else {
+        minute = time / 60
+        if (minute < 60) {
+            second = time % 60
+            timeStr = unitFormat(minute) + ":" + unitFormat(second)
+        } else {
+            hour = minute / 60
+            if (hour > 99)
+                return "99:59:59"
+            minute = minute % 60
+            second = time - hour * 3600 - minute * 60
+            timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second)
+        }
+    }
+    return timeStr
 }
 
-/**
- * 毫秒数转日期
- */
-fun getTimeToEhm(seconds: Long): String {
-    val d = Date(seconds)
-    val sdf = SimpleDateFormat("yyyy-MM-dd  EEEE HH:mm")
-    return sdf.format(d).toString()
+fun unitFormat(i: Int): String {
+    var retStr: String? = null
+    if (i >= 0 && i < 10)
+        retStr = "0" + Integer.toString(i)
+    else
+        retStr = "" + i
+    return retStr
+}
+
+fun getElapseTimeForShow(milliseconds: Int): String {
+    val sb = StringBuilder()
+    var seconds = milliseconds / 1000
+    if (seconds < 1)
+        seconds = 1
+    val hour = seconds / (60 * 60)
+    if (hour != 0) {
+        sb.append(hour).append("小时")
+    }
+    val minute = (seconds - 60 * 60 * hour) / 60
+    if (minute != 0) {
+        sb.append(minute).append("分")
+    }
+    val second = seconds - 60 * 60 * hour - 60 * minute
+    if (second != 0) {
+        sb.append(second).append("秒")
+    }
+    return sb.toString()
 }

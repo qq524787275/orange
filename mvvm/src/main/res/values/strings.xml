@@ -15,10 +15,11 @@
     <string name="order">订单</string>
     <string name="shopcart">购物车</string>
     <string name="collection">收藏</string>
+    <string name="advise_time">建议发送时间：</string>
     <string name="rmb">¥</string>
 
 
-    <string name="Illegal_info"> Illegal application ,check init !</string>
+    <string name="Illegal_info">Illegal application ,check init !</string>
     <string name="kepler_check_net">请检查您的网络环境</string>
 
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">发生意外错误。\n抱歉，给您带来不便。</string>

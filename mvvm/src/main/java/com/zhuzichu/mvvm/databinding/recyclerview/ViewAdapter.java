@@ -1,15 +1,47 @@
 package com.zhuzichu.mvvm.databinding.recyclerview;
 
 
+import android.annotation.SuppressLint;
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.zhuzichu.mvvm.BR;
+import com.zhuzichu.mvvm.R;
 import com.zhuzichu.mvvm.databinding.command.BindingCommand;
+import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapters;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
+
+import java.util.List;
 
 /**
  * Created by goldze on 2017/6/16.
  */
 public class ViewAdapter {
+
+    @BindingAdapter("bindNineImages")
+    public static void bindNineImages(RecyclerView recyclerView, List<String> list) {
+        if (list == null || list.size() <= 0) {
+            return;
+        }
+        ItemBinding<String> itemBind = ItemBinding.of(BR.item, R.layout.item_nine_image);
+        DiffObservableList<String> items = new DiffObservableList<>(new DiffUtil.ItemCallback<String>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+                return oldItem.equals(newItem);
+            }
+
+            @SuppressLint("DiffUtilEquals")
+            @Override
+            public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+                return oldItem == newItem;
+            }
+        });
+        items.update(list);
+        BindingRecyclerViewAdapters.setAdapter(recyclerView, itemBind, items, null, null, null, null);
+    }
 
     @BindingAdapter("lineManager")
     public static void setLineManager(RecyclerView recyclerView, LineManagers.LineManagerFactory lineManagerFactory) {

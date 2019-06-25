@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.zhuzichu.mvvm.utils.TimeUtilsKt"/>
+        <import type="androidx.recyclerview.widget.GridLayoutManager"/>
+        <import type="com.zhuzichu.mvvm.databinding.recyclerview.LineManagers"/>
+        <variable name="item" type="com.zhuzichu.orange.find.viewmodel.ItemOneViewModel"/>
+    </data>
+    <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="5dp"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="哈哈哈哈哈哈哈哈哈"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginStart="10dp"
+                    android:textSize="15sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@{item.selectedItemBean.title}"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@{item.selectedItemBean.copy_content}"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    app:bindNineImages="@{item.selectedItemBean.itempic}"
+                    app:gridLayoutManager="@{3}"
+                    app:lineManager="@{LineManagers.gridSpacing()}"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/advise_time"
+                        android:textColor="@color/colorSecondText"
+                        android:textSize="13sp"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        tools:text="今天 16:9"
+                        android:text="@{TimeUtilsKt.getTimeShowString(item.selectedItemBean.advise_time,false)}"
+                        android:textSize="13sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
