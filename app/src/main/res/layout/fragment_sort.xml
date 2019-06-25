@@ -44,7 +44,5 @@
                     tools:itemCount="1"
             />
         </com.zhuzichu.mvvm.widget.StickyHeaderLayout>
-
-
     </LinearLayout>
 </layout>

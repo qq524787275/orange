@@ -70,6 +70,7 @@
             <enum name="loading" value="3"/>
         </attr>
         <attr name="msv_animateViewChanges" format="boolean"/>
+        <attr name="onErrorCommand" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="RecyclerView" parent="AdapterView">

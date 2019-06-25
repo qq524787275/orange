@@ -2,6 +2,8 @@ package com.zhuzichu.orange.find.fragment
 
 import android.os.Bundle
 import com.zhuzichu.mvvm.base.BaseFragment
+import com.zhuzichu.mvvm.databinding.command.BindingAction
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentFindThreeBinding
@@ -18,6 +20,14 @@ class FindThreeFragment : BaseFragment<FragmentFindThreeBinding, FindThreeViewMo
     override fun setLayoutId(): Int = R.layout.fragment_find_three
 
     override fun bindVariableId(): Int = BR.viewModel
+
+    override fun initView() {
+        _viewModel.showLoading()
+
+        setErrorCommand(BindingCommand(BindingAction {
+            _viewModel.loadSubjectData()
+        }))
+    }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         _viewModel.loadSubjectData()

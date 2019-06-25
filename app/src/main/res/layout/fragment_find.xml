@@ -7,12 +7,16 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        
+
         <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:background="@color/white"
                 android:layout_height="45dp"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="0.5dp"
+              android:background="@drawable/divider"/>
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"

@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.mvvm.view.loading.DialogMaker
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -49,7 +50,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
             ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
         lifecycle.addObserver(_viewModel)
         _viewModel.injectLifecycleProvider(this)
-        _viewModel._activity=_activity
+        _viewModel._activity = _activity
         _contentView = inflater.inflate(setLayoutId(), container, false)
         _bind = DataBindingUtil.bind(_contentView)!!
         _bind.setVariable(bindVariableId(), _viewModel)
@@ -61,6 +62,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         }
     }
 
+
+    fun setErrorCommand(onErrorCommand: BindingCommand<Any>?) {
+        _multiStateView.getView(MultiStateView.VIEW_STATE_ERROR)
+            ?.findViewById<View>(R.id.retry)
+            ?.setOnClickListener {
+                onErrorCommand?.execute()
+            }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

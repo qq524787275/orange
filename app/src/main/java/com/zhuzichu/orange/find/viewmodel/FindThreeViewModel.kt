@@ -47,9 +47,12 @@ class FindThreeViewModel(application: Application) : BaseViewModel(application) 
                     ItemThreeViewModel(this@FindThreeViewModel, item)
                 }
             }
-            .subscribe {
-                it.size.toast()
+            .subscribe({
                 list.update(it)
-            }
+                showContent()
+            }, {
+                handleThrowable(it)
+                showError()
+            })
     }
 }

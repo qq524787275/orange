@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
+import com.zhuzichu.mvvm.databinding.command.BindingAction
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSortBinding
@@ -20,9 +22,7 @@ import kotlinx.android.synthetic.main.fragment_sort.*
 class SortFragment : BaseTopBarFragment<FragmentSortBinding, SortViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_sort
     override fun bindVariableId(): Int = BR.viewModel
-
     override fun setTitle(): String = "超级分类"
-
 
     override fun initView() {
         sticky_header.registerTypePinnedHeader(
@@ -38,7 +38,10 @@ class SortFragment : BaseTopBarFragment<FragmentSortBinding, SortViewModel>() {
     }
 
     override fun initViewObservable() {
-        super.initViewObservable()
+        setErrorCommand(BindingCommand(BindingAction {
+            _viewModel.loadShopSort()
+        }))
+
         _viewModel.uc.rightRecyclerToTop.observe(this, Observer {
             (right_recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
         })

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.alimama.tunion.trade.TUnionTradeSDK
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.mvvm.utils.showTradeDetail
+import com.zhuzichu.mvvm.utils.showTradeUrl
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.checkLogin
@@ -76,6 +78,7 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
 
         _viewModel.uc.clickItemResultEvent.observe(this, Observer {
             checkLogin {
+                //                showTradeUrl(activity, it.couponurl)
                 showTradeDetail(activity, it.itemid)
             }
         })

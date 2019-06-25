@@ -101,7 +101,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                         }
 
                     }
-                commonPagerTitleView.setOnClickListener { content.currentItem = index }
+                commonPagerTitleView.setOnClickListener { content.setCurrentItem(index, false) }
                 return commonPagerTitleView
             }
 

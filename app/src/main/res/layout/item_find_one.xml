@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/colorPrimaryText"
                     android:lineSpacingExtra="3dp"
                     android:layout_marginBottom="10dp"

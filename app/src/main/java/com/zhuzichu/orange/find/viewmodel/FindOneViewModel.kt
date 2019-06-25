@@ -52,8 +52,12 @@ class FindOneViewModel(application: Application) : BaseViewModel(application) {
                     ItemOneViewModel(this@FindOneViewModel, item)
                 }
             }
-            .subscribe {
+            .subscribe({
                 list.update(it)
-            }
+                showContent()
+            }, {
+                handleThrowable(it)
+                showError()
+            })
     }
 }

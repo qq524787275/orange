@@ -16,7 +16,9 @@
     <color name="dark_black">#000000</color>
     <color name="blue_219">#2196F3</color>
     <color name="yellow">#FFFFEB3B</color>
-    
+
+    <color name="colorToastText">#795A28</color>
+
     <array name="colors">
         <item>@color/colorBluePrimary</item>
         <item>@color/colorRedPrimary</item>

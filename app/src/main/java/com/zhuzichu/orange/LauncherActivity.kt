@@ -1,6 +1,7 @@
 package com.zhuzichu.orange
 
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.main.activity.MainActivity
 
 /**
@@ -36,12 +38,11 @@ class LauncherActivity : AppCompatActivity() {
             override fun onSuccess() {
                 AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
                 AppGlobal.session.set(AlibcLogin.getInstance().session)
-                Toast.makeText(this@LauncherActivity, "初始化成功" + AlibcLogin.getInstance().isLogin, Toast.LENGTH_SHORT)
-                    .show()
+                "初始化成功".plus(AlibcLogin.getInstance().isLogin).toast()
             }
 
             override fun onFailure(code: Int, msg: String) {
-                Toast.makeText(this@LauncherActivity, "初始化失败,错误码=$code / 错误消息=$msg", Toast.LENGTH_SHORT).show()
+                ("初始化失败,错误码=$code / 错误消息=$msg").toast()
             }
         })
     }

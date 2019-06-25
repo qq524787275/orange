@@ -12,8 +12,6 @@ import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams
 
 
-
-
 /**
  * Created by Android Studio.
  * Blog: zhuzichu.com
@@ -28,7 +26,8 @@ private var alibcShowParams: AlibcShowParams = AlibcShowParams(OpenType.Native, 
 }
 //淘客参数，包括pid，unionid，subPid
 private var alibcTaokeParams: AlibcTaokeParams = AlibcTaokeParams().apply {
-
+    pid = "mm_440730086_576500325_109076000438"
+    extraParams = mapOf(Pair("taokeAppkey", "27640838"))
 }
 
 private val tradeCallback = object : AlibcTradeCallback {
@@ -56,7 +55,7 @@ fun showTradeUrl(
         Toast.makeText(context, "URL为空", Toast.LENGTH_SHORT).show()
         return
     }
-    AlibcTrade.show(context, AlibcPage(url), alibcShowParams, null, extras, alibcTradeCallback)
+    AlibcTrade.show(context, AlibcPage(url), alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }
 
 /**
@@ -84,7 +83,7 @@ fun showTradeOrder(
     alibcTradeCallback: AlibcTradeCallback? = tradeCallback
 ) {
     val alibcBasePage = AlibcMyOrdersPage(0, true)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, null, extras, alibcTradeCallback)
+    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }
 
 /**
@@ -97,7 +96,7 @@ fun showTradeShop(
     alibcTradeCallback: AlibcTradeCallback? = tradeCallback
 ) {
     val alibcBasePage = AlibcShopPage(shopId)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, null, extras, alibcTradeCallback)
+    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }
 
 /**
@@ -109,7 +108,7 @@ fun showTradeShopCart(
     alibcTradeCallback: AlibcTradeCallback? = tradeCallback
 ) {
     val alibcBasePage = AlibcMyCartsPage()
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, null, extras, alibcTradeCallback)
+    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }
 
 /**
@@ -122,5 +121,5 @@ fun showTradeAddCart(
     alibcTradeCallback: AlibcTradeCallback? = tradeCallback
 ) {
     val alibcBasePage = AlibcAddCartPage(id)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, null, extras, alibcTradeCallback)
+    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }

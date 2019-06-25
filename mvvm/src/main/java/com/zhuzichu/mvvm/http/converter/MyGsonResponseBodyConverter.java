@@ -48,7 +48,7 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
                 case ExceptionHandle.ERROR.PASSWORD_ERROR:
                     throw new ResponseThrowable(result.getMsg(), code);
                 case ExceptionHandle.ERROR.NO_DATA:
-                    throw new ResponseThrowable("没有更多数据", code);
+                    return;
                 default:
                     throw new ResponseThrowable("不清楚什么原因！", code);
             }

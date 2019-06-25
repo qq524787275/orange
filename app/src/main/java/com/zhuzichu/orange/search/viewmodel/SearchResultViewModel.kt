@@ -60,6 +60,10 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val clickItemResultEvent = SingleLiveEvent<SearchBean>()
     }
 
+    val onErrorCommand = BindingCommand<Any>(BindingAction {
+        searchShop(this.keyword)
+    })
+
     val onChangeSpanSize = BindingCommand<Any>(BindingAction {
         uc.onSpanSizeChangeEvent.call()
     })
@@ -142,11 +146,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                 viewState.set(MultiStateView.VIEW_STATE_CONTENT)
             }, {
                 if (it is ResponseThrowable) {
-                    if (it.code == ExceptionHandle.ERROR.NO_DATA && liveData.value?.size == 0) {
-                        viewState.set(MultiStateView.VIEW_STATE_EMPTY)
-                    } else {
-                        viewState.set(MultiStateView.VIEW_STATE_CONTENT)
-                    }
+                    viewState.set(MultiStateView.VIEW_STATE_ERROR)
                 }
                 handleThrowable(it)
                 uc.finishLoadmore.call()

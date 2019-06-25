@@ -17,6 +17,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:elevation="1dp"
                 android:background="@color/colorBackground">
 
             <androidx.cardview.widget.CardView
@@ -59,7 +60,8 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content">
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_indicator"
@@ -87,28 +89,34 @@
                             android:layout_gravity="center"
                             android:layout_height="25dp"/>
                 </FrameLayout>
+
             </LinearLayout>
 
+            <View android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="@drawable/divider"/>
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refresh"
+        <com.zhuzichu.mvvm.view.layout.MultiStateView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:msv_emptyView="@layout/empty_view"
+                app:msv_errorView="@layout/error_view"
+                app:msv_loadingView="@layout/loading_view"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:onRefreshCommand="@{viewModel.onRefreshCommand}"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+                app:onErrorCommand="@{viewModel.onErrorCommand}"
+                app:viewState="@{viewModel.viewState}">
 
-            <com.zhuzichu.mvvm.view.layout.MultiStateView
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:msv_emptyView="@layout/empty_view"
-                    app:msv_errorView="@layout/error_view"
-                    app:msv_loadingView="@layout/loading_view"
-                    app:viewState="@{viewModel.viewState}">
+                    app:onRefreshCommand="@{viewModel.onRefreshCommand}"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"
@@ -121,9 +129,10 @@
                         tools:listitem="@layout/item_search_result"
                         app:items="@{viewModel.list}"
                 />
-            </com.zhuzichu.mvvm.view.layout.MultiStateView>
 
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </com.zhuzichu.mvvm.view.layout.MultiStateView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -75,17 +75,18 @@ open class App : Application() {
     init {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
             //全局设置（优先级最低）
-            layout.setEnableAutoLoadMore(true);
-            layout.setEnableOverScrollDrag(false);
-            layout.setEnableOverScrollBounce(true);
-            layout.setEnableLoadMoreWhenContentNotFull(true);
-            layout.setEnableScrollContentWhenRefreshed(true);
+            layout.setEnableAutoLoadMore(true)
+            layout.setEnableOverScrollDrag(false)
+            layout.setEnableOverScrollBounce(true)
+            layout.setEnableLoadMoreWhenContentNotFull(true)
+            layout.setEnableScrollContentWhenRefreshed(true)
             layout.setPrimaryColorsId(R.color.white, R.color.colorPrimaryText)//全局设置主题颜色
 //            ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Scale)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             MaterialHeader(context)
         }
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            layout.setEnableFooterFollowWhenLoadFinished(true)//设置是否在全部加载结束之后Footer跟随内容
+            layout.setEnableFooterFollowWhenNoMoreData(true)//设置是否在全部加载结束之后Footer跟随内容
+            layout.setEnableFooterTranslationContent(true)
             val footer = ClassicsFooter(context)
             ClassicsFooter.REFRESH_FOOTER_NOTHING = "我也是有底线的！"
             footer.spinnerStyle = SpinnerStyle.Scale
