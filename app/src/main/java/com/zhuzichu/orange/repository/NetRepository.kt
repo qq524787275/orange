@@ -59,4 +59,6 @@ interface NetRepository {
     fun getTalentcat(): Flowable<BaseRes<TalentcatBean>>
 
     fun getSelectedItemList(min_id: Int): Flowable<BaseRes<List<SelectedItemBean>>>
+
+    fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>>
 }

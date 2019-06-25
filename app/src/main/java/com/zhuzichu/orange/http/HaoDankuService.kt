@@ -65,4 +65,8 @@ interface HaoDankuService {
     fun getSelectedItemList(
         @Path("min_id") min_id: Int
     ): Flowable<BaseRes<List<SelectedItemBean>>>
+
+
+    @GET("get_subject/apikey/zhuzichu")
+    fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>>
 }

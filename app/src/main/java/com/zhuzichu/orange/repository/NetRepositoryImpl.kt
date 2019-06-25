@@ -13,6 +13,10 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>> {
+        return getHaoDankuService().getSubjectList()
+    }
+
     override fun getSelectedItemList(min_id: Int): Flowable<BaseRes<List<SelectedItemBean>>> {
         return getHaoDankuService().getSelectedItemList(min_id)
     }

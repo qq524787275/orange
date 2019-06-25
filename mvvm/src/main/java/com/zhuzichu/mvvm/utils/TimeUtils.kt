@@ -111,6 +111,10 @@ fun getDateTimeString(milliseconds: Long, format: String): String {
 }
 
 
+fun getFavoriteCollectTime(seconds: String): String {
+    return getFavoriteCollectTime(java.lang.Long.parseLong(seconds) * 1000)
+}
+
 fun getFavoriteCollectTime(milliseconds: Long): String {
     var showDataString = ""
     val today = Date()
@@ -128,7 +132,7 @@ fun getFavoriteCollectTime(milliseconds: Long): String {
 
 fun getTimeShowString(milliseconds: String, abbreviate: Boolean): String {
     val long = java.lang.Long.parseLong(milliseconds)
-    return getTimeShowString(long*1000, abbreviate)
+    return getTimeShowString(long * 1000, abbreviate)
 }
 
 fun getTimeShowString(milliseconds: Long, abbreviate: Boolean): String {

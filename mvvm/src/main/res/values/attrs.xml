@@ -54,6 +54,8 @@
         <attr name="onSuccessCommand" format="reference"/>
         <attr name="onFailureCommand" format="reference"/>
         <attr name="srcColor" format="color"/>
+        <attr name="aspecRatio" format="float"/>
+        <attr name="margin" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="MultiStateView">
