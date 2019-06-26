@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zhuzichu.mvvm.BR;
 import com.zhuzichu.mvvm.R;
 import com.zhuzichu.mvvm.databinding.command.BindingCommand;
+import com.zhuzichu.mvvm.viewmodel.ItemNineImageViewModel;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapters;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,20 +28,24 @@ public class ViewAdapter {
         if (list == null || list.size() <= 0) {
             return;
         }
-        ItemBinding<String> itemBind = ItemBinding.of(BR.item, R.layout.item_nine_image);
-        DiffObservableList<String> items = new DiffObservableList<>(new DiffUtil.ItemCallback<String>() {
+        ItemBinding<ItemNineImageViewModel> itemBind = ItemBinding.of(BR.item, R.layout.item_nine_image);
+        DiffObservableList<ItemNineImageViewModel> items = new DiffObservableList<>(new DiffUtil.ItemCallback<ItemNineImageViewModel>() {
             @Override
-            public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
-                return oldItem.equals(newItem);
+            public boolean areItemsTheSame(@NonNull ItemNineImageViewModel oldItem, @NonNull ItemNineImageViewModel newItem) {
+                return oldItem.getUrl().equals(newItem.getUrl());
             }
 
             @SuppressLint("DiffUtilEquals")
             @Override
-            public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+            public boolean areContentsTheSame(@NonNull ItemNineImageViewModel oldItem, @NonNull ItemNineImageViewModel newItem) {
                 return oldItem == newItem;
             }
         });
-        items.update(list);
+        ArrayList<ItemNineImageViewModel> data = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            data.add(new ItemNineImageViewModel(recyclerView.getContext(), new ArrayList<>(list), list.get(i)));
+        }
+        items.update(data);
         BindingRecyclerViewAdapters.setAdapter(recyclerView, itemBind, items, null, null, null, null);
     }
 

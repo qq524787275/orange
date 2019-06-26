@@ -1,9 +1,13 @@
 package com.zhuzichu.orange.find.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.mvvm.utils.getFavoriteCollectTime
+import com.zhuzichu.mvvm.databinding.command.BindingAction
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.bean.SubjectBean
+import com.zhuzichu.orange.repository.NetRepositoryImpl
 
 /**
  * Created by Android Studio.
@@ -25,4 +29,23 @@ class ItemThreeViewModel(
                     .plus(getFavoriteCollectTime(subjectBean.activity_end_time))
             )
         }
+
+    val onItemClick = BindingCommand<Any>(BindingAction {
+        loadData(subjectBean.id)
+    })
+
+    @SuppressLint("CheckResult")
+    fun loadData(id: String) {
+        NetRepositoryImpl.getSubjectItemList(id)
+            .compose(bindToLifecycle(viewModel.getLifecycleProvider()))
+            .compose(schedulersTransformer())
+            .compose(exceptionTransformer())
+            .subscribe(
+                {
+                    it.data.toast()
+                }, {
+                    viewModel.handleThrowable(it)
+                }
+            )
+    }
 }

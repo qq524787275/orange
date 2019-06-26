@@ -69,4 +69,9 @@ interface HaoDankuService {
 
     @GET("get_subject/apikey/zhuzichu")
     fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>>
+
+    @GET("get_subject_item/apikey/zhuzichu/id/{id}")
+    fun getSubjectItemList(
+        @Path("id") id: String
+    ): Flowable<BaseRes<List<SubjectItemBean>>>
 }

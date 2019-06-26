@@ -29,7 +29,6 @@ interface NetRepository {
 
 
     fun getShopSort(
-
     ): Flowable<BaseRes<List<SortBean>>>
 
 
@@ -61,4 +60,8 @@ interface NetRepository {
     fun getSelectedItemList(min_id: Int): Flowable<BaseRes<List<SelectedItemBean>>>
 
     fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>>
+
+    fun getSubjectItemList(
+        id: String
+    ): Flowable<BaseRes<List<SubjectItemBean>>>
 }

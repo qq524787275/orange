@@ -2,7 +2,7 @@
 <layout>
     <data>
         <import type="com.zhuzichu.mvvm.R"/>
-        <variable name="item" type="String"/>
+        <variable name="item" type="com.zhuzichu.mvvm.viewmodel.ItemNineImageViewModel"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -10,6 +10,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             app:cardCornerRadius="3dp"
+            app:onClickCommand="@{item.onClickItem}"
             android:layout_height="wrap_content">
 
         <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
@@ -20,7 +21,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:url="@{item}"
+                    app:url="@{item.url}"
                     app:placeholderRes="@{R.drawable.ic_place_holder}"/>
         </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
     </androidx.cardview.widget.CardView>

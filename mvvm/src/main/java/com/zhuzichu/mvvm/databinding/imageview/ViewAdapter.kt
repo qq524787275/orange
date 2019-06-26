@@ -30,7 +30,6 @@ fun setImageUri(imageView: ImageView, url: Any?, placeholderRes: Int, aspecRatio
             .load(url)
             .apply(RequestOptions().placeholder(placeholderRes))
             .transition(DrawableTransitionOptions.withCrossFade(250))
-            .centerCrop()
             .into(imageView)
     }
 }
