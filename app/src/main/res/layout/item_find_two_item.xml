@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.zhuzichu.orange.R"/>
+        <variable name="item" type="com.zhuzichu.orange.find.viewmodel.ItemTwoItemViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:url="@{item.itemData.itempic}"
+                    app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"/>
+        </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
+    </LinearLayout>
+</layout>
