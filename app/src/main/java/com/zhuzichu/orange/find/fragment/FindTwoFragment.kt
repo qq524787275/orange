@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.find.fragment
 
+import android.os.Bundle
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -17,4 +18,8 @@ class FindTwoFragment : BaseFragment<FragmentFindTwoBinding, FindTwoViewModel>()
     override fun setLayoutId(): Int = R.layout.fragment_find_two
 
     override fun bindVariableId(): Int = BR.viewModel
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        _viewModel.loadSubjefctHostData()
+    }
 }
