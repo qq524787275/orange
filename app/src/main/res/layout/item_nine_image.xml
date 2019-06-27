@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <import type="com.zhuzichu.mvvm.R"/>
-        <variable name="item" type="com.zhuzichu.mvvm.viewmodel.ItemNineImageViewModel"/>
+        <import type="com.zhuzichu.orange.R"/>
+        <variable name="item" type="com.zhuzichu.orange.ui.nineimage.ItemNineImageViewModel"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -14,15 +14,16 @@
             android:layout_height="wrap_content">
 
         <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
+                    app:currentView="@{item.onImageView}"
+                    android:transitionName='@{item.url}'
                     app:url="@{item.url}"
-                    app:placeholderRes="@{R.drawable.ic_place_holder}"/>
+                    app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"/>
         </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

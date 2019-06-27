@@ -5,10 +5,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        tools:context=".activity.ImagePreviewActivity">
+        tools:context="com.zhuzichu.orange.ui.previewimage.PreviewImageActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+    <com.zhuzichu.orange.ui.previewimage.PreviewViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </FrameLayout>

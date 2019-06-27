@@ -67,6 +67,10 @@
                 <data android:scheme="sdkbackb5137223b397ccdf124d09aff0c15c2e"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.previewimage.PreviewImageActivity"
+                  android:theme="@style/AppTransparentTheme"/>
+
     </application>
 
 </manifest>

@@ -23,5 +23,10 @@
         <!-- 后面的activity变暗 -->
     </style>
 
+    <style name="AppTransparentTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
 </resources>
