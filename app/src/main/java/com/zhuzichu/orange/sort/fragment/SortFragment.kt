@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopBarFragment
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -38,7 +37,7 @@ class SortFragment : BaseTopBarFragment<FragmentSortBinding, SortViewModel>() {
     }
 
     override fun initViewObservable() {
-        setErrorCommand(BindingCommand(BindingAction {
+        setErrorCommand(BindingCommand( {
             _viewModel.loadShopSort()
         }))
 

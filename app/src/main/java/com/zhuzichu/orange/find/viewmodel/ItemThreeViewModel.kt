@@ -3,7 +3,6 @@ package com.zhuzichu.orange.find.viewmodel
 import android.annotation.SuppressLint
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.bean.SubjectBean
@@ -30,7 +29,7 @@ class ItemThreeViewModel(
             )
         }
 
-    val onItemClick = BindingCommand<Any>(BindingAction {
+    val onItemClick = BindingCommand<Any>( {
         loadData(subjectBean.id)
     })
 

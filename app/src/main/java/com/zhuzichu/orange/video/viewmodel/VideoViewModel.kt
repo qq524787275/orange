@@ -6,7 +6,6 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableInt
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
@@ -40,12 +39,12 @@ class VideoViewModel(application: Application) : BaseViewModel(application) {
     val list = ObservableArrayList<Any>()
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_video)
 
-    val onRefreshCommand = BindingCommand<Any>(BindingAction {
+    val onRefreshCommand = BindingCommand<Any>( {
         min_id = 1
         laodVideoData()
     })
 
-    val onLoadMoreCommand = BindingCommand<Any>(BindingAction {
+    val onLoadMoreCommand = BindingCommand<Any>( {
         laodVideoData()
     })
 

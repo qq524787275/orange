@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.view.View"/>
         <import type="com.zhuzichu.orange.R"/>
         <variable name="item" type="com.zhuzichu.orange.find.viewmodel.ItemTwoItemViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
@@ -19,6 +21,38 @@
                     android:scaleType="centerCrop"
                     app:url="@{item.itemData.itempic}"
                     app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="30dp"
+                          android:background="@color/black_translucent"
+                          android:layout_alignParentBottom="true"
+                          android:visibility='@{item.itemData.product_id.equals("0")?View.GONE:View.VISIBLE}'
+                          android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="30dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/white"
+                        android:text="@{item.itemData.itemshorttitle}"
+                        android:singleLine="true"
+                        android:textSize="10sp"
+                        android:ellipsize="end"
+                        tools:text="哈哈哈哈哈哈"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="$1231"
+                        android:layout_marginRight="5dp"
+                        android:textSize="12sp"
+                        app:fontPath="@string/font_bold"
+                        android:textColor="@color/colorLimePrimary"
+                        android:text='@{@string/rmb+item.itemData.itemendprice}'/>
+
+            </LinearLayout>
         </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
     </LinearLayout>
 </layout>

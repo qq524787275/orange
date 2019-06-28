@@ -1,9 +1,7 @@
 package com.zhuzichu.orange
 
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback

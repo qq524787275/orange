@@ -26,7 +26,10 @@ import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
 import com.zhuzichu.orange.sort.fragment.SortFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -64,7 +67,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     )
 
     override fun initView() {
-        val commonNavigator = CommonNavigator(activity)
+        val commonNavigator = CommonNavigator(context)
         commonNavigator.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int = mFragments.size
@@ -117,6 +120,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     @SuppressLint("CheckResult")
     override fun initVariable() {
         RxBus.default.toObservable(HomeEvent.OnTowLevelEvent::class.java)
+            .delay(300, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .compose(bindToLifecycle())
             .subscribe {
                 if (it.state == HomeEvent.EXIT_TOW_LEVEL) {

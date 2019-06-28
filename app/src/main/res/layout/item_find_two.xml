@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.mvvm.databinding.recyclerview.LineManagers"/>
         <variable name="item" type="com.zhuzichu.orange.find.viewmodel.ItemTwoViewModel"/>
     </data>
     <androidx.cardview.widget.CardView
@@ -20,11 +21,41 @@
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="哈哈哈哈哈哈哈哈哈"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginStart="10dp"
+                    android:textSize="15sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@{item.subjectHotBean.name}"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈"
+                    android:textSize="13sp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@{item.subjectHotBean.copy_text}"/>
+
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:itemBinding="@{item.itemBind}"
                     app:gridLayoutManager="@{3}"
+                    app:lineManager="@{LineManagers.both()}"
                     tools:layout_height="300dp"
                     app:items="@{item.list}"/>
         </LinearLayout>

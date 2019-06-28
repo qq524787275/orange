@@ -5,7 +5,6 @@ import android.app.Application
 import androidx.databinding.ObservableArrayList
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.exceptionTransformer
@@ -13,11 +12,9 @@ import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.bean.BrandBean
 import com.zhuzichu.orange.bean.TalentcatBean
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
-import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**
@@ -45,7 +42,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         val onBannerLoadSuccess = SingleLiveEvent<List<TalentcatBean.Topdata>>()
     }
 
-    val clickSearchLayout = BindingCommand<Any>(BindingAction {
+    val clickSearchLayout = BindingCommand<Any>( {
         startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)
     })
 

@@ -2,7 +2,6 @@ package com.zhuzichu.orange.find.fragment
 
 import android.os.Bundle
 import com.zhuzichu.mvvm.base.BaseFragment
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -23,7 +22,7 @@ class FindOneFragment : BaseFragment<FragmentFindOneBinding, FindOneViewModel>()
 
     override fun initView() {
         _viewModel.showLoading()
-        setErrorCommand(BindingCommand(BindingAction {
+        setErrorCommand(BindingCommand({
             _viewModel.loadSelectItemList()
         }))
     }

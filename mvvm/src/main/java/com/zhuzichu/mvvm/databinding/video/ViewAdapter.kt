@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zhuzichu.mvvm.global.glide.GlideApp
 
-
 @BindingAdapter(value = ["videoUrl", "videoImage"], requireAll = false)
 fun bindVideo(videoPlayer: StandardGSYVideoPlayer, url: String, imageurl: String) {
     videoPlayer.initUIState()

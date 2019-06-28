@@ -127,8 +127,7 @@
                         app:gridLayoutManager="@{viewModel.spanSize}"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_search_result"
-                        app:items="@{viewModel.list}"
-                />
+                        app:items="@{viewModel.list}"/>
 
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

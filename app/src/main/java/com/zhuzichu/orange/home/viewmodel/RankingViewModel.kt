@@ -2,13 +2,11 @@ package com.zhuzichu.orange.home.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
@@ -20,7 +18,6 @@ import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.NetRepositoryImpl
-import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
 class RankingViewModel(application: Application) : BaseViewModel(application) {
@@ -48,11 +45,11 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
     }
 
-    val onRefreshCommand = BindingCommand<Any>(BindingAction {
+    val onRefreshCommand = BindingCommand<Any>( {
         min_id = 1
         updateData(this.type)
     })
-    val onLoadMoreCommand = BindingCommand<Any>(BindingAction {
+    val onLoadMoreCommand = BindingCommand<Any>( {
         updateData(this.type)
     })
     val viewState = ObservableInt(MultiStateView.VIEW_STATE_LOADING)
