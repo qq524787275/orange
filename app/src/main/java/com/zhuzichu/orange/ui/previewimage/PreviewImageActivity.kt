@@ -10,6 +10,7 @@ import android.util.Pair
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.orange.R
 import kotlinx.android.synthetic.main.activity_preview_image.*
@@ -19,7 +20,7 @@ class PreviewImageActivity : AppCompatActivity() {
 
     private val list by lazy { intent.getStringArrayListExtra("images") }
     private val current by lazy { intent.getStringExtra("current") }
-    private val currentIndex by lazy { list.indexOf(current) }
+    private var currentIndex = 0
     private val adapter by lazy { PreviewImageAdapter(list, currentIndex) }
 
     companion object {
@@ -44,8 +45,22 @@ class PreviewImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
+        currentIndex = list.indexOf(current)
         setContentView(R.layout.activity_preview_image)
         viewpager.adapter = adapter
         viewpager.setCurrentItem(currentIndex, false)
+        textView.text = (currentIndex + 1).toString().plus("/").plus(list.size)
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                currentIndex = position
+                textView.text = (currentIndex + 1).toString().plus("/").plus(list.size)
+            }
+        })
     }
 }
