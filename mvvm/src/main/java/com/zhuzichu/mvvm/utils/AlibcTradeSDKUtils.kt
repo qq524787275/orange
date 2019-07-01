@@ -79,10 +79,11 @@ fun showTradeDetail(
  */
 fun showTradeOrder(
     context: Activity?,
+    type: Int = 0,
     extras: Map<String, String>? = mapOf(),
     alibcTradeCallback: AlibcTradeCallback? = tradeCallback
 ) {
-    val alibcBasePage = AlibcMyOrdersPage(0, true)
+    val alibcBasePage = AlibcMyOrdersPage(type, true)
     AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
 }
 

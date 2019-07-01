@@ -46,6 +46,7 @@ class FindOneViewModel(application: Application) : BaseViewModel(application) {
             .map {
                 it.data.map { item ->
                     item.copy_content = item.copy_content.replace("&lt;br&gt;", "\t\n")
+                    item.copy_comment = item.copy_comment.replace("&lt;br&gt;", "\t\n")
                     item.itempic.map { url ->
                         url.plus("_200x200.jpg")
                     }

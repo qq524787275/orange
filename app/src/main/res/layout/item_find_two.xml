@@ -58,6 +58,7 @@
                     app:lineManager="@{LineManagers.both()}"
                     tools:layout_height="300dp"
                     app:items="@{item.list}"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

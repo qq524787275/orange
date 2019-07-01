@@ -1,7 +1,6 @@
 package com.zhuzichu.orange.mine.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
@@ -23,7 +22,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val global = AppGlobal
 
-    val clickLogin = BindingCommand<Any>( {
+    val clickLogin = BindingCommand<Any>({
         AlibcLogin.getInstance().showLogin(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
                 AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
@@ -31,47 +30,61 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
             }
 
             override fun onFailure(code: Int, msg: String) {
-                Toast.makeText(
-                    _context, "登录失败 ",
-                    Toast.LENGTH_LONG
-                ).show()
+                msg.toast()
             }
         })
     })
 
-    val clickLogout = BindingCommand<Any>( {
+    val clickLogout = BindingCommand<Any>({
         AlibcLogin.getInstance().logout(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
                 AppGlobal.isLogin.set(false)
                 AppGlobal.session.set(Session())
             }
 
-            override fun onFailure(i: Int, s: String) {
-                Toast.makeText(
-                    _context, "登出失败 ",
-                    Toast.LENGTH_LONG
-                ).show()
+            override fun onFailure(code: Int, msg: String) {
+                msg.toast()
             }
         })
     })
 
-    val goSetting = BindingCommand<Any>( {
+    val clickOrderAll = BindingCommand<Any>({
+        showTradeOrder(_activity,0)
+    })
+
+    val clickOrderOne = BindingCommand<Any>({
+        showTradeOrder(_activity,1)
+    })
+
+    val clickOrderTwo = BindingCommand<Any>({
+        showTradeOrder(_activity,2)
+    })
+
+    val clickOrderThree = BindingCommand<Any>({
+        showTradeOrder(_activity,3)
+    })
+
+    val clickOrderFour = BindingCommand<Any>({
+        showTradeOrder(_activity,4)
+    })
+
+    val goSetting = BindingCommand<Any>({
         "暂未开发".toast()
     })
 
-    val goActivies = BindingCommand<Any>( {
+    val goActivies = BindingCommand<Any>({
         "暂未开发".toast()
     })
 
-    val goOrder = BindingCommand<Any>( {
+    val goOrder = BindingCommand<Any>({
         showTradeOrder(_activity)
     })
 
-    val goShopCard = BindingCommand<Any>( {
+    val goShopCard = BindingCommand<Any>({
         showTradeShopCart(_activity)
     })
 
-    val goCollection = BindingCommand<Any>( {
+    val goCollection = BindingCommand<Any>({
         "暂未开发".toast()
     })
 }

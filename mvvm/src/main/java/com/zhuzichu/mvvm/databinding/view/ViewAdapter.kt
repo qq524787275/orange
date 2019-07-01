@@ -10,7 +10,6 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.databinding.command.ResponseCommand
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
-import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,15 +27,15 @@ const val CLICK_INTERVAL = 1
 fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst: Boolean) {
     if (isThrottleFirst) {
         view.clicks()
-            .subscribe(Consumer<Any> {
+            .subscribe {
                 clickCommand?.execute()
-            })
+            }
     } else {
         view.clicks()
             .throttleFirst(CLICK_INTERVAL.toLong(), TimeUnit.SECONDS)//1秒钟内只允许点击1次
-            .subscribe(Consumer<Any> {
+            .subscribe {
                 clickCommand?.execute()
-            })
+            }
     }
 }
 
@@ -44,9 +43,9 @@ fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst
 @BindingAdapter(value = ["onLongClickCommand"], requireAll = false)
 fun onLongClickCommand(view: View, clickCommand: BindingCommand<Any>?) {
     view.longClicks()
-        .subscribe(Consumer<Any> {
+        .subscribe {
             clickCommand?.execute()
-        })
+        }
 }
 
 @BindingAdapter(value = ["currentView"], requireAll = false)
@@ -82,7 +81,7 @@ fun setWidthHeightRatio(view: View, ratio: Float, padding: Int) {
 
 @BindingAdapter("onTouchCommand")
 fun onTouchCommand(view: View, onTouchCommand: ResponseCommand<MotionEvent, Boolean>?) {
-    view.setOnTouchListener { v, event ->
+    view.setOnTouchListener { _, event ->
         onTouchCommand?.execute(event) ?: false
     }
 }
