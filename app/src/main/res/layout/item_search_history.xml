@@ -13,8 +13,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_margin="4dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/white">
+            android:layout_gravity="center_vertical">
 
         <com.google.android.material.chip.Chip
                 android:layout_height="wrap_content"

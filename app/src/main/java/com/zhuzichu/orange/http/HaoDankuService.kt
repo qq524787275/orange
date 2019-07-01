@@ -47,7 +47,6 @@ interface HaoDankuService {
     @GET("hot_key/apikey/zhuzichu")
     fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>>
 
-
     @GET("get_deserve_item/apikey/zhuzichu")
     fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>>
 
@@ -60,12 +59,10 @@ interface HaoDankuService {
     @GET("talent_info/apikey/zhuzichu/talentcat/1")
     fun getTalentcat(): Flowable<BaseRes<TalentcatBean>>
 
-
     @GET("selected_item/apikey/zhuzichu/min_id/{min_id}")
     fun getSelectedItemList(
         @Path("min_id") min_id: Int
     ): Flowable<BaseRes<List<SelectedItemBean>>>
-
 
     @GET("get_subject/apikey/zhuzichu")
     fun getSubjectList(): Flowable<BaseRes<List<SubjectBean>>>
@@ -79,4 +76,10 @@ interface HaoDankuService {
     fun getSubjectHotList(
         @Path("min_id") min_id: Int
     ): Flowable<BaseRes<List<SubjectHotBean>>>
+
+    @GET("item_detail/apikey/zhuzichu/itemid/{itemid}")
+    fun getShopDetail(
+        @Path("itemid") itemid: String
+    ): Flowable<BaseRes<ShopDetailBean>>
+
 }

@@ -1,7 +1,13 @@
 package com.zhuzichu.orange.find.viewmodel
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import androidx.core.content.ContextCompat
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.bean.SelectedItemBean
+
 
 /**
  * Created by Android Studio.
@@ -14,4 +20,14 @@ class ItemOneViewModel(
     viewModel: FindOneViewModel,
     var selectedItemBean: SelectedItemBean
 ) : ItemViewModel<FindOneViewModel>(viewModel) {
+
+    val onClickCopy = BindingCommand<Any>({
+        //获取剪贴板管理器：
+        val cm = ContextCompat.getSystemService(viewModel._context, ClipboardManager::class.java)
+// 创建普通字符型ClipData
+        val mClipData = ClipData.newPlainText("Label", selectedItemBean.copy_comment)
+// 将ClipData内容放到系统剪贴板里。
+        cm!!.primaryClip = mClipData
+        "复制成功～".toast()
+    })
 }

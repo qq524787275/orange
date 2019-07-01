@@ -11,6 +11,10 @@ import com.zhuzichu.mvvm.http.AppRetrofit
  */
 
 private const val HAODANKU_URL = "http://v2.api.haodanku.com"
+
+private const val TAOBAO_URL = "https://h5.m.taobao.com"
+
+private const val TMALL_URL = "https://detail.m.tmall.com"
 //private const val BASE_URL = "http://47.97.153.234:80"
 
 interface IService {
@@ -19,5 +23,13 @@ interface IService {
             .create(HaoDankuService::class.java)
     }
 
+    fun getTaobaoService(): TaobaoService {
+        return AppRetrofit.getRetrofit(TAOBAO_URL, false)
+            .create(TaobaoService::class.java)
+    }
 
+    fun getTmallService(): TmallService {
+        return AppRetrofit.getRetrofit(TMALL_URL, false)
+            .create(TmallService::class.java)
+    }
 }

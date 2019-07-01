@@ -7,7 +7,7 @@ import com.zhuzichu.mvvm.utils.getHttpImageCacheDir
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
@@ -23,7 +23,7 @@ object AppRetrofit {
 
     private val retrofitMap = HashMap<String, Retrofit>()
 
-    private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean? = true) {
+    private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean = true) {
         val timeOut = AppConfig.HTTP_TIME_OUT
         val cache = Cache(
             getHttpImageCacheDir(),
@@ -47,16 +47,16 @@ object AppRetrofit {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
 
-        if (isJson!!) {
+        if (isJson) {
             builder.addConverterFactory(MyGsonConverterFactory.create())
         } else {
-            builder.addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
+            builder.addConverterFactory(ScalarsConverterFactory.create())
         }
 
         retrofitMap["$baseUrl-$isJson"] = builder.build()
     }
 
-    fun getRetrofit(baseUrl: String, isJson: Boolean? = true): Retrofit {
+    fun getRetrofit(baseUrl: String, isJson: Boolean = true): Retrofit {
         val key = "$baseUrl-$isJson"
         if (!retrofitMap.containsKey(key)) {
             createRetrofit(baseUrl, isJson)

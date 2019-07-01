@@ -82,13 +82,11 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
-    api("com.squareup.retrofit2:converter-simplexml:$rootProject.retrofitVersion") {
-        exclude group: 'xpp3', module: 'xpp3'
-        exclude group: 'stax', module: 'stax-api'
-        exclude group: 'stax', module: 'stax'
-    }
+    api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
+
     api 'com.shuyu:GSYVideoPlayer:7.0.1'
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
+    api 'org.jsoup:jsoup:1.12.1'
 
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'

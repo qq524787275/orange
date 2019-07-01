@@ -1,10 +1,9 @@
 package com.zhuzichu.orange
 
-import android.widget.Toast
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
-import com.zhuzichu.mvvm.App
 import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.utils.toast
 
 /**
  * Created by Android Studio.
@@ -24,10 +23,8 @@ fun checkLogin(funcation: () -> Unit) {
             }
 
             override fun onFailure(code: Int, msg: String) {
-                Toast.makeText(
-                    App.context, "登录失败 ",
-                    Toast.LENGTH_LONG
-                ).show()
+                     msg.toast()
+
             }
         })
         return

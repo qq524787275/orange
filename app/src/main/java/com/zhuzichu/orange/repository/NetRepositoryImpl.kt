@@ -1,9 +1,12 @@
 package com.zhuzichu.orange.repository
 
+import android.util.Log
 import com.zhuzichu.mvvm.base.BaseRes
 import com.zhuzichu.orange.bean.*
 import com.zhuzichu.orange.http.IService
 import io.reactivex.Flowable
+import io.reactivex.Observable
+import org.jsoup.Jsoup
 
 /**
  * Created by Android Studio.
@@ -13,6 +16,43 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+
+    override fun getShopDetailDesc(itemid: String, type: String): Flowable<String> {
+        //B天猫 C淘宝
+        when (type) {
+            "C" -> {
+                return getTaobaoService().getShopDetailDesc(itemid)
+                    .map {
+                        Log.i("zzc",it)
+                        val desc = Jsoup.parse(it).select(".detail-desc").first()
+                        if (desc != null) {
+                            desc.html()
+                        } else {
+                            "数据异常"
+                        }
+                    }
+            }
+            "B" -> {
+                return getTmallService().getShopDetailDesc(itemid)
+                    .map {
+                        val desc = Jsoup.parse(it).select("div.container").first()
+                        if (desc != null) {
+                            desc.html()
+                        } else {
+                            "数据异常"
+                        }
+                    }
+            }
+            else -> {
+                return Flowable.just("数据异常")
+            }
+        }
+    }
+
+    override fun getShopDetail(itemid: String): Flowable<BaseRes<ShopDetailBean>> {
+        return getHaoDankuService().getShopDetail(itemid)
+    }
+
     override fun getSubjectHotList(min_id: Int): Flowable<BaseRes<List<SubjectHotBean>>> {
         return getHaoDankuService().getSubjectHotList(min_id)
     }

@@ -68,4 +68,8 @@ interface NetRepository {
     fun getSubjectHotList(
         min_id: Int
     ): Flowable<BaseRes<List<SubjectHotBean>>>
+
+    fun getShopDetail(itemid: String): Flowable<BaseRes<ShopDetailBean>>
+
+    fun getShopDetailDesc(itemid: String, type: String): Flowable<String>
 }

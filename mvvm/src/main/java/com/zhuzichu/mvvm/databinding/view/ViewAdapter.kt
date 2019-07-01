@@ -10,7 +10,6 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.databinding.command.ResponseCommand
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
-import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
 /**
