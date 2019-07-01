@@ -5,9 +5,7 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.zhuzichu.orange.ui.previewimage.PreviewImageActivity
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.databinding.command.BindingConsumer
 
 /**
  * Created by Android Studio.
@@ -23,11 +21,11 @@ class ItemNineImageViewModel(
 ) : ViewModel() {
     var imageView: ImageView? = null
 
-    val onClickItem = BindingCommand<Any>(BindingAction {
+    val onClickItem = BindingCommand<Any>({
         PreviewImageActivity.start(recyclerView.context, list, url)
     })
 
-    val onImageView = BindingCommand<ImageView>(BindingConsumer {
+    val onImageView = BindingCommand<ImageView>(consumer = {
         imageView = it
     })
 }

@@ -14,6 +14,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.checkLogin
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
 import com.zhuzichu.orange.search.viewmodel.SearchResultViewModel
+import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
 
@@ -74,13 +75,6 @@ class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, Sea
                     0
                 )
             }, 50)
-        })
-
-        _viewModel.uc.clickItemResultEvent.observe(this, Observer {
-            checkLogin {
-                //                showTradeUrl(activity, it.couponurl)
-                showTradeDetail(activity, it.itemid)
-            }
         })
     }
 }

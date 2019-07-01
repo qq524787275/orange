@@ -7,8 +7,6 @@ import com.trello.rxlifecycle3.LifecycleProvider
 import com.trello.rxlifecycle3.LifecycleTransformer
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
-import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.functions.Function
@@ -29,7 +27,7 @@ import io.reactivex.schedulers.Schedulers
  */
 fun <T> bindToLifecycle(@NonNull lifecycle: Context): LifecycleTransformer<T> {
     return if (lifecycle is LifecycleProvider<*>) {
-        (lifecycle as LifecycleProvider<*>).bindToLifecycle()
+        lifecycle .bindToLifecycle()
     } else {
         throw IllegalArgumentException("context not the LifecycleProvider type")
     }
@@ -42,7 +40,7 @@ fun <T> bindToLifecycle(@NonNull lifecycle: Context): LifecycleTransformer<T> {
  */
 fun <T> bindToLifecycle(@NonNull lifecycle: Fragment): LifecycleTransformer<T> {
     return if (lifecycle is LifecycleProvider<*>) {
-        (lifecycle as LifecycleProvider<*>).bindToLifecycle()
+        lifecycle .bindToLifecycle()
     } else {
         throw IllegalArgumentException("fragment not the LifecycleProvider type")
     }

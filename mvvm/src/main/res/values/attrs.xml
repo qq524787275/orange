@@ -22,6 +22,10 @@
         <attr name="stickyHeaderId"/>
     </declare-styleable>
 
+    <declare-styleable name="Chip">
+        <attr name="onCloseIconCommand" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="View">
         <attr name="isGone" format="boolean"/>
         <attr name="onClickCommand"/>

@@ -10,10 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.http.exception.ExceptionHandle
-import com.zhuzichu.mvvm.http.exception.ResponseThrowable
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
@@ -44,27 +41,20 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     private var currentIndicator = 0
     val spanSize = ObservableInt(2)
     val viewState = ObservableInt(MultiStateView.VIEW_STATE_LOADING)
-    //封装一个界面发生改变的观察者
     val uc = UIChangeObservable()
 
     inner class UIChangeObservable {
-        //下拉刷新完成
         val finishRefreshing = SingleLiveEvent<Any>()
-        //上拉加载完成
         val finishLoadmore = SingleLiveEvent<Any>()
-        //上拉加载完成 并且到最后一数据
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
-
         val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
-
-        val clickItemResultEvent = SingleLiveEvent<SearchBean>()
     }
 
-    val onErrorCommand = BindingCommand<Any>(BindingAction {
+    val onErrorCommand = BindingCommand<Any>({
         searchShop(this.keyword)
     })
 
-    val onChangeSpanSize = BindingCommand<Any>(BindingAction {
+    val onChangeSpanSize = BindingCommand<Any>({
         uc.onSpanSizeChangeEvent.call()
     })
 
@@ -104,15 +94,15 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
     }
 
-    val onRefreshCommand = BindingCommand<Any>(BindingAction {
+    val onRefreshCommand = BindingCommand<Any>({
         min_id = 1
         searchShop(this.keyword)
     })
-    val onLoadMoreCommand = BindingCommand<Any>(BindingAction {
+    val onLoadMoreCommand = BindingCommand<Any>({
         searchShop(this.keyword)
     })
 
-    val clickSearchLayout = BindingCommand<Any>(BindingAction {
+    val clickSearchLayout = BindingCommand<Any>({
         startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)
     })
 
@@ -123,31 +113,33 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
-            .map {
-                if (min_id == 1) {
-                    liveData.value = ArrayList()
-                    uc.finishRefreshing.call()
-                }
-                min_id = it.min_id
+            .subscribe({
                 val list = mutableListOf<ItemResultViewModel>()
-                it.data.forEach { item ->
+                val data = it.data
+                if (data.isEmpty() && min_id == 1) {
+                    viewState.set(MultiStateView.VIEW_STATE_EMPTY)
+                    return@subscribe
+                }
+                data.forEach { item ->
                     item.itempic.plus("_310x310.jpg")
                     list.add(ItemResultViewModel(this, item, spanSize))
                 }
-                list
-            }
-            .subscribe({
-                if (it.size < back) {
+                if (min_id == 1) {
+                    liveData.value = list
+                    uc.finishRefreshing.call()
+                } else {
+                    liveData.value = liveData.value!! + list
+                }
+                if (list.size < back) {
                     uc.finishLoadMoreWithNoMoreData.call()
                 } else {
                     uc.finishLoadmore.call()
                 }
-                liveData.value = liveData.value!! + it
                 viewState.set(MultiStateView.VIEW_STATE_CONTENT)
+                min_id = it.min_id
+
             }, {
-                if (it is ResponseThrowable) {
-                    viewState.set(MultiStateView.VIEW_STATE_ERROR)
-                }
+                viewState.set(MultiStateView.VIEW_STATE_ERROR)
                 handleThrowable(it)
                 uc.finishLoadmore.call()
             })

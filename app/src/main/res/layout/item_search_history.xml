@@ -5,32 +5,31 @@
     </data>
 
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:onClickCommand="@{item.clickItem}"
             android:gravity="center_vertical"
-            android:layout_margin="7dp"
-            app:cardCornerRadius="5dp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_margin="4dp"
             android:layout_gravity="center_vertical"
             android:background="@color/white">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.chip.Chip
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 tools:text="男装"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                app:closeIconVisible="@{!item.hot}"
+                app:onCloseIconCommand="@{item.onCloseIconCommand}"
                 android:textColor="@color/colorSecondText"
-                android:textSize="15sp"
+                android:textSize="13sp"
+                app:onClickCommand="@{item.clickItem}"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:padding="7dp"
                 android:text="@{item.searchHistory.keyWord}"/>
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 </layout>

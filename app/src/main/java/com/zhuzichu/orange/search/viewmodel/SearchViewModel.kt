@@ -3,11 +3,9 @@ package com.zhuzichu.orange.search.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.core.os.bundleOf
-import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.map
@@ -37,14 +35,14 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
     }
 
-    private val mutableLiveData = AsyncDiffObservableList<Any>(diff)
+    private val mutableLiveData = AsyncDiffObservableList(diff)
 
-    private val hotLiveData = AsyncDiffObservableList<Any>(diff)
+    private val hotLiveData = AsyncDiffObservableList(diff)
 
     val list = MergeObservableList<Any>()
-        .insertItem(ItemTitleViewModel(this, "历史记录"))
+        .insertItem(ItemTitleViewModel(this, "历史记录", mutableLiveData))
         .insertList(mutableLiveData)
-        .insertItem(ItemTitleViewModel(this, "热搜记录"))
+        .insertItem(ItemTitleViewModel(this, "热搜记录", hotLiveData))
         .insertList(hotLiveData)
 
     val itemBind = OnItemBindClass<Any>().apply {
@@ -53,15 +51,12 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-
-
     val keyWord = MutableLiveData<String>()
 
-    val clickSearch = BindingCommand<Any>(BindingAction {
-
+    val clickSearch = BindingCommand<Any>({
         if (keyWord.value.isNullOrBlank()) {
             "请输入有数据".toast()
-            return@BindingAction
+            return@BindingCommand
         }
         hideSoftKeyBoard()
         startFragment(
@@ -80,7 +75,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
             .map {
                 val list = mutableListOf<Any>()
                 it.forEach { item ->
-                    list.add(ItemHistoryViewModel(this, item))
+                    list.add(ItemHistoryViewModel(this, item, false))
                 }
                 list
             }
@@ -102,7 +97,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
             .map {
                 val list = mutableListOf<Any>()
                 it.forEach { item ->
-                    list.add(ItemHistoryViewModel(this, SearchHistory(item.keyword)))
+                    list.add(ItemHistoryViewModel(this, SearchHistory(item.keyword), true))
                 }
                 list
             }

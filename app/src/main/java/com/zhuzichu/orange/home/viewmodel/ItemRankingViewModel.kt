@@ -1,7 +1,6 @@
 package com.zhuzichu.orange.home.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.showTradeDetail
 import com.zhuzichu.orange.bean.SalesBean
@@ -19,7 +18,7 @@ class ItemRankingViewModel(
     var salesBean: SalesBean,
     var top: String
 ) : ItemViewModel<RankingViewModel>(viewModel) {
-    val clickItem = BindingCommand<Any>(BindingAction {
+    val clickItem = BindingCommand<Any>( {
         checkLogin {
             showTradeDetail(viewModel._activity, salesBean.itemid)
         }

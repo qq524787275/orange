@@ -8,7 +8,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.view.layout.MultiStateView
-import kotlinx.android.synthetic.main.error_view.view.*
 
 /**
  * Created by Android Studio.

@@ -3,7 +3,6 @@ package com.zhuzichu.orange.search.viewmodel
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 
 /**
@@ -18,10 +17,10 @@ class ItemSearchIndicatorViewModel(viewModel: SearchResultViewModel,var title: S
     var isSelected = ObservableBoolean(false)
     var currentSort = ObservableInt(sort[0])
 
-    var clickItem = BindingCommand<Any>(BindingAction {
+    var clickItem = BindingCommand<Any>( {
         //todo 去除魔法数
         if (isSelected.get() && sort.size == 1) {
-            return@BindingAction
+            return@BindingCommand
         }
 
         if (sort.size == 1) {

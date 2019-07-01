@@ -2,7 +2,6 @@ package com.zhuzichu.orange.home.viewmodel
 
 import androidx.databinding.ObservableBoolean
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.mvvm.databinding.command.BindingAction
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 
 class ItemRankingIndicatorViewModel(
@@ -16,7 +15,7 @@ class ItemRankingIndicatorViewModel(
 
     var isSelected = ObservableBoolean(false)
 
-    var clickItem = BindingCommand<Any>(BindingAction {
+    var clickItem = BindingCommand<Any>( {
         //todo 去除魔法数
         viewModel.selectIndcator(this)
     })
