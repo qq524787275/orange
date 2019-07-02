@@ -7,6 +7,12 @@ import com.zhuzichu.orange.http.IService
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import org.jsoup.Jsoup
+import com.gargoylesoftware.htmlunit.BrowserVersion
+import com.gargoylesoftware.htmlunit.WebClient
+import com.gargoylesoftware.htmlunit.html.HtmlPage
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController
+import com.zhuzichu.mvvm.utils.HttpUtils
+
 
 /**
  * Created by Android Studio.
@@ -21,10 +27,10 @@ object NetRepositoryImpl : NetRepository, IService {
         //B天猫 C淘宝
         when (type) {
             "C" -> {
-                return getTaobaoService().getShopDetailDesc(itemid)
+                return Flowable.just("https://h5.m.taobao.com".plus("/awp/core/detail.htm").plus("?id=").plus(itemid))
                     .map {
-                        Log.i("zzc",it)
-                        val desc = Jsoup.parse(it).select(".detail-desc").first()
+                        val parse= HttpUtils.getInstance().getHtmlPageResponseAsDocument(it)
+                        val desc = parse.select("div.detail-desc").first()
                         if (desc != null) {
                             desc.html()
                         } else {

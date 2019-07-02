@@ -7,6 +7,12 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            android:text="@{viewModel.text}"/>
+        </ScrollView>
     </LinearLayout>
 </layout>
