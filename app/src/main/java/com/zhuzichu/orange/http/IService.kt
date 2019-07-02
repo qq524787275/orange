@@ -12,7 +12,7 @@ import com.zhuzichu.mvvm.http.AppRetrofit
 
 private const val HAODANKU_URL = "http://v2.api.haodanku.com"
 
-private const val TAOBAO_URL = "https://h5.m.taobao.com"
+private const val TAOBAO_URL = "https://item.taobao.com"
 
 private const val TMALL_URL = "https://detail.m.tmall.com"
 //private const val BASE_URL = "http://47.97.153.234:80"

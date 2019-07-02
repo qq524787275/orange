@@ -1,17 +1,14 @@
 package com.zhuzichu.orange.repository
 
-import android.util.Log
 import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.mvvm.utils.getParamByUrl
+import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.orange.bean.*
 import com.zhuzichu.orange.http.IService
 import io.reactivex.Flowable
-import io.reactivex.Observable
+import org.json.JSONObject
 import org.jsoup.Jsoup
-import com.gargoylesoftware.htmlunit.BrowserVersion
-import com.gargoylesoftware.htmlunit.WebClient
-import com.gargoylesoftware.htmlunit.html.HtmlPage
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController
-import com.zhuzichu.mvvm.utils.HttpUtils
+import java.util.regex.Pattern
 
 
 /**
@@ -23,34 +20,65 @@ import com.zhuzichu.mvvm.utils.HttpUtils
  */
 object NetRepositoryImpl : NetRepository, IService {
 
-    override fun getShopDetailDesc(itemid: String, type: String): Flowable<String> {
+    override fun getShopDetailDesc(itemid: String, type: String): Flowable<List<String>> {
         //B天猫 C淘宝
         when (type) {
             "C" -> {
-                return Flowable.just("https://h5.m.taobao.com".plus("/awp/core/detail.htm").plus("?id=").plus(itemid))
+                return getTaobaoService().getShopDetailDesc(itemid)
                     .map {
-                        val parse= HttpUtils.getInstance().getHtmlPageResponseAsDocument(it)
-                        val desc = parse.select("div.detail-desc").first()
-                        if (desc != null) {
-                            desc.html()
+                        val elements = Jsoup.parse(it).select("script")
+                        val element = elements[elements.size - 7]
+                        if (element != null) {
+                            val p = Pattern.compile("apiImgInfo  : '.*'")
+                            val m = p.matcher(element.data())
+                            if (m.find()) {
+                                val url = m.group().split("'")[1]
+
+                                val body = getTaobaoService().getString("https:".plus(url)).execute().body()!!
+                                val s = body.split("(")[1]
+                                val tag = s.substring(0, s.length - 1)
+                                val list = mutableListOf<String>()
+                                JSONObject(tag).keys().forEach { item ->
+                                    if (item.contains(".jpg")) {
+                                        val imageUrl =
+                                            "https://img.alicdn.com/imgextra/i".plus(getParamByUrl(url, "v")).plus("/")
+                                                .plus(itemid).plus("/").plus(item)
+                                        imageUrl.logi("haha")
+                                        list.add(imageUrl)
+                                    }
+
+                                }
+                                list.toList()
+                            } else {
+                                listOf()
+                            }
                         } else {
-                            "数据异常"
+                            listOf()
                         }
                     }
             }
             "B" -> {
                 return getTmallService().getShopDetailDesc(itemid)
                     .map {
-                        val desc = Jsoup.parse(it).select("div.container").first()
+                        val desc = Jsoup.parse(it).select("div.mui-custommodule-item").select("img.lazyImg")
                         if (desc != null) {
-                            desc.html()
+                            val list = mutableListOf<String>()
+                            desc.map { element ->
+                                val url = element.attr("data-ks-lazyload")
+                                if (!url.contains("https:")) {
+                                    val imageUrl = "https:".plus(url)
+                                    imageUrl.logi("haha")
+                                    list.add(imageUrl)
+                                }
+                            }
+                            list.toList()
                         } else {
-                            "数据异常"
+                            listOf()
                         }
                     }
             }
             else -> {
-                return Flowable.just("数据异常")
+                return Flowable.fromArray(listOf())
             }
         }
     }

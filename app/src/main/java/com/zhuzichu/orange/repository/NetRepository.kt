@@ -71,5 +71,5 @@ interface NetRepository {
 
     fun getShopDetail(itemid: String): Flowable<BaseRes<ShopDetailBean>>
 
-    fun getShopDetailDesc(itemid: String, type: String): Flowable<String>
+    fun getShopDetailDesc(itemid: String, type: String): Flowable<List<String>>
 }

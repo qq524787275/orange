@@ -28,9 +28,9 @@ class ShopDetailViewModel(application: Application) : BaseViewModel(application)
             .compose(bindToLifecycle(getLifecycleProvider()))
             .compose(schedulersTransformer())
             .subscribe({
-                logi(it)
+                logi(it.toString())
                 it.toast()
-                text.set(it)
+                text.set(it.toString())
             }, {
                 handleThrowable(it)
             })
