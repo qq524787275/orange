@@ -31,6 +31,5 @@ class FindFragment : BaseTopBarFragment<FragmentFindBinding, FindViewModel>() {
         initMagicIndicator(
             activity, titles, viewpager, indicator
         )
-
     }
 }

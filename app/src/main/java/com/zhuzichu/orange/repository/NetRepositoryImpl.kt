@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.mvvm.utils.Convert
 import com.zhuzichu.mvvm.utils.getParamByUrl
 import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.orange.bean.*
@@ -20,6 +21,7 @@ import java.util.regex.Pattern
  */
 object NetRepositoryImpl : NetRepository, IService {
 
+    //todo 代码太丑待优化
     override fun getShopDetailDesc(itemid: String, type: String): Flowable<List<String>> {
         //B天猫 C淘宝
         when (type) {
@@ -60,15 +62,16 @@ object NetRepositoryImpl : NetRepository, IService {
             "B" -> {
                 return getTmallService().getShopDetailDesc(itemid)
                     .map {
-                        val desc = Jsoup.parse(it).select("div.mui-custommodule-item").select("img.lazyImg")
-                        if (desc != null) {
+                        val elements = Jsoup.parse(it).select("script")
+                        val element = elements[elements.size - 6]
+                        if (element != null) {
+                            val s = "{".plus(element.data().split("= {")[1])
+                            val json = s.substring(0, s.length - 1)
+                            val shopdesc = Convert.fromJson<ShopDescBean>(json, ShopDescBean::class.java)
                             val list = mutableListOf<String>()
-                            desc.map { element ->
-                                val url = element.attr("data-ks-lazyload")
-                                if (!url.contains("https:")) {
-                                    val imageUrl = "https:".plus(url)
-                                    imageUrl.logi("haha")
-                                    list.add(imageUrl)
+                            shopdesc.detailDesc.newWapDescJson.forEach { item ->
+                                if (item.data.isNotEmpty()) {
+                                    list.add(item.data[0].img)
                                 }
                             }
                             list.toList()
