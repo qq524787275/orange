@@ -37,10 +37,10 @@
                     android:layout_height="match_parent"
                     app:items="@{viewModel.rightList}"
                     app:lineManager="@{LineManagers.both()}"
-                    app:spanSizeLookup="@{viewModel.spanSizeLookup}"
                     app:itemBinding="@{viewModel.rightItemBind}"
                     tools:listitem="@layout/item_sort_right_image"
                     app:gridLayoutManager="@{3}"
+                    app:spanSizeLookup="@{viewModel.spanSizeLookup}"
                     tools:itemCount="1"
             />
         </com.zhuzichu.mvvm.widget.StickyHeaderLayout>

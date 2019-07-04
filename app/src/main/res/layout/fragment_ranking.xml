@@ -3,50 +3,63 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.home.viewmodel.RankingViewModel"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:fillViewport="true">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:layout_gravity="bottom"
-                app:gridLayoutManager="@{3}"
-                app:itemBinding="@{viewModel.itemBindIndicator}"
-                app:items="@{viewModel.listIndicator}"/>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                             android:layout_height="match_parent">
 
-        <com.zhuzichu.mvvm.view.layout.MultiStateView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:msv_emptyView="@layout/empty_view"
-                app:msv_errorView="@layout/error_view"
-                app:msv_loadingView="@layout/loading_view"
-                app:viewState="@{viewModel.viewState}">
-
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                    android:id="@+id/refresh"
+            <com.google.android.material.appbar.AppBarLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
-                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorBackground">
 
-                        android:id="@+id/recycler_content"
-                        app:itemBinding="@{viewModel.itemBind}"
-                        app:items="@{viewModel.list}"
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_indicator"
                         android:layout_width="match_parent"
-                        app:gridLayoutManager="@{2}"
+                        android:layout_height="wrap_content"
                         android:scrollbars="none"
                         android:overScrollMode="never"
-                        android:layout_height="match_parent"/>
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                        android:layout_gravity="bottom"
+                        app:gridLayoutManager="@{3}"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:itemBinding="@{viewModel.itemBindIndicator}"
+                        app:items="@{viewModel.listIndicator}"/>
 
-        </com.zhuzichu.mvvm.view.layout.MultiStateView>
+            </com.google.android.material.appbar.AppBarLayout>
 
-    </LinearLayout>
+
+            <com.zhuzichu.mvvm.view.layout.MultiStateView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:msv_emptyView="@layout/empty_view"
+                    app:msv_errorView="@layout/error_view"
+                    app:msv_loadingView="@layout/loading_view"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:viewState="@{viewModel.viewState}">
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                        android:id="@+id/refresh"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+                    <androidx.recyclerview.widget.RecyclerView
+
+                            android:id="@+id/recycler_content"
+                            app:itemBinding="@{viewModel.itemBind}"
+                            app:items="@{viewModel.list}"
+                            android:layout_width="match_parent"
+                            app:gridLayoutManager="@{2}"
+                            android:scrollbars="none"
+                            android:overScrollMode="never"
+                            android:layout_height="match_parent"/>
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            </com.zhuzichu.mvvm.view.layout.MultiStateView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </FrameLayout>
 </layout>

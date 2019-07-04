@@ -2,6 +2,7 @@ package com.zhuzichu.orange.main.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -65,6 +66,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         FindFragment(),
         MineFragment()
     )
+
+    override fun onNewBundle(args: Bundle) {
+        super.onNewBundle(args)
+       content.setCurrentItem(0,false)
+    }
 
     override fun initView() {
         val commonNavigator = CommonNavigator(context)

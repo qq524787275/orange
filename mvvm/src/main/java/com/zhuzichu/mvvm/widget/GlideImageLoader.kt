@@ -2,7 +2,6 @@ package com.zhuzichu.mvvm.widget
 
 import android.content.Context
 import android.widget.ImageView
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.glide.GlideApp

@@ -12,14 +12,15 @@ import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 class ItemResultViewModel(viewModel: SearchResultViewModel, var searchBean: SearchBean, val spanSize: ObservableInt) :
     ItemViewModel<SearchResultViewModel>(viewModel) {
 
-    val clickItem = BindingCommand<Any>({
+    val onClickItem = BindingCommand<Any>({
         viewModel.startFragment(
             ShopDetailFragment(), bundleOf(
                 ShopDetailFragment.ITEMID to searchBean.itemid,
-                ShopDetailFragment.TYPE to searchBean.shoptype
+                ShopDetailFragment.TYPE to searchBean.shoptype,
+                ShopDetailFragment.ITEMENDPRICE to searchBean.itemendprice,
+                ShopDetailFragment.ITEMPRICE to searchBean.itemprice
             )
         )
     })
-
 }
 

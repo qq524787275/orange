@@ -9,7 +9,9 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:gravity="center"
-                  android:layout_margin="8dp"
+                  android:layout_marginTop="5dp"
+                  app:onClickCommand="@{item.onClickNavigation}"
+                  android:layout_marginBottom="5dp"
                   android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="50dp"
@@ -20,8 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="淘宝"
+                android:textSize="12sp"
                 android:textColor="@color/colorSecondText"
-                android:layout_marginTop="5dp"
                 android:text="@{item.title}"/>
     </LinearLayout>
 </layout>

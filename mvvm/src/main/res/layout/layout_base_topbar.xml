@@ -17,36 +17,47 @@
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_height="50dp">
+
+        <LinearLayout
+                android:id="@+id/layout_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:gravity="start|center_vertical"
+                android:visibility="gone"
+                android:orientation="horizontal"/>
+
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="标题"
+                tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
                 android:textColor="@color/black"
                 android:maxLines="1"
                 android:minLines="1"
                 android:ellipsize="end"
                 android:ems="10"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/layout_left"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="@drawable/divider"
-              android:layout_alignParentBottom="true"
-        />
 
         <LinearLayout
                 android:id="@+id/layout_right"
                 android:layout_width="wrap_content"
-                android:layout_marginEnd="15dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/title"
                 android:gravity="end|center_vertical"
-                android:orientation="horizontal"
-        />
+                android:visibility="gone"
+                android:orientation="horizontal"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="@drawable/divider"
+              android:layout_alignParentBottom="true"/>
 
 
     </RelativeLayout>

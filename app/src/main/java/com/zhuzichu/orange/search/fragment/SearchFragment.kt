@@ -7,7 +7,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.zhuzichu.mvvm.base.BaseTopBarFragment
+import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.orange.BR
@@ -16,7 +16,7 @@ import com.zhuzichu.orange.databinding.FragmentSearchBinding
 import com.zhuzichu.orange.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
-class SearchFragment : BaseTopBarFragment<FragmentSearchBinding, SearchViewModel>() {
+class SearchFragment : BaseTopbarFragment<FragmentSearchBinding, SearchViewModel>() {
 
     override fun setLayoutId(): Int = R.layout.fragment_search
 

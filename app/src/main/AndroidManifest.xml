@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             android:name="com.zhuzichu.mvvm.App">
-
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <meta-data
                 android:name="design_width_in_dp"
                 android:value="375"/>

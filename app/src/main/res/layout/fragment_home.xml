@@ -71,7 +71,9 @@
                             <com.zhuzichu.mvvm.view.banner.Banner
                                     android:id="@+id/banner"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="match_parent"
+                                    app:widthPadding="@{20}"
+                                    app:widthHeightRatio="@{0.408f}"/>
                         </androidx.cardview.widget.CardView>
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -83,22 +85,18 @@
                                 app:layout_scrollFlags="scroll"
                                 android:scrollbars="none"
                                 android:overScrollMode="never"
-                                app:itemBinding="@{viewModel.itemNavigation}"
+                                app:itemBinding="@{viewModel.itemBindNavigation}"
                                 app:items="@{viewModel.listNavigation}"/>
-
-                        <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
-                                android:id="@+id/indicator"
-                                android:layout_width="match_parent"
-                                android:background="@color/white"
-                                android:layout_height="45dp"/>
 
                     </com.google.android.material.appbar.AppBarLayout>
 
-
-                    <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/viewpager"
+                    <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            app:itemBinding="@{viewModel.itemBind}"
+                            app:gridLayoutManager="@{2}"
+                            app:spanSizeLookup="@{viewModel.spanSizeLookup}"
+                            app:items="@{viewModel.list}"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -122,7 +120,7 @@
                     android:layout_marginRight="15dp"
                     app:layout_scrollFlags="scroll"
                     android:transitionName="@string/transition_search"
-                    app:onClickCommand="@{viewModel.clickSearchLayout}"
+                    app:onClickCommand="@{viewModel.onClickSearch}"
                     app:cardElevation="1dp"
                     app:cardCornerRadius="5dp">
                 <LinearLayout

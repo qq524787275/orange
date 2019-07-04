@@ -7,5 +7,4 @@ class HomeEvent {
     }
 
     class OnTowLevelEvent(var state: Int)
-    class OnHomeRefreshEvent
 }

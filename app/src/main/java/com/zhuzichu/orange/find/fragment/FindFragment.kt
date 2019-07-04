@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.find.fragment
 
 import androidx.fragment.app.Fragment
-import com.zhuzichu.mvvm.base.BaseTopBarFragment
+import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -10,7 +10,7 @@ import com.zhuzichu.orange.find.adapter.FindFragmentPageAdapter
 import com.zhuzichu.orange.find.viewmodel.FindViewModel
 import kotlinx.android.synthetic.main.fragment_find.*
 
-class FindFragment : BaseTopBarFragment<FragmentFindBinding, FindViewModel>() {
+class FindFragment : BaseTopbarFragment<FragmentFindBinding, FindViewModel>() {
 
     val titles = listOf("精选单品", "好货专场", "趣味发图")
     val fragments = listOf<Fragment>(FindOneFragment(), FindTwoFragment(), FindThreeFragment())

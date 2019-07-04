@@ -22,11 +22,19 @@ import com.zhuzichu.mvvm.utils.toColorById
  * Date: 2019-06-14
  * Time: 16:28
  */
-abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : BaseFragment<V, VM>() {
-    private lateinit var _Title: AppCompatTextView
+abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : BaseFragment<V, VM>() {
+    private val _title by lazy {
+        _topBar.findViewById(R.id.title) as AppCompatTextView
+    }
     private lateinit var _statuBar: View
     private lateinit var _topBar: View
-    private lateinit var _rightLayout: LinearLayout;
+
+    private val _rightLayout by lazy {
+        _topBar.findViewById(R.id.layout_right) as LinearLayout
+    }
+    private val _leftLayout by lazy {
+        _topBar.findViewById(R.id.layout_left) as LinearLayout
+    }
 
     private var _statusbarHeight: Int = 0
     private var _topBarHeight: Int = 0
@@ -55,13 +63,11 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
 
         topBarLp.topMargin = _statusbarHeight
 
-        _Title = _topBar.findViewById(R.id.title) as AppCompatTextView
-        _rightLayout = _topBar.findViewById(R.id.layout_right) as LinearLayout
 
         if (setTitle() == null) {
             hideTopbar()
         } else {
-            _Title.text = setTitle()
+            _title.text = setTitle()
             showTopBar()
         }
 
@@ -72,7 +78,7 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
     }
 
     fun setTitle(title: String) {
-        _Title.text = title
+        _title.text = title
         showTopBar()
     }
 
@@ -91,8 +97,23 @@ abstract class BaseTopBarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
     }
 
     fun addRightIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
-        val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_btn, null) as RelativeLayout
+        val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_left_btn, null) as RelativeLayout
         _rightLayout.addView(imageLayout)
+        _rightLayout.visibility = View.VISIBLE
+        imageLayout.layoutParams.height = _topBarHeight
+        imageLayout.layoutParams.width = _topBarHeight
+        val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
+        icon.setImageResource(iconId)
+        if (onClickListener != null)
+            imageLayout.setOnClickListener(onClickListener)
+    }
+
+
+    fun addLeftIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
+        val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_left_btn, null) as RelativeLayout
+        _leftLayout.addView(imageLayout)
+        _leftLayout.visibility = View.VISIBLE
+        (_title.layoutParams as RelativeLayout.LayoutParams).marginStart = 0
         imageLayout.layoutParams.height = _topBarHeight
         imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView

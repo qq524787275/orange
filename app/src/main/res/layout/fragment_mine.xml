@@ -428,6 +428,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:layout_marginBottom="20dp"
                             app:cardCornerRadius="5dp"
                             android:layout_marginRight="30dp"
                             app:onClickCommand="@{viewModel.clickLogout}"

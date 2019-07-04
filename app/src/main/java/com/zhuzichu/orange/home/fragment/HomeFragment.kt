@@ -3,29 +3,24 @@ package com.zhuzichu.orange.home.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.scwang.smartrefresh.layout.api.OnTwoLevelListener
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.constant.RefreshState
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener
 import com.zhuzichu.mvvm.base.BaseFragment
-import com.zhuzichu.mvvm.base.BaseTopBarFragment
 import com.zhuzichu.mvvm.bus.RxBus
-import com.zhuzichu.mvvm.utils.*
-import com.zhuzichu.mvvm.utils.helper.QMUIDeviceHelper
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
-import com.zhuzichu.mvvm.widget.GlideImageLoader
-import com.zhuzichu.orange.BR
-import com.zhuzichu.orange.databinding.FragmentHomeBinding
-import com.zhuzichu.orange.home.adpater.HomeFragmentPageAdapter
-import com.zhuzichu.orange.home.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 import com.zhuzichu.mvvm.view.banner.BannerConfig
 import com.zhuzichu.mvvm.view.banner.Transformer.DepthPage
+import com.zhuzichu.mvvm.widget.GlideImageLoader
+import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.databinding.FragmentHomeBinding
 import com.zhuzichu.orange.event.HomeEvent
+import com.zhuzichu.orange.home.viewmodel.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.math.min
 
 
 /**
@@ -36,8 +31,6 @@ import com.zhuzichu.orange.event.HomeEvent
  * Time: 13:27
  */
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
-    val titles = listOf("榜单", "品牌", "快抢", "达人说")
-    val fragments = listOf<Fragment>(RankingFragment(), TalentFragment(), BuyingFragment(), TalentFragment())
     override fun setLayoutId(): Int = R.layout.fragment_home
 
     override fun bindVariableId(): Int = BR.viewModel
@@ -46,11 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         initSearchBar()
         initRefresh()
         initBanner()
-        viewpager.adapter = HomeFragmentPageAdapter(childFragmentManager, fragments)
-        viewpager.offscreenPageLimit = titles.size
-        initMagicIndicator(
-            activity, titles, viewpager, indicator
-        )
     }
 
     private fun initSearchBar() {
@@ -69,17 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 headerHeight: Int,
                 maxDragHeight: Int
             ) {
-                search_layout.alpha = 1 - Math.min(percent, 1f)
-                secondfloor.translationY = Math.min(
-                    offset - secondfloor.height + search_layout.height,
-                    refresh.layout.height - secondfloor.height
-                )
-                    .toFloat()
+                search_layout.alpha = 1 - min(percent, 1f)
+                secondfloor.translationY =
+                    min(offset - secondfloor.height + search_layout.height, refresh.layout.height - secondfloor.height)
+                        .toFloat()
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                RxBus.default.post(HomeEvent.OnHomeRefreshEvent())
-                refreshLayout.finishRefresh(2000)
+                _viewModel.loadHomeData()
             }
 
             override fun onStateChanged(refreshLayout: RefreshLayout, oldState: RefreshState, newState: RefreshState) {
@@ -99,14 +84,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
         super.onEnterAnimationEnd(savedInstanceState)
-        _viewModel.loadBanner()
+        _viewModel.loadHomeData()
     }
 
     private fun initBanner() {
-        val layoutParams = banner.layoutParams
-        layoutParams.width = getScreenW() - 2 * dip2px(10f)
-        layoutParams.height = layoutParams.width / (368 / 150)
-        banner.setImageLoader(GlideImageLoader())
         //设置banner样式
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
         //设置图片加载器
@@ -133,11 +114,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             banner.start()
         })
 
-        RxBus.default.toObservable(HomeEvent.OnHomeRefreshEvent::class.java)
-            .compose(bindToLifecycle())
-            .subscribe {
-                _viewModel.loadBanner()
-            }
-    }
+        _viewModel.uc.finishLoadmore.observe(this, Observer {
+            refresh.finishLoadMore()
+        })
 
+        _viewModel.uc.finishRefreshing.observe(this, Observer {
+            refresh.finishRefresh()
+            refresh.setNoMoreData(false)
+        })
+
+        _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
+            refresh.finishLoadMore()
+            refresh.setNoMoreData(true)
+        })
+
+    }
 }

@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zhuzichu.mvvm.BR
-import com.zhuzichu.mvvm.base.BaseTopBarFragment
+import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.orange.databinding.FragmentVideoBinding
 import com.zhuzichu.orange.video.viewmodel.VideoViewModel
 import kotlinx.android.synthetic.main.fragment_video.*
 
 
-class VideoFragment : BaseTopBarFragment<FragmentVideoBinding, VideoViewModel>() {
+class VideoFragment : BaseTopbarFragment<FragmentVideoBinding, VideoViewModel>() {
     override fun setLayoutId(): Int = com.zhuzichu.orange.R.layout.fragment_video
 
     override fun bindVariableId(): Int = BR.viewModel

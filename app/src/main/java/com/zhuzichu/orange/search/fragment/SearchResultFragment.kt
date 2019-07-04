@@ -4,17 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alimama.tunion.trade.TUnionTradeSDK
-import com.zhuzichu.mvvm.base.BaseTopBarFragment
+import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
 import com.zhuzichu.mvvm.utils.bindArgument
-import com.zhuzichu.mvvm.utils.showTradeDetail
-import com.zhuzichu.mvvm.utils.showTradeUrl
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.checkLogin
 import com.zhuzichu.orange.databinding.FragmentSearchResultBinding
 import com.zhuzichu.orange.search.viewmodel.SearchResultViewModel
-import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
 
@@ -25,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_search_result.*
  * Date: 2019-06-13
  * Time: 14:38
  */
-class SearchResultFragment : BaseTopBarFragment<FragmentSearchResultBinding, SearchResultViewModel>() {
+class SearchResultFragment : BaseTopbarBackFragment<FragmentSearchResultBinding, SearchResultViewModel>() {
     companion object {
         const val KEYWORD = "keyword"
     }
