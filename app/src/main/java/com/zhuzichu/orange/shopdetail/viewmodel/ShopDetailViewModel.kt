@@ -5,10 +5,10 @@ import android.app.Application
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.utils.showTradeDetail
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.checkLogin
 import com.zhuzichu.orange.main.fragment.MainFragment
+import com.zhuzichu.orange.utils.showTradeDetail
 import me.yokeyword.fragmentation.ISupportFragment
 
 @SuppressLint("CheckResult")
@@ -29,14 +29,16 @@ class ShopDetailViewModel(
     })
 
     val onClickItemprice = BindingCommand<Any>({
-        checkLogin {
+        checkLogin(_activity) {
             itemid.get()?.let { showTradeDetail(_activity, it) }
         }
     })
 
     val onClickItemendprice = BindingCommand<Any>({
-        checkLogin {
-            itemid.get()?.let { showTradeDetail(_activity, it) }
+        checkLogin(_activity) {
+            itemid.get()?.let {
+                showTradeDetail(_activity, it)
+            }
         }
     })
 }

@@ -6,8 +6,8 @@ import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.zhuzichu.mvvm.base.BaseActivity
 import com.zhuzichu.mvvm.widget.FadeAnimator
 import com.zhuzichu.orange.main.fragment.MainFragment
+import com.zhuzichu.orange.view.plane.PlaneMaker
 import me.yokeyword.fragmentation.ISupportFragment
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 class MainActivity : BaseActivity() {
@@ -31,5 +31,10 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         AlibcTradeSDK.destory()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        PlaneMaker.dismissLodingDialog()
     }
 }

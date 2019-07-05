@@ -74,7 +74,7 @@
                           android:background="#885892FA"
                           android:foreground="?attr/selectableItemBackgroundBorderless"
                           android:orientation="vertical"
-                          app:onClickCommand="@{viewModel.onClickItemprice"
+                          app:onClickCommand="@{viewModel.onClickItemprice}"
                           android:layout_height="match_parent">
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                           android:background="#FF5892FA"
                           android:foreground="?attr/selectableItemBackgroundBorderless"
                           android:orientation="vertical"
-                          app:onClickCommand="@{viewModel.onClickItemendprice"
+                          app:onClickCommand="@{viewModel.onClickItemendprice}"
                           android:layout_height="match_parent">
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"

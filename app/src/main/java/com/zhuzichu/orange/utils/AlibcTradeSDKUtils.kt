@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm.utils
+package com.zhuzichu.orange.utils
 
 import android.app.Activity
 import android.text.TextUtils
@@ -10,6 +10,8 @@ import com.alibaba.baichuan.android.trade.model.OpenType
 import com.alibaba.baichuan.android.trade.page.*
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams
+import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.view.plane.PlaneMaker
 
 
 /**
@@ -31,12 +33,13 @@ private var alibcTaokeParams: AlibcTaokeParams = AlibcTaokeParams().apply {
 }
 
 private val tradeCallback = object : AlibcTradeCallback {
-    override fun onFailure(code: Int, msg: String?) {
-
+    override fun onFailure(code: Int, msg: String) {
+        msg.toast()
+        PlaneMaker.dismissLodingDialog()
     }
 
-    override fun onTradeSuccess(result: AlibcTradeResult?) {
-
+    override fun onTradeSuccess(result: AlibcTradeResult) {
+        PlaneMaker.dismissLodingDialog()
     }
 
 }
@@ -46,16 +49,22 @@ private val tradeCallback = object : AlibcTradeCallback {
  * 打开指定链接
  */
 fun showTradeUrl(
-    context: Activity?,
+    context: Activity,
     url: String,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
     if (TextUtils.isEmpty(url)) {
         Toast.makeText(context, "URL为空", Toast.LENGTH_SHORT).show()
         return
     }
-    AlibcTrade.show(context, AlibcPage(url), alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    PlaneMaker.showLoadingDialog(context, false)
+    AlibcTrade.show(
+        context, AlibcPage(url),
+        alibcShowParams,
+        alibcTaokeParams, extras,
+        alibcTradeCallback
+    )
 }
 
 /**
@@ -63,13 +72,20 @@ fun showTradeUrl(
  * 显示商品详情页
  */
 fun showTradeDetail(
-    context: Activity?,
+    context: Activity,
     itemId: String,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
+    PlaneMaker.showLoadingDialog(context, false)
     val alibcBasePage = AlibcDetailPage(itemId)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    AlibcTrade.show(
+        context, alibcBasePage,
+        alibcShowParams,
+        alibcTaokeParams,
+        extras,
+        alibcTradeCallback
+    )
 
 }
 
@@ -78,49 +94,73 @@ fun showTradeDetail(
  * 分域显示我的订单，或者全部显示我的订单
  */
 fun showTradeOrder(
-    context: Activity?,
+    context: Activity,
     type: Int = 0,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
+    PlaneMaker.showLoadingDialog(context, false)
     val alibcBasePage = AlibcMyOrdersPage(type, true)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    AlibcTrade.show(
+        context, alibcBasePage,
+        alibcShowParams,
+        alibcTaokeParams, extras,
+        alibcTradeCallback
+    )
 }
 
 /**
  *店铺，店铺id，支持明文id
  */
 fun showTradeShop(
-    context: Activity?,
+    context: Activity,
     shopId: String,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
+    PlaneMaker.showLoadingDialog(context, false)
     val alibcBasePage = AlibcShopPage(shopId)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    AlibcTrade.show(
+        context, alibcBasePage,
+        alibcShowParams,
+        alibcTaokeParams, extras,
+        alibcTradeCallback
+    )
 }
 
 /**
  *店铺，店铺id，支持明文id
  */
 fun showTradeShopCart(
-    context: Activity?,
+    context: Activity,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
+    PlaneMaker.showLoadingDialog(context, false)
     val alibcBasePage = AlibcMyCartsPage()
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    AlibcTrade.show(
+        context, alibcBasePage,
+        alibcShowParams,
+        alibcTaokeParams, extras,
+        alibcTradeCallback
+    )
 }
 
 /**
  *添加购物车，支持itemId和openItemId的商品，必填，不允许为null；
  */
 fun showTradeAddCart(
-    context: Activity?,
+    context: Activity,
     id: String,
     extras: Map<String, String>? = mapOf(),
-    alibcTradeCallback: AlibcTradeCallback? = tradeCallback
+    alibcTradeCallback: AlibcTradeCallback = tradeCallback
 ) {
+    PlaneMaker.showLoadingDialog(context, false)
     val alibcBasePage = AlibcAddCartPage(id)
-    AlibcTrade.show(context, alibcBasePage, alibcShowParams, alibcTaokeParams, extras, alibcTradeCallback)
+    AlibcTrade.show(
+        context, alibcBasePage,
+        alibcShowParams,
+        alibcTaokeParams, extras,
+        alibcTradeCallback
+    )
 }

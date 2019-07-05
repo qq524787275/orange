@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zhuzichu.mvvm.global.language.LangConfig
 import com.zhuzichu.mvvm.global.language.Zh
-import com.zhuzichu.mvvm.widget.MaterialHeader
+import io.flutter.view.FlutterMain
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
@@ -37,7 +37,7 @@ open class App : Application() {
         initFragmention()
         initDebugDb()
         initFont()
-
+        FlutterMain.startInitialization(applicationContext)
     }
 
     private fun initFont() {

@@ -54,7 +54,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 ItemNavigationViewModel(this@HomeViewModel, "抢购", com.zhuzichu.orange.R.mipmap.a3),
                 ItemNavigationViewModel(this@HomeViewModel, "抖商", com.zhuzichu.orange.R.mipmap.a4),
                 ItemNavigationViewModel(this@HomeViewModel, "达人说", com.zhuzichu.orange.R.mipmap.a5),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", com.zhuzichu.orange.R.mipmap.a6),
+                ItemNavigationViewModel(this@HomeViewModel, "flutter", com.zhuzichu.orange.R.mipmap.a6),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", com.zhuzichu.orange.R.mipmap.a7),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", com.zhuzichu.orange.R.mipmap.a8),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", com.zhuzichu.orange.R.mipmap.a9),

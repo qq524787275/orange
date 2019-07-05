@@ -1,133 +1,53 @@
 package com.zhuzichu.mvvm.base
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentationMagician
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.trello.rxlifecycle3.components.support.RxFragment
-import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.view.layout.MultiStateView
-import com.zhuzichu.mvvm.view.loading.DialogMaker
+import com.zhuzichu.mvvm.utils.logi
+import io.flutter.facade.Flutter
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugins.GeneratedPluginRegistrant
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
 import me.yokeyword.fragmentation.anim.FragmentAnimator
-import java.lang.reflect.ParameterizedType
-
 
 /**
  * Created by Android Studio.
  * Blog: zhuzichu.com
  * User: zhuzichu
- * Date: 2019-05-27
- * Time: 15:15
+ * Date: 2019-07-05
+ * Time: 15:21
  */
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
-    lateinit var _bind: V
-    lateinit var _viewModel: VM
-    private lateinit var _contentView: View
-    private lateinit var _multiStateView: MultiStateView
+abstract class BaseFlutterFragment : Fragment(), ISupportFragment {
+
+    companion object {
+        const val FLUTTER_LOG_CHANNEL = "android_log"
+    }
+
+
     private val _delegate by lazy { SupportFragmentDelegate(this) }
     private lateinit var _activity: FragmentActivity
 
-    abstract fun setLayoutId(): Int
-    abstract fun bindVariableId(): Int
+    abstract fun setRoute(): String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val type = this.javaClass.genericSuperclass
-        if (type is ParameterizedType) _viewModel =
-            ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
-        lifecycle.addObserver(_viewModel)
-        _viewModel.injectLifecycleProvider(this)
-        _viewModel._activity = _activity
-        _contentView = inflater.inflate(setLayoutId(), container, false)
-        _bind = DataBindingUtil.bind(_contentView)!!
-        _bind.setVariable(bindVariableId(), _viewModel)
-        _multiStateView = inflater.inflate(R.layout.layout_multi_state, null) as MultiStateView
-        _multiStateView.addView(_bind.root)
-        return _multiStateView.also {
-            _bind.lifecycleOwner = this
-            _bind.executePendingBindings()
+        val flutterView = Flutter.createView(_activity, lifecycle, setRoute())
+        GeneratedPluginRegistrant.registerWith(flutterView.pluginRegistry)
+        MethodChannel(flutterView, FLUTTER_LOG_CHANNEL).setMethodCallHandler { call, _ ->
+            var tag: String = call.argument("tag")!!
+            var message: String = call.argument("msg")!!
+            message.logi(tag)
         }
-    }
-
-
-    fun setErrorCommand(onErrorCommand: BindingCommand<Any>?) {
-        _multiStateView.getView(MultiStateView.VIEW_STATE_ERROR)
-            ?.findViewById<View>(R.id.retry)
-            ?.setOnClickListener {
-                onErrorCommand?.execute()
-            }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        registorUIChangeLiveDataCallBack()
-        initVariable()
-        initView()
-        initViewObservable()
-    }
-
-    //注册ViewModel与View的契约UI回调事件
-    private fun registorUIChangeLiveDataCallBack() {
-        //跳入新Fragment页面
-        _viewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
-            run {
-                val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-                val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
-                getSuperTopFragment().start(fragment, launchMode)
-            }
-        })
-        //跳转到新Activity页面
-        _viewModel.getUC().getStartActivityEvent().observe(this, Observer { params ->
-            run {
-                val clz = params[BaseViewModel.ParameterField.CLASS] as Class<*>
-                val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
-                val options = params[BaseViewModel.ParameterField.OPTIONS] as Bundle?
-                val isPop = params[BaseViewModel.ParameterField.POP] as Boolean?
-                val intent = Intent(activity, clz)
-                bundle?.let {
-                    intent.putExtras(it)
-                }
-                if (options != null) {
-                    startActivity(intent, options)
-                } else {
-                    startActivity(intent)
-                }
-                if (isPop == true) {
-                    _activity.finish()
-                }
-            }
-        })
-        //直接退出Activity页面
-        _viewModel.getUC().getFinishEvent().observe(this, Observer { _activity.finish() })
-        //有Fragment 退出fragment
-        _viewModel.getUC().getOnBackPressedEvent().observe(this, Observer { _activity.onBackPressed() })
-
-        _viewModel.getUC().getShowLoadingDialogEvent()
-            .observe(this, Observer { DialogMaker.showLoadingDialog(_activity) })
-        _viewModel.getUC().getHideLoadingDialogEvent().observe(this, Observer { DialogMaker.dismissLodingDialog() })
-
-        _viewModel.getUC().getMultiStateEvent().observe(this, Observer { params ->
-            run {
-                _multiStateView.viewState = params
-            }
-        })
-
-        _viewModel.getUC().getHideSoftKeyBoardEvent().observe(this, Observer {
-            hideSoftInput()
-        })
+        flutterView.flutterNativeView
+        return flutterView
     }
 
     override fun getSupportDelegate(): SupportFragmentDelegate {
@@ -182,10 +102,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     override fun onDestroy() {
         _delegate.onDestroy()
         super.onDestroy()
-        if (::_viewModel.isInitialized)
-            lifecycle.removeObserver(_viewModel)
-        if (::_bind.isInitialized)
-            _bind.unbind()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -552,5 +468,4 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
         return _delegate.onCreateAnimation(transit, enter, nextAnim)
     }
-
 }

@@ -5,6 +5,7 @@ import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.mvvm.utils.toColorById
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentShopDetailBinding

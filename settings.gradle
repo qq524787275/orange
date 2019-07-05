@@ -1,1 +1,7 @@
 include ':app', ':mvvm'
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+        settingsDir,
+        'orange_flutter/.android/include_flutter.groovy'
+))

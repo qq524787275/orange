@@ -29,7 +29,7 @@
                     <RelativeLayout android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/white"
-                                    app:onClickCommand="@{!viewModel.global.isLogin?viewModel.clickLogin:viewModel.goSetting}">
+                                    app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
 
                         <androidx.cardview.widget.CardView
                                 android:id="@+id/card_avatar"
@@ -85,7 +85,7 @@
                                           android:layout_height="wrap_content"
                                           android:gravity="center_vertical"
                                           android:padding="10dp"
-                                          app:onClickCommand="@{viewModel.clickOrderAll}"
+                                          app:onClickCommand="@{viewModel.onClickOrderAll}"
                                           android:orientation="horizontal">
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -121,7 +121,7 @@
                                 <LinearLayout android:layout_width="0dp"
                                               android:layout_weight="1"
                                               android:gravity="center"
-                                              app:onClickCommand="@{viewModel.clickOrderOne}"
+                                              app:onClickCommand="@{viewModel.onClickOrderOne}"
                                               android:layout_height="wrap_content"
                                               android:orientation="vertical">
 
@@ -146,7 +146,7 @@
                                               android:layout_weight="1"
                                               android:gravity="center"
                                               android:layout_height="wrap_content"
-                                              app:onClickCommand="@{viewModel.clickOrderTwo}"
+                                              app:onClickCommand="@{viewModel.onClickOrderTwo}"
                                               android:orientation="vertical">
 
                                     <androidx.appcompat.widget.AppCompatImageView
@@ -169,7 +169,7 @@
                                               android:layout_weight="1"
                                               android:gravity="center"
                                               android:layout_height="wrap_content"
-                                              app:onClickCommand="@{viewModel.clickOrderThree}"
+                                              app:onClickCommand="@{viewModel.onClickOrderThree}"
                                               android:orientation="vertical">
 
                                     <androidx.appcompat.widget.AppCompatImageView
@@ -191,7 +191,7 @@
                                 <LinearLayout android:layout_width="0dp"
                                               android:layout_weight="1"
                                               android:gravity="center"
-                                              app:onClickCommand="@{viewModel.clickOrderFour}"
+                                              app:onClickCommand="@{viewModel.onClickOrderFour}"
                                               android:layout_height="wrap_content"
                                               android:orientation="vertical">
 
@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:orientation="horizontal"
-                            app:onClickCommand="@{viewModel.clickShopcar}"
+                            app:onClickCommand="@{viewModel.onClickShopcar}"
                             android:padding="15dp">
 
                         <ImageView
@@ -431,7 +431,7 @@
                             android:layout_marginBottom="20dp"
                             app:cardCornerRadius="5dp"
                             android:layout_marginRight="30dp"
-                            app:onClickCommand="@{viewModel.clickLogout}"
+                            app:onClickCommand="@{viewModel.onClickLogout}"
                             android:layout_marginLeft="30dp">
 
                         <androidx.appcompat.widget.AppCompatTextView
