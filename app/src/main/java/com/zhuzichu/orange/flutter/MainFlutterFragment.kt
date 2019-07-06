@@ -1,6 +1,6 @@
 package com.zhuzichu.orange.flutter
 
-import com.zhuzichu.mvvm.base.BaseFlutterFragment
+import com.zhuzichu.orange.flutter.base.BaseFlutterFragment
 
 
 /**

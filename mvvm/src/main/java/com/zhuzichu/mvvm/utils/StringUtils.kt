@@ -1,6 +1,6 @@
 package com.zhuzichu.mvvm.utils
 
-import com.zhuzichu.mvvm.App
+import com.zhuzichu.mvvm.AppGlobal
 import java.util.regex.Pattern
 
 /**
@@ -12,7 +12,7 @@ import java.util.regex.Pattern
  */
 
 fun Int.toStringById(): String {
-    return App.context.resources.getString(this)
+    return AppGlobal.context.resources.getString(this)
 }
 
 /**

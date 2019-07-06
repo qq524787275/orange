@@ -1,7 +1,7 @@
 package com.zhuzichu.mvvm.utils
 
 import androidx.core.content.ContextCompat
-import com.zhuzichu.mvvm.App
+import com.zhuzichu.mvvm.AppGlobal
 
 /**
  * Created by Android Studio.
@@ -12,9 +12,9 @@ import com.zhuzichu.mvvm.App
  */
 
 fun getColorById(id: Int): Int {
-    return ContextCompat.getColor(App.context, id)
+    return ContextCompat.getColor(AppGlobal.context, id)
 }
 
 fun Int.toColorById(): Int {
-    return ContextCompat.getColor(App.context, this)
+    return ContextCompat.getColor(AppGlobal.context, this)
 }

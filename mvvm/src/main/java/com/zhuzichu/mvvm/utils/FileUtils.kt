@@ -4,7 +4,7 @@ import android.os.Environment
 import android.util.Base64
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import com.zhuzichu.mvvm.App
+import com.zhuzichu.mvvm.AppGlobal
 import java.io.File
 import java.io.FileInputStream
 
@@ -37,7 +37,7 @@ val isExternalStorageEnable: Boolean
  */
 @Nullable
 fun getCacheDir(@NonNull dirName: String): File {
-    val rootDir = App.context.externalCacheDir
+    val rootDir = AppGlobal.context.externalCacheDir
     val cacheFile = File(rootDir, dirName)
     if (!cacheFile.exists()) {
         cacheFile.mkdir()

@@ -3,6 +3,7 @@ package com.zhuzichu.orange.home.viewmodel
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.flutter.MainFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.home.fragment.RankingFragment
 

@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
-import com.zhuzichu.mvvm.App
+import com.zhuzichu.mvvm.AppGlobal
 import com.zhuzichu.mvvm.R
 
-fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) = makeText(App.context, message, duration).show()
+fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) = makeText(AppGlobal.context, message, duration).show()
 
 fun Any.toast(duration: Int = Toast.LENGTH_SHORT): Toast {
-    return makeText(App.context, this.toString(), duration).apply {
+    return makeText(AppGlobal.context, this.toString(), duration).apply {
         show()
     }
 }

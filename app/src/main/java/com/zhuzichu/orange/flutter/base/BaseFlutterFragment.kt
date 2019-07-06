@@ -1,23 +1,31 @@
-package com.zhuzichu.mvvm.base
+package com.zhuzichu.orange.flutter.base
 
 import android.app.Activity
+import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentationMagician
+import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.mvvm.view.layout.MultiStateView
+import com.zhuzichu.orange.R
 import io.flutter.facade.Flutter
+import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugins.GeneratedPluginRegistrant
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import io.flutter.view.FlutterView.FirstFrameListener
+
 
 /**
  * Created by Android Studio.
@@ -26,28 +34,39 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  * Date: 2019-07-05
  * Time: 15:21
  */
-abstract class BaseFlutterFragment : Fragment(), ISupportFragment {
+abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageChannel.MessageHandler<String> {
 
     companion object {
         const val FLUTTER_LOG_CHANNEL = "android_log"
     }
 
-
     private val _delegate by lazy { SupportFragmentDelegate(this) }
+    private val _contentView: View by lazy {
+        layoutInflater.inflate(R.layout.fragment_base_flutter, null)
+    }
     private lateinit var _activity: FragmentActivity
 
     abstract fun setRoute(): String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val flutterView = Flutter.createView(_activity, lifecycle, setRoute())
-        GeneratedPluginRegistrant.registerWith(flutterView.pluginRegistry)
-        MethodChannel(flutterView, FLUTTER_LOG_CHANNEL).setMethodCallHandler { call, _ ->
-            var tag: String = call.argument("tag")!!
-            var message: String = call.argument("msg")!!
+        flutterView.addFirstFrameListener {
+            _contentView.findViewById<View>(R.id.layout_loading).visibility = View.GONE
+        }
+        MethodChannel(
+            flutterView,
+            FLUTTER_LOG_CHANNEL
+        ).setMethodCallHandler { call, _ ->
+            val tag: String = call.argument("tag")!!
+            val message: String = call.argument("msg")!!
             message.logi(tag)
         }
-        flutterView.flutterNativeView
-        return flutterView
+        _contentView.findViewById<FrameLayout>(R.id.container).addView(flutterView)
+        return _contentView
+    }
+
+    override fun onMessage(s: String?, p1: BasicMessageChannel.Reply<String>) {
+        s?.logi("onCreateView")
     }
 
     override fun getSupportDelegate(): SupportFragmentDelegate {

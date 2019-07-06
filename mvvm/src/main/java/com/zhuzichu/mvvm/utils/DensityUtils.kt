@@ -3,7 +3,7 @@ package com.zhuzichu.mvvm.utils
 import android.app.Activity
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import com.zhuzichu.mvvm.App
+import com.zhuzichu.mvvm.AppGlobal
 
 /**
  * Created by Android Studio.
@@ -16,7 +16,7 @@ import com.zhuzichu.mvvm.App
  * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
  */
 fun dip2px(dpValue: Float): Int {
-    val scale = App.context.resources.displayMetrics.density
+    val scale = AppGlobal.context.resources.displayMetrics.density
     return (dpValue * scale + 0.5f).toInt()
 }
 
@@ -24,7 +24,7 @@ fun dip2px(dpValue: Float): Int {
  * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
  */
 fun px2dip(pxValue: Float): Int {
-    val scale = App.context.resources.displayMetrics.density
+    val scale = AppGlobal.context.resources.displayMetrics.density
     return (pxValue / scale + 0.5f).toInt()
 }
 
@@ -32,7 +32,7 @@ fun px2dip(pxValue: Float): Int {
  * 根据手机的分辨率从 px(像素) 的单位 转成为 sp
  */
 fun px2sp(pxValue: Float): Int {
-    val fontScale = App.context.resources.displayMetrics.scaledDensity
+    val fontScale = AppGlobal.context.resources.displayMetrics.scaledDensity
     return (pxValue / fontScale + 0.5f).toInt()
 }
 
@@ -40,7 +40,7 @@ fun px2sp(pxValue: Float): Int {
  * 根据手机的分辨率从 sp 的单位 转成为 px
  */
 fun sp2px(spValue: Float): Int {
-    val fontScale = App.context.resources.displayMetrics.scaledDensity
+    val fontScale = AppGlobal.context.resources.displayMetrics.scaledDensity
     return (spValue * fontScale + 0.5f).toInt()
 }
 
@@ -94,7 +94,7 @@ fun getScreenWH(): String {
  * @return
  */
 fun getScreenDM(): DisplayMetrics {
-    return App.context.resources.displayMetrics
+    return AppGlobal.context.resources.displayMetrics
 }
 
 
@@ -104,11 +104,11 @@ fun getScreenDM(): DisplayMetrics {
  * @return
  */
 fun getStatuBarH(): Int {
-    val resources = App.context.resources
+    val resources = AppGlobal.context.resources
     val resourcesId = resources.getIdentifier("status_bar_height", "dimen", "android")
     return resources.getDimensionPixelSize(resourcesId)
 }
 
 fun dip2sp(sp: Float): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, App.context.resources.displayMetrics).toInt()
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, AppGlobal.context.resources.displayMetrics).toInt()
 }

@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm
+package com.zhuzichu.orange
 
 import android.app.Application
 import android.content.Context
@@ -7,6 +7,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.language.LangConfig
 import com.zhuzichu.mvvm.global.language.Zh
 import io.flutter.view.FlutterMain
@@ -32,6 +34,7 @@ open class App : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
+        AppGlobal.init(context)
         LangConfig.initLang(Zh())
         initAutoSize()
         initFragmention()
