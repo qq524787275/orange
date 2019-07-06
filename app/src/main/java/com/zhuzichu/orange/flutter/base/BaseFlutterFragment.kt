@@ -40,9 +40,14 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         const val FLUTTER_LOG_CHANNEL = "android_log"
     }
 
-    private val _delegate by lazy { SupportFragmentDelegate(this) }
-    private val _contentView: View by lazy {
-        layoutInflater.inflate(R.layout.fragment_base_flutter, null)
+    private val _multiStateView: MultiStateView by lazy {
+        layoutInflater.inflate(
+            R.layout.layout_multi_state,
+            null
+        ) as MultiStateView
+    }
+    private val _delegate by lazy {
+        SupportFragmentDelegate(this)
     }
     private lateinit var _activity: FragmentActivity
 
@@ -50,9 +55,6 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val flutterView = Flutter.createView(_activity, lifecycle, setRoute())
-        flutterView.addFirstFrameListener {
-            _contentView.findViewById<View>(R.id.layout_loading).visibility = View.GONE
-        }
         MethodChannel(
             flutterView,
             FLUTTER_LOG_CHANNEL
@@ -61,8 +63,8 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
             val message: String = call.argument("msg")!!
             message.logi(tag)
         }
-        _contentView.findViewById<FrameLayout>(R.id.container).addView(flutterView)
-        return _contentView
+        _multiStateView.addView(flutterView)
+        return _multiStateView
     }
 
     override fun onMessage(s: String?, p1: BasicMessageChannel.Reply<String>) {
