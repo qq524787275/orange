@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'log.dart';
 import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
@@ -29,7 +30,12 @@ class MyScaffold extends StatelessWidget {
         children: <Widget>[
           new Expanded(
             child: new Center(
-              child: new Text('Hello, world!'),
+              child: FlareActor(
+                "assets/flare/Filip.flr",
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: "idle",
+              ),
             ),
           ),
         ],
