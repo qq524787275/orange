@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flare_flutter/flare_cache.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:orange_flutter/style.dart';
 
 import 'channel.dart';
@@ -19,15 +20,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter 学习',
-      theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.orange,
-          canvasColor: Colors.transparent),
-      home: _widgetForRoute(window.defaultRouteName),
-      navigatorObservers: [GLObserver()],
-    );
+    return _widgetForRoute(window.defaultRouteName);
   }
 }
 
@@ -46,13 +39,59 @@ class GLObserver extends NavigatorObserver {
 }
 
 Widget _widgetForRoute(String route) {
+  Widget container;
   switch (route) {
     case 'flutter':
-      return new DayListScaffold();
+      container = new DayListScaffold();
+      break;
     default:
-      return Center(
+      container = Center(
         child: Text('路由错误: $route', textDirection: TextDirection.ltr),
       );
+      break;
+  }
+  return MaterialApp(
+    title: 'Flutter 学习',
+    theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.orange,
+        canvasColor: Colors.transparent),
+    routes: {
+      '/': (context) => container,
+      '/detail': (context) {
+        DayStyle style = ModalRoute.of(context).settings.arguments as DayStyle;
+        return DetailScreen(dayStyle: style);
+      },
+    },
+    navigatorObservers: [GLObserver()],
+  );
+}
+
+class DetailScreen extends StatefulWidget {
+  final DayStyle dayStyle;
+
+  const DetailScreen({Key key, this.dayStyle}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        color: contentColor,
+        child: FlareActor(
+          widget.dayStyle.flare,
+          alignment: Alignment.center,
+          fit: BoxFit.contain,
+          animation: widget.dayStyle.animation,
+        ),
+      ),
+    );
   }
 }
 
@@ -78,6 +117,32 @@ class DayStyle {
   ];
 }
 
+class FadeAnimation extends PageRouteBuilder {
+  final Widget widget;
+
+  FadeAnimation(this.widget)
+      : super(
+            transitionDuration: const Duration(milliseconds: 0), //设置动画时长500毫秒
+            pageBuilder: (BuildContext context, Animation<double> animation1,
+                Animation<double> animation2) {
+              return widget;
+            },
+            transitionsBuilder: (BuildContext context,
+                Animation<double> animation1,
+                Animation<double> animation2,
+                Widget child) {
+              //渐变过渡
+              return FadeTransition(
+                //渐变过渡 0.0-1.0
+                opacity: Tween(begin: 1.0, end: 1.0).animate(CurvedAnimation(
+                  parent: animation1, //动画样式
+                  curve: Curves.fastOutSlowIn, //动画曲线
+                )),
+                child: child,
+              );
+            });
+}
+
 class DayListScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -98,21 +163,10 @@ class DayListScaffold extends StatelessWidget {
                   type: MaterialType.transparency,
                   child: InkWell(
                     onTap: () => {
-                      Navigator.push(context, new MaterialPageRoute(
-                          builder: (BuildContext context) {
-                        return Scaffold(
-                          body: Container(
-                            alignment: Alignment.center,
-                            color: contentColor,
-                            child: FlareActor(
-                              DayStyle._all[index].flare,
-                              alignment: Alignment.center,
-                              fit: BoxFit.contain,
-                              animation: DayStyle._all[index].animation,
-                            ),
-                          ),
-                        );
-                      }))
+                      Navigator.of(context).push(FadeAnimation(DetailScreen(
+                        dayStyle: DayStyle._all[index],
+                      )))
+//                          .pushNamed("/detail", arguments: DayStyle._all[index])
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
