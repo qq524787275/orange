@@ -16,15 +16,17 @@ import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.R
+import io.flutter.embedding.engine.systemchannels.NavigationChannel
 import io.flutter.facade.Flutter
 import io.flutter.plugin.common.BasicMessageChannel
+import io.flutter.plugin.common.JSONMethodCodec
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.view.FlutterView
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
 import me.yokeyword.fragmentation.anim.FragmentAnimator
-import io.flutter.view.FlutterView.FirstFrameListener
 
 
 /**
@@ -38,6 +40,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     companion object {
         const val FLUTTER_LOG_CHANNEL = "android_log"
+        const val FLUTTER_NAVIGATION_CHANNEL = "flutter_navigation"
     }
 
     private val _delegate by lazy { SupportFragmentDelegate(this) }
@@ -45,25 +48,37 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         layoutInflater.inflate(R.layout.fragment_base_flutter, null)
     }
     private lateinit var _activity: FragmentActivity
+    private lateinit var _flutterView: FlutterView
+    private var _isCurrent = true
 
     abstract fun setRoute(): String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val flutterView = Flutter.createView(_activity, lifecycle, setRoute())
-        flutterView.addFirstFrameListener {
+        _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
+        _flutterView.addFirstFrameListener {
             _contentView.postDelayed({
                 _contentView.findViewById<View>(R.id.layout_loading).visibility = View.GONE
             }, 200)
         }
         MethodChannel(
-            flutterView,
+            _flutterView,
             FLUTTER_LOG_CHANNEL
         ).setMethodCallHandler { call, _ ->
             val tag: String = call.argument("tag")!!
             val message: String = call.argument("msg")!!
             message.logi(tag)
         }
-        _contentView.findViewById<FrameLayout>(R.id.container).addView(flutterView)
+
+        val methodChannel = MethodChannel(
+            _flutterView,
+            FLUTTER_NAVIGATION_CHANNEL
+        )
+        methodChannel.setMethodCallHandler { call, _ ->
+            if (call.method == "setCurrent") {
+                _isCurrent = call.argument("isCurrent")!!
+            }
+        }
+        _contentView.findViewById<FrameLayout>(R.id.container).addView(_flutterView)
         return _contentView
     }
 
@@ -240,7 +255,11 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
      * @return false则继续向上传递, true则消费掉该事件
      */
     override fun onBackPressedSupport(): Boolean {
-        return _delegate.onBackPressedSupport()
+        if (_isCurrent) {
+            return _delegate.onBackPressedSupport()
+        }
+        _flutterView.popRoute()
+        return true
     }
 
     /**

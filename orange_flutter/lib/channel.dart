@@ -7,3 +7,11 @@ class Log {
     perform.invokeMethod('logI', {'tag': tag, 'msg': message});
   }
 }
+
+class Navigation {
+  static const perform = const MethodChannel("flutter_navigation");
+
+  static void setCurrent(bool isCurrent) {
+    perform.invokeMethod('setCurrent', {'isCurrent': isCurrent});
+  }
+}
