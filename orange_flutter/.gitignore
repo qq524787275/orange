@@ -38,3 +38,5 @@ Icon?
 build/
 .ios/
 .flutter-plugins
+.android/local.properties
+
