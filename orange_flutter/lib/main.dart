@@ -51,7 +51,7 @@ Widget _widgetForRoute(String route) {
       break;
   }
   return MaterialApp(
-    title: 'Flutter 学习',
+    title: '橙子街',
     theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.orange,
@@ -60,7 +60,7 @@ Widget _widgetForRoute(String route) {
       '/': (context) => container,
       '/detail': (context) {
         DayStyle style = ModalRoute.of(context).settings.arguments as DayStyle;
-        return DetailScreen(dayStyle: style);
+        return FlareDetailScreen(dayStyle: style);
       },
     },
     navigatorObservers: [GLObserver()],
@@ -112,6 +112,11 @@ class DayStyle {
         title: "Day01",
         desc: "一个时钟动画,丑是丑了点",
         flare: "assets/flare/day01.flr",
+        animation: "start"),
+    DayStyle(
+        title: "Day02",
+        desc: "一个会颜色变化的球,丑是丑了点",
+        flare: "assets/flare/day02.flr",
         animation: "start")
   ];
 }
@@ -162,7 +167,8 @@ class DayListScaffold extends StatelessWidget {
                   type: MaterialType.transparency,
                   child: InkWell(
                     onTap: () => {
-                      Navigator.of(context).push(FadeAnimation(DetailScreen(
+                      Navigator.of(context)
+                          .push(FadeAnimation(FlareDetailScreen(
                         dayStyle: DayStyle._all[index],
                       )))
 //                          .pushNamed("/detail", arguments: DayStyle._all[index])
