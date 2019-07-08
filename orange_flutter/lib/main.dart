@@ -67,19 +67,18 @@ Widget _widgetForRoute(String route) {
   );
 }
 
-class DetailScreen extends StatefulWidget {
+class FlareDetailScreen extends StatefulWidget {
   final DayStyle dayStyle;
 
-  const DetailScreen({Key key, this.dayStyle}) : super(key: key);
+  const FlareDetailScreen({Key key, this.dayStyle}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _DetailScreenState();
+  State<StatefulWidget> createState() => _FlareDetailScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _FlareDetailScreenState extends State<FlareDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
