@@ -8,9 +8,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bus.RxBus
-import com.zhuzichu.mvvm.utils.toColorById
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.CommonNavigator
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -44,7 +45,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_main
 
     override fun bindVariableId(): Int = BR.viewModel
-
+    private val commonNavigator by lazy {
+        CommonNavigator(context)
+    }
     private val mTitles = listOf("首页", "分类", "发现", "我的")
     private val mImageNormals =
         listOf(
@@ -69,11 +72,16 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onNewBundle(args: Bundle) {
         super.onNewBundle(args)
-       content.setCurrentItem(0,false)
+        content.setCurrentItem(0, false)
+    }
+
+    override fun initViewObservable() {
+        ColorGlobal.colorPrimary.observe(this, Observer {
+            commonNavigator.adapter.notifyDataSetChanged()
+        })
     }
 
     override fun initView() {
-        val commonNavigator = CommonNavigator(context)
         commonNavigator.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int = mFragments.size
@@ -90,13 +98,17 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                 commonPagerTitleView.onPagerTitleChangeListener =
                     object : CommonPagerTitleView.OnPagerTitleChangeListener {
                         override fun onSelected(index: Int, totalCount: Int) {
-                            titleText.setTextColor(R.color.colorPrimary.toColorById())
+                            val c = ColorGlobal.colorPrimary.value!!
+                            titleText.setTextColor(c)
                             titleImg.setImageResource(mImageSeleteds[index])
+                            titleImg.setColorFilter(c)
                         }
 
                         override fun onDeselected(index: Int, totalCount: Int) {
-                            titleText.setTextColor(R.color.colorSecondText.toColorById())
+                            val c = ColorGlobal.textColorSeconday.get()!!
+                            titleText.setTextColor(c)
                             titleImg.setImageResource(mImageNormals[index])
+                            titleImg.setColorFilter(c)
                         }
 
                         override fun onLeave(index: Int, totalCount: Int, leavePercent: Float, leftToRight: Boolean) {

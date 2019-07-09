@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="CircleView">
+        <attr name="circleViewColor" format="color"/>
+    </declare-styleable>
+
     <declare-styleable name="StandardGSYVideoPlayer">
         <attr name="videoUrl" format="string"/>
         <attr name="videoImage" format="string"/>

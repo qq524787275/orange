@@ -3,7 +3,7 @@ package com.zhuzichu.mvvm.utils
 import android.app.Activity
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 
 /**
  * Created by Android Studio.

@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.home.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 /**
  * Created by Android Studio.
@@ -11,7 +12,8 @@ import com.zhuzichu.mvvm.base.ItemViewModel
  */
 class ItemHomeClassViewModel(
     viewModel: HomeViewModel,
-    var title: String
+    var title: String,
+    var list: AsyncDiffObservableList<Any>
 ) : ItemViewModel<HomeViewModel>(viewModel) {
 
 }

@@ -68,6 +68,7 @@ dependencies {
     api "com.trello.rxlifecycle3:rxlifecycle:$rootProject.rxlifecycleVersion"
     api "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxlifecycleVersion"
     api "com.afollestad.material-dialogs:core:$rootProject.materialDialogsVersion"
+    api "com.afollestad.material-dialogs:color:$rootProject.materialDialogsVersion"
     api "com.orhanobut:logger:$rootProject.loggerVersion"
     api "com.jakewharton.rxbinding3:rxbinding-core:$rootProject.rxbindingVersion"
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'

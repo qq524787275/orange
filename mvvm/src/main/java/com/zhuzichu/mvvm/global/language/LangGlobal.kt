@@ -9,7 +9,7 @@ import androidx.databinding.ObservableField
  * Date: 2019-05-27
  * Time: 15:45
  */
-object LangConfig {
+object LangGlobal {
     val loading: ObservableField<String> = ObservableField()
 
     fun initLang(lang: Lang) {

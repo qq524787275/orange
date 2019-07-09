@@ -18,6 +18,9 @@
     <string name="advise_time">建议发送时间：</string>
     <string name="rmb">¥</string>
 
+    <string name="colors">主题颜色选择</string>
+    <string name="select">确定</string>
+
 
     <string name="Illegal_info">Illegal application ,check init !</string>
     <string name="kepler_check_net">请检查您的网络环境</string>

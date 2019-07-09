@@ -8,7 +8,7 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:app="http://schemas.android.com/apk/res-auto"
                  xmlns:tools="http://schemas.android.com/tools"
-                 android:background="@color/colorBackground"
+                 android:background="@{viewModel.color.windowBackgroud}"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent">
 
@@ -233,7 +233,7 @@
                                 android:src="@mipmap/ic_my_attention"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -262,7 +262,7 @@
                                 android:src="@mipmap/ic_my_collect"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -291,7 +291,7 @@
                                 android:src="@mipmap/ic_my_recommend"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -321,7 +321,7 @@
                                 android:src="@mipmap/ic_my_approve"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -342,6 +342,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:orientation="horizontal"
+                            app:onClickCommand="@{viewModel.onClickTheme}"
                             android:padding="15dp">
 
                         <ImageView
@@ -350,14 +351,21 @@
                                 android:src="@mipmap/ic_my_message"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
+                                android:layout_weight="1"
                                 android:text="主题切换"
                                 android:textColor="@color/colorPrimaryText"
                                 android:textSize="14sp"/>
+
+
+                        <com.zhuzichu.mvvm.widget.CircleView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="15dp"
+                                app:circleViewColor="@{viewModel.color.colorPrimary}"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -379,7 +387,7 @@
                                 android:src="@mipmap/ic_my_feedback"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -408,7 +416,7 @@
                                 android:src="@mipmap/ic_my_set"/>
 
                         <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"

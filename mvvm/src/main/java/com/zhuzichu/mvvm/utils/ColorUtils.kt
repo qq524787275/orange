@@ -1,7 +1,7 @@
 package com.zhuzichu.mvvm.utils
 
 import androidx.core.content.ContextCompat
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 
 /**
  * Created by Android Studio.

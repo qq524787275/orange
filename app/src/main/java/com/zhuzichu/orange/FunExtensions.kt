@@ -1,9 +1,11 @@
 package com.zhuzichu.orange
 
+import android.annotation.SuppressLint
 import android.content.Context
+import androidx.recyclerview.widget.DiffUtil
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.view.plane.PlaneMaker
 
@@ -34,4 +36,18 @@ fun checkLogin(context: Context, funcation: () -> Unit) {
         return
     }
     funcation.invoke()
+}
+
+inline fun <reified T> itemDiff(crossinline funcation: (oldIte: T, newItem: T) -> Boolean): DiffUtil.ItemCallback<Any> {
+
+    return object : DiffUtil.ItemCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            return if (oldItem is T && newItem is T) {
+                funcation(oldItem, newItem)
+            } else oldItem == newItem
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
+    }
 }

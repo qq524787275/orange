@@ -7,9 +7,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.zhuzichu.mvvm.AppGlobal
 import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.global.language.LangConfig
+import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.global.language.LangGlobal
 import com.zhuzichu.mvvm.global.language.Zh
 import io.flutter.view.FlutterMain
 import me.jessyan.autosize.AutoSize
@@ -35,7 +35,6 @@ open class App : Application() {
         super.onCreate()
         context = this
         AppGlobal.init(context)
-        LangConfig.initLang(Zh())
         initAutoSize()
         initFragmention()
         initDebugDb()

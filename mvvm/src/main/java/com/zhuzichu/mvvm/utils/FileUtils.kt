@@ -4,7 +4,7 @@ import android.os.Environment
 import android.util.Base64
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 import java.io.File
 import java.io.FileInputStream
 

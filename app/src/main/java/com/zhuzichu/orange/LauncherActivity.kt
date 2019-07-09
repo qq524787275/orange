@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.main.activity.MainActivity
 

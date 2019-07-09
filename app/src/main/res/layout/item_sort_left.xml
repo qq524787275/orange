@@ -15,14 +15,14 @@
 
         <View android:layout_width="5dp"
               android:layout_height="match_parent"
-              android:background='@{item.selected?@color/colorPrimary:@color/transparent}'/>
+              android:background='@{item.selected?item.color.colorPrimary:@color/transparent}'/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@{item.sortBean.main_name}"
-                android:textColor='@{item.selected?@color/colorPrimary:@color/colorPrimaryText}'
+                android:textColor='@{item.selected?item.color.colorPrimary:item.color.textColorPrimary}'
                 android:textSize="15sp"
                 tools:text="男装"/>
     </FrameLayout>

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.R
 
 fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) = makeText(AppGlobal.context, message, duration).show()

@@ -32,7 +32,7 @@ buildscript {
         rxjavaVersion = '2.2.2'
         rxAndroidVersion = '2.1.0'
         rxlifecycleVersion = '3.0.0'
-        materialDialogsVersion = '2.0.0-rc7'
+        materialDialogsVersion = '3.1.0'
         loggerVersion = "2.2.0"
         rxbindingVersion = "3.0.0-alpha2"
         okhttpVersion = "3.10.0"

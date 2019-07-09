@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.zhuzichu.orange.App.Companion.context
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 
 
 @Database(entities = [SearchHistory::class], version = 1, exportSchema = false)

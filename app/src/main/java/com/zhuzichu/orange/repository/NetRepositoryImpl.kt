@@ -1,15 +1,9 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.mvvm.utils.Convert
-import com.zhuzichu.mvvm.utils.getParamByUrl
-import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.orange.bean.*
 import com.zhuzichu.orange.http.IService
 import io.reactivex.Flowable
-import org.json.JSONObject
-import org.jsoup.Jsoup
-import java.util.regex.Pattern
 
 
 /**
@@ -20,6 +14,14 @@ import java.util.regex.Pattern
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getHomeJuTaoShopList(): Flowable<BaseRes<List<ShopBean>>> {
+        return getShopList(2, 0, 20, 1)
+    }
+
+    override fun getHomeHotShopList(): Flowable<BaseRes<List<ShopBean>>> {
+        return getShopList(5, 0, 20, 1)
+    }
+
 
     override fun getShopDetail(itemid: String): Flowable<BaseRes<ShopDetailBean>> {
         return getHaoDankuService().getShopDetail(itemid)
@@ -64,6 +66,7 @@ object NetRepositoryImpl : NetRepository, IService {
     override fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>> {
         return getHaoDankuService().getHotKeyList()
     }
+
 
     override fun getSalersList(
         back: Int,

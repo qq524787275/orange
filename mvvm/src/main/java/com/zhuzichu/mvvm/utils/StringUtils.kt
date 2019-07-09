@@ -1,6 +1,6 @@
 package com.zhuzichu.mvvm.utils
 
-import com.zhuzichu.mvvm.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal
 import java.util.regex.Pattern
 
 /**
@@ -55,9 +55,7 @@ fun getBeanString(str: String): String {
  * @return
  */
 fun isMobileNO(mobile: String): Boolean {
-    return if (mobile.length == 11) {
-        true
-    } else false
+    return mobile.length == 11
 }
 
 /**

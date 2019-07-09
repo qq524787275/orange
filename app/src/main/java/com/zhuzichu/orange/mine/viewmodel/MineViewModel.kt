@@ -1,12 +1,16 @@
 package com.zhuzichu.orange.mine.viewmodel
 
 import android.app.Application
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.color.ColorPalette
+import com.afollestad.materialdialogs.color.colorChooser
 import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
-import com.zhuzichu.mvvm.AppGlobal
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
@@ -20,8 +24,8 @@ import com.zhuzichu.orange.view.plane.PlaneMaker
  * Time: 16:43
  */
 class MineViewModel(application: Application) : BaseViewModel(application) {
-
     val global = AppGlobal
+    val color = ColorGlobal
 
     val onClickLogin = BindingCommand<Any>({
         PlaneMaker.showLoadingDialog(_activity, false)
@@ -90,5 +94,21 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickCollection = BindingCommand<Any>({
         "暂未开发".toast()
+    })
+
+    val onClickTheme = BindingCommand<Any>({
+
+        MaterialDialog(_activity).show {
+            title(text = "选择主题颜色")
+            positiveButton(text = "确定")
+            cornerRadius(10f)
+            colorChooser(
+                ColorPalette.Accent,
+                ColorPalette.AccentSub
+            ) { _, color ->
+                color.toast()
+                this@MineViewModel.color.colorPrimary.value=color
+            }
+        }
     })
 }
