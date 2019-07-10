@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.home.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 /**
@@ -15,5 +16,5 @@ class ItemHomeClassViewModel(
     var title: String,
     var list: AsyncDiffObservableList<Any>
 ) : ItemViewModel<HomeViewModel>(viewModel) {
-
+    val color = ColorGlobal
 }

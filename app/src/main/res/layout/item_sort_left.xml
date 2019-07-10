@@ -10,7 +10,7 @@
                  android:layout_width="match_parent"
                  android:foreground="?attr/selectableItemBackground"
                  app:onClickCommand="@{item.clickItem}"
-                 android:background="@{item.selected?@color/colorBackground:@color/white}"
+                 android:background="@{item.selected?item.color.windowBackground:item.color.contentBackground}"
                  android:layout_height="45dp">
 
         <View android:layout_width="5dp"
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@{item.sortBean.main_name}"
-                android:textColor='@{item.selected?item.color.colorPrimary:item.color.textColorPrimary}'
+                app:textColor='@{item.selected?item.color.colorPrimary:item.color.textColorPrimary}'
                 android:textSize="15sp"
                 tools:text="男装"/>
     </FrameLayout>

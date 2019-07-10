@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="CardView">
+        <attr name="cardBackground" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CheckBox">
+        <attr name="onCheckedChangedCommand" format="reference"/>
+        <attr name="isChecked" format="boolean"/>
+    </declare-styleable>
 
     <declare-styleable name="CircleView">
         <attr name="circleViewColor" format="color"/>
@@ -47,11 +55,11 @@
         <attr name="onLoadMoreCommand"/>
     </declare-styleable>
 
-
     <declare-styleable name="TextView">
         <attr name="strikethrough" format="string"/>
         <attr name="fontPath" format="string"/>
         <attr name="fromHtml" format="string"/>
+        <attr name="textColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="ImageView">

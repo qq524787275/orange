@@ -1,6 +1,7 @@
 package com.zhuzichu.mvvm.databinding.textview
 
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 
@@ -19,4 +20,11 @@ fun strikethrough(textView: TextView, text: String) {
 @BindingAdapter("fromHtml")
 fun fromHtml(textView: TextView, text: String) {
     textView.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_COMPACT);
+}
+
+@BindingAdapter("textColor")
+fun textColor(textView: TextView, @NonNull color: Int? = null) {
+    if (color != null) {
+        textView.setTextColor(color)
+    }
 }

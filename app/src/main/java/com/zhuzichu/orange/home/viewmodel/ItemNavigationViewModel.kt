@@ -2,8 +2,8 @@ package com.zhuzichu.orange.home.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.orange.flutter.MainFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.home.fragment.RankingFragment
 
@@ -12,6 +12,7 @@ class ItemNavigationViewModel(
     var title: String,
     var iconId: Int
 ) : ItemViewModel<HomeViewModel>(viewModel) {
+    val color=ColorGlobal
     val onClickNavigation = BindingCommand<Any>({
         when (title) {
             "榜单" -> {

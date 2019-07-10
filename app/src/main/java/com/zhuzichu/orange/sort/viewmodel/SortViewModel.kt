@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.repository.NetRepositoryImpl
@@ -27,6 +28,7 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
  */
 @SuppressLint("CheckResult")
 class SortViewModel(application: Application) : BaseViewModel(application) {
+    val color = ColorGlobal
     val uc = UIChangeObservable()
 
     inner class UIChangeObservable {
@@ -59,10 +61,10 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
             val list = rightList.value
-            if(list?.size!! >position)
-            if (list[position] is ItemTitleViewModel) {
-                return 3
-            }
+            if (list?.size!! > position)
+                if (list[position] is ItemTitleViewModel) {
+                    return 3
+                }
             return 1
         }
     }

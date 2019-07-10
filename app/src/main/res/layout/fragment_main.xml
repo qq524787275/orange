@@ -3,10 +3,10 @@
     <data>
         <variable name="viewModel" type="com.zhuzichu.orange.main.viewmodel.MainViewModel"/>
     </data>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-    >
+    <com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
                 android:id="@+id/layout_overlay"
                 android:layout_width="match_parent"
@@ -18,6 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
+                android:background="@{viewModel.color.windowBackground}"
                 android:orientation="vertical">
 
             <com.zhuzichu.mvvm.view.viewpager.NoTouchViewPager
@@ -30,8 +31,8 @@
                     android:id="@+id/bottom"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:background="@color/white"/>
+                    android:background="@{viewModel.color.bottomBackground}"/>
         </LinearLayout>
 
-    </FrameLayout>
+    </com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout>
 </layout>

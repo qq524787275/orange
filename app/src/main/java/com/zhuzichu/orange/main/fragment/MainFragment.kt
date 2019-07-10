@@ -79,6 +79,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         ColorGlobal.colorPrimary.observe(this, Observer {
             commonNavigator.adapter.notifyDataSetChanged()
         })
+
+        ColorGlobal.isDark.observe(this, Observer {
+            commonNavigator.adapter.notifyDataSetChanged()
+        })
     }
 
     override fun initView() {
@@ -105,7 +109,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                         }
 
                         override fun onDeselected(index: Int, totalCount: Int) {
-                            val c = ColorGlobal.textColorSeconday.get()!!
+                            val c = ColorGlobal.textColorSecond.get()!!
                             titleText.setTextColor(c)
                             titleImg.setImageResource(mImageNormals[index])
                             titleImg.setColorFilter(c)

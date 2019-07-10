@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.bean.SelectedItemBean
 
@@ -20,7 +21,7 @@ class ItemOneViewModel(
     viewModel: FindOneViewModel,
     var selectedItemBean: SelectedItemBean
 ) : ItemViewModel<FindOneViewModel>(viewModel) {
-
+    val color = ColorGlobal
     val onClickCopy = BindingCommand<Any>({
         //获取剪贴板管理器：
         val cm = ContextCompat.getSystemService(viewModel._context, ClipboardManager::class.java)

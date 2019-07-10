@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.mine.viewmodel
 
 import android.app.Application
+import androidx.appcompat.widget.AppCompatCheckBox
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorPalette
 import com.afollestad.materialdialogs.color.colorChooser
@@ -8,6 +9,7 @@ import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
 import com.zhuzichu.mvvm.base.BaseViewModel
+import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
@@ -26,6 +28,14 @@ import com.zhuzichu.orange.view.plane.PlaneMaker
 class MineViewModel(application: Application) : BaseViewModel(application) {
     val global = AppGlobal
     val color = ColorGlobal
+    lateinit var checkbox: AppCompatCheckBox
+
+    val uc = UIChangeObservable()
+
+    inner class UIChangeObservable {
+        val onDarkChangeEvent = SingleLiveEvent<Boolean>()
+    }
+
 
     val onClickLogin = BindingCommand<Any>({
         PlaneMaker.showLoadingDialog(_activity, false)
@@ -54,6 +64,10 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
                 msg.toast()
             }
         })
+    })
+
+    val getDarkCheckBox = BindingCommand<AppCompatCheckBox>(consumer = {
+        checkbox = it
     })
 
     val onClickOrderAll = BindingCommand<Any>({
@@ -97,7 +111,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickTheme = BindingCommand<Any>({
-
         MaterialDialog(_activity).show {
             title(text = "选择主题颜色")
             positiveButton(text = "确定")
@@ -107,8 +120,16 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
                 ColorPalette.AccentSub
             ) { _, color ->
                 color.toast()
-                this@MineViewModel.color.colorPrimary.value=color
+                this@MineViewModel.color.colorPrimary.value = color
             }
         }
+    })
+
+    val onClickDark = BindingCommand<Any>({
+        checkbox.isChecked = !checkbox.isChecked
+    })
+
+    val onChangedDark = BindingCommand<Boolean>(consumer = {
+        uc.onDarkChangeEvent.value = it
     })
 }

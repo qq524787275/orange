@@ -3,6 +3,7 @@ package com.zhuzichu.mvvm.utils
 import android.content.Context
 import androidx.viewpager.widget.ViewPager
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
 import com.zhuzichu.mvvm.view.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -35,11 +36,15 @@ fun initMagicIndicator(
 
         override fun getTitleView(context: Context?, index: Int): IPagerTitleView {
             val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
+
+            val colorPrimary = ColorGlobal.colorPrimary.value!!
+            val textColorSecond = ColorGlobal.textColorSecond.get()!!
+
             simplePagerTitleView.text = titles[index]
             simplePagerTitleView.textSize = 18f
             simplePagerTitleView.setPadding(0, 0, 0, 0)
-            simplePagerTitleView.normalColor = R.color.colorSecondText.toColorById()
-            simplePagerTitleView.selectedColor = R.color.colorPrimary.toColorById()
+            simplePagerTitleView.normalColor = textColorSecond
+            simplePagerTitleView.selectedColor =colorPrimary
             simplePagerTitleView.setOnClickListener {
                 onClickItemListener?.invoke(index)
                 viewPager?.currentItem = index

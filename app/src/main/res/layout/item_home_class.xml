@@ -5,10 +5,11 @@
         <variable name="item" type="com.zhuzichu.orange.home.viewmodel.ItemHomeClassViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
                   xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:background="@color/white"
+                  android:background="@{item.color.contentBackground}"
                   android:clickable="true"
                   android:visibility="@{item.list.size()==0?View.GONE:View.VISIBLE}"
                   android:layout_height="wrap_content">
@@ -23,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{item.title}"
                     tools:text="男装"
-                    android:textColor="@color/colorPrimary"
+                    app:textColor="@{item.color.colorPrimary}"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_centerInParent="true"
@@ -32,14 +33,14 @@
 
             <View android:layout_width="match_parent"
                   android:layout_centerVertical="true"
-                  android:background="@color/colorPrimary"
+                  android:background="@{item.color.colorPrimary}"
                   android:layout_toStartOf="@+id/next_name"
                   android:layout_marginStart="30dp"
                   android:layout_height="1dp"/>
 
             <View android:layout_width="match_parent"
                   android:layout_centerVertical="true"
-                  android:background="@color/colorPrimary"
+                  android:background="@{item.color.colorPrimary}"
                   android:layout_toEndOf="@id/next_name"
                   android:layout_marginEnd="30dp"
                   android:layout_height="1dp"/>

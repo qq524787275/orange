@@ -3,6 +3,7 @@ package com.zhuzichu.orange.sort.viewmodel
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.orange.bean.SortBean
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
 
@@ -15,8 +16,8 @@ import com.zhuzichu.orange.search.fragment.SearchResultFragment
  */
 class ItemImageViewModel(viewModel: SortViewModel, var info: SortBean.Data.Info) :
     ItemViewModel<SortViewModel>(viewModel) {
-
-    val clickItem = BindingCommand<Any>( {
+    val color = ColorGlobal
+    val clickItem = BindingCommand<Any>({
         viewModel.startFragment(
             SearchResultFragment(),
             bundleOf(

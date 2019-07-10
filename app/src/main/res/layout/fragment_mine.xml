@@ -8,7 +8,7 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:app="http://schemas.android.com/apk/res-auto"
                  xmlns:tools="http://schemas.android.com/tools"
-                 android:background="@{viewModel.color.windowBackgroud}"
+                 android:background="@{viewModel.color.windowBackground}"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent">
 
@@ -28,7 +28,7 @@
 
                     <RelativeLayout android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/white"
+                                    android:background="@{viewModel.color.contentBackground}"
                                     app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
 
                         <androidx.cardview.widget.CardView
@@ -56,7 +56,7 @@
                                 android:layout_toRightOf="@+id/card_avatar"
                                 android:layout_centerVertical="true"
                                 android:text="@{viewModel.global.isLogin?viewModel.global.session.nick:@string/login}"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="16sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -73,6 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardElevation="1dp"
+                            app:cardBackground="@{viewModel.color.contentBackground}"
                             app:cardCornerRadius="5dp"
                             android:layout_margin="10dp">
 
@@ -93,7 +94,7 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="我的订单"
-                                        android:textColor="@color/colorPrimaryText"
+                                        app:textColor="@{viewModel.color.textColorPrimary}"
                                         android:textSize="16sp"
                                         android:textStyle="bold"/>
 
@@ -102,7 +103,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="查看全部订单"
                                         android:textSize="13sp"
-                                        android:textColor="@color/colorSecondText"/>
+                                        app:textColor="@{viewModel.color.textColorSecond}"/>
 
                                 <androidx.appcompat.widget.AppCompatImageView
                                         android:layout_width="12dp"
@@ -134,7 +135,7 @@
                                     <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/colorSecondText"
+                                            app:textColor="@{viewModel.color.textColorSecond}"
                                             android:layout_marginTop="5dp"
                                             android:textSize="13sp"
                                             android:layout_marginBottom="10dp"
@@ -158,7 +159,7 @@
                                     <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/colorSecondText"
+                                            app:textColor="@{viewModel.color.textColorSecond}"
                                             android:layout_marginTop="5dp"
                                             android:textSize="13sp"
                                             android:layout_marginBottom="10dp"
@@ -181,7 +182,7 @@
                                     <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/colorSecondText"
+                                            app:textColor="@{viewModel.color.textColorSecond}"
                                             android:layout_marginTop="5dp"
                                             android:textSize="13sp"
                                             android:layout_marginBottom="10dp"
@@ -204,7 +205,7 @@
                                     <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/colorSecondText"
+                                            app:textColor="@{viewModel.color.textColorSecond}"
                                             android:layout_marginTop="5dp"
                                             android:layout_marginBottom="10dp"
                                             android:textSize="13sp"
@@ -221,11 +222,13 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
                             app:onClickCommand="@{viewModel.onClickShopcar}"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -239,7 +242,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="购物车"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -251,10 +254,12 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -268,7 +273,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="我的收藏"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -280,10 +285,12 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -297,7 +304,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="我的足迹"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -309,11 +316,13 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
                             android:layout_marginTop="10dp"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -327,7 +336,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="清理缓存"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -339,11 +348,13 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
-                            app:onClickCommand="@{viewModel.onClickTheme}"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            app:onClickCommand="@{viewModel.onClickTheme}">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -357,7 +368,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="主题切换"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
 
@@ -376,10 +387,54 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            app:onClickCommand="@{viewModel.onClickDark}">
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_my_message"/>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="夜间模式"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
+                                android:textSize="14sp"/>
+
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp"
+                                app:currentView="@{viewModel.getDarkCheckBox}"
+                                android:buttonTint="@{viewModel.color.colorPrimary}"
+                                app:isChecked="@{viewModel.color.isDark}"
+                                app:onCheckedChangedCommand="@{viewModel.onChangedDark}"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="12sp"
+                                android:layout_height="12sp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@mipmap/ic_arrow"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -393,7 +448,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="意见反馈"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -405,10 +460,12 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -422,7 +479,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="10"
                                 android:text="设置"
-                                android:textColor="@color/colorPrimaryText"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
                                 android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -448,7 +505,7 @@
                                 android:text="退出当前淘宝账号"
                                 android:gravity="center"
                                 android:textSize="14sp"
-                                android:textColor="@color/white"
+                                app:textColor="@{viewModel.color.contentBackground}"
                                 android:visibility="@{viewModel.global.isLogin?View.VISIBLE:View.GONE}"
                                 android:textStyle="bold"
                                 android:padding="10dp"

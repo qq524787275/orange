@@ -8,6 +8,7 @@ import com.zhuzichu.mvvm.base.BaseRes
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -36,7 +37,7 @@ import me.yokeyword.fragmentation.ISupportFragment
  */
 @SuppressLint("CheckResult")
 class HomeViewModel(application: Application) : BaseViewModel(application) {
-
+    val color = ColorGlobal
     val uc = UIChangeObservable()
 
     inner class UIChangeObservable {

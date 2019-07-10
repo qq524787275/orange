@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.databinding.circleview
 
+import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.zhuzichu.mvvm.widget.CircleView
 
@@ -12,7 +13,8 @@ import com.zhuzichu.mvvm.widget.CircleView
  */
 
 @BindingAdapter("circleViewColor")
-fun circleViewColor(circleView: CircleView, color: Int) {
-    circleView.setBackgroundColor(color)
+fun circleViewColor(circleView: CircleView, @NonNull color: Int? = null) {
+    if (color != null)
+        circleView.setBackgroundColor(color)
 }
 

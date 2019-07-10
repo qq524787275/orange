@@ -3,6 +3,7 @@ package com.zhuzichu.orange.home.viewmodel
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.orange.bean.DeserveBean
 import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 
@@ -17,7 +18,7 @@ class ItemHomeDeserveViewModel(
     viewModel: HomeViewModel,
     var deserveBean: DeserveBean
 ) : ItemViewModel<HomeViewModel>(viewModel) {
-
+    val color = ColorGlobal
     val onClickItem = BindingCommand<Any>({
         viewModel.startFragment(
             ShopDetailFragment(), bundleOf(

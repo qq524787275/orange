@@ -6,27 +6,36 @@ import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.toColorById
 
 object ColorGlobal {
+    val isDark = MutableLiveData<Boolean>()
     val colorPrimary: MutableLiveData<Int> = MutableLiveData()
-    val windowBackgroud: ObservableField<Int> = ObservableField()
+    val contentBackground: ObservableField<Int> = ObservableField()
+    val windowBackground: ObservableField<Int> = ObservableField()
     val textColorPrimary: ObservableField<Int> = ObservableField()
-    val textColorSeconday: ObservableField<Int> = ObservableField()
+    val textColorSecond: ObservableField<Int> = ObservableField()
     val hintColor: ObservableField<Int> = ObservableField()
-    val bottomBackgroud: ObservableField<Int> = ObservableField()
+    val bottomBackground: ObservableField<Int> = ObservableField()
 
     fun initColor(isDark: Boolean = false) {
         colorPrimary.value = R.color.colorPrimary.toColorById()
+        setDark(isDark)
+    }
+
+    fun setDark(isDark: Boolean) {
         if (isDark) {
-            windowBackgroud.set(R.color.colorBackgroundDark.toColorById())
+            contentBackground.set(R.color.black_333.toColorById())
+            windowBackground.set(R.color.colorBackgroundDark.toColorById())
             textColorPrimary.set(R.color.colorPrimaryTextDark.toColorById())
-            textColorSeconday.set(R.color.colorSecondTextDark.toColorById())
+            textColorSecond.set(R.color.colorSecondText.toColorById())
             hintColor.set(R.color.colorHintDark.toColorById())
-            bottomBackgroud.set(R.color.black.toColorById())
+            bottomBackground.set(R.color.black_333.toColorById())
         } else {
-            windowBackgroud.set(R.color.colorBackground.toColorById())
+            contentBackground.set(R.color.white.toColorById())
+            windowBackground.set(R.color.colorBackground.toColorById())
             textColorPrimary.set(R.color.colorPrimaryText.toColorById())
-            textColorSeconday.set(R.color.colorSecondText.toColorById())
+            textColorSecond.set(R.color.colorSecondText.toColorById())
             hintColor.set(R.color.colorHint.toColorById())
-            bottomBackgroud.set(R.color.white.toColorById())
+            bottomBackground.set(R.color.white.toColorById())
         }
+        this@ColorGlobal.isDark.value = isDark
     }
 }

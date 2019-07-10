@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 tools:text="淘宝"
                 android:textSize="12sp"
-                android:textColor="@color/colorSecondText"
+                app:textColor="@{item.color.textColorSecond}"
                 android:text="@{item.title}"/>
     </LinearLayout>
 </layout>

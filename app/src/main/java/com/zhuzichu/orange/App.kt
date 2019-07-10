@@ -9,9 +9,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.AppGlobal
-import com.zhuzichu.mvvm.global.language.LangGlobal
-import com.zhuzichu.mvvm.global.language.Zh
 import io.flutter.view.FlutterMain
+import io.reactivex.plugins.RxJavaPlugins
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
@@ -40,6 +39,7 @@ open class App : Application() {
         initDebugDb()
         initFont()
         FlutterMain.startInitialization(applicationContext)
+        RxJavaPlugins.setErrorHandler {}
     }
 
     private fun initFont() {

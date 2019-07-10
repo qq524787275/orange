@@ -10,7 +10,9 @@ import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.utils.toColorById
@@ -71,10 +73,18 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
             showTopBar()
         }
 
-
+        initObservable()
         _statuBar.setBackgroundColor(R.color.white.toColorById())
         _topBar.setBackgroundColor(R.color.white.toColorById())
         return rootView
+    }
+
+    private fun initObservable() {
+        ColorGlobal.isDark.observe(this, Observer {
+            _topBar.setBackgroundColor(ColorGlobal.contentBackground.get()!!)
+            _title.setTextColor(ColorGlobal.textColorPrimary.get()!!)
+            _statuBar.setBackgroundColor(ColorGlobal.contentBackground.get()!!)
+        })
     }
 
     fun setTitle(title: String) {
