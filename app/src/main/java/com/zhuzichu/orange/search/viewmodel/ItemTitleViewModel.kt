@@ -4,6 +4,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.viewModelScope
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
@@ -21,9 +22,9 @@ class ItemTitleViewModel(
     var list: AsyncDiffObservableList<Any>
 ) : ItemViewModel<SearchViewModel>(viewModel) {
     val isHistory = ObservableBoolean(title == "历史记录")
+    val color = ColorGlobal
 
-
-    val onDeleteAll = BindingCommand<Any>( {
+    val onDeleteAll = BindingCommand<Any>({
         viewModel.viewModelScope.launch {
             DbRepositoryImpl.deleteSearchHistory(list.map {
                 (it as ItemHistoryViewModel).searchHistory

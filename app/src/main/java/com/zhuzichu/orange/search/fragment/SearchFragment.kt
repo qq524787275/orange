@@ -7,16 +7,15 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.zhuzichu.mvvm.base.BaseTopbarFragment
+import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.utils.logi
-import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSearchBinding
 import com.zhuzichu.orange.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
-class SearchFragment : BaseTopbarFragment<FragmentSearchBinding, SearchViewModel>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     override fun setLayoutId(): Int = R.layout.fragment_search
 
@@ -28,8 +27,6 @@ class SearchFragment : BaseTopbarFragment<FragmentSearchBinding, SearchViewModel
             flexDirection = FlexDirection.ROW
             flexWrap = FlexWrap.WRAP
         }
-
-        setStatusBarColor(R.color.colorBackground.toColorById())
         showSoftInput(input)
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {

@@ -2,12 +2,12 @@ package com.zhuzichu.orange
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.baichuan.android.trade.AlibcTradeSDK
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
-import com.alibaba.baichuan.trade.biz.login.AlibcLogin
-import com.zhuzichu.mvvm.global.AppGlobal
-import com.zhuzichu.mvvm.utils.toast
+import androidx.core.app.ActivityOptionsCompat
+import com.zhuzichu.mvvm.utils.helper.QMUIDisplayHelper
 import com.zhuzichu.orange.main.activity.MainActivity
 
 /**
@@ -20,28 +20,39 @@ import com.zhuzichu.orange.main.activity.MainActivity
 class LauncherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initSdk()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_launcher)
         if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
             finish()
             return
         }
-        MainActivity.start(this)
-        finish()
-    }
+        QMUIDisplayHelper.setFullScreen(this)
+        val animation = AlphaAnimation(0.1f, 1.0f)
+        findViewById<View>(R.id.ll).animation = animation
+        animation.duration = 200
 
-    private fun initSdk() {
-        //电商SDK初始化
-        AlibcTradeSDK.asyncInit(application, object : AlibcTradeInitCallback {
-            override fun onSuccess() {
-                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
-                AppGlobal.session.set(AlibcLogin.getInstance().session)
-                "初始化成功".plus(AlibcLogin.getInstance().isLogin).toast()
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
             }
 
-            override fun onFailure(code: Int, msg: String) {
-                ("初始化失败,错误码=$code / 错误消息=$msg").toast()
+            override fun onAnimationEnd(animation: Animation) {
+                if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+                    finish()
+                    return
+                }
+                val optionsCompat = ActivityOptionsCompat.makeCustomAnimation(
+                    this@LauncherActivity.applicationContext,
+                    R.anim.screen_zoom_in,
+                    R.anim.screen_zoom_out
+                )
+                MainActivity.start(this@LauncherActivity, optionsCompat)
+                finish()
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+                findViewById<View>(R.id.ll).visibility = View.GONE
             }
         })
     }
+
 }

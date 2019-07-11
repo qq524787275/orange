@@ -3,18 +3,21 @@ package com.zhuzichu.orange
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback
+import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.utils.logi
 import io.flutter.view.FlutterMain
 import io.reactivex.plugins.RxJavaPlugins
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
-import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
@@ -36,10 +39,27 @@ open class App : Application() {
         AppGlobal.init(context)
         initAutoSize()
         initFragmention()
-        initDebugDb()
+//        initDebugDb()
         initFont()
         FlutterMain.startInitialization(applicationContext)
+        initSdk()
         RxJavaPlugins.setErrorHandler {}
+    }
+
+
+    private fun initSdk() {
+        //电商SDK初始化
+        AlibcTradeSDK.asyncInit(this, object : AlibcTradeInitCallback {
+            override fun onSuccess() {
+                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.session.set(AlibcLogin.getInstance().session)
+                "初始化成功".plus(AlibcLogin.getInstance().isLogin).logi()
+            }
+
+            override fun onFailure(code: Int, msg: String) {
+                ("初始化失败,错误码=$code / 错误消息=$msg").logi()
+            }
+        })
     }
 
     private fun initFont() {
@@ -50,9 +70,9 @@ open class App : Application() {
         )
     }
 
-    private fun initDebugDb() {
-        SQLiteStudioService.instance().start(this)
-    }
+//    private fun initDebugDb() {
+//        SQLiteStudioService.instance().start(this)
+//    }
 
     private fun initFragmention() {
         Fragmentation.builder()

@@ -48,11 +48,14 @@
         <attr name="currentView"/>
         <attr name="widthHeightRatio" format="float"/>
         <attr name="widthPadding" format="dimension"/>
+        <attr name="enablePaddingStatusbarHeight" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SmartRefreshLayout">
         <attr name="onRefreshCommand"/>
         <attr name="onLoadMoreCommand"/>
+        <attr name="primaryColor" format="color"/>
+        <attr name="accentColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="TextView">

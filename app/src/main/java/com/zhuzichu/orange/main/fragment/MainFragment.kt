@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.zhuzichu.mvvm.base.BaseFragment
+import com.zhuzichu.mvvm.base.BaseMainFragment
 import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit
  * Date: 2019-06-12
  * Time: 15:20
  */
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
+class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_main
 
     override fun bindVariableId(): Int = BR.viewModel
@@ -116,13 +116,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                         }
 
                         override fun onLeave(index: Int, totalCount: Int, leavePercent: Float, leftToRight: Boolean) {
-                            titleImg.scaleX = 1.3f + (0.8f - 1.3f) * leavePercent
-                            titleImg.scaleY = 1.3f + (0.8f - 1.3f) * leavePercent
+                            titleImg.scaleX = 1.2f + (0.9f - 1.2f) * leavePercent
+                            titleImg.scaleY = 1.2f + (0.9f - 1.2f) * leavePercent
                         }
 
                         override fun onEnter(index: Int, totalCount: Int, enterPercent: Float, leftToRight: Boolean) {
-                            titleImg.scaleX = 0.8f + (1.3f - 0.8f) * enterPercent
-                            titleImg.scaleY = 0.8f + (1.3f - 0.8f) * enterPercent
+                            titleImg.scaleX = 0.9f + (1.2f - 0.9f) * enterPercent
+                            titleImg.scaleY = 0.9f + (1.2f - 0.9f) * enterPercent
                         }
 
                     }

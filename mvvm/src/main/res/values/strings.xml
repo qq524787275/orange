@@ -21,6 +21,7 @@
     <string name="colors">主题颜色选择</string>
     <string name="select">确定</string>
 
+    <string name="press_again_exit">再按一次退出</string>
 
     <string name="Illegal_info">Illegal application ,check init !</string>
     <string name="kepler_check_net">请检查您的网络环境</string>

@@ -1,6 +1,7 @@
 package com.zhuzichu.mvvm.databinding
 
 import android.view.View
+import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -47,6 +48,24 @@ fun onRefreshAndLoadMoreCommand(
         }
     })
 }
+
+@BindingAdapter(value = ["primaryColor", "accentColor"], requireAll = false)
+fun refreshColor(
+    refresh: SmartRefreshLayout,
+    @NonNull primaryColor: Int? = null,
+    @NonNull accentColor: Int? = null
+) {
+    var pcolor = 0
+    var acolor = 0
+    if (primaryColor != null) {
+        pcolor = primaryColor
+    }
+    if (accentColor != null) {
+        acolor = accentColor
+    }
+    refresh.setPrimaryColors(pcolor, acolor)
+}
+
 
 @BindingAdapter(value = ["onErrorCommand"])
 fun onErrorCommand(

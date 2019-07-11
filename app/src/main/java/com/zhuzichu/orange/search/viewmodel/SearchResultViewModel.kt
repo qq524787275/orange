@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.bean.SearchBean
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
@@ -33,6 +33,7 @@ import me.yokeyword.fragmentation.ISupportFragment
  */
 @SuppressLint("CheckResult")
 class SearchResultViewModel(application: Application) : BaseViewModel(application) {
+    val color = ColorGlobal
     private var back = 10
     private var cid = 0
     private var sort = 0

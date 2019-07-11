@@ -11,14 +11,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackground">
+            android:background="@{viewModel.color.windowBackground}">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:elevation="1dp"
-                android:background="@color/colorBackground">
+                android:background="@{viewModel.color.windowBackground}"
+                app:elevation="1dp">
 
             <androidx.cardview.widget.CardView
                     android:id="@+id/search_layout"
@@ -61,6 +61,7 @@
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
+                          android:background="@{viewModel.color.contentBackground}"
                           android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -74,12 +75,11 @@
                         android:overScrollMode="never"
                         app:itemBinding="@{viewModel.itemBindIndicator}"
                         app:items="@{viewModel.listIndicator}"
-                        android:background="@color/white"/>
+                />
 
                 <FrameLayout
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:background="@color/white"
                         app:onClickCommand="@{viewModel.onChangeSpanSize}"
                         android:paddingEnd="15dp">
                     <androidx.appcompat.widget.AppCompatImageView
@@ -112,11 +112,15 @@
                     android:id="@+id/refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:accentColor="@{viewModel.color.textColorPrimary}"
                     app:onRefreshCommand="@{viewModel.onRefreshCommand}"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     app:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
 
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"

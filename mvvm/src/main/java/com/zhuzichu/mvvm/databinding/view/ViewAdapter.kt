@@ -3,13 +3,16 @@ package com.zhuzichu.mvvm.databinding.view
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
+import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.longClicks
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.databinding.command.ResponseCommand
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
+import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import java.util.concurrent.TimeUnit
 
 /**
@@ -86,6 +89,12 @@ fun onTouchCommand(view: View, onTouchCommand: ResponseCommand<MotionEvent, Bool
     }
 }
 
+@BindingAdapter("enablePaddingStatusbarHeight")
+fun enablePaddingStatusbarHeight(view: View, @NonNull isPadding: Boolean = false) {
+    if (isPadding) {
+        view.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(AppGlobal.context), 0, 0);
+    }
+}
 
 
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.map
 import com.zhuzichu.mvvm.utils.schedulersTransformer
@@ -24,6 +25,7 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 @SuppressLint("CheckResult")
 class SearchViewModel(application: Application) : BaseViewModel(application) {
+    val color = ColorGlobal
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return if (oldItem is ItemHistoryViewModel && newItem is ItemHistoryViewModel) {

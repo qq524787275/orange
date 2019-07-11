@@ -5,7 +5,6 @@ import androidx.appcompat.widget.AppCompatCheckBox
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorPalette
 import com.afollestad.materialdialogs.color.colorChooser
-import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -34,6 +33,8 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     inner class UIChangeObservable {
         val onDarkChangeEvent = SingleLiveEvent<Boolean>()
+
+        val onShowLogoutSnackbarEvent= SingleLiveEvent<Any>()
     }
 
 
@@ -54,16 +55,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickLogout = BindingCommand<Any>({
-        AlibcLogin.getInstance().logout(object : AlibcLoginCallback {
-            override fun onSuccess(i: Int) {
-                AppGlobal.isLogin.set(false)
-                AppGlobal.session.set(Session())
-            }
-
-            override fun onFailure(code: Int, msg: String) {
-                msg.toast()
-            }
-        })
+        uc.onShowLogoutSnackbarEvent.call()
     })
 
     val getDarkCheckBox = BindingCommand<AppCompatCheckBox>(consumer = {
@@ -119,7 +111,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
                 ColorPalette.Accent,
                 ColorPalette.AccentSub
             ) { _, color ->
-                color.toast()
                 this@MineViewModel.color.colorPrimary.value = color
             }
         }

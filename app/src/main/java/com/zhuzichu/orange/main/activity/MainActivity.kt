@@ -2,8 +2,10 @@ package com.zhuzichu.orange.main.activity
 
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.ActivityOptionsCompat
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.zhuzichu.mvvm.base.BaseActivity
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.widget.FadeAnimator
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.orange.view.plane.PlaneMaker
@@ -15,10 +17,13 @@ class MainActivity : BaseActivity() {
     override fun setRootFragment(): ISupportFragment = MainFragment()
 
     companion object {
-        fun start(context: Context) {
+        fun start(context: Context, options: ActivityOptionsCompat? = null) {
             val intent = Intent()
             intent.setClass(context, MainActivity::class.java)
-            context.startActivity(intent)
+            if (options != null)
+                context.startActivity(intent, options.toBundle())
+            else
+                context.startActivity(intent)
         }
     }
 
@@ -31,6 +36,7 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         AlibcTradeSDK.destory()
+        "销毁执行了".toast()
     }
 
     override fun onResume() {
