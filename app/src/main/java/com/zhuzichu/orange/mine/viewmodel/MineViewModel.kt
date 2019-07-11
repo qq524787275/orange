@@ -13,6 +13,7 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.mine.fragment.CacheFragment
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
 import com.zhuzichu.orange.view.plane.PlaneMaker
@@ -34,7 +35,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     inner class UIChangeObservable {
         val onDarkChangeEvent = SingleLiveEvent<Boolean>()
 
-        val onShowLogoutSnackbarEvent= SingleLiveEvent<Any>()
+        val onShowLogoutSnackbarEvent = SingleLiveEvent<Any>()
     }
 
 
@@ -100,6 +101,10 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickCollection = BindingCommand<Any>({
         "暂未开发".toast()
+    })
+
+    val onClickCache = BindingCommand<Any>({
+        startFragment(CacheFragment())
     })
 
     val onClickTheme = BindingCommand<Any>({
