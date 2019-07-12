@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.core.app.ActivityOptionsCompat
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.zhuzichu.mvvm.base.BaseActivity
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.widget.FadeAnimator
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.orange.view.plane.PlaneMaker
@@ -36,7 +35,6 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         AlibcTradeSDK.destory()
-        "销毁执行了".toast()
     }
 
     override fun onResume() {

@@ -2,7 +2,6 @@ package com.zhuzichu.mvvm.base
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
@@ -58,7 +57,6 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColorById())
         QMUIStatusBarHelper.setStatusBarLightMode(this)
         _delegate.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         initContainer(savedInstanceState)
     }
 

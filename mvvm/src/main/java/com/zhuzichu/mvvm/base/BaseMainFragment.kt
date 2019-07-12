@@ -1,10 +1,11 @@
 package com.zhuzichu.mvvm.base
 
+import android.annotation.SuppressLint
 import androidx.databinding.ViewDataBinding
-import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.toStringById
 import com.zhuzichu.mvvm.utils.toast
 import kotlin.system.exitProcess
+
 
 /**
  * Created by Android Studio.
@@ -18,13 +19,17 @@ abstract class BaseMainFragment<V : ViewDataBinding, VM : BaseViewModel> : BaseF
     private val waitTime = 2000L
     private var touchTime: Long = 0
 
+    @SuppressLint("CheckResult")
     override fun onBackPressedSupport(): Boolean {
         if (System.currentTimeMillis() - touchTime < waitTime) {
             _viewModel._activity.finish()
-            exitProcess(0)
+            Thread {
+                Thread.sleep(300)
+                exitProcess(0)
+            }.start()
         } else {
             touchTime = System.currentTimeMillis()
-            R.string.press_again_exit.toStringById().toast()
+            com.zhuzichu.mvvm.R.string.press_again_exit.toStringById().toast()
         }
         return true
     }

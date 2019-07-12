@@ -46,10 +46,9 @@
                 android:value="667"/>
 
         <activity android:name=".main.activity.MainActivity"
+                  android:theme="@style/AppTransparentTheme"
                   android:resizeableActivity="false"
-                  android:configChanges="screenLayout|orientation">
-
-        </activity>
+                  android:configChanges="screenLayout|orientation"/>
 
         <activity android:name=".LauncherActivity"
                   android:launchMode="singleTask"
@@ -60,20 +59,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:exported="true" android:name="com.kepler.jd.sdk.KeplerBackActivity"
-                  android:theme="@android:style/Theme.Translucent">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="sdkbackb5137223b397ccdf124d09aff0c15c2e"/>
-            </intent-filter>
-        </activity>
-
         <activity android:name=".ui.previewimage.PreviewImageActivity"
                   android:theme="@style/AppTransparentTheme"/>
 
-        <activity android:name=".flutter.MainFlutterActivity"
-                  android:theme="@style/AppTransparentTheme"/>
     </application>
 
 </manifest>

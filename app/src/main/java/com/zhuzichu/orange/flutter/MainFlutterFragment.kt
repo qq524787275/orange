@@ -12,4 +12,5 @@ import com.zhuzichu.orange.flutter.base.BaseFlutterFragment
  */
 class MainFlutterFragment : BaseFlutterFragment() {
     override fun setRoute(): String = "flutter"
+
 }

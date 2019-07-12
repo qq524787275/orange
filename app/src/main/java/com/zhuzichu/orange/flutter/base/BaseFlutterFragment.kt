@@ -1,7 +1,6 @@
 package com.zhuzichu.orange.flutter.base
 
 import android.app.Activity
-import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,20 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentationMagician
 import com.zhuzichu.mvvm.base.BaseFragment
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.logi
-import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.R
-import io.flutter.embedding.engine.systemchannels.NavigationChannel
 import io.flutter.facade.Flutter
 import io.flutter.plugin.common.BasicMessageChannel
-import io.flutter.plugin.common.JSONMethodCodec
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterView
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
@@ -55,10 +52,12 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
+        val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
+        ColorGlobal.contentBackground.get()?.let { loadingLayout.setBackgroundColor(it) }
         _flutterView.addFirstFrameListener {
             _contentView.postDelayed({
-                _contentView.findViewById<View>(R.id.layout_loading).visibility = View.GONE
-            }, 200)
+                loadingLayout.visibility = View.GONE
+            }, 100)
         }
         MethodChannel(
             _flutterView,
@@ -230,7 +229,8 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
      * 设定当前Fragmemt动画,优先级比在SupportActivity里高
      */
     override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return _delegate.onCreateFragmentAnimator()
+//        return _delegate.onCreateFragmentAnimator()
+        return DefaultNoAnimator()
     }
 
     /**
