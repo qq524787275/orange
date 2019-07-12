@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.orange.R"/>
         <variable name="viewModel" type="com.zhuzichu.orange.main.viewmodel.MainViewModel"/>
     </data>
     <com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         <LinearLayout
                 android:id="@+id/layout_overlay"
                 android:layout_width="match_parent"

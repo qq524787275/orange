@@ -5,518 +5,579 @@
         <import type="android.view.View"/>
         <variable name="viewModel" type="com.zhuzichu.orange.mine.viewmodel.MineViewModel"/>
     </data>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+
+    <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/content"
-            android:background="@{viewModel.color.windowBackground}"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        <RelativeLayout
+                android:id="@+id/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srlEnablePureScrollMode="true"
-                app:srlDragRate="0.75">
+                android:background="@{viewModel.color.contentBackground}"
+                android:layout_height="50dp">
 
-            <ScrollView android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fillViewport="true">
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的"
+                    android:textColor="@{viewModel.color.textColorPrimary}"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:ellipsize="end"
+                    android:ems="10"
+                    android:textStyle="bold"
+                    android:layout_marginStart="20dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"/>
 
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:orientation="vertical">
+            <LinearLayout
+                    android:id="@+id/layout_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@{viewModel.color.contentBackground}"
-                                    app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
 
-                        <androidx.cardview.widget.CardView
-                                android:id="@+id/card_avatar"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                app:cardCornerRadius="30dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="15dp">
+                <FrameLayout
+                        android:id="@+id/sun_moon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:onClickCommand="@{viewModel.onClickDark}">
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            app:url="@{viewModel.color.isDark()?R.mipmap.ic_theme_sun:R.mipmap.ic_theme_moon}"/>
+                </FrameLayout>
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/avatar"
+                <FrameLayout android:layout_width="50dp"
+                             android:layout_height="50dp"
+                             app:onClickCommand="@{viewModel.onClickSetting}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@mipmap/ic_my_set"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@drawable/divider"
+                  android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/content"
+                android:background="@{viewModel.color.windowBackground}"
+                android:layout_width="match_parent"
+                android:clipChildren="true"
+                android:layout_height="match_parent">
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srlEnablePureScrollMode="true"
+                    app:srlDragRate="0.75">
+
+                <ScrollView android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fillViewport="true">
+
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="match_parent"
+                                  android:orientation="vertical">
+
+                        <RelativeLayout android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@{viewModel.color.contentBackground}"
+                                        app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
+
+                            <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_avatar"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
-                                    tools:src="@mipmap/ic_user_avatar_two"
-                                    app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"/>
+                                    app:cardCornerRadius="30dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginBottom="15dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/avatar"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        tools:src="@mipmap/ic_user_avatar_two"
+                                        app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"/>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@+id/card_avatar"
+                                    android:layout_centerVertical="true"
+                                    android:text="@{viewModel.global.isLogin?viewModel.global.session.nick:@string/login}"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="16sp"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@mipmap/ic_arrow"/>
+                        </RelativeLayout>
+
+
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="1dp"
+                                app:cardBackground="@{viewModel.color.contentBackground}"
+                                app:cardCornerRadius="5dp"
+                                android:layout_margin="10dp">
+
+
+                            <LinearLayout android:layout_width="match_parent"
+                                          android:layout_height="wrap_content"
+                                          android:orientation="vertical">
+
+                                <LinearLayout android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:gravity="center_vertical"
+                                              android:padding="10dp"
+                                              app:onClickCommand="@{viewModel.onClickOrderAll}"
+                                              android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:text="我的订单"
+                                            app:textColor="@{viewModel.color.textColorPrimary}"
+                                            android:textSize="16sp"
+                                            android:textStyle="bold"/>
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="查看全部订单"
+                                            android:textSize="13sp"
+                                            app:textColor="@{viewModel.color.textColorSecond}"/>
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            app:srcCompat="@mipmap/ic_arrow"/>
+                                </LinearLayout>
+
+                                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                                      android:background="@drawable/divider"/>
+
+                                <LinearLayout android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:weightSum="4"
+                                              android:orientation="horizontal">
+
+                                    <LinearLayout android:layout_width="0dp"
+                                                  android:layout_weight="1"
+                                                  android:gravity="center"
+                                                  app:onClickCommand="@{viewModel.onClickOrderOne}"
+                                                  android:layout_height="wrap_content"
+                                                  android:orientation="vertical">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                                android:layout_width="25dp"
+                                                android:layout_height="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:src="@mipmap/ic_my_order_one"/>
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:textColor="@{viewModel.color.textColorSecond}"
+                                                android:layout_marginTop="5dp"
+                                                android:textSize="13sp"
+                                                android:layout_marginBottom="10dp"
+                                                android:text="待付款"/>
+                                    </LinearLayout>
+
+
+                                    <LinearLayout android:layout_width="0dp"
+                                                  android:layout_weight="1"
+                                                  android:gravity="center"
+                                                  android:layout_height="wrap_content"
+                                                  app:onClickCommand="@{viewModel.onClickOrderTwo}"
+                                                  android:orientation="vertical">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                                android:layout_width="25dp"
+                                                android:layout_height="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:src="@mipmap/ic_my_order_two"/>
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:textColor="@{viewModel.color.textColorSecond}"
+                                                android:layout_marginTop="5dp"
+                                                android:textSize="13sp"
+                                                android:layout_marginBottom="10dp"
+                                                android:text="待发货"/>
+                                    </LinearLayout>
+
+                                    <LinearLayout android:layout_width="0dp"
+                                                  android:layout_weight="1"
+                                                  android:gravity="center"
+                                                  android:layout_height="wrap_content"
+                                                  app:onClickCommand="@{viewModel.onClickOrderThree}"
+                                                  android:orientation="vertical">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                                android:layout_width="25dp"
+                                                android:layout_height="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:src="@mipmap/ic_my_order_three"/>
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:textColor="@{viewModel.color.textColorSecond}"
+                                                android:layout_marginTop="5dp"
+                                                android:textSize="13sp"
+                                                android:layout_marginBottom="10dp"
+                                                android:text="待收货"/>
+                                    </LinearLayout>
+
+                                    <LinearLayout android:layout_width="0dp"
+                                                  android:layout_weight="1"
+                                                  android:gravity="center"
+                                                  app:onClickCommand="@{viewModel.onClickOrderFour}"
+                                                  android:layout_height="wrap_content"
+                                                  android:orientation="vertical">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                                android:layout_width="25dp"
+                                                android:layout_height="25dp"
+                                                android:layout_marginTop="20dp"
+                                                android:src="@mipmap/ic_my_order_four"/>
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:textColor="@{viewModel.color.textColorSecond}"
+                                                android:layout_marginTop="5dp"
+                                                android:layout_marginBottom="10dp"
+                                                android:textSize="13sp"
+                                                android:text="评价"/>
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toRightOf="@+id/card_avatar"
-                                android:layout_centerVertical="true"
-                                android:text="@{viewModel.global.isLogin?viewModel.global.session.nick:@string/login}"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="16sp"/>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                app:onClickCommand="@{viewModel.onClickShopcar}"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:src="@mipmap/ic_arrow"/>
-                    </RelativeLayout>
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_attention"/>
 
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="购物车"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                    <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardElevation="1dp"
-                            app:cardBackground="@{viewModel.color.contentBackground}"
-                            app:cardCornerRadius="5dp"
-                            android:layout_margin="10dp">
-
-
-                        <LinearLayout android:layout_width="match_parent"
-                                      android:layout_height="wrap_content"
-                                      android:orientation="vertical">
-
-                            <LinearLayout android:layout_width="match_parent"
-                                          android:layout_height="wrap_content"
-                                          android:gravity="center_vertical"
-                                          android:padding="10dp"
-                                          app:onClickCommand="@{viewModel.onClickOrderAll}"
-                                          android:orientation="horizontal">
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="我的订单"
-                                        app:textColor="@{viewModel.color.textColorPrimary}"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold"/>
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="查看全部订单"
-                                        android:textSize="13sp"
-                                        app:textColor="@{viewModel.color.textColorSecond}"/>
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                        android:layout_width="12dp"
-                                        android:layout_height="12dp"
-                                        app:srcCompat="@mipmap/ic_arrow"/>
-                            </LinearLayout>
-
-                            <View android:layout_width="match_parent" android:layout_height="0.5dp"
-                                  android:background="@drawable/divider"/>
-
-                            <LinearLayout android:layout_width="match_parent"
-                                          android:layout_height="wrap_content"
-                                          android:weightSum="4"
-                                          android:orientation="horizontal">
-
-                                <LinearLayout android:layout_width="0dp"
-                                              android:layout_weight="1"
-                                              android:gravity="center"
-                                              app:onClickCommand="@{viewModel.onClickOrderOne}"
-                                              android:layout_height="wrap_content"
-                                              android:orientation="vertical">
-
-                                    <androidx.appcompat.widget.AppCompatImageView
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
-                                            android:layout_marginTop="20dp"
-                                            android:src="@mipmap/ic_my_order_one"/>
-
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:textColor="@{viewModel.color.textColorSecond}"
-                                            android:layout_marginTop="5dp"
-                                            android:textSize="13sp"
-                                            android:layout_marginBottom="10dp"
-                                            android:text="待付款"/>
-                                </LinearLayout>
-
-
-                                <LinearLayout android:layout_width="0dp"
-                                              android:layout_weight="1"
-                                              android:gravity="center"
-                                              android:layout_height="wrap_content"
-                                              app:onClickCommand="@{viewModel.onClickOrderTwo}"
-                                              android:orientation="vertical">
-
-                                    <androidx.appcompat.widget.AppCompatImageView
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
-                                            android:layout_marginTop="20dp"
-                                            android:src="@mipmap/ic_my_order_two"/>
-
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:textColor="@{viewModel.color.textColorSecond}"
-                                            android:layout_marginTop="5dp"
-                                            android:textSize="13sp"
-                                            android:layout_marginBottom="10dp"
-                                            android:text="待发货"/>
-                                </LinearLayout>
-
-                                <LinearLayout android:layout_width="0dp"
-                                              android:layout_weight="1"
-                                              android:gravity="center"
-                                              android:layout_height="wrap_content"
-                                              app:onClickCommand="@{viewModel.onClickOrderThree}"
-                                              android:orientation="vertical">
-
-                                    <androidx.appcompat.widget.AppCompatImageView
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
-                                            android:layout_marginTop="20dp"
-                                            android:src="@mipmap/ic_my_order_three"/>
-
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:textColor="@{viewModel.color.textColorSecond}"
-                                            android:layout_marginTop="5dp"
-                                            android:textSize="13sp"
-                                            android:layout_marginBottom="10dp"
-                                            android:text="待收货"/>
-                                </LinearLayout>
-
-                                <LinearLayout android:layout_width="0dp"
-                                              android:layout_weight="1"
-                                              android:gravity="center"
-                                              app:onClickCommand="@{viewModel.onClickOrderFour}"
-                                              android:layout_height="wrap_content"
-                                              android:orientation="vertical">
-
-                                    <androidx.appcompat.widget.AppCompatImageView
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
-                                            android:layout_marginTop="20dp"
-                                            android:src="@mipmap/ic_my_order_four"/>
-
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:textColor="@{viewModel.color.textColorSecond}"
-                                            android:layout_marginTop="5dp"
-                                            android:layout_marginBottom="10dp"
-                                            android:textSize="13sp"
-                                            android:text="评价"/>
-                                </LinearLayout>
-
-
-                            </LinearLayout>
-
-
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            app:onClickCommand="@{viewModel.onClickShopcar}"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_collect"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_attention"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="我的收藏"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="购物车"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_recommend"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_collect"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="我的足迹"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="我的收藏"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                app:onClickCommand="@{viewModel.onClickCache}"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_approve"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_recommend"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="清理缓存"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="我的足迹"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                app:onClickCommand="@{viewModel.onClickTheme}">
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            app:onClickCommand="@{viewModel.onClickCache}"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_message"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_approve"/>
-
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="清理缓存"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            app:onClickCommand="@{viewModel.onClickTheme}">
-
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_message"/>
-
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:text="主题切换"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:text="主题切换"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
 
-                        <com.zhuzichu.mvvm.widget.CircleView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginEnd="15dp"
-                                app:circleViewColor="@{viewModel.color.colorPrimary}"/>
+                            <com.zhuzichu.mvvm.widget.CircleView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginEnd="15dp"
+                                    app:circleViewColor="@{viewModel.color.colorPrimary}"/>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            app:onClickCommand="@{viewModel.onClickDark}">
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                app:onClickCommand="@{viewModel.onClickDark}">
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_message"/>
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_about"/>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:text="夜间模式"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:text="关于我们"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.AppCompatCheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="15dp"
-                                app:currentView="@{viewModel.getDarkCheckBox}"
-                                android:buttonTint="@{viewModel.color.colorPrimary}"
-                                app:isChecked="@{viewModel.color.isDark}"
-                                app:onCheckedChangedCommand="@{viewModel.onChangedDark}"/>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_feedback"/>
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="意见反馈"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_feedback"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="意见反馈"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_my_set"/>
 
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@{viewModel.color.contentBackground}"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp">
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="设置"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_my_set"/>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
 
-                        <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="10"
-                                android:text="设置"
-                                app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="14sp"/>
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12sp"
-                                android:layout_height="12sp"
-                                android:layout_gravity="center_vertical"
-                                app:srcCompat="@mipmap/ic_arrow"/>
-                    </LinearLayout>
-
-                    <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="20dp"
-                            app:cardCornerRadius="5dp"
-                            android:layout_marginRight="30dp"
-                            app:onClickCommand="@{viewModel.onClickLogout}"
-                            android:animateLayoutChanges="true"
-                            android:layout_marginLeft="30dp">
-
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="退出当前淘宝账号"
-                                android:gravity="center"
-                                android:textSize="14sp"
-                                app:textColor="@{viewModel.color.contentBackground}"
-                                android:visibility="@{viewModel.global.isLogin?View.VISIBLE:View.GONE}"
-                                android:textStyle="bold"
-                                android:padding="10dp"
-                                android:background="@{viewModel.color.colorPrimary}"/>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-            </ScrollView>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="20dp"
+                                app:cardCornerRadius="5dp"
+                                android:layout_marginRight="30dp"
+                                app:onClickCommand="@{viewModel.onClickLogout}"
+                                android:animateLayoutChanges="true"
+                                android:layout_marginLeft="30dp">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="退出当前淘宝账号"
+                                    android:gravity="center"
+                                    android:textSize="14sp"
+                                    app:textColor="@{viewModel.color.contentBackground}"
+                                    android:visibility="@{viewModel.global.isLogin?View.VISIBLE:View.GONE}"
+                                    android:textStyle="bold"
+                                    android:padding="10dp"
+                                    android:background="@{viewModel.color.colorPrimary}"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </ScrollView>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+
 </layout>

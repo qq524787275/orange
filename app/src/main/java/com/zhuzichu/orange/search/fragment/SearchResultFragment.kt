@@ -1,7 +1,6 @@
 package com.zhuzichu.orange.search.fragment
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
@@ -33,9 +32,9 @@ class SearchResultFragment : BaseTopbarBackFragment<FragmentSearchResultBinding,
 
     override fun initView() {
         setTitle(keyWord)
-        addRightIcon(R.mipmap.ic_top, View.OnClickListener {
+        addRightIcon(R.mipmap.ic_top) {
             (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
-        })
+        }
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {

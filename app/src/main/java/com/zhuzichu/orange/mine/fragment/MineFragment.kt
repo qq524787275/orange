@@ -33,7 +33,6 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_mine
 
     override fun initView() {
-        setTitle("我的")
 
     }
 

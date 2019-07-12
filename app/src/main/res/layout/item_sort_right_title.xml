@@ -8,7 +8,7 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:background="@{item.color.contentBackground}"
+                  android:background="@{item.color.windowBackground}"
                   android:clickable="true"
                   android:layout_height="wrap_content">
         <RelativeLayout

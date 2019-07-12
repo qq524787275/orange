@@ -75,6 +75,7 @@
         <attr name="srcColor" format="color"/>
         <attr name="aspecRatio" format="float"/>
         <attr name="margin" format="integer"/>
+        <attr name="enableWhiteToAlpha" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="MultiStateView">

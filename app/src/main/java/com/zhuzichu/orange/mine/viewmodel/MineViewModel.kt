@@ -122,10 +122,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickDark = BindingCommand<Any>({
-        checkbox.isChecked = !checkbox.isChecked
-    })
-
-    val onChangedDark = BindingCommand<Boolean>(consumer = {
-        uc.onDarkChangeEvent.value = it
+        uc.onDarkChangeEvent.value = !color.isDark.value!!
     })
 }

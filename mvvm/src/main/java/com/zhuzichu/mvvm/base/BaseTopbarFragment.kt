@@ -106,7 +106,7 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         _statuBar.setBackgroundColor(color)
     }
 
-    fun addRightIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
+    fun addRightIcon(iconId: Int, onClickListener: () -> Unit) {
         val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_left_btn, null) as RelativeLayout
         _rightLayout.addView(imageLayout)
         _rightLayout.visibility = View.VISIBLE
@@ -114,12 +114,13 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
         icon.setImageResource(iconId)
-        if (onClickListener != null)
-            imageLayout.setOnClickListener(onClickListener)
+        imageLayout.setOnClickListener {
+            onClickListener.invoke()
+        }
     }
 
 
-    fun addLeftIcon(iconId: Int, onClickListener: View.OnClickListener? = null) {
+    fun addLeftIcon(iconId: Int, onClickListener: () -> Unit) {
         val imageLayout = layoutInflater.inflate(R.layout.item_topbar_right_left_btn, null) as RelativeLayout
         _leftLayout.addView(imageLayout)
         _leftLayout.visibility = View.VISIBLE
@@ -128,7 +129,8 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
         icon.setImageResource(iconId)
-        if (onClickListener != null)
-            imageLayout.setOnClickListener(onClickListener)
+        imageLayout.setOnClickListener {
+            onClickListener.invoke()
+        }
     }
 }
