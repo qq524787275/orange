@@ -46,7 +46,6 @@
                 android:value="667"/>
 
         <activity android:name=".main.activity.MainActivity"
-                  android:theme="@style/AppTransparentTheme"
                   android:resizeableActivity="false"
                   android:configChanges="screenLayout|orientation"/>
 

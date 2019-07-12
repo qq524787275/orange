@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentationMagician
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.mvvm.widget.FlutterFadeAnimator
 import com.zhuzichu.orange.R
 import io.flutter.facade.Flutter
 import io.flutter.plugin.common.BasicMessageChannel
@@ -22,7 +23,6 @@ import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
@@ -229,8 +229,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
      * 设定当前Fragmemt动画,优先级比在SupportActivity里高
      */
     override fun onCreateFragmentAnimator(): FragmentAnimator {
-//        return _delegate.onCreateFragmentAnimator()
-        return DefaultNoAnimator()
+        return FlutterFadeAnimator()
     }
 
     /**
