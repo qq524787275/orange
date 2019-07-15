@@ -3,6 +3,7 @@
     <data>
         <import type="com.zhuzichu.orange.R"/>
         <import type="android.view.View"/>
+        <import type="com.zhuzichu.mvvm.global.color.ColorGlobal"/>
         <variable name="viewModel" type="com.zhuzichu.orange.mine.viewmodel.MineViewModel"/>
     </data>
 
@@ -54,7 +55,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center"
-                            app:url="@{viewModel.color.isDark()?R.mipmap.ic_theme_sun:R.mipmap.ic_theme_moon}"/>
+                            app:url="@{safeUnbox(viewModel.color.isDark())?R.mipmap.ic_theme_sun:R.mipmap.ic_theme_moon}"/>
                 </FrameLayout>
 
                 <FrameLayout android:layout_width="40dp"

@@ -2,6 +2,7 @@ package com.zhuzichu.mvvm.databinding.imageview
 
 import android.graphics.PorterDuff
 import android.widget.ImageView
+import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -21,7 +22,7 @@ import com.zhuzichu.mvvm.widget.WhiteToAlphaTransformation
 @BindingAdapter(value = ["url", "placeholderRes", "aspecRatio", "margin", "enableWhiteToAlpha"], requireAll = false)
 fun setImageUri(
     imageView: ImageView,
-    url: Any?,
+    @NonNull url: Any? = null,
     placeholderRes: Int,
     aspecRatio: Float,
     margin: Int,
@@ -45,6 +46,7 @@ fun setImageUri(
 }
 
 @BindingAdapter("srcColor")
-fun srcColor(imageView: ImageView, color: Int) {
-    imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+fun srcColor(imageView: ImageView, @NonNull color: Int? = null) {
+    if (color != null)
+        imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
 }
