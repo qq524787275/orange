@@ -69,9 +69,7 @@ public final class Flutter {
     @NonNull
     public static FlutterView createView(@NonNull final Activity activity, @NonNull final Lifecycle lifecycle, final String initialRoute) {
         FlutterMain.startInitialization(activity.getApplicationContext());
-        FlutterMain.ensureInitializationComplete(activity.getApplicationContext(), new String[]{
-                "--enable-software-rendering"
-        });
+        FlutterMain.ensureInitializationComplete(activity.getApplicationContext(), null);
         final FlutterNativeView nativeView = new FlutterNativeView(activity);
         final FlutterView flutterView = new FlutterView(activity, null, nativeView) {
             private final BasicMessageChannel<String> lifecycleMessages = new BasicMessageChannel<>(this, "flutter/lifecycle", StringCodec.INSTANCE);

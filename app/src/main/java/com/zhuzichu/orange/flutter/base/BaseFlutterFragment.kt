@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.flutter.base
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,6 @@ import androidx.fragment.app.FragmentationMagician
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.logi
-import com.zhuzichu.mvvm.widget.FlutterFadeAnimator
 import com.zhuzichu.orange.R
 import io.flutter.facade.Flutter
 import io.flutter.plugin.common.BasicMessageChannel
@@ -57,7 +57,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         _flutterView.addFirstFrameListener {
             _contentView.postDelayed({
                 loadingLayout.visibility = View.GONE
-            }, 100)
+            }, 300)
         }
         MethodChannel(
             _flutterView,
@@ -97,15 +97,15 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         return _delegate.extraTransaction()
     }
 
-    override fun onAttach(activity: Activity?) {
-        super.onAttach(activity)
-        _delegate.onAttach(activity!!)
-        _activity = _delegate.activity
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _delegate.onCreate(savedInstanceState)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        _delegate.onAttach(activity)
+        _activity = _delegate.activity
     }
 
 
@@ -161,7 +161,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
      */
     @Deprecated("Use {@link #post(Runnable)} instead.", ReplaceWith("_delegate.enqueueAction(runnable)"))
     override fun enqueueAction(runnable: Runnable) {
-        _delegate.enqueueAction(runnable)
+        _delegate.post(runnable)
     }
 
     /**
@@ -229,7 +229,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
      * 设定当前Fragmemt动画,优先级比在SupportActivity里高
      */
     override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return FlutterFadeAnimator()
+        return _delegate.onCreateFragmentAnimator()
     }
 
     /**

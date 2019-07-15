@@ -23,7 +23,6 @@ class ItemNavigationViewModel(
             }
             "flutter" -> {
                 viewModel.startFragment(MainFlutterFragment())
-//                MainFlutterActivity.start(viewModel._activity)
             }
             else -> {
                 "暂未开发".toast()
