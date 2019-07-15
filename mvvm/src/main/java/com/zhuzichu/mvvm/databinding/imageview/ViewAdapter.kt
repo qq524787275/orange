@@ -46,7 +46,5 @@ fun setImageUri(
 
 @BindingAdapter("srcColor")
 fun srcColor(imageView: ImageView, color: Int) {
-    val mutate = imageView.drawable.mutate()
-    mutate.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-    imageView.setImageDrawable(mutate)
+    imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
 }

@@ -4,6 +4,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 
 /**
  * Created by Android Studio.
@@ -14,10 +15,11 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
  */
 class ItemSearchIndicatorViewModel(viewModel: SearchResultViewModel,var title: String,var sort: List<Int>) :
     ItemViewModel<SearchResultViewModel>(viewModel) {
-    var isSelected = ObservableBoolean(false)
-    var currentSort = ObservableInt(sort[0])
+    val color= ColorGlobal
+    val isSelected = ObservableBoolean(false)
+    val currentSort = ObservableInt(sort[0])
 
-    var clickItem = BindingCommand<Any>( {
+    val clickItem = BindingCommand<Any>( {
         //todo 去除魔法数
         if (isSelected.get() && sort.size == 1) {
             return@BindingCommand

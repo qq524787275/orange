@@ -23,7 +23,7 @@
                     android:text="@{item.title}"
                     android:layout_gravity="center"
                     tools:textColor="@color/colorPrimary"
-                    android:textColor='@{item.selected?@color/colorPrimary:@color/colorSecondText}'
+                    app:textColor='@{item.selected?item.color.colorPrimary:item.color.textColorSecond}'
                     android:textSize="15sp"
                     tools:text="男装"/>
 
@@ -38,13 +38,13 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        app:srcColor="@{(item.currentSort==1 &amp;&amp; item.selected)?@color/colorPrimary:@color/colorSecondText}"
+                        app:srcColor="@{(item.currentSort==1 &amp;&amp; item.selected)?item.color.colorPrimary:item.color.textColorSecond}"
                         android:src="@mipmap/ic_up"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        app:srcColor="@{(item.currentSort==2 &amp;&amp; item.selected)?@color/colorPrimary:@color/colorSecondText}"
+                        app:srcColor="@{(item.currentSort==2 &amp;&amp; item.selected)?item.color.colorPrimary:item.color.textColorSecond}"
                         android:src="@mipmap/ic_down"/>
 
             </LinearLayout>
@@ -56,7 +56,7 @@
               android:layout_height="3dp"
               android:layout_gravity="bottom|center_horizontal"
               tools:background="@color/colorPrimary"
-              android:background='@{item.selected?@color/colorPrimary:@color/transparent}'/>
+              android:background='@{item.selected?item.color.colorPrimary:@color/transparent}'/>
 
     </FrameLayout>
 </layout>

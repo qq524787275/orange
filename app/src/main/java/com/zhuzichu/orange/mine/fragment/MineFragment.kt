@@ -10,6 +10,7 @@ import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
 import com.google.android.material.snackbar.Snackbar
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.helper.QMUIDrawableHelper
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.utils.toast
@@ -42,9 +43,11 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
             val v = getSuperTopFragment().view!!
             val content = v.findViewById<LinearLayout>(R.id.layout_content)
             val overlay = v.findViewById<LinearLayout>(R.id.layout_overlay)
-            val centerX = (content.left + content.right) / 2
-            val centerY = (content.top + content.bottom) / 2
-            val finalRadius = hypot(centerX.toDouble(), centerY.toDouble()).toFloat()
+            val centerX = (content.left + content.right) - dip2px(60f)
+            val centerY = QMUIStatusBarHelper.getStatusbarHeight(activity) + dip2px(25f)
+            val pX = centerX - content.left
+            val pY = centerY - content.bottom
+            val finalRadius = hypot(pX.toDouble(), pY.toDouble()).toFloat()
             val mCircularReveal = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, 0f, finalRadius)
             mCircularReveal.interpolator = AccelerateInterpolator()
             val drawable = BitmapDrawable(QMUIDrawableHelper.createBitmapFromView(content))

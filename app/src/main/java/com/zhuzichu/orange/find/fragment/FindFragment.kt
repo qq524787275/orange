@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.find.fragment
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.orange.BR
@@ -32,4 +33,12 @@ class FindFragment : BaseTopbarFragment<FragmentFindBinding, FindViewModel>() {
             activity, titles, viewpager, indicator
         )
     }
+
+    override fun initViewObservable() {
+       _viewModel.color.colorPrimary.observe(this, Observer {
+           indicator.navigator.notifyDataSetChanged()
+       })
+    }
+
+
 }

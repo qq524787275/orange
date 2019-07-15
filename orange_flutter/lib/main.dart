@@ -1,13 +1,14 @@
 import 'dart:ui';
+
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_cache.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orange_flutter/style.dart';
 
 import 'cache.dart';
 import 'channel.dart';
-import 'package:flutter/material.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 void main() {
   FlareCache.doesPrune = false;
@@ -44,7 +45,7 @@ Widget _widgetForRoute(String route) {
   Widget container;
   switch (route) {
     case 'flutter':
-      container =  DayListScaffold();
+      container = DayListScaffold();
       break;
     case 'cache':
       container = CacheScaffold();

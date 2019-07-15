@@ -47,23 +47,23 @@
 
                 <FrameLayout
                         android:id="@+id/sun_moon"
-                        android:layout_width="50dp"
+                        android:layout_width="40dp"
                         android:layout_height="50dp"
                         app:onClickCommand="@{viewModel.onClickDark}">
                     <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_gravity="center"
                             app:url="@{viewModel.color.isDark()?R.mipmap.ic_theme_sun:R.mipmap.ic_theme_moon}"/>
                 </FrameLayout>
 
-                <FrameLayout android:layout_width="50dp"
+                <FrameLayout android:layout_width="40dp"
                              android:layout_height="50dp"
                              app:onClickCommand="@{viewModel.onClickSetting}">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             app:srcCompat="@mipmap/ic_my_set"/>
                 </FrameLayout>

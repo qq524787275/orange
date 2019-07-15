@@ -2,6 +2,7 @@ package com.zhuzichu.orange.main.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,6 +83,11 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
 
         ColorGlobal.isDark.observe(this, Observer {
             commonNavigator.adapter.notifyDataSetChanged()
+            _viewModel._activity.window.setBackgroundDrawable(_viewModel.color.windowBackground.get()?.let { color ->
+                ColorDrawable(
+                    color
+                )
+            })
         })
     }
 
