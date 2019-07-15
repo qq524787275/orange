@@ -12,10 +12,13 @@ class ItemNavigationViewModel(
     var title: String,
     var iconId: Int
 ) : ItemViewModel<HomeViewModel>(viewModel) {
-    val color=ColorGlobal
+    val color = ColorGlobal
     val onClickNavigation = BindingCommand<Any>({
         when (title) {
             "榜单" -> {
+                viewModel.startFragment(RankingFragment())
+            }
+            "达人说" -> {
                 viewModel.startFragment(RankingFragment())
             }
             "flutter" -> {

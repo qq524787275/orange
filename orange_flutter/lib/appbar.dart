@@ -18,6 +18,6 @@ class _OrangeAppBarState extends State<OrangeAppBar> {
     return Container(
         padding: EdgeInsets.fromLTRB(0, 22, 0, 0),
         color: Colors.white,
-        child: Padding(padding: EdgeInsets.all(15),child: widget.title));
+        child: Padding(padding: EdgeInsets.fromLTRB(15, 12, 0, 12),child: widget.title));
   }
 }
