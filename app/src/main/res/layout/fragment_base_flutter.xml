@@ -10,24 +10,23 @@
             android:id="@+id/layout_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:background="@color/white">
 
         <include android:id="@+id/loading"
                  layout="@layout/loading_view"
                  android:layout_centerInParent="true"
                  android:layout_height="80dp"
-                 android:visibility="gone"
                  android:layout_width="80dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/loading"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:textSize="14sp"
-                android:textColor="@color/colorPrimaryText"
                 android:textStyle="bold"
                 android:text="正在加载Flutter页面"/>
     </RelativeLayout>

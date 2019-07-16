@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentationMagician
@@ -53,11 +54,17 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
         val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
-        ColorGlobal.contentBackground.get()?.let { loadingLayout.setBackgroundColor(it) }
+        val containerLayout = _contentView.findViewById<FrameLayout>(R.id.container)
+        ColorGlobal.textColorPrimary.get()?.let {
+            _contentView.findViewById<TextView>(R.id.info).setTextColor(it)
+        }
+        ColorGlobal.contentBackground.get()?.let {
+            loadingLayout.setBackgroundColor(it)
+        }
         _flutterView.addFirstFrameListener {
             _contentView.postDelayed({
                 loadingLayout.visibility = View.GONE
-            }, 300)
+            }, 100)
         }
         MethodChannel(
             _flutterView,
@@ -77,7 +84,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
                 _isCurrent = call.argument("isCurrent")!!
             }
         }
-        _contentView.findViewById<FrameLayout>(R.id.container).addView(_flutterView)
+        containerLayout.addView(_flutterView)
         return _contentView
     }
 

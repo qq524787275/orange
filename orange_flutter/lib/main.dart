@@ -132,10 +132,10 @@ class DayStyle {
   ];
 }
 
-class FadeAnimation extends PageRouteBuilder {
+class NoAnimation extends PageRouteBuilder {
   final Widget widget;
 
-  FadeAnimation(this.widget)
+  NoAnimation(this.widget)
       : super(
             transitionDuration: const Duration(milliseconds: 0), //设置动画时长500毫秒
             pageBuilder: (BuildContext context, Animation<double> animation1,
@@ -178,8 +178,7 @@ class DayListScaffold extends StatelessWidget {
                   type: MaterialType.transparency,
                   child: InkWell(
                     onTap: () => {
-                      Navigator.of(context)
-                          .push(FadeAnimation(FlareDetailScreen(
+                      Navigator.of(context).push(NoAnimation(FlareDetailScreen(
                         dayStyle: DayStyle._all[index],
                       )))
 //                          .pushNamed("/detail", arguments: DayStyle._all[index])
