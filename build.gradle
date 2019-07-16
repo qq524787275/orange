@@ -42,6 +42,7 @@ buildscript {
         autosizeVerson = "0.9.5"
         fragmentationxVersion = "1.0.1"
         flexboxVerson = "1.1.0"
+        paletteVersion="1.0.0"
     }
 
     repositories {

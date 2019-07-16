@@ -4,32 +4,15 @@
         <variable name="viewModel" type="com.zhuzichu.orange.home.viewmodel.TalentViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        <androidx.core.widget.NestedScrollView
+        <com.zhuzichu.mvvm.view.nicebanner.NiceBanner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_empty"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/img"
-                        android:layout_centerInParent="true"
-                        android:text="敬请期待"/>
-            </RelativeLayout>
-
-        </androidx.core.widget.NestedScrollView>
+                app:contentHorizontalPadding="100dp"
+                app:contentItemMargin="8dp"/>
     </LinearLayout>
 </layout>

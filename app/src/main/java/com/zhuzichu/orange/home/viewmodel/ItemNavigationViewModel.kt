@@ -6,6 +6,7 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.home.fragment.RankingFragment
+import com.zhuzichu.orange.home.fragment.TalentFragment
 
 class ItemNavigationViewModel(
     viewModel: HomeViewModel,
@@ -19,7 +20,7 @@ class ItemNavigationViewModel(
                 viewModel.startFragment(RankingFragment())
             }
             "达人说" -> {
-                viewModel.startFragment(RankingFragment())
+                viewModel.startFragment(TalentFragment())
             }
             "flutter" -> {
                 viewModel.startFragment(MainFlutterFragment())

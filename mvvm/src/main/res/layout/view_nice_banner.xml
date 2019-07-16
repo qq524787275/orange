@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/banner_root"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/background_banner">
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/banner_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+</FrameLayout>

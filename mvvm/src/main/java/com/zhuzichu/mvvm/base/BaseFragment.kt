@@ -39,7 +39,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     private lateinit var _contentView: View
     private lateinit var _multiStateView: MultiStateView
     private val _delegate by lazy { SupportFragmentDelegate(this) }
-    private lateinit var _activity: FragmentActivity
+    lateinit var _activity: FragmentActivity
 
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int

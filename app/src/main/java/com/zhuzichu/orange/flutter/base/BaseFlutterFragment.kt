@@ -2,8 +2,10 @@ package com.zhuzichu.orange.flutter.base
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -51,6 +53,20 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     abstract fun setRoute(): String
 
+    fun clearDraw(holder: SurfaceHolder, color: Int) {
+        var canvas: Canvas? = null
+        try {
+            canvas = holder.lockCanvas(null)
+            canvas.drawColor(color)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            if (canvas != null) {
+                holder.unlockCanvasAndPost(canvas)
+            }
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
         val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
@@ -60,6 +76,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         }
         ColorGlobal.contentBackground.get()?.let {
             loadingLayout.setBackgroundColor(it)
+            clearDraw(_flutterView.holder, it)
         }
         _flutterView.addFirstFrameListener {
             _contentView.postDelayed({

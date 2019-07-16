@@ -107,10 +107,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initViewObservable() {
         _viewModel.uc.onBannerLoadSuccess.observe(this, Observer {
             //设置图片集合
-            banner.setImages(it.flatMap { item ->
-                listOf(item.app_image)
+            banner.setImages(it.map { item ->
+                item.app_image
             })
-            banner.setBannerTitles(it.flatMap { item -> listOf(item.name) })
+            banner.setBannerTitles(it.map { item ->
+                item.name
+            })
             banner.start()
         })
 
