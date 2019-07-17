@@ -83,7 +83,7 @@ class NiceBanner @JvmOverloads constructor(
 
     private fun setUpContent() {
         banner_viewpager.setPageTransformer(
-            false,
+            true,
             DefaultTransformer(contentHorizontalPadding)
         )
         banner_viewpager.pageMargin = contentItemMargin.toInt()
