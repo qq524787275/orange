@@ -3,6 +3,7 @@ package com.zhuzichu.mvvm.view.nicebanner
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 
+
 abstract class NiceTransformer(private val contentWidthPadding: Float) : ViewPager.PageTransformer {
 
 

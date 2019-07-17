@@ -12,7 +12,6 @@ import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.view.banner.BannerConfig
-import com.zhuzichu.mvvm.view.banner.Transformer.DepthPage
 import com.zhuzichu.mvvm.widget.GlideImageLoader
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -93,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         //设置图片加载器
         banner.setImageLoader(GlideImageLoader())
         //设置banner动画效果
-        banner.setBannerAnimation(DepthPage)
         //设置标题集合（当banner样式有显示title时）
         //设置自动轮播，默认为true
         banner.isAutoPlay(true)

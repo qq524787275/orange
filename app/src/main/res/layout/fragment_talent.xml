@@ -8,8 +8,23 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp">
+
+            <com.zhuzichu.mvvm.view.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:widthPadding="@{20}"
+                    app:widthHeightRatio="@{0.408f}"/>
+        </androidx.cardview.widget.CardView>
+
         <com.zhuzichu.mvvm.view.nicebanner.NiceBanner
-                android:id="@+id/banner"
+                android:id="@+id/nice_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentHorizontalPadding="40dp"

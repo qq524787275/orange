@@ -4,16 +4,15 @@
         <variable name="viewModel" type="com.zhuzichu.orange.shopdetail.viewmodel.ShopDetailOneViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
+        <com.zhuzichu.mvvm.view.nicebanner.NiceBanner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <com.zhuzichu.mvvm.view.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
+                android:layout_height="match_parent"
+                app:contentHorizontalPadding="40dp"
+                app:contentItemMargin="8dp"/>
     </LinearLayout>
 </layout>

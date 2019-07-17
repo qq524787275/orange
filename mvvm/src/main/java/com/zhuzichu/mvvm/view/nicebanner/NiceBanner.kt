@@ -5,16 +5,18 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewpager.widget.ViewPager
-import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.toColorById
-import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.mvvm.view.banner.WeakHandler
 import kotlinx.android.synthetic.main.view_nice_banner.view.*
-import java.util.ArrayList
+import java.util.*
+
 
 /**
  * Created by Android Studio.
@@ -28,13 +30,18 @@ class NiceBanner @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    FrameLayout(context, attrs, defStyleAttr) {
+    FrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
     private lateinit var sourceUrls: List<Any>
-    private val targetUrls: MutableList<Any> by lazy { ArrayList<Any>() }
+    private val targetUrls by lazy { ArrayList<Any>() }
+    private val scroller by lazy { BannerScroller(banner_viewpager.context) }
     private var count: Int = 0
     private var currentItem: Int = 2
-    private var contentItemMargin = resources.getDimension(R.dimen.dimens_4dp)
-    private var contentHorizontalPadding = resources.getDimension(R.dimen.dimens_32dp)
+    private var contentItemMargin = resources.getDimension(com.zhuzichu.mvvm.R.dimen.dimens_4dp)
+    private var contentHorizontalPadding = resources.getDimension(com.zhuzichu.mvvm.R.dimen.dimens_32dp)
+    private var delayTime = 1500
+    private val handler = WeakHandler()
+    private var isAutoPlay = true
+    private var isScroll = true
     private var onPageChangeListener: ViewPager.OnPageChangeListener? = null
     private val niceBannnerAdapter by lazy {
         NiceBannerAdapter(
@@ -62,13 +69,16 @@ class NiceBanner @JvmOverloads constructor(
     private var nicePagerAdapter: INicePagerAdapter? = null
 
     init {
-        View.inflate(context, R.layout.view_nice_banner, this)
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.NiceBanner)
+        View.inflate(context, com.zhuzichu.mvvm.R.layout.view_nice_banner, this)
+        val attributes = context.obtainStyledAttributes(attrs, com.zhuzichu.mvvm.R.styleable.NiceBanner)
         try {
             contentHorizontalPadding =
-                attributes.getDimension(R.styleable.NiceBanner_contentHorizontalPadding, contentHorizontalPadding)
+                attributes.getDimension(
+                    com.zhuzichu.mvvm.R.styleable.NiceBanner_contentHorizontalPadding,
+                    contentHorizontalPadding
+                )
             contentItemMargin =
-                attributes.getDimension(R.styleable.NiceBanner_contentItemMargin, contentItemMargin)
+                attributes.getDimension(com.zhuzichu.mvvm.R.styleable.NiceBanner_contentItemMargin, contentItemMargin)
 
             setUpContent()
         } finally {
@@ -79,7 +89,19 @@ class NiceBanner @JvmOverloads constructor(
                 android.R.color.transparent.toColorById(),
                 android.R.color.transparent.toColorById()
             )
+        initViewPagerScroll()
     }
+
+    private fun initViewPagerScroll() {
+        try {
+            val mField = ViewPager::class.java.getDeclaredField("mScroller")
+            mField.isAccessible = true
+            mField.set(banner_viewpager, scroller)
+        } catch (e: Exception) {
+        }
+
+    }
+
 
     private fun setUpContent() {
         banner_viewpager.setPageTransformer(
@@ -96,7 +118,7 @@ class NiceBanner @JvmOverloads constructor(
             when (state) {
                 0//No operation
                 -> if (currentItem == 1) {
-                    banner_viewpager.setCurrentItem(count+1, false)
+                    banner_viewpager.setCurrentItem(count + 1, false)
                 } else if (currentItem == count + 2) {
                     banner_viewpager.setCurrentItem(2, false)
                 }
@@ -104,7 +126,7 @@ class NiceBanner @JvmOverloads constructor(
                 -> if (currentItem == count + 2) {
                     banner_viewpager.setCurrentItem(2, false)
                 } else if (currentItem == 1) {
-                    banner_viewpager.setCurrentItem(count+1, false)
+                    banner_viewpager.setCurrentItem(count + 1, false)
                 }
                 2//end Sliding
                 -> {
@@ -113,16 +135,14 @@ class NiceBanner @JvmOverloads constructor(
         }
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//            refreshBackgroundColor(position, positionOffset)
+            refreshBackgroundColor(position, positionOffset)
             onPageChangeListener?.onPageScrolled(toRealPosition(position), positionOffset, positionOffsetPixels)
         }
 
         override fun onPageSelected(position: Int) {
             currentItem = position
             onPageChangeListener?.onPageSelected(toRealPosition(position))
-            paletteCacheManager.cachePalettesAroundPositionAsync(position){
-                refreshBackgroundColor(position,0f)
-            }
+            paletteCacheManager.cachePalettesAroundPositionAsync(position)
         }
     }
 
@@ -199,9 +219,16 @@ class NiceBanner @JvmOverloads constructor(
         return this@NiceBanner
     }
 
-    fun start(): NiceBanner {
+    fun start(lifecycle: Lifecycle): NiceBanner {
         setImageList(sourceUrls)
         setData()
+        lifecycle.addObserver(this)
+        startAutoPlay()
+        return this@NiceBanner
+    }
+
+    fun setViewPagerIsScroll(isScroll: Boolean): NiceBanner {
+        this.isScroll = isScroll
         return this@NiceBanner
     }
 
@@ -219,7 +246,15 @@ class NiceBanner @JvmOverloads constructor(
             // Setup content adapter
             niceBannnerAdapter.nicePagerAdapter = nicePagerAdapter as INicePagerAdapter
             banner_viewpager.adapter = niceBannnerAdapter
-            banner_viewpager.setCurrentItem(currentItem, false)
+            banner_viewpager.isFocusable = true
+            banner_viewpager.currentItem = currentItem
+            if (isScroll && count > 1) {
+                banner_viewpager.setScrollable(true)
+            } else {
+                banner_viewpager.setScrollable(false)
+            }
+            if (isAutoPlay)
+                startAutoPlay()
         }
     }
 
@@ -238,6 +273,70 @@ class NiceBanner @JvmOverloads constructor(
                 else -> imagesUrl[i - 2]
             }
             targetUrls.add(url)
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (isAutoPlay) {
+            val action = ev.action
+            if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL
+                || action == MotionEvent.ACTION_OUTSIDE
+            ) {
+                startAutoPlay()
+            } else if (action == MotionEvent.ACTION_DOWN) {
+                stopAutoPlay()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    fun setOnPageChangeListener(onPageChangeListener: ViewPager.OnPageChangeListener) {
+        this@NiceBanner.onPageChangeListener = onPageChangeListener
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    fun startAutoPlay() {
+        handler.removeCallbacks(task)
+        handlerPostTaskDelayed()
+    }
+
+    fun stopAutoPlay() {
+        handler.removeCallbacks(task)
+    }
+
+    fun handlerPostTask() {
+        handler.post(task)
+    }
+
+    fun handlerPostTaskDelayed() {
+        handler.postDelayed(task, delayTime.toLong())
+    }
+
+
+    private val task = Runnable {
+        if (count > 1 && isAutoPlay) {
+            currentItem = currentItem % (count + 3) + 1
+            if (currentItem == 2) {
+                banner_viewpager.setCurrentItem(currentItem, false)
+                handlerPostTask()
+            } else {
+                banner_viewpager.currentItem = currentItem
+                handlerPostTaskDelayed()
+            }
+        }
+    }
+
+    /**
+     * 切换到下一页
+     */
+    private fun switchToNextPage() {
+        if (banner_viewpager != null) {
+            banner_viewpager.currentItem = banner_viewpager.currentItem + 1
         }
     }
 

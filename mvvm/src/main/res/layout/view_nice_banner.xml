@@ -4,7 +4,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@drawable/background_banner">
-    <androidx.viewpager.widget.ViewPager
+    <com.zhuzichu.mvvm.view.nicebanner.NiceViewPager
             android:id="@+id/banner_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
