@@ -29,13 +29,6 @@ class TalentFragment : BaseFragment<FragmentTalentBinding, TalentViewModel>() {
     override fun initViewObservable() {
 
         _viewModel.uc.onLoadDataSuccess.observe(this, Observer {
-            nice_banner.setImages(
-                it.map { item ->
-                    item.app_image
-                }
-            )
-            nice_banner.start(lifecycle)
-
             //设置图片集合
             banner.setImages(it.map { item ->
                 item.app_image

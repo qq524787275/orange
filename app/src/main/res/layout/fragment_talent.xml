@@ -23,11 +23,5 @@
                     app:widthHeightRatio="@{0.408f}"/>
         </androidx.cardview.widget.CardView>
 
-        <com.zhuzichu.mvvm.view.nicebanner.NiceBanner
-                android:id="@+id/nice_banner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentHorizontalPadding="40dp"
-                app:contentItemMargin="8dp"/>
     </LinearLayout>
 </layout>
