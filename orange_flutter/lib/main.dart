@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orange_flutter/style.dart';
 
+import 'about.dart';
 import 'cache.dart';
 import 'channel.dart';
 
@@ -49,6 +50,9 @@ Widget _widgetForRoute(String route) {
       break;
     case 'cache':
       container = CacheScaffold();
+      break;
+    case 'about':
+      container = AboutScaffold();
       break;
     default:
       container = Center(

@@ -466,7 +466,7 @@
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp"
-                                app:onClickCommand="@{viewModel.onClickDark}">
+                                app:onClickCommand="@{viewModel.onClickAbout}">
 
                             <ImageView
                                     android:layout_width="wrap_content"
@@ -479,7 +479,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
                                     android:layout_weight="1"
-                                    android:text="关于我们"
+                                    android:text="关于"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
 

@@ -14,4 +14,8 @@ class Navigation {
   static void setCurrent(bool isCurrent) {
     perform.invokeMethod('setCurrent', {'isCurrent': isCurrent});
   }
+
+  static void back() {
+    perform.invokeMethod('back');
+  }
 }

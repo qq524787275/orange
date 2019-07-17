@@ -13,6 +13,7 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.mine.fragment.AboutFragment
 import com.zhuzichu.orange.mine.fragment.CacheFragment
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
@@ -105,6 +106,10 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickCache = BindingCommand<Any>({
         startFragment(CacheFragment())
+    })
+
+    val onClickAbout = BindingCommand<Any>({
+        startFragment(AboutFragment())
     })
 
     val onClickTheme = BindingCommand<Any>({
