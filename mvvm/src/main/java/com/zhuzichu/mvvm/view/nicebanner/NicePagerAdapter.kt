@@ -20,7 +20,7 @@ import com.zhuzichu.mvvm.global.glide.GlideApp
  */
 class NicePagerAdapter(
     val context: Context,
-    val list: List<String>
+    val list: List<Any>
 ) : INicePagerAdapter {
 
     val listBitmap = arrayOfNulls<Bitmap>(list.size)
@@ -30,7 +30,7 @@ class NicePagerAdapter(
         inflater: LayoutInflater,
         container: ViewGroup,
         position: Int,
-        niceBannerAdapter: NiceBannerAdapter
+        onLoadComplete: ((position: Int) -> Unit)?
     ): View {
         val content = inflater.inflate(R.layout.item_nice_banner, container, false)
         val imageView = content.findViewById<ImageView>(R.id.item_banner_image)
@@ -38,6 +38,7 @@ class NicePagerAdapter(
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 imageView.setImageBitmap(resource)
                 listBitmap[position] = resource
+                onLoadComplete?.invoke(position)
             }
         })
 

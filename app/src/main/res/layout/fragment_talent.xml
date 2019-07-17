@@ -12,7 +12,7 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentHorizontalPadding="100dp"
+                app:contentHorizontalPadding="40dp"
                 app:contentItemMargin="8dp"/>
     </LinearLayout>
 </layout>

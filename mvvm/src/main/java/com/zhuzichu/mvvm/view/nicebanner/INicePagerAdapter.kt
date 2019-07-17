@@ -15,9 +15,10 @@ import android.view.ViewGroup
 interface INicePagerAdapter {
 
     fun instantiateItem(
-        inflater: LayoutInflater, container: ViewGroup,
+        inflater: LayoutInflater,
+        container: ViewGroup,
         position: Int,
-        niceBannerAdapter: NiceBannerAdapter
+        onLoadComplete: ((position: Int) -> Unit)?=null
     ): View
 
     fun getCount(): Int
@@ -29,4 +30,5 @@ interface INicePagerAdapter {
     fun requestBitmapAtPosition(position: Int): Bitmap? {
         return null
     }
+
 }

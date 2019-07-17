@@ -3,8 +3,7 @@ package com.zhuzichu.orange.home.fragment
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseFragment
-import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.mvvm.view.nicebanner.NicePagerAdapter
+import com.zhuzichu.mvvm.view.banner.loader.ImageLoader
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentTalentBinding
@@ -24,10 +23,12 @@ class TalentFragment : BaseFragment<FragmentTalentBinding, TalentViewModel>() {
     override fun initViewObservable() {
 
         _viewModel.uc.onLoadDataSuccess.observe(this, Observer {
-            banner.setNiceViewPagerAdapter(NicePagerAdapter(_activity, it.map { item ->
-                item.app_image
-            }))
-            toast(it.size.toString())
+            banner.setImages(
+                it.map { item->
+                    item.app_image
+                }
+            )
+            banner.start()
         })
     }
 }

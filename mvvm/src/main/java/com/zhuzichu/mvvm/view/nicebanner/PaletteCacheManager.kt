@@ -61,10 +61,10 @@ class PaletteCacheManager {
 
     fun cachePalettesAroundPositionAsync(position: Int, onPaletteCachedListener: () -> Unit) {
         val key = getKeyByPosition(position)
-        val cachePalettesAsync = CachePalettesAsync(this, creativePagerAdapter, position, {
+        val cachePalettesAsync = CachePalettesAsync(this, creativePagerAdapter, position) {
             runningAsyncs.remove(getKeyByPosition(it))
             onPaletteCachedListener()
-        })
+        }
 
         if (!runningAsyncs.contains(key)) {
             runningAsyncs[key] = cachePalettesAsync

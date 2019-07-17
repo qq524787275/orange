@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.viewpager.widget.PagerAdapter
 import com.zhuzichu.mvvm.R
 
@@ -16,8 +17,8 @@ import com.zhuzichu.mvvm.R
  */
 class NiceBannerAdapter(
     private val parent: View,
-    private val contentMargin: Float,
-    private val contentWidthPadding: Float
+    private val contentWidthPadding: Float,
+    private val onLoadComplete: ((position: Int) -> Unit)? = null
 ) : PagerAdapter() {
 
     lateinit var nicePagerAdapter: INicePagerAdapter
@@ -30,12 +31,11 @@ class NiceBannerAdapter(
             inflater,
             wrapper,
             position,
-            this
+            onLoadComplete
         )
-
-        val layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, MATCH_PARENT)
+        val layoutParams = ViewGroup.MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
         if (position == count - 1) {
-            layoutParams.marginEnd = (contentWidthPadding + contentWidthPadding / 2).toInt()
+            layoutParams.marginEnd = (2 * contentWidthPadding).toInt()
         }
         wrapper.addView(view, layoutParams)
         container.addView(wrapper)
