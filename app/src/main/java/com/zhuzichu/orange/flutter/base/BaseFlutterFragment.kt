@@ -2,6 +2,7 @@ package com.zhuzichu.orange.flutter.base
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +55,8 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
+        _flutterView.setZOrderOnTop(true)
+        _flutterView.holder.setFormat(PixelFormat.TRANSLUCENT)
         val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
         val containerLayout = _contentView.findViewById<FrameLayout>(R.id.container)
         ColorGlobal.textColorPrimary.get()?.let {
