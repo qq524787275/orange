@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentationMagician
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.logi
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
 import io.flutter.facade.Flutter
 import io.flutter.plugin.common.BasicMessageChannel

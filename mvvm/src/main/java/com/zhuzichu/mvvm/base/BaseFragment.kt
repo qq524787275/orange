@@ -142,7 +142,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         return _delegate.extraTransaction()
     }
 
-    override fun onAttach(activity: Activity?) {
+    override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         _delegate.onAttach(activity!!)
         _activity = _delegate.activity
