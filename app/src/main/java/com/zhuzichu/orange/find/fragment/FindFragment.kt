@@ -3,11 +3,11 @@ package com.zhuzichu.orange.find.fragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
+import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentFindBinding
-import com.zhuzichu.orange.find.adapter.FindFragmentPageAdapter
 import com.zhuzichu.orange.find.viewmodel.FindViewModel
 import kotlinx.android.synthetic.main.fragment_find.*
 
@@ -27,7 +27,7 @@ class FindFragment : BaseTopbarFragment<FragmentFindBinding, FindViewModel>() {
     }
 
     private fun initViewPager() {
-        viewpager.adapter = FindFragmentPageAdapter(childFragmentManager, fragments)
+        viewpager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments)
         viewpager.offscreenPageLimit = titles.size
         initMagicIndicator(
             activity, titles, viewpager, indicator

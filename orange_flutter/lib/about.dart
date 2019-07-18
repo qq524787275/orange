@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
+import 'package:provider/provider.dart';
 
-import 'channel.dart';
+import 'color.dart';
 
 class AboutScaffold extends StatefulWidget {
   @override
@@ -10,8 +11,7 @@ class AboutScaffold extends StatefulWidget {
 }
 
 class _AboutScaffoldState extends State<AboutScaffold> {
-
- static Widget _buildAvatar() {
+  Widget _buildAvatar() {
     return Container(
       width: 180.0,
       height: 180.0,
@@ -28,83 +28,84 @@ class _AboutScaffoldState extends State<AboutScaffold> {
     );
   }
 
-  final pages = [
-    PageViewModel(
-      pageColor: Color(0xF6F6F7FF),
-      bubbleBackgroundColor: Colors.indigo,
-      title: Container(),
-      body: Column(
-        children: <Widget>[
-          Text('一只程序猿'),
-          Text(
-            'single boy',
-            style: TextStyle(color: Colors.black54, fontSize: 16.0),
-          ),
-        ],
+  List<PageViewModel> _buildPages(ColorGlobal color) {
+    return [
+      PageViewModel(
+        pageColor: color.pageBackground,
+        bubbleBackgroundColor: color.colorPrimary,
+        title: Container(),
+        body: Column(
+          children: <Widget>[
+            Text('一只程序猿'),
+            Text(
+              'single boy',
+              style: TextStyle(color: color.textColorSecond, fontSize: 16.0),
+            ),
+          ],
+        ),
+        mainImage: Center(child: _buildAvatar()),
+        textStyle: TextStyle(color: color.textColorPrimary),
       ),
-      mainImage: Center(child: _buildAvatar()),
-      textStyle: TextStyle(color: Colors.black),
-    ),
-    PageViewModel(
-      pageColor: Color(0xF6F6F7FF),
-      iconColor: null,
-      bubbleBackgroundColor: Colors.indigo,
-      title: Container(),
-      body: Column(
-        children: <Widget>[
-          Text('One Touch Send Money'),
-          Text(
-            'Send money in just one touch and organize your wallet smart.',
-            style: TextStyle(color: Colors.black54, fontSize: 16.0),
-          ),
-        ],
+      PageViewModel(
+        pageColor: color.pageBackground,
+        iconColor: null,
+        bubbleBackgroundColor: color.colorPrimary,
+        title: Container(),
+        body: Column(
+          children: <Widget>[
+            Text('橙子街App'),
+            Text(
+              'kotlin+mvvm+databinding+flutter混合开发+jetpack',
+              style: TextStyle(color: color.textColorSecond, fontSize: 16.0),
+            ),
+          ],
+        ),
+        mainImage: Image.asset(
+          'assets/about/page1.webp',
+          width: 285.0,
+          alignment: Alignment.center,
+        ),
+        textStyle: TextStyle(color: color.textColorPrimary),
       ),
-      mainImage: Image.asset(
-        'assets/about/wallet2.png',
-        width: 285.0,
-        alignment: Alignment.center,
+      PageViewModel(
+        pageColor: color.pageBackground,
+        iconColor: null,
+        bubbleBackgroundColor: color.colorPrimary,
+        title: Container(),
+        body: Column(
+          children: <Widget>[
+            Text('个人博客'),
+            Text(
+              'zhuzichu.com',
+              style: TextStyle(color: color.textColorSecond, fontSize: 16.0),
+            ),
+          ],
+        ),
+        mainImage: Image.asset(
+          'assets/about/page2.webp',
+          width: 285.0,
+          alignment: Alignment.center,
+        ),
+        textStyle: TextStyle(color: color.textColorPrimary),
       ),
-      textStyle: TextStyle(color: Colors.black),
-    ),
-    PageViewModel(
-      pageColor: Color(0xF6F6F7FF),
-      iconColor: null,
-      bubbleBackgroundColor: Colors.indigo,
-      title: Container(),
-      body: Column(
-        children: <Widget>[
-          Text('Automatically Organize'),
-          Text(
-            'Organize your expenses and incomes and secure your wallet with pin.',
-            style: TextStyle(color: Colors.black54, fontSize: 16.0),
-          ),
-        ],
-      ),
-      mainImage: Image.asset(
-        'assets/about/wallet3.png',
-        width: 285.0,
-        alignment: Alignment.center,
-      ),
-      textStyle: TextStyle(color: Colors.black),
-    ),
-  ];
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final color = Provider.of<ColorGlobal>(context);
+
     return Scaffold(
-      body: SafeArea(
-          child: Stack(
+      body: Stack(
         children: <Widget>[
           IntroViewsFlutter(
-            pages,
-            onTapDoneButton: () {
-              Navigation.back();
-            },
+            _buildPages(color),
+            onTapDoneButton: () => {color.isDark = !color.isDark},
             showSkipButton: false,
             doneText: Text(
-              "Get Started",
+              "退出",
             ),
-            pageButtonsColor: Colors.indigo,
+            pageButtonsColor: color.colorPrimary,
             pageButtonTextStyles: new TextStyle(
               // color: Colors.indigo,
               fontSize: 16.0,
@@ -112,7 +113,7 @@ class _AboutScaffoldState extends State<AboutScaffold> {
             ),
           ),
         ],
-      )),
+      ),
     );
   }
 }

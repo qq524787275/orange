@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseMainFragment
+import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.view.magicindicator.ViewPagerHelper
@@ -25,7 +26,6 @@ import com.zhuzichu.orange.databinding.FragmentMainBinding
 import com.zhuzichu.orange.event.HomeEvent
 import com.zhuzichu.orange.find.fragment.FindFragment
 import com.zhuzichu.orange.home.fragment.HomeFragment
-import com.zhuzichu.orange.main.adapter.MainFragmentPageAdapter
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
 import com.zhuzichu.orange.sort.fragment.SortFragment
@@ -139,7 +139,7 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
             override fun getIndicator(context: Context?): IPagerIndicator? = null
         }
         content.offscreenPageLimit = mFragments.size
-        content.adapter = MainFragmentPageAdapter(childFragmentManager, mFragments)
+        content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, mFragments)
 
         bottom.navigator = commonNavigator
         ViewPagerHelper.bind(bottom, content)

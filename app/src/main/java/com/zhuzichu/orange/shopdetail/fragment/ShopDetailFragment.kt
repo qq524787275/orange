@@ -2,14 +2,13 @@ package com.zhuzichu.orange.shopdetail.fragment
 
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
+import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.mvvm.utils.toColorById
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentShopDetailBinding
-import com.zhuzichu.orange.shopdetail.adapter.ShopDetailFragmentPageAdapter
 import com.zhuzichu.orange.shopdetail.viewmodel.ShopDetailViewModel
 import kotlinx.android.synthetic.main.fragment_shop_detail.*
 
@@ -42,7 +41,7 @@ class ShopDetailFragment : BaseTopbarFragment<FragmentShopDetailBinding, ShopDet
 
     private fun initViewPager() {
         val fragments = listOf<Fragment>(ShopDetailOneFragment(itemid, type))
-        pager.adapter = ShopDetailFragmentPageAdapter(childFragmentManager, fragments)
+        pager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments)
         pager.offscreenPageLimit = titles.size
         initMagicIndicator(
             activity, titles, pager, indicator

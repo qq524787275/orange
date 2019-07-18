@@ -99,6 +99,13 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
     source: hosted
     version: "1.8.0+1"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
+    source: hosted
+    version: "3.0.0+1"
   quiver:
     dependency: transitive
     description:

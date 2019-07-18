@@ -6,10 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orange_flutter/style.dart';
+import 'package:provider/provider.dart';
 
 import 'about.dart';
 import 'cache.dart';
 import 'channel.dart';
+import 'color.dart';
 
 void main() {
   FlareCache.doesPrune = false;
@@ -24,7 +26,14 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return _widgetForRoute(window.defaultRouteName);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          builder: (_) => ColorGlobal(),
+        )
+      ],
+      child: _widgetForRoute(window.defaultRouteName),
+    );
   }
 }
 
