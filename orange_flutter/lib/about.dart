@@ -23,7 +23,7 @@ class _AboutScaffoldState extends State<AboutScaffold> {
       padding: const EdgeInsets.all(3.0),
       child: CircleAvatar(
         radius: 90,
-        backgroundImage: AssetImage("assets/about/man.png"),
+        backgroundImage: AssetImage("assets/about/man.webp"),
       ),
     );
   }

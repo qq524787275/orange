@@ -89,6 +89,6 @@ flutter:
   # They also do not have any bearing on your native host application's
   # identifiers, which may be completely independent or the same as these.
   module:
-    androidX: false
-    androidPackage: com.example.orange_flutter
-    iosBundleIdentifier: com.example.orangeFlutter
+    androidX: true
+    androidPackage: com.zhuzichu.orange
+    iosBundleIdentifier: com.zhuzichu.orange
