@@ -4,16 +4,17 @@ buildscript {
 
     ext {
         // Sdk and tools
-        compileSdkVersion = 28
-        minSdkVersion = 19
-        targetSdkVersion = 28
-
+        compileSdkVersion = 29
+        minSdkVersion = 16
+        targetSdkVersion = 29
+        buildToolsVersion = "29.0.0"
         // App dependencies
         constraintLayoutVersion = '2.0.0-beta2'
         coreTestingVersion = '2.0.0'
         coroutinesVersion = "1.0.1"
         espressoVersion = '3.1.0-alpha4'
         glideVersion = '4.9.0'
+        spotlessVersion='3.23.1'
         gradleVersion = '3.4.2'
         gsonVersion = '2.8.2'
         junitVersion = '4.12'
@@ -42,7 +43,7 @@ buildscript {
         autosizeVerson = "0.9.5"
         fragmentationxVersion = "1.0.1"
         flexboxVerson = "1.1.0"
-        paletteVersion="1.0.0"
+        paletteVersion = "1.0.0"
     }
 
     repositories {
@@ -58,11 +59,12 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion"
     }
 }
 
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.13.0"
+    id "com.diffplug.gradle.spotless" version "3.23.1"
 }
 
 allprojects {
@@ -77,8 +79,18 @@ allprojects {
 }
 
 spotless {
+    java {
+        target "**/*.java"
+        trimTrailingWhitespace()
+        removeUnusedImports()
+        googleJavaFormat()
+        endWithNewline()
+    }
     kotlin {
         target "**/*.kt"
-        ktlint(ktlintVersion)
+        ktlint().userData(['indent_size': '2', 'continuation_indent_size': '2'])
+        licenseHeaderFile '../spotless.license.kt'
+        trimTrailingWhitespace()
+        endWithNewline()
     }
 }

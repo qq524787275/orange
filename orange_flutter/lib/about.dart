@@ -3,6 +3,7 @@ import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'channel.dart';
 import 'color.dart';
 
 class AboutScaffold extends StatefulWidget {
@@ -11,7 +12,7 @@ class AboutScaffold extends StatefulWidget {
 }
 
 class _AboutScaffoldState extends State<AboutScaffold> {
-  Widget _buildAvatar() {
+  Widget _buildAvatar(ColorGlobal color) {
     return Container(
       width: 180.0,
       height: 180.0,
@@ -22,6 +23,7 @@ class _AboutScaffoldState extends State<AboutScaffold> {
       margin: const EdgeInsets.only(top: 32.0, left: 16.0),
       padding: const EdgeInsets.all(3.0),
       child: CircleAvatar(
+        backgroundColor: color.windowBackground,
         radius: 90,
         backgroundImage: AssetImage("assets/about/man.webp"),
       ),
@@ -43,7 +45,7 @@ class _AboutScaffoldState extends State<AboutScaffold> {
             ),
           ],
         ),
-        mainImage: Center(child: _buildAvatar()),
+        mainImage: Center(child: _buildAvatar(color)),
         textStyle: TextStyle(color: color.textColorPrimary),
       ),
       PageViewModel(
@@ -100,7 +102,7 @@ class _AboutScaffoldState extends State<AboutScaffold> {
         children: <Widget>[
           IntroViewsFlutter(
             _buildPages(color),
-            onTapDoneButton: () => {color.isDark = !color.isDark},
+            onTapDoneButton: () => Navigation.back(),
             showSkipButton: false,
             doneText: Text(
               "退出",

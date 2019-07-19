@@ -1,10 +1,10 @@
 package com.zhuzichu.mvvm.base
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -29,8 +29,8 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     val _context: Context = application.applicationContext
     private val _uc: UIChangeLiveData = UIChangeLiveData()
     private lateinit var _lifecycle: LifecycleProvider<*>
-    lateinit var _activity: Activity
-
+    lateinit var _activity: FragmentActivity
+    lateinit var _fragment: Fragment
 
     /**
      * 注入RxLifecycle生命周期
@@ -39,6 +39,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
      */
     fun injectLifecycleProvider(lifecycle: LifecycleProvider<*>) {
         this._lifecycle = lifecycle
+    }
+
+    fun injectFragment(fragment: Fragment) {
+        _fragment = fragment
     }
 
     fun getLifecycleProvider(): LifecycleProvider<*> {

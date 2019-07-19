@@ -10,7 +10,7 @@ class ColorGlobal with ChangeNotifier {
   }
 
   var _isDark = false;
-  var _colorPrimary = Colors.indigo;
+  var _colorPrimary = Color(0xFF3949AB);
   var _contentBackground = Color(0xFFFFFFFF);
   var _windowBackground = Color(0xFFEAEAEA);
   var _textColorPrimary = Color(0xFF212121);

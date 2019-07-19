@@ -59,7 +59,7 @@ class PreviewImageActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 currentIndex = position
-                textView.text = (currentIndex + 1).toString().plus("/").plus(list.size)
+                textView.text = (currentIndex + 1).toString().plus("/").plus(list.size.toString())
             }
         })
     }

@@ -26,9 +26,9 @@ class ItemOneViewModel(
         //获取剪贴板管理器：
         val cm = ContextCompat.getSystemService(viewModel._context, ClipboardManager::class.java)
 // 创建普通字符型ClipData
-        val mClipData = ClipData.newPlainText("Label", selectedItemBean.copy_comment)
+        val clipData = ClipData.newPlainText("Label", selectedItemBean.copy_comment)
 // 将ClipData内容放到系统剪贴板里。
-        cm!!.primaryClip = mClipData
+        cm?.setPrimaryClip(clipData)
         "复制成功～".toast()
     })
 }

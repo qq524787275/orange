@@ -50,6 +50,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
             ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
         lifecycle.addObserver(_viewModel)
         _viewModel.injectLifecycleProvider(this)
+        _viewModel.injectFragment(this)
         _viewModel._activity = _activity
         _contentView = inflater.inflate(setLayoutId(), container, false)
         _bind = DataBindingUtil.bind(_contentView)!!

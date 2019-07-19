@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flare_flutter/flare_actor.dart';
@@ -26,13 +27,20 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
+    final url = window.defaultRouteName;
+    final split = url.split("?");
+    final route = split[0];
+    final param = json.decode(split[1]);
+    ColorGlobal().isDark = param["isDark"];
+    ColorGlobal().colorPrimary = Color(param["colorPrimary"]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           builder: (_) => ColorGlobal(),
         )
       ],
-      child: _widgetForRoute(window.defaultRouteName),
+      child: _widgetForRoute(route),
     );
   }
 }

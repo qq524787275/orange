@@ -521,37 +521,6 @@
                                     app:srcCompat="@mipmap/ic_arrow"/>
                         </LinearLayout>
 
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@{viewModel.color.contentBackground}"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                android:paddingLeft="15dp"
-                                android:paddingRight="15dp">
-
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/ic_my_set"/>
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
-                                    android:text="设置"
-                                    app:textColor="@{viewModel.color.textColorPrimary}"
-                                    android:textSize="14sp"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="12sp"
-                                    android:layout_height="12sp"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@mipmap/ic_arrow"/>
-                        </LinearLayout>
-
                         <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

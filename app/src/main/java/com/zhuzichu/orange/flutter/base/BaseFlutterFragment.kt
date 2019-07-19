@@ -26,6 +26,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
 import me.yokeyword.fragmentation.SupportHelper
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import org.json.JSONObject
 
 
 /**
@@ -52,8 +53,22 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
 
     abstract fun setRoute(): String
 
+    open fun setParam(): Map<String, Any>? = null
+
+
+    private fun initParam(param: Map<String, Any>?): String {
+        val jsonObject = JSONObject()
+        jsonObject.put("isDark", ColorGlobal.isDark.value)
+        jsonObject.put("colorPrimary",ColorGlobal.colorPrimary.value)
+        param?.entries?.map {
+            jsonObject.put(it.key, it.value)
+        }
+        return jsonObject.toString()
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _flutterView = Flutter.createView(_activity, lifecycle, setRoute())
+        _flutterView = Flutter.createView(_activity, lifecycle, setRoute().plus("?").plus(initParam(setParam())))
         _flutterView.setZOrderOnTop(true)
         _flutterView.holder.setFormat(PixelFormat.TRANSLUCENT)
         val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
@@ -88,7 +103,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
                     _isCurrent = call.argument("isCurrent")!!
                 }
                 "back" -> {
-                   _activity.onBackPressed()
+                    _activity.onBackPressed()
                 }
                 else -> {
                 }

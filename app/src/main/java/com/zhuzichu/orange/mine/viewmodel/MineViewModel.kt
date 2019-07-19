@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatCheckBox
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorPalette
 import com.afollestad.materialdialogs.color.colorChooser
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -13,6 +14,7 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.R
 import com.zhuzichu.orange.mine.fragment.AboutFragment
 import com.zhuzichu.orange.mine.fragment.CacheFragment
 import com.zhuzichu.orange.utils.showTradeOrder
@@ -113,16 +115,21 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickTheme = BindingCommand<Any>({
+        R.attr.md_color_button_text
         MaterialDialog(_activity).show {
-            title(text = "选择主题颜色")
-            positiveButton(text = "确定")
             cornerRadius(10f)
+            title(text = "选择主题颜色")
             colorChooser(
-                ColorPalette.Accent,
-                ColorPalette.AccentSub
+                colors = ColorPalette.Accent,
+                subColors = ColorPalette.AccentSub,
+                allowCustomArgb = true,
+                showAlphaSelector = true
             ) { _, color ->
                 this@MineViewModel.color.colorPrimary.value = color
             }
+            positiveButton(R.string.select)
+            negativeButton(android.R.string.cancel)
+            lifecycleOwner(_fragment)
         }
     })
 
