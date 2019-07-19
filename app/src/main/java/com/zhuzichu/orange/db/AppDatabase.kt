@@ -1,12 +1,12 @@
 package com.zhuzichu.orange.db
 
-import android.util.ArrayMap
+import androidx.collection.SimpleArrayMap
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.zhuzichu.orange.App.Companion.context
 import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.orange.App.Companion.context
 
 
 @Database(entities = [SearchHistory::class], version = 1, exportSchema = false)
@@ -15,14 +15,14 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 
     companion object {
-        val DATABASE_NAME = "orange-db-"
-        val databaseCache = ArrayMap<String, AppDatabase>()
+        private const val DATABASE_NAME = "orange-db-"
+        private val databaseCache = SimpleArrayMap<String, AppDatabase>()
 
         fun getInstance(): AppDatabase {
             var appDatabase = databaseCache[AppGlobal.getAccount()]
             if (appDatabase == null) {
                 appDatabase = buildDatabase()
-                databaseCache[AppGlobal.getAccount()] = appDatabase
+                databaseCache.put(AppGlobal.getAccount(), appDatabase)
             }
             return appDatabase
         }

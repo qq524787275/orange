@@ -3,9 +3,12 @@ package com.zhuzichu.mvvm.global.color
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.toColorById
 
 object ColorGlobal {
+    private val preference by lazy { AppPreference() }
+
     val isDark = MutableLiveData<Boolean>()
     val colorPrimary: MutableLiveData<Int> = MutableLiveData()
     val contentBackground: ObservableField<Int> = ObservableField()
@@ -15,9 +18,9 @@ object ColorGlobal {
     val hintColor: ObservableField<Int> = ObservableField()
     val bottomBackground: ObservableField<Int> = ObservableField()
 
-    fun initColor(isDark: Boolean = false) {
-        colorPrimary.value = R.color.colorPrimary.toColorById()
-        setDark(isDark)
+    fun initColor() {
+        colorPrimary.value = preference.colorPrimary
+        setDark(preference.isDark)
     }
 
     fun setDark(isDark: Boolean) {

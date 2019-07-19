@@ -12,6 +12,7 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
@@ -32,7 +33,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     val global = AppGlobal
     val color = ColorGlobal
     lateinit var checkbox: AppCompatCheckBox
-
+    val preference by lazy { AppPreference() }
     val uc = UIChangeObservable()
 
     inner class UIChangeObservable {
@@ -125,7 +126,9 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
                 allowCustomArgb = true,
                 showAlphaSelector = true
             ) { _, color ->
-                this@MineViewModel.color.colorPrimary.value = color
+                preference.colorPrimary = color.apply {
+                    this@MineViewModel.color.colorPrimary.value = this
+                }
             }
             positiveButton(R.string.select)
             negativeButton(android.R.string.cancel)
@@ -134,6 +137,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickDark = BindingCommand<Any>({
+
         uc.onDarkChangeEvent.value = !color.isDark.value!!
     })
 }

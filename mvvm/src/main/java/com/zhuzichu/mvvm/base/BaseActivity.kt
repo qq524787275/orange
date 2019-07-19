@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.ContentFrameLayout
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.utils.toColorById
 import me.yokeyword.fragmentation.*
@@ -26,7 +27,7 @@ import java.util.*
 abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
 
     private val _delegate = SupportActivityDelegate(this)
-
+    val preference by lazy { AppPreference() }
     abstract fun setRootFragment(): ISupportFragment
 
     override fun getSupportDelegate(): SupportActivityDelegate {
@@ -55,7 +56,10 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         initConfiguration()
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColorById())
-        QMUIStatusBarHelper.setStatusBarLightMode(this)
+        if (preference.isDark)
+            QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        else
+            QMUIStatusBarHelper.setStatusBarLightMode(this)
         _delegate.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
     }

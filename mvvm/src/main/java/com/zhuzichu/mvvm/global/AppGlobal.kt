@@ -23,7 +23,8 @@ object AppGlobal {
         LangGlobal.initLang(Zh())
     }
 
+    //-10086 游客id
     fun getAccount(): String {
-        return session.get()!!.userid ?: ""
+        return session.get()!!.userid ?: "-10086"
     }
 }

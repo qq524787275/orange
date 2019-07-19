@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.mine.fragment
 
+import android.animation.TimeInterpolator
 import android.graphics.drawable.BitmapDrawable
 import android.view.animation.AccelerateInterpolator
 import android.widget.LinearLayout
@@ -49,15 +50,17 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
             val pY = centerY - content.bottom
             val finalRadius = hypot(pX.toDouble(), pY.toDouble()).toFloat()
             val mCircularReveal = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, 0f, finalRadius)
-            mCircularReveal.interpolator = AccelerateInterpolator()
+            mCircularReveal.interpolator = AccelerateInterpolator() as TimeInterpolator?
             val drawable = BitmapDrawable(resources, QMUIDrawableHelper.createBitmapFromView(content))
             overlay.background = drawable
             mCircularReveal.setDuration(500).start()
-            _viewModel.color.setDark(it)
-            if (it)
-                QMUIStatusBarHelper.setStatusBarDarkMode(_viewModel._activity)
-            else
-                QMUIStatusBarHelper.setStatusBarLightMode(_viewModel._activity)
+            _viewModel.preference.isDark = it.apply {
+                _viewModel.color.setDark(this)
+                if (this)
+                    QMUIStatusBarHelper.setStatusBarDarkMode(_viewModel._activity)
+                else
+                    QMUIStatusBarHelper.setStatusBarLightMode(_viewModel._activity)
+            }
         })
 
         _viewModel.uc.onShowLogoutSnackbarEvent.observe(this, Observer {
