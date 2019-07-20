@@ -48,9 +48,8 @@ fun sp2px(spValue: Float): Int {
  * 获取dialog宽度(屏幕宽-100px)
  */
 fun getDialogW(aty: Activity): Int {
-    var dm = DisplayMetrics()
-    dm = aty.resources.displayMetrics
-// int w = aty.getWindowManager().getDefaultDisplay().getWidth() - 100;
+    var dm: DisplayMetrics = aty.resources.displayMetrics
+    // int w = aty.getWindowManager().getDefaultDisplay().getWidth() - 100;
     return dm.widthPixels - 100
 }
 

@@ -19,11 +19,11 @@ import java.net.URLEncoder
 private const val AES_KEY = "0987654321qazxcv"
 
 fun decryptPolicy(policy: String): String {
-    var policy = policy
+    var p = policy
     try {
-        if (policy.isNotBlank()) {
-            policy = URLDecoder.decode(policy, "UTF-8")
-            val result = decrypt(policy, AES_KEY)
+        if (p.isNotBlank()) {
+            p = URLDecoder.decode(p, "UTF-8")
+            val result = decrypt(p, AES_KEY)
             return result.toString()
         }
     } catch (e: Exception) {
