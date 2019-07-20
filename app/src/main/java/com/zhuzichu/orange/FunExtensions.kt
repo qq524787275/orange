@@ -38,7 +38,7 @@ fun checkLogin(context: Context, funcation: () -> Unit) {
     funcation.invoke()
 }
 
-inline fun <reified T> itemDiff(crossinline funcation: (oldIte: T, newItem: T) -> Boolean): DiffUtil.ItemCallback<Any> {
+inline fun <reified T> itemDiff(crossinline funcation: (oldItem: T, newItem: T) -> Boolean): DiffUtil.ItemCallback<Any> {
 
     return object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {

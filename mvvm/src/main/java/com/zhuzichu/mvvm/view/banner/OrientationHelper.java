@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zhuzichu.mvvm.widget.banner;
+package com.zhuzichu.mvvm.view.banner;
 
 import android.graphics.Rect;
 import android.view.View;

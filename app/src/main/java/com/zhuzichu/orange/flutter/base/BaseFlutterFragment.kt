@@ -176,6 +176,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         _delegate.onHiddenChanged(hidden)
     }
 
+    @Suppress("DEPRECATION")
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         _delegate.setUserVisibleHint(isVisibleToUser)

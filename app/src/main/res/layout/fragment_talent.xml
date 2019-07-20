@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
         <variable name="viewModel" type="com.zhuzichu.orange.home.viewmodel.TalentViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,19 +10,21 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <com.zhuzichu.mvvm.view.layout.MultiStateView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="5dp">
+                app:widthPadding="@{80}"
+                app:isScreenW="@{true}"
+                app:widthHeightRatio="@{0.408f}"
+                app:msv_loadingView="@layout/loading_material_view"
+                app:viewState="@{viewModel.list.size()==0?3:0}">
 
-            <com.zhuzichu.mvvm.view.banner.Banner
-                    android:id="@+id/banner"
+            <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
+                    android:id="@+id/recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:widthPadding="@{20}"
-                    app:widthHeightRatio="@{0.408f}"/>
-        </androidx.cardview.widget.CardView>
-
+                    app:items="@{viewModel.list}"
+                    app:itemBinding="@{viewModel.itemBind}"/>
+        </com.zhuzichu.mvvm.view.layout.MultiStateView>
     </LinearLayout>
 </layout>

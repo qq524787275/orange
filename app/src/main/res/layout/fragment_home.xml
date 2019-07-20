@@ -60,21 +60,25 @@
                             android:layout_height="wrap_content"
                             android:background="@{viewModel.color.contentBackground}">
 
-
-                        <androidx.cardview.widget.CardView
+                        <com.zhuzichu.mvvm.view.layout.MultiStateView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="5dp"
-                                app:layout_scrollFlags="scroll">
+                                app:widthPadding="@{80}"
+                                app:layout_scrollFlags="scroll"
+                                app:isScreenW="@{true}"
+                                app:widthHeightRatio="@{0.408f}"
+                                android:layout_marginTop="10dp"
+                                app:msv_loadingView="@layout/loading_material_view"
+                                app:viewState="@{viewModel.listBanner.size()==0?3:0}">
 
-                            <com.zhuzichu.mvvm.view.banner.Banner
+                            <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
                                     android:id="@+id/banner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    app:widthPadding="@{20}"
-                                    app:widthHeightRatio="@{0.408f}"/>
-                        </androidx.cardview.widget.CardView>
+                                    app:items="@{viewModel.listBanner}"
+                                    app:itemBinding="@{viewModel.itemBindBanner}"/>
+
+                        </com.zhuzichu.mvvm.view.layout.MultiStateView>
 
                         <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_navigation"

@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.bus
 
+import com.zhuzichu.mvvm.utils.cast
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -65,7 +66,9 @@ class RxBus {
             val event = mStickyEventMap[eventType]
 
             return if (event != null) {
-                Observable.merge(observable, Observable.create { emitter -> emitter.onNext(eventType.cast(event) as T) })
+                Observable.merge(
+                    observable,
+                    Observable.create { emitter -> emitter.onNext(cast(eventType.cast(event))) })
             } else {
                 observable
             }
@@ -77,7 +80,7 @@ class RxBus {
      */
     fun <T> getStickyEvent(eventType: Class<T>): T {
         synchronized(mStickyEventMap) {
-            return eventType.cast(mStickyEventMap[eventType]) as T
+            return cast(eventType.cast(mStickyEventMap[eventType]))
         }
     }
 
@@ -86,7 +89,7 @@ class RxBus {
      */
     fun <T> removeStickyEvent(eventType: Class<T>): T {
         synchronized(mStickyEventMap) {
-            return eventType.cast(mStickyEventMap.remove(eventType)) as T
+            return cast(eventType.cast(mStickyEventMap.remove(eventType)))
         }
     }
 

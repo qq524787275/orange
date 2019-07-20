@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.zhuzichu.orange.R"/>
+        <variable name="item" type="com.zhuzichu.orange.home.viewmodel.ItemTalentBannerViewModel"/>
+    </data>
+    <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:cardCornerRadius="5dp"
+            app:widthPadding="@{80}"
+            app:widthHeightRatio="@{0.408f}">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:placeholderRes="@{R.mipmap.ic_silent_plate_max}"
+                android:scaleType="centerCrop"
+                app:url="@{item.data.app_image}"/>
+    </androidx.cardview.widget.CardView>
+</layout>

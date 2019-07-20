@@ -12,7 +12,7 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
  * Date: 2019-06-06
  * Time: 11:07
  */
-inline fun <T> itemBindingOf(variableId: Int, @LayoutRes layoutRes: Int): ItemBinding<T> =
+fun <T> itemBindingOf(variableId: Int, @LayoutRes layoutRes: Int): ItemBinding<T> =
     ItemBinding.of(variableId, layoutRes)
 
 /**
@@ -20,8 +20,8 @@ inline fun <T> itemBindingOf(variableId: Int, @LayoutRes layoutRes: Int): ItemBi
  *
  * @see ItemBinding.of
  */
-inline fun <T> itemBindingOf(
-    noinline onItemBind: (
+fun <T> itemBindingOf(
+    onItemBind: (
         @ParameterName("itemBinding") ItemBinding<in T>,
         @ParameterName("position") Int,
         @ParameterName("item") T
@@ -33,7 +33,7 @@ inline fun <T> itemBindingOf(
  *
  * @see ItemBinding.of
  */
-inline fun <T> OnItemBind<T>.toItemBinding(): ItemBinding<T> =
+fun <T> OnItemBind<T>.toItemBinding(): ItemBinding<T> =
     ItemBinding.of(this)
 
 /**

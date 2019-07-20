@@ -74,13 +74,18 @@ fun onFocusChangeCommand(view: View, onFocusChangeCommand: BindingCommand<Boolea
     }
 }
 
-@BindingAdapter(value = ["widthHeightRatio", "widthPadding"], requireAll = false)
-fun setWidthHeightRatio(view: View, ratio: Float, padding: Int) {
+@BindingAdapter(value = ["widthHeightRatio", "widthPadding", "isScreenW"], requireAll = false)
+fun setWidthHeightRatio(view: View, ratio: Float, padding: Int, isScreenW: Boolean) {
     val layoutParams = view.layoutParams
-    layoutParams.width = getScreenW() - dip2px(padding.toFloat())
-    layoutParams.height = (layoutParams.width * ratio).toInt()
-}
+    val widh = getScreenW() - dip2px(padding.toFloat())
+    layoutParams.height = (widh * ratio).toInt()
+    if (isScreenW) {
+        layoutParams.width = getScreenW()
+    } else {
+        layoutParams.width = widh
+    }
 
+}
 
 @BindingAdapter("onTouchCommand")
 fun onTouchCommand(view: View, onTouchCommand: ResponseCommand<MotionEvent, Boolean>?) {
@@ -95,6 +100,4 @@ fun enablePaddingStatusbarHeight(view: View, @NonNull isPadding: Boolean = false
         view.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(AppGlobal.context), 0, 0);
     }
 }
-
-
 

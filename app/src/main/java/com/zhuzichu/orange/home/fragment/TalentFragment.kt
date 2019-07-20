@@ -1,11 +1,8 @@
 package com.zhuzichu.orange.home.fragment
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseFragment
-import com.zhuzichu.mvvm.view.banner.BannerConfig
-import com.zhuzichu.mvvm.view.banner.Transformer.DepthPage
-import com.zhuzichu.mvvm.widget.GlideImageLoader
+import com.zhuzichu.mvvm.view.banner.ScaleLayoutManager
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentTalentBinding
@@ -22,37 +19,23 @@ class TalentFragment : BaseFragment<FragmentTalentBinding, TalentViewModel>() {
         initBanner()
     }
 
+    override fun onResume() {
+        super.onResume()
+        recycler.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recycler.pause()
+    }
+
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         _viewModel.loadData()
     }
 
-    override fun initViewObservable() {
-
-        _viewModel.uc.onLoadDataSuccess.observe(this, Observer {
-            //设置图片集合
-            banner.setImages(it.map { item ->
-                item.app_image
-            })
-            banner.setBannerTitles(it.map { item ->
-                item.name
-            })
-            banner.start()
-        })
-    }
-
     private fun initBanner() {
-        //设置banner样式
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
-        //设置图片加载器
-        banner.setImageLoader(GlideImageLoader())
-        //设置banner动画效果
-        banner.setBannerAnimation(DepthPage)
-        //设置标题集合（当banner样式有显示title时）
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true)
-        //设置轮播时间
-        banner.setDelayTime(1500)
-        //设置指示器位置（当banner模式中有指示器时）
-        //banner设置方法全部调用完毕时最后调用
+        val scaleLayoutManager = ScaleLayoutManager(_activity, 1)
+        scaleLayoutManager.minScale = 0.9f
+        recycler.layoutManager = scaleLayoutManager
     }
 }

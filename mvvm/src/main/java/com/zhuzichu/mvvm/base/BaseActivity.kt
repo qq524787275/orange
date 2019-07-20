@@ -42,6 +42,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         return _delegate.extraTransaction()
     }
 
+    @Suppress("DEPRECATION")
     private fun initConfiguration() {
         Locale.setDefault(Locale.CHINA)
         resources.configuration.locale = Locale.CHINESE

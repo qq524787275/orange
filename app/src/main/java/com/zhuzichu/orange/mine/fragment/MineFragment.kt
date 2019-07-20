@@ -50,7 +50,7 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
             val pY = centerY - content.bottom
             val finalRadius = hypot(pX.toDouble(), pY.toDouble()).toFloat()
             val mCircularReveal = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, 0f, finalRadius)
-            mCircularReveal.interpolator = AccelerateInterpolator() as TimeInterpolator?
+            mCircularReveal.interpolator = AccelerateInterpolator()
             val drawable = BitmapDrawable(resources, QMUIDrawableHelper.createBitmapFromView(content))
             overlay.background = drawable
             mCircularReveal.setDuration(500).start()

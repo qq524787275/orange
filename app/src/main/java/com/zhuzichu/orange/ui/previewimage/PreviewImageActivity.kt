@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.activity_preview_image.*
 
 class PreviewImageActivity : AppCompatActivity() {
 
-    private val list by lazy { intent.getStringArrayListExtra("images") }
-    private val current by lazy { intent.getStringExtra("current") }
+    private val list by lazy { intent.getStringArrayListExtra("images")!! }
+    private val current by lazy { intent.getStringExtra("current")!! }
     private var currentIndex = 0
     private val adapter by lazy { PreviewImageAdapter(list, currentIndex) }
 
@@ -33,7 +33,7 @@ class PreviewImageActivity : AppCompatActivity() {
                     intent,
                     ActivityOptions.makeSceneTransitionAnimation(
                         context as Activity,
-                        Pair<View, String>(imageView, imageView?.transitionName)
+                        Pair<View, String>(imageView, imageView.transitionName)
                     ).toBundle()
                 )
             } else {

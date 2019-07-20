@@ -1,6 +1,5 @@
 package com.zhuzichu.mvvm.base
 
-import android.os.Bundle
 
 /**
  * Created by Android Studio.
@@ -10,8 +9,6 @@ import android.os.Bundle
  * Time: 16:59
  */
 interface IBaseFragment {
-    fun onEnterAnimationEnd(savedInstanceState: Bundle?) {}
-
     fun initViewObservable() {}
 
     fun initVariable() {}

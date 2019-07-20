@@ -7,13 +7,6 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <com.zhuzichu.mvvm.view.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
+
     </LinearLayout>
 </layout>

@@ -115,8 +115,9 @@ fun getFavoriteCollectTime(seconds: String): String {
     return getFavoriteCollectTime(java.lang.Long.parseLong(seconds) * 1000)
 }
 
+@Suppress("DEPRECATION")
 fun getFavoriteCollectTime(milliseconds: Long): String {
-    var showDataString = ""
+    var showDataString: String
     val today = Date()
     val date = Date(milliseconds)
     val firstDateThisYear = Date(today.year, 0, 0)
@@ -148,7 +149,7 @@ fun getTimeShowString(milliseconds: Long, abbreviate: Boolean): String {
     todayStart.set(Calendar.MILLISECOND, 0)
     val todaybegin = todayStart.time
     val yesterdaybegin = Date(todaybegin.time - 3600 * 24 * 1000)
-    val preyesterday = Date(yesterdaybegin.time - 3600 * 24 * 1000)
+//    val preyesterday = Date(yesterdaybegin.time - 3600 * 24 * 1000)
 
     if (!currentTime.before(todaybegin)) {
         dataString = "今天"
@@ -265,10 +266,10 @@ fun getSecondsByMilliseconds(milliseconds: Long): Long {
 }
 
 fun secToTime(time: Int): String {
-    var timeStr: String? = null
-    var hour = 0
-    var minute = 0
-    var second = 0
+    var timeStr: String?
+    var hour: Int
+    var minute: Int
+    var second: Int
     if (time <= 0)
         return "00:00"
     else {
@@ -280,7 +281,7 @@ fun secToTime(time: Int): String {
             hour = minute / 60
             if (hour > 99)
                 return "99:59:59"
-            minute = minute % 60
+            minute %= 60
             second = time - hour * 3600 - minute * 60
             timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second)
         }
@@ -289,9 +290,9 @@ fun secToTime(time: Int): String {
 }
 
 fun unitFormat(i: Int): String {
-    var retStr: String? = null
-    if (i >= 0 && i < 10)
-        retStr = "0" + Integer.toString(i)
+    var retStr: String?
+    if (i in 0..9)
+        retStr = "0$i"
     else
         retStr = "" + i
     return retStr

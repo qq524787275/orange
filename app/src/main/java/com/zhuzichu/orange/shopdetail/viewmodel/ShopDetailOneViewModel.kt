@@ -13,11 +13,6 @@ import com.zhuzichu.orange.repository.NetRepositoryImpl
 @SuppressLint("CheckResult")
 class ShopDetailOneViewModel(application: Application) : BaseViewModel(application) {
 
-    val uc = UIChangeObservable()
-
-    inner class UIChangeObservable {
-        val onLoadDataCompletedEvent = SingleLiveEvent<ShopDetailBean>()
-    }
 
     fun loadShopDetail(itemid: String) {
         NetRepositoryImpl.getShopDetail(itemid)
@@ -25,7 +20,7 @@ class ShopDetailOneViewModel(application: Application) : BaseViewModel(applicati
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
             .subscribe({
-                uc.onLoadDataCompletedEvent.value = it.data
+                
             }, {
                 handleThrowable(it)
             })

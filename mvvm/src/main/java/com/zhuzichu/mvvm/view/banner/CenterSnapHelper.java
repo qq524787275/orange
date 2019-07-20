@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm.widget.banner;
+package com.zhuzichu.mvvm.view.banner;
 
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;

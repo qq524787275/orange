@@ -10,11 +10,11 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
 
-        <com.zhuzichu.mvvm.widget.banner.AutoPlayRecyclerView
-                android:id="@+id/recycler"
+        <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:itemBinding="@{viewModel.itemBind}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:items="@{viewModel.list}"/>
 
     </LinearLayout>

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.cast
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.mvvm.view.loading.DialogMaker
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -47,7 +48,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val type = this.javaClass.genericSuperclass
         if (type is ParameterizedType) _viewModel =
-            ViewModelProviders.of(this).get(type.actualTypeArguments[1] as Class<VM>)
+            ViewModelProviders.of(this).get(cast(type.actualTypeArguments[1]))
         lifecycle.addObserver(_viewModel)
         _viewModel.injectLifecycleProvider(this)
         _viewModel.injectFragment(this)
@@ -143,9 +144,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         return _delegate.extraTransaction()
     }
 
+    @Suppress("DEPRECATION")
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
-        _delegate.onAttach(activity!!)
+        _delegate.onAttach(activity)
         _activity = _delegate.activity
     }
 
@@ -194,6 +196,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         _delegate.onHiddenChanged(hidden)
     }
 
+    @Suppress("DEPRECATION")
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         _delegate.setUserVisibleHint(isVisibleToUser)
@@ -211,7 +214,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      */
     @Deprecated("Use {@link #post(Runnable)} instead.", ReplaceWith("_delegate.enqueueAction(runnable)"))
     override fun enqueueAction(runnable: Runnable) {
-        _delegate.enqueueAction(runnable)
+        _delegate.post(runnable)
     }
 
     /**

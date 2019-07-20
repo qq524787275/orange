@@ -62,6 +62,7 @@
         <attr name="currentView"/>
         <attr name="widthHeightRatio" format="float"/>
         <attr name="widthPadding" format="dimension"/>
+        <attr name="isScreenW" format="boolean"/>
         <attr name="enablePaddingStatusbarHeight" format="boolean"/>
     </declare-styleable>
 

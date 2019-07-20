@@ -3,6 +3,7 @@ package com.zhuzichu.orange.home.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseRes
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -41,11 +42,15 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     val uc = UIChangeObservable()
 
     inner class UIChangeObservable {
-        val onBannerLoadSuccess = SingleLiveEvent<List<TalentcatBean.Topdata>>()
         val finishRefreshing = SingleLiveEvent<Any>()
         val finishLoadmore = SingleLiveEvent<Any>()
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
     }
+
+    val listBanner = MutableLiveData<List<Any>>()
+
+    val itemBindBanner = itemBindingOf<Any>(BR.item, R.layout.item_talent_banner)
+
 
     val itemBindNavigation =
         itemBindingOf<ItemNavigationViewModel>(BR.item, R.layout.item_home_navigation)
@@ -132,7 +137,9 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 uc.finishRefreshing.call()
             }
             .subscribe({
-                uc.onBannerLoadSuccess.value = it.talentcat.data.topdata
+                listBanner.value = it.talentcat.data.topdata.map { item ->
+                    ItemTalentBannerViewModel(this@HomeViewModel, item)
+                }
 
                 deserveList.update(it.deserveList.item_info.map { item ->
                     ItemHomeDeserveViewModel(this@HomeViewModel, item)

@@ -11,8 +11,7 @@ import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bus.RxBus
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
-import com.zhuzichu.mvvm.view.banner.BannerConfig
-import com.zhuzichu.mvvm.widget.GlideImageLoader
+import com.zhuzichu.mvvm.view.banner.ScaleLayoutManager
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentHomeBinding
@@ -87,33 +86,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun initBanner() {
-        //设置banner样式
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
-        //设置图片加载器
-        banner.setImageLoader(GlideImageLoader())
-        //设置banner动画效果
-        //设置标题集合（当banner样式有显示title时）
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true)
-        //设置轮播时间
-        banner.setDelayTime(1500)
-        //设置指示器位置（当banner模式中有指示器时）
-        //banner设置方法全部调用完毕时最后调用
+        val scaleLayoutManager = ScaleLayoutManager(_activity, 1)
+        scaleLayoutManager.minScale = 0.9f
+        banner.layoutManager = scaleLayoutManager
+    }
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        banner.start()
+    }
+
+    override fun onSupportInvisible() {
+        super.onSupportInvisible()
+        banner.pause()
     }
 
     @SuppressLint("CheckResult")
     override fun initViewObservable() {
-        _viewModel.uc.onBannerLoadSuccess.observe(this, Observer {
-            //设置图片集合
-            banner.setImages(it.map { item ->
-                item.app_image
-            })
-            banner.setBannerTitles(it.map { item ->
-                item.name
-            })
-            banner.start()
-        })
-
         _viewModel.uc.finishLoadmore.observe(this, Observer {
             refresh.finishLoadMore()
         })

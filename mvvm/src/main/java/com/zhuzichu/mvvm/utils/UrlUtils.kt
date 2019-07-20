@@ -39,17 +39,17 @@ private fun appendUrl(url: String, data: Map<String, Any>): String {
  * @return
  */
 fun getParamByUrl(url: String, name: String): String? {
-    var url = url
-    url += "&"
-    val pattern = "(\\?|&){1}#{0,1}$name=[a-zA-Z0-9]*(&{1})"
+    var u = url
+    u += "&"
+    val pattern = "([?&])#?$name=[a-zA-Z0-9]*(&)"
 
     val r = Pattern.compile(pattern)
 
-    val m = r.matcher(url)
-    if (m.find()) {
+    val m = r.matcher(u)
+    return if (m.find()) {
         println(m.group(0))
-        return m.group(0).split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1].replace("&", "")
+        m.group(0)?.split("=".toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()?.get(1)?.replace("&", "")
     } else {
-        return null
+        null
     }
 }

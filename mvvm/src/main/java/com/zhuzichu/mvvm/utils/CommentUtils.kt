@@ -7,7 +7,7 @@ package com.zhuzichu.mvvm.utils
  * Date: 2019-05-29
  * Time: 10:47
  */
-@SuppressWarnings("unchecked")
-fun <T> cast(obj: Any): T {
+@Suppress("UNCHECKED_CAST")
+fun <T> cast(obj: Any?): T {
     return obj as T
 }
