@@ -13,6 +13,7 @@
             tools:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:onClickCommand="@{item.onClickItem}"
+            app:isScale="@{true}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="5dp"
             app:cardBackground="@{item.color.contentBackground}"

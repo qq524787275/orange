@@ -2,6 +2,7 @@ package com.zhuzichu.orange.mine.fragment
 
 import android.animation.TimeInterpolator
 import android.graphics.drawable.BitmapDrawable
+import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
@@ -42,8 +43,8 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
         _viewModel.uc.onDarkChangeEvent.observe(this, Observer {
             // 获取FloatingActionButton的中心点的坐标
             val v = getSuperTopFragment().view!!
-            val content = v.findViewById<LinearLayout>(R.id.layout_content)
-            val overlay = v.findViewById<LinearLayout>(R.id.layout_overlay)
+            val content = v.findViewById<View>(R.id.layout_content)
+            val overlay = v.findViewById<View>(R.id.layout_overlay)
             val centerX = (content.left + content.right) - dip2px(60f)
             val centerY = QMUIStatusBarHelper.getStatusbarHeight(activity) + dip2px(25f)
             val pX = centerX - content.left

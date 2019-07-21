@@ -27,7 +27,6 @@ import java.util.*
 abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
 
     private val _delegate = SupportActivityDelegate(this)
-    val preference by lazy { AppPreference() }
     abstract fun setRootFragment(): ISupportFragment
 
     override fun getSupportDelegate(): SupportActivityDelegate {
@@ -56,11 +55,7 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         initConfiguration()
         super.onCreate(savedInstanceState)
-        QMUIStatusBarHelper.translucent(this, R.color.dark_black.toColorById())
-        if (preference.isDark)
-            QMUIStatusBarHelper.setStatusBarDarkMode(this)
-        else
-            QMUIStatusBarHelper.setStatusBarLightMode(this)
+        QMUIStatusBarHelper.translucent(this)
         _delegate.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
     }

@@ -2,7 +2,7 @@
 <resources>
 
     <color name="transparent">#00000000</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#ffffffff</color>
     <color name="black">#040404</color>
     <color name="black_333">#333333</color>
     <color name="white_translucent">#30FFFFFF</color>
@@ -16,6 +16,11 @@
     <color name="dark_black">#000000</color>
     <color name="blue_219">#2196F3</color>
     <color name="yellow">#FFFFEB3B</color>
+
+    <color name="dark_bottom_backgound">#605271</color>
+    <color name="dark_windown_backgound">#423752</color>
+    <color name="dark_content_backgound">#4b405c</color>
+    <color name="light_bottom_backgound">#F6F6F7FF</color>
 
     <color name="colorToastText">#FF795A28</color>
 

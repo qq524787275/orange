@@ -16,6 +16,7 @@
             app:cardCornerRadius="5dp"
             app:cardBackground="@{item.color.contentBackground}"
             app:onClickCommand="@{item.onClickItem}"
+            app:isScale="@{true}"
             android:animateLayoutChanges="true"
             android:layout_margin="5dp">
 

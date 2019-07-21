@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.NonNull
+import androidx.core.view.ViewCompat
+import androidx.core.view.ViewPropertyAnimatorListener
 import androidx.databinding.BindingAdapter
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.longClicks
@@ -13,6 +15,7 @@ import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
+import com.zhuzichu.mvvm.widget.CycleInterpolator
 import java.util.concurrent.TimeUnit
 
 /**
@@ -23,21 +26,59 @@ import java.util.concurrent.TimeUnit
  * Time: 11:42
  */
 //防重复点击间隔(秒)
-const val CLICK_INTERVAL = 1
+const val CLICK_INTERVAL = 500
 
 @SuppressLint("CheckResult")
-@BindingAdapter(value = ["onClickCommand", "isThrottleFirst"], requireAll = false)
-fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst: Boolean) {
+@BindingAdapter(value = ["onClickCommand", "isThrottleFirst", "isScale"], requireAll = false)
+fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst: Boolean, isScale: Boolean) {
     if (isThrottleFirst) {
         view.clicks()
             .subscribe {
-                clickCommand?.execute()
+                if (!isScale)
+                    clickCommand?.execute()
+                else {
+                    ViewCompat.animate(view).setDuration(200).scaleX(0.9f).scaleY(0.9f)
+                        .setInterpolator(CycleInterpolator())
+                        .setListener(object : ViewPropertyAnimatorListener {
+                            override fun onAnimationEnd(view: View?) {
+                                clickCommand?.execute()
+                            }
+
+                            override fun onAnimationCancel(view: View?) {
+
+                            }
+
+                            override fun onAnimationStart(view: View?) {
+                            }
+                        })
+                        .withLayer()
+                        .start()
+                }
             }
     } else {
         view.clicks()
-            .throttleFirst(CLICK_INTERVAL.toLong(), TimeUnit.SECONDS)//1秒钟内只允许点击1次
+            .throttleFirst(CLICK_INTERVAL.toLong(), TimeUnit.MILLISECONDS)//1秒钟内只允许点击1次
             .subscribe {
-                clickCommand?.execute()
+                if (!isScale)
+                    clickCommand?.execute()
+                else {
+                    ViewCompat.animate(view).setDuration(200).scaleX(0.9f).scaleY(0.9f)
+                        .setInterpolator(CycleInterpolator())
+                        .setListener(object : ViewPropertyAnimatorListener {
+                            override fun onAnimationEnd(view: View?) {
+                                clickCommand?.execute()
+                            }
+
+                            override fun onAnimationCancel(view: View?) {
+
+                            }
+
+                            override fun onAnimationStart(view: View?) {
+                            }
+                        })
+                        .withLayer()
+                        .start()
+                }
             }
     }
 }

@@ -6,35 +6,44 @@
     </data>
     <com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
                 android:id="@+id/layout_overlay"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"/>
+                android:layout_height="match_parent"/>
 
-        <LinearLayout
+        <FrameLayout
                 android:id="@+id/layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
-                android:background="@{viewModel.color.windowBackground}"
-                android:orientation="vertical">
+                android:background="@{viewModel.color.windowBackground}">
 
-            <com.zhuzichu.mvvm.view.viewpager.NoTouchViewPager
+            <androidx.viewpager.widget.ViewPager
                     android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="60dp"/>
 
-            <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
-                    android:id="@+id/bottom"
+            <com.zhuzichu.mvvm.view.navigationtabbar.ntb.NavigationTabBar
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@{viewModel.color.bottomBackground}"/>
-        </LinearLayout>
+                    app:ntb_bg_color="@{viewModel.color.bottomBackground}"
+                    android:layout_height="60dp"
+                    app:ntb_badge_gravity="top"
+                    android:layout_gravity="bottom"
+                    app:ntb_badge_position="right"
+                    app:ntb_badged="true"
+                    app:ntb_title_mode="all"
+                    app:ntb_badge_size="12sp"
+                    app:ntb_titled="true"
+                    app:ntb_scaled="true"
+                    app:ntb_tinted="true"
+                    app:ntb_swiped="true"/>
+        </FrameLayout>
+
 
     </com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout>
 </layout>

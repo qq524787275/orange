@@ -25,19 +25,27 @@ object ColorGlobal {
 
     fun setDark(isDark: Boolean) {
         if (isDark) {
-            contentBackground.set(R.color.black_333.toColorById())
-            windowBackground.set(R.color.colorBackgroundDark.toColorById())
+//            contentBackground.set(R.color.black_333.toColorById())
+//            windowBackground.set(R.color.colorBackgroundDark.toColorById())
+//            textColorPrimary.set(R.color.colorPrimaryTextDark.toColorById())
+//            textColorSecond.set(R.color.colorSecondText.toColorById())
+//            hintColor.set(R.color.colorHintDark.toColorById())
+//            bottomBackground.set(R.color.black_333.toColorById())
+
+            contentBackground.set(R.color.dark_content_backgound.toColorById())
+            windowBackground.set(R.color.dark_windown_backgound.toColorById())
             textColorPrimary.set(R.color.colorPrimaryTextDark.toColorById())
             textColorSecond.set(R.color.colorSecondText.toColorById())
             hintColor.set(R.color.colorHintDark.toColorById())
-            bottomBackground.set(R.color.black_333.toColorById())
+            bottomBackground.set(R.color.dark_bottom_backgound.toColorById())
+
         } else {
             contentBackground.set(R.color.white.toColorById())
             windowBackground.set(R.color.colorBackground.toColorById())
             textColorPrimary.set(R.color.colorPrimaryText.toColorById())
             textColorSecond.set(R.color.colorSecondText.toColorById())
             hintColor.set(R.color.colorHint.toColorById())
-            bottomBackground.set(R.color.white.toColorById())
+            bottomBackground.set(R.color.light_bottom_backgound.toColorById())
         }
         this@ColorGlobal.isDark.value = isDark
     }
