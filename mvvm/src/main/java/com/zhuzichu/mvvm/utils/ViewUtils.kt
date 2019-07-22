@@ -1,7 +1,10 @@
 package com.zhuzichu.mvvm.utils
 
+import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 /**
@@ -25,4 +28,29 @@ fun getRecyclerPosition(recyclerView: RecyclerView): Int {
         return (recyclerView.getChildAt(0).layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
     }
     return 0
+}
+
+fun BottomNavigationView.setupWithViewPager(viewPager: ViewPager) {
+
+    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {
+        }
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        }
+
+        override fun onPageSelected(position: Int) {
+            this@setupWithViewPager.menu.getItem(position).isChecked = true
+        }
+    })
+
+
+    this.setOnNavigationItemSelectedListener {item->
+        this@setupWithViewPager.menu.children.mapIndexed { index, menuItem ->
+            if (menuItem.itemId == item.itemId) {
+                viewPager.currentItem = index
+            }
+        }
+        true
+    }
 }

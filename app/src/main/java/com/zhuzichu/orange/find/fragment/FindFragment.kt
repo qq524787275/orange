@@ -1,10 +1,8 @@
 package com.zhuzichu.orange.find.fragment
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
-import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentFindBinding
@@ -27,17 +25,14 @@ class FindFragment : BaseTopbarFragment<FragmentFindBinding, FindViewModel>() {
     }
 
     private fun initViewPager() {
-        viewpager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments)
+        viewpager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments,titles)
         viewpager.offscreenPageLimit = titles.size
-        initMagicIndicator(
-            activity, titles, viewpager, indicator
-        )
+        tabs.setupWithViewPager(viewpager)
     }
 
     override fun initViewObservable() {
-       _viewModel.color.colorPrimary.observe(this, Observer {
-           indicator.navigator.notifyDataSetChanged()
-       })
+
+
     }
 
 

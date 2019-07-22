@@ -85,6 +85,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
     api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
+
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'

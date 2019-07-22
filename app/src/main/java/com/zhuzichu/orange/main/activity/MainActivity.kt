@@ -8,7 +8,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK
 import com.zhuzichu.mvvm.base.BaseActivity
-import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper

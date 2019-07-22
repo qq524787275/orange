@@ -4,16 +4,21 @@
         <variable name="viewModel" type="com.zhuzichu.orange.find.viewmodel.FindViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:background="@{viewModel.color.windowBackground}">
 
-        <com.zhuzichu.mvvm.view.magicindicator.MagicIndicator
-                android:id="@+id/indicator"
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@{viewModel.color.contentBackground}"
-                android:layout_height="45dp"/>
+                app:tabIndicatorColor="@{viewModel.color.colorPrimary}"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@{viewModel.color.colorPrimary}"
+                app:tabTextColor="@{viewModel.color.textColorSecond}"/>
 
         <View android:layout_width="match_parent"
               android:layout_height="0.5dp"

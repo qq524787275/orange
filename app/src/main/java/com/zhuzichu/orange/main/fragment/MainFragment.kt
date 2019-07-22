@@ -1,16 +1,13 @@
 package com.zhuzichu.orange.main.fragment
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseMainFragment
 import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.bus.RxBus
-import com.zhuzichu.mvvm.view.navigationtabbar.ntb.NavigationTabBar
+import com.zhuzichu.mvvm.utils.setupWithViewPager
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
@@ -72,55 +69,11 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
         content.offscreenPageLimit = mFragments.size
         content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, mFragments)
         initTabs()
-        content.post {
-            val layout = content.layoutParams
-            if (layout is FrameLayout.LayoutParams) {
-                layout.bottomMargin = (layout.bottomMargin - tabs.badgeMargin).toInt()
-            }
-        }
+        tabs.setupWithViewPager(viewPager = content)
     }
 
     private fun initTabs() {
 
-        val colors: Array<String> = resources.getStringArray(R.array.default_preview)
-        val models = listOf<NavigationTabBar.Model>(
-            NavigationTabBar.Model.Builder(
-                ContextCompat.getDrawable(_activity, R.drawable.main_tab_home),
-                Color.parseColor(colors[0])
-            )
-                .selectedIcon(
-                    ContextCompat.getDrawable(_activity, R.drawable.main_tab_home_selected)
-                )
-                .title("首页")
-                .badgeTitle("Hot")
-                .build().apply {
-                    showBadge()
-                }
-            ,
-            NavigationTabBar.Model.Builder(
-                ContextCompat.getDrawable(_activity, R.drawable.main_tab_sort),
-                Color.parseColor(colors[1])
-            )
-                .title("分类")
-                .build()
-            ,
-            NavigationTabBar.Model.Builder(
-                ContextCompat.getDrawable(_activity, R.drawable.main_tab_find),
-                Color.parseColor(colors[2])
-            )
-                .title("发现")
-                .build()
-            ,
-            NavigationTabBar.Model.Builder(
-                ContextCompat.getDrawable(_activity, R.drawable.main_tab_mine),
-                Color.parseColor(colors[3])
-            )
-                .title("我的")
-                .build()
-        )
-
-        tabs.models = models
-        tabs.setViewPager(content)
     }
 
 

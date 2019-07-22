@@ -15,34 +15,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        <FrameLayout
+        <LinearLayout
                 android:id="@+id/layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:background="@{viewModel.color.windowBackground}">
 
             <androidx.viewpager.widget.ViewPager
                     android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="60dp"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
-            <com.zhuzichu.mvvm.view.navigationtabbar.ntb.NavigationTabBar
+            <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    app:ntb_bg_color="@{viewModel.color.bottomBackground}"
-                    android:layout_height="60dp"
-                    app:ntb_badge_gravity="top"
-                    android:layout_gravity="bottom"
-                    app:ntb_badge_position="right"
-                    app:ntb_badged="true"
-                    app:ntb_title_mode="all"
-                    app:ntb_badge_size="12sp"
-                    app:ntb_titled="true"
-                    app:ntb_scaled="true"
-                    app:ntb_tinted="true"
-                    app:ntb_swiped="true"/>
-        </FrameLayout>
+                    android:layout_height="56dp"
+                    app:textColor="@{viewModel.color.textColorPrimary}"
+                    app:selectedTextColor="@{viewModel.color.colorPrimary}"
+                    app:iconColor="@{viewModel.color.textColorPrimary}"
+                    app:selectedIconColor="@{viewModel.color.colorPrimary}"
+                    app:menu="@menu/navigation"
+                    app:labelVisibilityMode="labeled"
+                    android:background="@{viewModel.color.bottomBackground}"/>
+        </LinearLayout>
 
 
     </com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout>

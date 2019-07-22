@@ -14,11 +14,19 @@ import androidx.fragment.app.FragmentPagerAdapter
 @Suppress("DEPRECATION")
 class DefaultFragmentPagerAdapter(
     fm: FragmentManager,
-    private val list: List<Fragment>
-) : FragmentPagerAdapter(fm,BEHAVIOR_SET_USER_VISIBLE_HINT) {
+    private val list: List<Fragment>,
+    private val titles: List<String>? = null
+) : FragmentPagerAdapter(fm, BEHAVIOR_SET_USER_VISIBLE_HINT) {
 
 
     override fun getItem(position: Int): Fragment = list[position]
 
     override fun getCount(): Int = list.size
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        if (titles == null)
+            return super.getPageTitle(position)
+        else
+            return titles[position]
+    }
 }
