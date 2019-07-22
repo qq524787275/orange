@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:foreground="?attr/selectableItemBackground"
             android:background="@{item.color.contentBackground}"
+            app:isScale="@{true}"
             app:onClickCommand="@{item.clickItem}"
             android:layout_height="wrap_content">
         <LinearLayout
@@ -35,7 +36,7 @@
                     android:textSize="13sp"
                     android:text="@{item.info.son_name}"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/colorSecondText"/>
+                    app:textColor="@{item.color.textColorSecond}"/>
         </LinearLayout>
     </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
 </layout>

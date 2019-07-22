@@ -195,6 +195,7 @@
                                                   android:layout_weight="1"
                                                   android:gravity="center"
                                                   app:onClickCommand="@{viewModel.onClickOrderOne}"
+                                                  app:isScale="@{true}"
                                                   android:layout_height="wrap_content"
                                                   android:orientation="vertical">
 
@@ -218,6 +219,7 @@
                                     <LinearLayout android:layout_width="0dp"
                                                   android:layout_weight="1"
                                                   android:gravity="center"
+                                                  app:isScale="@{true}"
                                                   android:layout_height="wrap_content"
                                                   app:onClickCommand="@{viewModel.onClickOrderTwo}"
                                                   android:orientation="vertical">
@@ -241,6 +243,7 @@
                                     <LinearLayout android:layout_width="0dp"
                                                   android:layout_weight="1"
                                                   android:gravity="center"
+                                                  app:isScale="@{true}"
                                                   android:layout_height="wrap_content"
                                                   app:onClickCommand="@{viewModel.onClickOrderThree}"
                                                   android:orientation="vertical">
@@ -264,6 +267,7 @@
                                     <LinearLayout android:layout_width="0dp"
                                                   android:layout_weight="1"
                                                   android:gravity="center"
+                                                  app:isScale="@{true}"
                                                   app:onClickCommand="@{viewModel.onClickOrderFour}"
                                                   android:layout_height="wrap_content"
                                                   android:orientation="vertical">
@@ -297,6 +301,7 @@
                                 android:layout_height="50dp"
                                 android:background="@{viewModel.color.contentBackground}"
                                 android:orientation="horizontal"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
                                 app:onClickCommand="@{viewModel.onClickShopcar}"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
@@ -329,6 +334,8 @@
                                 android:layout_height="50dp"
                                 android:background="@{viewModel.color.contentBackground}"
                                 android:orientation="horizontal"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
+                                app:onClickCommand="@{viewModel.onClickCollection}"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
@@ -362,6 +369,8 @@
                                 android:orientation="horizontal"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
+                                app:onClickCommand="@{viewModel.onClickCollection}"
                                 android:paddingRight="15dp">
 
                             <ImageView
@@ -393,6 +402,7 @@
                                 android:orientation="horizontal"
                                 android:layout_marginTop="10dp"
                                 app:onClickCommand="@{viewModel.onClickCache}"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
@@ -426,6 +436,7 @@
                                 android:orientation="horizontal"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
                                 android:paddingRight="15dp"
                                 app:onClickCommand="@{viewModel.onClickTheme}">
 
@@ -465,6 +476,7 @@
                                 android:orientation="horizontal"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
                                 android:paddingRight="15dp"
                                 app:onClickCommand="@{viewModel.onClickAbout}">
 
@@ -497,6 +509,8 @@
                                 android:orientation="horizontal"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
+                                app:onClickCommand="@{viewModel.onClickCollection}"
                                 android:paddingRight="15dp">
 
                             <ImageView

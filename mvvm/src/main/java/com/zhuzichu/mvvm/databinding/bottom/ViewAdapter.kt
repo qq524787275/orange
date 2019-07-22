@@ -18,19 +18,35 @@ import com.zhuzichu.mvvm.utils.toColorById
 @BindingAdapter(value = ["textColor", "selectedTextColor", "iconColor", "selectedIconColor"], requireAll = false)
 fun onBindBottomNavigationView(
     view: BottomNavigationView,
-    @Nullable textColor: Int = R.color.colorSecondText.toColorById(),
-    @Nullable selectedTextColor: Int = R.color.colorPrimary.toColorById(),
-    @Nullable iconColor: Int = R.color.colorSecondText.toColorById(),
-    @Nullable selectedIconColor: Int = R.color.colorPrimary.toColorById()
+    @Nullable textColor: Int?,
+    @Nullable selectedTextColor: Int?,
+    @Nullable iconColor: Int?,
+    @Nullable selectedIconColor: Int?
 ) {
-    val textColors = intArrayOf(selectedTextColor, selectedTextColor, textColor)
+    var textColorOne: Int = R.color.colorSecondText.toColorById()
+    var selectedTextColorOne = R.color.colorPrimary.toColorById()
+    var iconColorOne = R.color.colorSecondText.toColorById()
+    var selectedIconColorOne = R.color.colorPrimary.toColorById()
+    textColor?.let {
+        textColorOne = it
+    }
+    selectedTextColor?.let {
+        selectedTextColorOne = it
+    }
+    iconColor?.let {
+        iconColorOne = it
+    }
+    selectedIconColor?.let {
+        selectedIconColorOne = it
+    }
+    val textColors = intArrayOf(selectedTextColorOne, selectedTextColorOne, textColorOne)
     val textStates = arrayOfNulls<IntArray>(3)
     textStates[0] = intArrayOf(android.R.attr.state_checked)
     textStates[1] = intArrayOf(android.R.attr.state_pressed)
     textStates[2] = intArrayOf()
     view.itemTextColor = ColorStateList(textStates, textColors)
 
-    val iconColors = intArrayOf(selectedIconColor, selectedTextColor, iconColor)
+    val iconColors = intArrayOf(selectedIconColorOne, selectedIconColorOne, iconColorOne)
     val iconStates = arrayOfNulls<IntArray>(3)
     iconStates[0] = intArrayOf(android.R.attr.state_checked)
     iconStates[1] = intArrayOf(android.R.attr.state_pressed)

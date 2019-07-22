@@ -11,6 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            app:onClickCommand="@{item.onItemClick}"
+            app:isScale="@{true}"
             app:cardCornerRadius="5dp"
             app:widthPadding="@{80}"
             app:widthHeightRatio="@{0.408f}">
