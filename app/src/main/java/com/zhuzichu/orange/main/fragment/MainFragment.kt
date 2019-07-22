@@ -49,20 +49,6 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
 
     @SuppressLint("CheckResult")
     override fun initViewObservable() {
-        RxBus.default.toObservable(HomeEvent.OnTowLevelEvent::class.java)
-            .delay(300, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .compose(bindToLifecycle())
-            .subscribe {
-                if (it.state == HomeEvent.EXIT_TOW_LEVEL) {
-                    showBottom()
-                }
-
-                if (it.state == HomeEvent.ENTER_TOW_LEVEL) {
-                    hideBottom()
-                }
-            }
     }
 
     override fun initView() {

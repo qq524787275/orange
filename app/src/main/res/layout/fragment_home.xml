@@ -22,19 +22,18 @@
             <com.scwang.smartrefresh.layout.header.TwoLevelHeader
                     android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:srlEnableTwoLevel="false">
                 <ImageView
                         android:id="@+id/secondfloor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/image_secondfloor"/>
                 <ImageView
                         android:id="@+id/secondfloor_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/image_secondfloor_content"
                         android:alpha="0"/>
