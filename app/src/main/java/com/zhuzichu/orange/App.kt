@@ -103,7 +103,7 @@ open class App : Application() {
             layout.setEnableOverScrollBounce(true)
             layout.setEnableLoadMoreWhenContentNotFull(true)
             layout.setEnableScrollContentWhenRefreshed(true)
-            layout.setDisableContentWhenRefresh(true)//是否在刷新的时候禁止列表的操作
+//            layout.setDisableContentWhenRefresh(true)//是否在刷新的时候禁止列表的操作
             layout.setPrimaryColorsId(R.color.transparent, R.color.colorPrimaryText)//全局设置主题颜色
             ClassicsHeader(context).setSpinnerStyle(SpinnerStyle.Scale)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
         }
@@ -111,7 +111,7 @@ open class App : Application() {
             layout.setEnableFooterFollowWhenNoMoreData(true)//设置是否在全部加载结束之后Footer跟随内容
             layout.setEnableFooterTranslationContent(true)
             layout.setEnableAutoLoadMore(true)
-            layout.setDisableContentWhenLoading(true)//是否在加载的时候禁止列表的操作
+//            layout.setDisableContentWhenLoading(true)//是否在加载的时候禁止列表的操作
             val footer = ClassicsFooter(context)
             ClassicsFooter.REFRESH_FOOTER_NOTHING = "我也是有底线的！"
             footer.spinnerStyle = SpinnerStyle.Scale

@@ -37,7 +37,7 @@ object ColorGlobal {
             textColorPrimary.set(R.color.colorPrimaryText.toColorById())
             textColorSecond.set(R.color.colorSecondText.toColorById())
             hintColor.set(R.color.colorHint.toColorById())
-            bottomBackground.set(R.color.light_bottom_backgound.toColorById())
+            bottomBackground.set(R.color.page_content.toColorById())
         }
         this@ColorGlobal.isDark.value = isDark
     }

@@ -17,6 +17,9 @@
     <color name="blue_219">#2196F3</color>
     <color name="yellow">#FFFFEB3B</color>
 
+
+    <color name="page_content">#F6F6F7FF</color>
+
     <color name="colorToastText">#FF795A28</color>
 
     <array name="colors">
