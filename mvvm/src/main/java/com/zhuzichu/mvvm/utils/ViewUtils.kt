@@ -46,7 +46,7 @@ fun BottomNavigationView.setupWithViewPager(viewPager: ViewPager) {
     })
 
 
-    this.setOnNavigationItemSelectedListener { it ->
+    this.setOnNavigationItemSelectedListener {
         "target:".plus(it.itemId.toString()).logi("zzc")
         this@setupWithViewPager.menu.forEachIndexed { index, item ->
             it.itemId.toString().logi("zzc")

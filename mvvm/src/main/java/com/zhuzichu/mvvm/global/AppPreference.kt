@@ -22,7 +22,7 @@ open class AppPreference {
 
     private val preferences: SharedPreferences by lazy {
         AppGlobal.context.getSharedPreferences(
-            PREFERENCE_NAME.plus(AppGlobal.getAccount()),
+            PREFERENCE_NAME,
             Context.MODE_PRIVATE
         )
     }

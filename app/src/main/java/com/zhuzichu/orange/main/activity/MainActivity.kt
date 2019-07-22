@@ -19,7 +19,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 class MainActivity : BaseActivity() {
 
-    val preference by lazy { AppPreference() }
+    private val preference by lazy { AppPreference() }
 
 
     override fun setRootFragment(): ISupportFragment = MainFragment()

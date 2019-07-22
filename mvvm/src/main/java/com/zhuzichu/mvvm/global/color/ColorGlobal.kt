@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.AppPreference
+import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.utils.toColorById
 
 object ColorGlobal {
@@ -19,6 +20,8 @@ object ColorGlobal {
     val bottomBackground: ObservableField<Int> = ObservableField()
 
     fun initColor() {
+        preference.colorPrimary.toString().logi("zzc")
+        preference.isDark.toString().logi("zzc")
         colorPrimary.value = preference.colorPrimary
         setDark(preference.isDark)
     }
