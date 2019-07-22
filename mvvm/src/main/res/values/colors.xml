@@ -21,6 +21,7 @@
     <color name="dark_windown_backgound">#423752</color>
     <color name="dark_content_backgound">#4b405c</color>
     <color name="light_bottom_backgound">#F6F6F7FF</color>
+    <color name="dark_colorSecondText">#9b92b3</color>
 
     <color name="colorToastText">#FF795A28</color>
 

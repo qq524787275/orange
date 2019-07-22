@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.utils.bindArgument
-import com.zhuzichu.mvvm.utils.initMagicIndicator
 import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -18,7 +17,7 @@ class ShopDetailFragment : BaseTopbarFragment<FragmentShopDetailBinding, ShopDet
     private val itemprice: String by bindArgument(ITEMPRICE)
     private val itemendprice: String by bindArgument(ITEMENDPRICE)
 
-    val titles = listOf("宝贝详情")
+    private val titles = listOf("宝贝详情")
 
     companion object {
         const val ITEMID = "itemid"
@@ -41,10 +40,8 @@ class ShopDetailFragment : BaseTopbarFragment<FragmentShopDetailBinding, ShopDet
 
     private fun initViewPager() {
         val fragments = listOf<Fragment>(ShopDetailOneFragment(itemid, type))
-        pager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments)
+        pager.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments, titles)
         pager.offscreenPageLimit = titles.size
-        initMagicIndicator(
-            activity, titles, pager, indicator
-        )
+        tabs.setupWithViewPager(pager)
     }
 }

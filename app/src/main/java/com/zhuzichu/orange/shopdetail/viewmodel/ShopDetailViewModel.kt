@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.checkLogin
 import com.zhuzichu.orange.main.fragment.MainFragment
@@ -15,6 +16,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 class ShopDetailViewModel(
     application: Application
 ) : BaseViewModel(application) {
+    val color = ColorGlobal
     val itemid = ObservableField<String>()
     val itemprice = ObservableField("")
     val itemendprice = ObservableField("")
