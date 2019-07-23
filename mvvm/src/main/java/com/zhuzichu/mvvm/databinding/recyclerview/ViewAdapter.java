@@ -30,6 +30,9 @@ public class ViewAdapter {
             gridLayoutManager.setSpanSizeLookup(spanSizeLookup);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter != null)
+            adapter.notifyItemRangeChanged(0,adapter.getItemCount());
     }
 
 
