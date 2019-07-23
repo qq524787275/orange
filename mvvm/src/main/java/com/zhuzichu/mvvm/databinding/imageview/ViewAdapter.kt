@@ -6,10 +6,10 @@ import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.mikhaellopez.circularimageview.CircularImageView
 import com.zhuzichu.mvvm.global.glide.GlideApp
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
+import com.zhuzichu.mvvm.view.imageview.CircularImageView
 import com.zhuzichu.mvvm.widget.WhiteToAlphaTransformation
 
 /**
@@ -36,7 +36,8 @@ fun setImageUri(
     if (url != null) {
         //使用Glide框架加载图片
         GlideApp.with(imageView).load(url).apply {
-            this.transition(DrawableTransitionOptions.withCrossFade(250))
+            if (imageView !is CircularImageView)
+                this.transition(DrawableTransitionOptions.withCrossFade(250))
             if (enableWhiteToAlpha) {
                 this.transform(WhiteToAlphaTransformation())
             } else {
