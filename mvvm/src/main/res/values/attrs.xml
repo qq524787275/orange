@@ -3,6 +3,11 @@
 
     <attr name="textColor" format="color"/>
 
+    <declare-styleable name="CircularImageView">
+        <attr name="civ_shadow_color" format="color"/>
+        <attr name="civ_border_color" format="color"/>
+    </declare-styleable>
+
     <declare-styleable name="AutoPlayRecyclerView">
         <attr name="timeInterval" format="integer"/>
         <attr name="direction" format="enum">

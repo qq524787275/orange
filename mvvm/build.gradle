@@ -86,6 +86,7 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
     api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
 
+    api 'com.mikhaellopez:circularimageview:4.0.1'
     api 'uk.co.chrisjenx:calligraphy:2.3.0'
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'

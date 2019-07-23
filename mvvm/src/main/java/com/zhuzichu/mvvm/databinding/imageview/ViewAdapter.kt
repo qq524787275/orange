@@ -6,6 +6,7 @@ import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.mikhaellopez.circularimageview.CircularImageView
 import com.zhuzichu.mvvm.global.glide.GlideApp
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
@@ -49,4 +50,12 @@ fun setImageUri(
 fun srcColor(imageView: ImageView, @NonNull color: Int? = null) {
     if (color != null)
         imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+}
+
+@BindingAdapter(value = ["civ_shadow_color", "civ_border_color"], requireAll = false)
+fun bindCircularImageView(imageView: CircularImageView, @NonNull shadow_color: Int? = null, @NonNull border_color: Int? = null) {
+    if (shadow_color != null)
+        imageView.shadowColor = shadow_color
+    if (border_color != null)
+        imageView.borderColor = border_color
 }
