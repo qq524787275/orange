@@ -3,11 +3,8 @@ package com.zhuzichu.orange.search.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
@@ -16,10 +13,12 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.itemDiff
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import kotlinx.coroutines.launch
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -48,7 +47,6 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         val finishRefreshing = SingleLiveEvent<Any>()
         val finishLoadmore = SingleLiveEvent<Any>()
         val finishLoadMoreWithNoMoreData = SingleLiveEvent<Any>()
-        val onSpanSizeChangeEvent = SingleLiveEvent<Int>()
     }
 
     val onErrorCommand = BindingCommand<Any>({
@@ -56,7 +54,9 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     })
 
     val onChangeSpanSize = BindingCommand<Any>({
-        uc.onSpanSizeChangeEvent.call()
+        spanSize.set(
+            if (spanSize.get() == 1) 2 else 1
+        )
     })
 
     val itemBind = OnItemBindClass<Any>().apply {
@@ -74,26 +74,11 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
             ItemSearchIndicatorViewModel(this@SearchResultViewModel, "价格", listOf(1, 2))
         )
     }
-    private val liveData = MutableLiveData<List<ItemResultViewModel>>().apply {
-        value = ArrayList()
-    }
-    val list: LiveData<List<Any>> = map(liveData) { input ->
-        val list = ArrayList<Any>(input.size)
-        list.addAll(input)
-        list
-    }
 
-    val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if (oldItem is ItemResultViewModel && newItem is ItemResultViewModel) {
-                oldItem.searchBean.itemid == newItem.searchBean.itemid
-            } else oldItem == newItem
-        }
+    val itemList = AsyncDiffObservableList(itemDiff<ItemResultViewModel> { oldItem, newItem ->
+        oldItem.searchBean.itemid == newItem.searchBean.itemid
+    })
 
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
-
-    }
 
     val onRefreshCommand = BindingCommand<Any>({
         min_id = 1
@@ -115,21 +100,20 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
             .compose(schedulersTransformer())
             .compose(exceptionTransformer())
             .subscribe({
-                val list = mutableListOf<ItemResultViewModel>()
                 val data = it.data
                 if (data.isEmpty() && min_id == 1) {
                     viewState.set(MultiStateView.VIEW_STATE_EMPTY)
                     return@subscribe
                 }
-                data.forEach { item ->
+                val list = data.map { item ->
                     item.itempic.plus("_310x310.jpg")
-                    list.add(ItemResultViewModel(this, item, spanSize))
+                    ItemResultViewModel(this, item, spanSize)
                 }
                 if (min_id == 1) {
-                    liveData.value = list
+                    itemList.update(list)
                     uc.finishRefreshing.call()
                 } else {
-                    liveData.value = liveData.value!! + list
+                    itemList.update(itemList + list)
                 }
                 if (list.size < back) {
                     uc.finishLoadMoreWithNoMoreData.call()
@@ -156,11 +140,5 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         min_id = 1
         searchShop(this.keyword)
         currentIndicator = position
-    }
-
-    fun changeSpanSize() {
-        spanSize.set(
-            if (spanSize.get() == 1) 2 else 1
-        )
     }
 }

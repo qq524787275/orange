@@ -1,6 +1,5 @@
 package com.zhuzichu.mvvm.utils
 
-import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -47,9 +46,7 @@ fun BottomNavigationView.setupWithViewPager(viewPager: ViewPager) {
 
 
     this.setOnNavigationItemSelectedListener {
-        "target:".plus(it.itemId.toString()).logi("zzc")
         this@setupWithViewPager.menu.forEachIndexed { index, item ->
-            it.itemId.toString().logi("zzc")
             if (it.itemId == item.itemId) {
                 viewPager.currentItem = index
             }

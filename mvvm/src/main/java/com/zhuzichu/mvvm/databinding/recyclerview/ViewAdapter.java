@@ -18,11 +18,18 @@ public class ViewAdapter {
 
     @BindingAdapter(value = {"gridLayoutManager", "spanSizeLookup"}, requireAll = false)
     public static void setGridLayoutManager(final RecyclerView recyclerView, final int spanCount, final GridLayoutManager.SpanSizeLookup spanSizeLookup) {
-        GridLayoutManager layoutManager = new GridLayoutManager(recyclerView.getContext(), spanCount);
+        GridLayoutManager gridLayoutManager;
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            gridLayoutManager = (GridLayoutManager) layoutManager;
+            gridLayoutManager.setSpanCount(spanCount);
+        } else {
+            gridLayoutManager = new GridLayoutManager(recyclerView.getContext(), spanCount);
+        }
         if (spanSizeLookup != null)
-            layoutManager.setSpanSizeLookup(spanSizeLookup);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+            gridLayoutManager.setSpanSizeLookup(spanSizeLookup);
+        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
 

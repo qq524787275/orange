@@ -55,20 +55,5 @@ class SearchResultFragment : BaseTopbarBackFragment<FragmentSearchResultBinding,
             refresh.finishLoadMore()
             refresh.setNoMoreData(true)
         })
-
-        _viewModel.uc.onSpanSizeChangeEvent.observe(this, Observer {
-            val layoutManager = recycler.layoutManager as GridLayoutManager
-            if (layoutManager.childCount <= 0) {
-                return@Observer
-            }
-            val findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-            _viewModel.changeSpanSize()
-            recycler.postDelayed({
-                (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
-                    findFirstVisibleItemPosition,
-                    0
-                )
-            }, 50)
-        })
     }
 }
