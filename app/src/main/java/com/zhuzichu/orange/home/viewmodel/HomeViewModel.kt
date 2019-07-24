@@ -91,11 +91,11 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val list = MergeObservableList<Any>()
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList))
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList, R.drawable.background02))
         .insertList(deserveList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList))
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList, R.drawable.background01))
         .insertList(hotShopList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList))
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList, R.drawable.background03))
         .insertList(juTaoShopList)
 
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

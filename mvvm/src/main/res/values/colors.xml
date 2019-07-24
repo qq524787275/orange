@@ -18,6 +18,9 @@
     <color name="yellow">#FFFFEB3B</color>
 
 
+    <color name="lavender">#e5de63b3</color>
+    <color name="bright_lavender">#e254ff</color>
+
     <color name="page_content">#F6F6F7FF</color>
 
     <color name="colorToastText">#FF795A28</color>
