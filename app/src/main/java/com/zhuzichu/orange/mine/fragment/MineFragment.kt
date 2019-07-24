@@ -1,10 +1,8 @@
 package com.zhuzichu.orange.mine.fragment
 
-import android.animation.TimeInterpolator
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin

@@ -103,29 +103,26 @@
                                         android:background="@{viewModel.color.contentBackground}"
                                         app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
 
-                            <androidx.cardview.widget.CardView
-                                    android:id="@+id/card_avatar"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    app:cardCornerRadius="30dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="15dp">
 
-                                <androidx.appcompat.widget.AppCompatImageView
+
+                                <com.zhuzichu.mvvm.view.imageview.CircularImageView
                                         android:id="@+id/avatar"
-                                        android:layout_width="60dp"
-                                        android:layout_height="60dp"
-                                        tools:src="@mipmap/ic_user_avatar_two"
-                                        app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"/>
+                                        android:layout_width="70dp"
+                                        android:layout_height="70dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginTop="15dp"
+                                        android:layout_marginBottom="15dp"
+                                        app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"
+                                        app:civ_border_color="@{viewModel.color.colorPrimary}"
+                                        app:civ_border_width="4dp"
+                                        app:civ_shadow="false"/>
 
-                            </androidx.cardview.widget.CardView>
 
                             <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_toRightOf="@+id/card_avatar"
+                                    android:layout_toRightOf="@+id/avatar"
                                     android:layout_centerVertical="true"
                                     android:text="@{viewModel.global.isLogin?viewModel.global.session.nick:@string/login}"
                                     app:textColor="@{viewModel.color.textColorPrimary}"

@@ -1,14 +1,17 @@
 package com.zhuzichu.mvvm.base
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.children
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.R
@@ -81,9 +84,19 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
 
     private fun initObservable() {
         ColorGlobal.isDark.observe(this, Observer {
-            _topBar.setBackgroundColor(ColorGlobal.contentBackground.get()!!)
-            _title.setTextColor(ColorGlobal.textColorPrimary.get()!!)
-            _statuBar.setBackgroundColor(ColorGlobal.contentBackground.get()!!)
+            ColorGlobal.contentBackground.get()?.let {
+                _topBar.setBackgroundColor(it)
+                _statuBar.setBackgroundColor(it)
+            }
+            ColorGlobal.textColorPrimary.get()?.let {
+                _title.setTextColor(it)
+                _leftLayout.children.map { item ->
+                    item.findViewById<ImageView>(R.id.image).setColorFilter(it, PorterDuff.Mode.SRC_IN)
+                }
+                _rightLayout.children.map { item ->
+                    item.findViewById<ImageView>(R.id.image).setColorFilter(it, PorterDuff.Mode.SRC_IN)
+                }
+            }
         })
     }
 
@@ -114,6 +127,9 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
         icon.setImageResource(iconId)
+        ColorGlobal.textColorPrimary.get()?.let {
+            icon.setColorFilter(it, PorterDuff.Mode.SRC_IN)
+        }
         imageLayout.setOnClickListener {
             onClickListener.invoke()
         }
@@ -129,6 +145,9 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
         imageLayout.layoutParams.width = _topBarHeight
         val icon = imageLayout.findViewById(R.id.image) as AppCompatImageView
         icon.setImageResource(iconId)
+        ColorGlobal.textColorPrimary.get()?.let {
+            icon.setColorFilter(it, PorterDuff.Mode.SRC_IN)
+        }
         imageLayout.setOnClickListener {
             onClickListener.invoke()
         }
