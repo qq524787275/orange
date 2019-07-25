@@ -89,6 +89,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_gravity="bottom|center_horizontal"
                                 android:layout_marginTop="5dp"
+                                app:layout_scrollFlags="scroll"
                                 android:layout_height="10dp"
                                 app:dot_tint="@{viewModel.color.textColorPrimary}"/>
 

@@ -49,20 +49,19 @@
                     tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
                     android:layout_width="60dp"
                     android:layout_height="20dp"
-                    android:background="@mipmap/bg_coupon_sc9"
-                    tools:text="2525252525"
-                    android:maxLines="1"
-                    android:layout_alignParentRight="true"
-                    android:ellipsize="end"
-                    android:layout_margin="10dp"
+                    app:shimmer_ribbon_drawable="@mipmap/bg_coupon_sc9"
+                    app:shimmer_ribbon_text="@{item.shopBean.couponmoney+@string/rmb}"
+                    app:shimmer_ribbon_textColor="@color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@{item.shopBean.couponmoney+@string/rmb}"
-                    android:gravity="center"
-                    android:textColor="@color/white"/>
+                    app:shimmer_base_alpha="1.0"
+                    android:layout_margin="10dp"
+                    app:shimmer_ribbon_maxLines="1"
+                    app:shimmer_highlight_alpha="0.5"/>
+
 
             <LinearLayout android:id="@+id/layout_itemendprice"
                           android:layout_width="wrap_content"

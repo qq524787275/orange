@@ -1,9 +1,10 @@
 package com.zhuzichu.orange.home.viewmodel
 
+import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.bean.SalesBean
+import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 
 /**
  * Created by Android Studio.
@@ -17,6 +18,13 @@ class ItemHomeBannerViewModel(
     var salesBean: SalesBean
 ) : ItemViewModel<HomeViewModel>(viewModel) {
     val onItemClick = BindingCommand<Any>({
-        salesBean.itemshorttitle.toast()
+        viewModel.startFragment(
+            ShopDetailFragment(), bundleOf(
+                ShopDetailFragment.ITEMID to salesBean.itemid,
+                ShopDetailFragment.TYPE to salesBean.shoptype,
+                ShopDetailFragment.ITEMENDPRICE to salesBean.itemendprice,
+                ShopDetailFragment.ITEMPRICE to salesBean.itemprice
+            )
+        )
     })
 }

@@ -99,18 +99,18 @@
                             app:textColor="@{item.color.textColorSecond}"
                     />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+
+                    <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
                             android:layout_width="60dp"
                             android:layout_height="20dp"
-                            android:background="@mipmap/bg_coupon_sc9"
-                            tools:text="2525252525"
-                            android:maxLines="1"
-                            android:layout_alignParentRight="true"
+                            app:shimmer_ribbon_drawable="@mipmap/bg_coupon_sc9"
+                            android:layout_alignParentEnd="true"
                             android:layout_below="@+id/itemprice"
-                            android:ellipsize="end"
-                            android:text="@{item.deserveBean.couponmoney+@string/rmb}"
-                            android:gravity="center"
-                            android:textColor="@color/white"/>
+                            app:shimmer_ribbon_text="@{item.deserveBean.couponmoney+@string/rmb}"
+                            app:shimmer_ribbon_textColor="@color/white"
+                            app:shimmer_base_alpha="1.0"
+                            app:shimmer_ribbon_maxLines="1"
+                            app:shimmer_highlight_alpha="0.5"/>
 
                 </RelativeLayout>
             </LinearLayout>
