@@ -16,7 +16,7 @@ import java.net.URLEncoder
  * @return
  */
 
-private const val AES_KEY = "0987654321qazxcv"
+private const val AES_KEY = "0987654321orange"
 
 fun decryptPolicy(policy: String): String {
     var p = policy

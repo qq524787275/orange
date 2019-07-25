@@ -18,13 +18,9 @@ private const val defaultCharSet = "UTF-8"
 // 加密
 @Throws(Exception::class)
 fun encrypt(sSrc: String, sKey: String?): String {
-    if (sKey == null) {
-        throw IllegalArgumentException("sKey can't be null.")
-    }
+    requireNotNull(sKey) { "sKey can't be null." }
     // 判断Key是否为16位
-    if (sKey.length != 16) {
-        throw IllegalArgumentException("Key长度不是16位")
-    }
+    require(sKey.length == 16) { "Key长度不是16位" }
     val raw = sKey.toByteArray(charset(defaultCharSet))
     val skeySpec = SecretKeySpec(raw, "AES")
     val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")// "算法/模式/补码方式"
@@ -48,13 +44,9 @@ fun encrypt(sSrc: String, sKey: String?): String {
 fun decrypt(sSrc: String, sKey: String?): String? {
     try {
         // 判断Key是否正确
-        if (sKey == null) {
-            throw IllegalArgumentException("sKey can't be null.")
-        }
+        requireNotNull(sKey) { "sKey can't be null." }
         // 判断Key是否为16位
-        if (sKey.length != 16) {
-            throw IllegalArgumentException("Key长度不是16位")
-        }
+        require(sKey.length == 16) { "Key长度不是16位" }
         val raw = sKey.toByteArray(charset(defaultCharSet))
         val skeySpec = SecretKeySpec(raw, "AES")
         val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
