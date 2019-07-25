@@ -18,6 +18,7 @@ import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.mine.fragment.AboutFragment
 import com.zhuzichu.orange.mine.fragment.CacheFragment
+import com.zhuzichu.orange.mine.fragment.FlutterLearnFragment
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
 import com.zhuzichu.orange.view.plane.PlaneMaker
@@ -137,7 +138,10 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickDark = BindingCommand<Any>({
-
         uc.onDarkChangeEvent.value = !color.isDark.value!!
+    })
+
+    val onClickFlutterLearn = BindingCommand<Any>({
+        startFragment(FlutterLearnFragment())
     })
 }

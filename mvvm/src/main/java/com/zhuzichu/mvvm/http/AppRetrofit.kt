@@ -1,9 +1,9 @@
 package com.zhuzichu.mvvm.http;
 
 import androidx.annotation.NonNull
+import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.http.converter.MyGsonConverterFactory
 import com.zhuzichu.mvvm.http.interceptor.HttpLoggingInterceptor
-import com.zhuzichu.mvvm.utils.getHttpImageCacheDir
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -26,7 +26,7 @@ object AppRetrofit {
     private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean = true) {
         val timeOut = AppConfig.HTTP_TIME_OUT
         val cache = Cache(
-            getHttpImageCacheDir(),
+            CacheGlobal.getHttpCacheDir(),
             AppConfig.HTTP_MAX_CACHE_SIZE
         )
 

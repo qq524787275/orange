@@ -62,22 +62,36 @@
                         <com.zhuzichu.mvvm.view.layout.MultiStateView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:widthPadding="@{80}"
+                                app:widthPadding="@{150}"
                                 app:layout_scrollFlags="scroll"
                                 app:isScreenW="@{true}"
-                                app:widthHeightRatio="@{0.408f}"
-                                android:layout_marginTop="10dp"
+                                app:widthHeightRatio="@{1f}"
                                 app:msv_loadingView="@layout/loading_material_view"
                                 app:viewState="@{viewModel.listBanner.size()==0?3:0}">
+                            <FrameLayout android:layout_width="match_parent"
+                                         android:layout_height="match_parent">
 
-                            <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
-                                    android:id="@+id/banner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    app:items="@{viewModel.listBanner}"
-                                    app:itemBinding="@{viewModel.itemBindBanner}"/>
+                                <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
+                                        android:id="@+id/banner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        app:items="@{viewModel.listBanner}"
+                                        android:layout_marginLeft="15dp"
+                                        android:layout_marginRight="15dp"
+                                        app:itemBinding="@{viewModel.itemBindBanner}"/>
+                            </FrameLayout>
 
                         </com.zhuzichu.mvvm.view.layout.MultiStateView>
+
+
+                        <com.zhuzichu.mvvm.widget.DotsIndicator
+                                android:id="@+id/dots"
+                                android:layout_width="match_parent"
+                                android:layout_gravity="bottom|center_horizontal"
+                                android:layout_marginTop="5dp"
+                                app:layout_scrollFlags="scroll"
+                                android:layout_height="10dp"
+                                app:dot_tint="@{viewModel.color.textColorPrimary}"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_navigation"

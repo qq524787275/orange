@@ -13,37 +13,42 @@
                   android:clickable="true"
                   android:visibility="@{item.list.size()==0?View.GONE:View.VISIBLE}"
                   android:layout_height="wrap_content">
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardElevation="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                app:cardCornerRadius="5dp">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:url="@{item.background}"
+                    tools:src="@drawable/background01"
+                    android:scaleType="fitXY"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/next_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.title}"
-                    tools:text="男装"
-                    app:textColor="@{item.color.colorPrimary}"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_centerInParent="true"
-                    android:padding="10dp"
-            />
+            <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
+                    android:layout_width="106dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="end|top"
+                    android:layout_margin="15dp"
+                    app:shimmer_ribbon_drawable="@drawable/ribbon_vertical"
+                    app:shimmer_base_alpha="1.0"
+                    app:shimmer_highlight_alpha="0.3"/>
 
-            <View android:layout_width="match_parent"
-                  android:layout_centerVertical="true"
-                  android:background="@{item.color.colorPrimary}"
-                  android:layout_toStartOf="@+id/next_name"
-                  android:layout_marginStart="30dp"
-                  android:layout_height="1dp"/>
+            <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
+                    android:layout_width="180dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom|start"
+                    app:shimmer_ribbon_drawable="@drawable/ribbon03"
+                    app:shimmer_ribbon_text="@{item.title}"
+                    app:shimmer_ribbon_textColor="@color/white"
+                    app:shimmer_base_alpha="1.0"
+                    app:shimmer_highlight_alpha="0.3"/>
 
-            <View android:layout_width="match_parent"
-                  android:layout_centerVertical="true"
-                  android:background="@{item.color.colorPrimary}"
-                  android:layout_toEndOf="@id/next_name"
-                  android:layout_marginEnd="30dp"
-                  android:layout_height="1dp"/>
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </layout>

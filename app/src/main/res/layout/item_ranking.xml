@@ -32,19 +32,6 @@
                         app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                         tools:src="@drawable/ic_launcher_background"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="@{item.top}"
-                        tools:text="100"
-                        app:fontPath="@string/font_bold"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:paddingTop="5dp"
-                        android:textColor="@color/white"
-                        android:background="@mipmap/ic_ranking_top"/>
-
-
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="40dp"
                               android:background="@color/black_translucent"
@@ -75,5 +62,16 @@
                 </LinearLayout>
             </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
         </LinearLayout>
+
+        <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                app:shimmer_ribbon_drawable="@drawable/ribbon05"
+                app:shimmer_ribbon_text="@{item.top}"
+                app:shimmer_ribbon_textColor="@color/white"
+                app:shimmer_base_alpha="1.0"
+                app:shimmer_ribbon_padding_bottom="10dp"
+                app:shimmer_ribbon_maxLines="1"
+                app:shimmer_highlight_alpha="0.5"/>
     </androidx.cardview.widget.CardView>
 </layout>

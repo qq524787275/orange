@@ -5,15 +5,19 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+
     dataBinding {
         enabled = true
     }
+
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
     }
 
     buildTypes {
@@ -86,7 +90,8 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
     api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
 
-    api 'uk.co.chrisjenx:calligraphy:2.3.0'
+    api "uk.co.chrisjenx:calligraphy:2.3.0"
+    api "com.facebook.shimmer:shimmer:0.4.0"
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'
 
@@ -116,3 +121,5 @@ dependencies {
     //电商SDK
     api 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.210'
 }
+
+apply from: '../spotless.gradle'

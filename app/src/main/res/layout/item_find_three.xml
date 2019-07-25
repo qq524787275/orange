@@ -29,6 +29,7 @@
                         android:layout_height="wrap_content"
                         app:placeholderRes="@{R.mipmap.ic_silent_plate_max}"
                         app:aspecRatio="@{2.45f}"
+                        android:scaleType="centerCrop"
                         app:url="@{item.subjectBean.app_image}"/>
 
 

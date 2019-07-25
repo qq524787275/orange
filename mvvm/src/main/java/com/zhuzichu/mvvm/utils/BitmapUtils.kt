@@ -2,6 +2,9 @@ package com.zhuzichu.mvvm.utils
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
+import androidx.core.graphics.drawable.DrawableCompat
 
 
 /**
@@ -32,4 +35,10 @@ fun drawWriteToAlpha(mBitmap: Bitmap): Bitmap {
         }
     }
     return createBitmap
+}
+
+internal fun Drawable.tint(@ColorInt color: Int): Drawable {
+    val wrapped = DrawableCompat.wrap(this)
+    DrawableCompat.setTint(wrapped, color)
+    return wrapped
 }

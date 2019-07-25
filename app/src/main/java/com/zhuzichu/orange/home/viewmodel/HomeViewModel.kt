@@ -14,8 +14,8 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.bean.DeserveBean
+import com.zhuzichu.orange.bean.SalesBean
 import com.zhuzichu.orange.bean.ShopBean
-import com.zhuzichu.orange.bean.TalentcatBean
 import com.zhuzichu.orange.itemDiff
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
@@ -49,7 +49,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     val listBanner = MutableLiveData<List<Any>>()
 
-    val itemBindBanner = itemBindingOf<Any>(BR.item, R.layout.item_talent_banner)
+    val itemBindBanner = itemBindingOf<Any>(BR.item, R.layout.item_home_banner)
 
 
     val itemBindNavigation =
@@ -62,7 +62,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 ItemNavigationViewModel(this@HomeViewModel, "抢购", R.mipmap.a3),
                 ItemNavigationViewModel(this@HomeViewModel, "抖商", R.mipmap.a4),
                 ItemNavigationViewModel(this@HomeViewModel, "达人说", R.mipmap.a5),
-                ItemNavigationViewModel(this@HomeViewModel, "flutter", R.mipmap.a6),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a6),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a7),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a8),
                 ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a9),
@@ -78,24 +78,24 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         map<ItemHomeJuTaoVIewModel>(BR.item, R.layout.item_home_jutao)
     }.toItemBinding()
 
-    val deserveList = AsyncDiffObservableList(itemDiff<ItemHomeDeserveViewModel> { oldItem, newItem ->
+    private val deserveList = AsyncDiffObservableList(itemDiff<ItemHomeDeserveViewModel> { oldItem, newItem ->
         oldItem.deserveBean.itemid == newItem.deserveBean.itemid
     })
 
-    val hotShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
+    private val hotShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
         oldItem.shopBean.itemid == newItem.shopBean.itemid
     })
 
-    val juTaoShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
+    private val juTaoShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
         oldItem.shopBean.itemid == newItem.shopBean.itemid
     })
 
-    val list = MergeObservableList<Any>()
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList))
+    val list: MergeObservableList<Any> = MergeObservableList<Any>()
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList, R.drawable.background02))
         .insertList(deserveList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList))
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList, R.drawable.background01))
         .insertList(hotShopList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList))
+        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList, R.drawable.background03))
         .insertList(juTaoShopList)
 
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -116,7 +116,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     fun loadHomeData() {
         Flowable.zip(
-            NetRepositoryImpl.getTalentcat().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
+            NetRepositoryImpl.getHomeBannerList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
                 bindToLifecycle(getLifecycleProvider())
             ),
             NetRepositoryImpl.getDeserveList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
@@ -128,7 +128,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
             NetRepositoryImpl.getHomeJuTaoShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
                 bindToLifecycle(getLifecycleProvider())
             ).take(12),
-            Function4<BaseRes<TalentcatBean>, BaseRes<List<DeserveBean>>, BaseRes<List<ShopBean>>, BaseRes<List<ShopBean>>, HomeData> { t1, t2, t3, t4 ->
+            Function4<BaseRes<List<SalesBean>>, BaseRes<List<DeserveBean>>, BaseRes<List<ShopBean>>, BaseRes<List<ShopBean>>, HomeData> { t1, t2, t3, t4 ->
                 HomeData(t1, t2, t3, t4)
             }
         ).observeOn(AndroidSchedulers.mainThread())
@@ -137,8 +137,8 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 uc.finishRefreshing.call()
             }
             .subscribe({
-                listBanner.value = it.talentcat.data.topdata.map { item ->
-                    ItemTalentBannerViewModel(this@HomeViewModel, item)
+                listBanner.value = it.salesList.data.map { item ->
+                    ItemHomeBannerViewModel(this@HomeViewModel, item)
                 }
 
                 deserveList.update(it.deserveList.item_info.map { item ->
@@ -152,14 +152,13 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 juTaoShopList.update(it.jutaoList.data.map { item ->
                     ItemHomeJuTaoVIewModel(this@HomeViewModel, item)
                 })
-
             }, {
                 handleThrowable(it)
             })
     }
 
     data class HomeData(
-        var talentcat: BaseRes<TalentcatBean>,
+        var salesList: BaseRes<List<SalesBean>>,
         var deserveList: BaseRes<List<DeserveBean>>,
         var hotList: BaseRes<List<ShopBean>>,
         var jutaoList: BaseRes<List<ShopBean>>

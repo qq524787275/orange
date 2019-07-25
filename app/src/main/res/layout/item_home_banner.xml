@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.zhuzichu.orange.R"/>
+        <variable name="item" type="com.zhuzichu.orange.home.viewmodel.ItemHomeBannerViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 app:onClickCommand="@{item.onItemClick}"
+                 app:widthPadding="@{150}"
+                 app:widthHeightRatio="@{1f}"
+                 app:isScale="@{true}">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardElevation="2.5dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:placeholderRes="@{R.mipmap.ic_silent_plate_max}"
+                    android:scaleType="centerCrop"
+                    app:url="@{item.salesBean.itempic}"/>
+
+            <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
+                    android:layout_width="180dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    app:shimmer_ribbon_drawable="@drawable/ribbon02"
+                    app:shimmer_ribbon_text="@{item.salesBean.itemshorttitle}"
+                    app:shimmer_ribbon_textColor="@color/white"
+                    app:shimmer_base_alpha="1.0"
+                    app:shimmer_ribbon_maxLines="1"
+                    app:shimmer_highlight_alpha="0.5"/>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+</layout>

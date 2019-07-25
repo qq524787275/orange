@@ -12,7 +12,7 @@ import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
-import com.zhuzichu.mvvm.global.cache.GlobalCache;
+import com.zhuzichu.mvvm.global.cache.CacheGlobal;
 import okhttp3.*;
 import okio.*;
 
@@ -37,7 +37,7 @@ public class GlobalGlideModel extends AppGlideModule {
 
     @Override
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
-        builder.setDiskCache(new DiskLruCacheFactory(GlobalCache.getGlideDiskCacheDir(context).getAbsolutePath(), MAX_DISK_CACHE_SIZE));
+        builder.setDiskCache(new DiskLruCacheFactory(CacheGlobal.INSTANCE.getGlideCacheDir().getAbsolutePath(), MAX_DISK_CACHE_SIZE));
     }
 
     @Override
@@ -179,7 +179,6 @@ public class GlobalGlideModel extends AppGlideModule {
          */
         float getGranualityPercentage();
     }
-
 
 
     private interface ResponseProgressListener {
