@@ -229,7 +229,6 @@
     </declare-styleable>
 
 
-
     <declare-styleable name="RibbonView">
         <attr name="ribbon_drawable" format="reference"/>
         <attr name="ribbon_background_color" format="color"/>
@@ -257,6 +256,7 @@
         <attr name="shimmer_ribbon_padding_top" format="dimension"/>
         <attr name="shimmer_ribbon_padding_right" format="dimension"/>
         <attr name="shimmer_ribbon_padding_bottom" format="dimension"/>
+        <attr name="shimmer_ribbon_maxLines" format="integer"/>
     </declare-styleable>
     <declare-styleable name="RibbonLayout">
         <attr name="ribbonLayout_header_align" format="enum">
@@ -268,6 +268,37 @@
             <enum name="left" value="8388611"/>
             <enum name="right" value="8388613"/>
             <enum name="center" value="17"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="DotsIndicator">
+        <attr format="dimension" name="dot_width"/>
+        <attr format="dimension" name="dot_height"/>
+        <attr format="dimension" name="dot_margin"/>
+        <attr format="reference" name="dot_drawable"/>
+        <attr format="reference" name="dot_drawable_unselected"/>
+        <attr format="color" name="dot_tint"/>
+        <attr format="reference" name="dots_animator"/>
+        <attr format="reference" name="dots_animator_reverse"/>
+        <attr format="enum" name="dots_orientation">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="dots_gravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
         </attr>
     </declare-styleable>
 </resources>

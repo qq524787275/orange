@@ -14,6 +14,10 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getHomeBannerList(): Flowable<BaseRes<List<SalesBean>>> {
+        return getSalersList(5, 1, 1)
+    }
+
     override fun getHomeJuTaoShopList(): Flowable<BaseRes<List<ShopBean>>> {
         return getShopList(2, 0, 20, 1)
     }

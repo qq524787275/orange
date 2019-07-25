@@ -5,15 +5,19 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+
     dataBinding {
         enabled = true
     }
+
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
     }
 
     buildTypes {
@@ -117,3 +121,5 @@ dependencies {
     //电商SDK
     api 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.210'
 }
+
+apply from: '../spotless.gradle'

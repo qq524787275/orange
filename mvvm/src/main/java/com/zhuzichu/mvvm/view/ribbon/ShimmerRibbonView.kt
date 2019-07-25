@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.Typeface
+import android.text.TextUtils
 import android.util.AttributeSet
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -98,18 +99,22 @@ class ShimmerRibbonView : ShimmerFrameLayout, RibbonInterface {
                 ribbonBackgroundColor
             )
             ribbonRadius =
-                    typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_ribbonRadius, ribbonRadius)
+                typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_ribbonRadius, ribbonRadius)
             paddingLeft = typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_left, paddingLeft)
             paddingTop = typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_top, paddingTop)
             paddingRight =
-                    typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_right, paddingRight)
+                typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_right, paddingRight)
             paddingBottom =
-                    typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_bottom, paddingBottom)
+                typeArray.getDimension(R.styleable.ShimmerRibbonView_shimmer_ribbon_padding_bottom, paddingBottom)
         }.apply {
+            maxLines = typeArray.getInt(R.styleable.ShimmerRibbonView_shimmer_ribbon_maxLines, Int.MAX_VALUE)
+            if (maxLines != Int.MAX_VALUE) {
+                ellipsize = TextUtils.TruncateAt.END
+            }
             text = typeArray.getString(R.styleable.ShimmerRibbonView_shimmer_ribbon_text)
             setTextColor(typeArray.getColor(R.styleable.ShimmerRibbonView_shimmer_ribbon_textColor, Color.WHITE))
             textSize =
-                    typeArray.getDimensionPixelSize(R.styleable.ShimmerRibbonView_shimmer_ribbon_textSize, 12).toFloat()
+                typeArray.getDimensionPixelSize(R.styleable.ShimmerRibbonView_shimmer_ribbon_textSize, 12).toFloat()
 
             when (typeArray.getInteger(R.styleable.ShimmerRibbonView_shimmer_ribbon_textStyle, 0)) {
                 0 -> typeface = Typeface.DEFAULT_BOLD

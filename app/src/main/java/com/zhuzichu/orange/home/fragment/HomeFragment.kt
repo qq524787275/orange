@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.layout.constant.RefreshState
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bus.RxBus
+import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.view.banner.ScaleLayoutManager
 import com.zhuzichu.orange.BR
@@ -86,9 +87,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun initBanner() {
-        val scaleLayoutManager = ScaleLayoutManager(_activity, 1)
-        scaleLayoutManager.minScale = 0.9f
+        val scaleLayoutManager = ScaleLayoutManager(_activity, -dip2px(5f))
+        scaleLayoutManager.minScale = 0.8f
         banner.layoutManager = scaleLayoutManager
+
     }
 
     override fun onSupportVisible() {
@@ -110,6 +112,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         _viewModel.uc.finishRefreshing.observe(this, Observer {
             refresh.finishRefresh()
             refresh.setNoMoreData(false)
+            banner.post {
+                dots.attachRecyclerView(banner)
+            }
         })
 
         _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {

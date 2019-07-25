@@ -9,6 +9,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.view.layout.MultiStateView
+import com.zhuzichu.mvvm.widget.DotsIndicator
 
 /**
  * Created by Android Studio.
@@ -77,4 +78,14 @@ fun onErrorCommand(
         ?.setOnClickListener {
             onStateErrorCommand?.execute()
         }
+}
+
+@BindingAdapter(value = ["dot_tint"], requireAll = false)
+fun bindDotsIndicator(
+    view: DotsIndicator,
+    @NonNull color: Int? = null
+) {
+    color?.let {
+        view.setDotTint(color)
+    }
 }

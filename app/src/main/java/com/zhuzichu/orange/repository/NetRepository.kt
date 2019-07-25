@@ -74,4 +74,6 @@ interface NetRepository {
     fun getHomeHotShopList(): Flowable<BaseRes<List<ShopBean>>>
 
     fun getHomeJuTaoShopList(): Flowable<BaseRes<List<ShopBean>>>
+
+    fun getHomeBannerList(): Flowable<BaseRes<List<SalesBean>>>
 }
