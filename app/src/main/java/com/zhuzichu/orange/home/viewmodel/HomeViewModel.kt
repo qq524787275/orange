@@ -16,7 +16,6 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.bean.DeserveBean
 import com.zhuzichu.orange.bean.SalesBean
 import com.zhuzichu.orange.bean.ShopBean
-import com.zhuzichu.orange.itemDiff
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import io.reactivex.Flowable
@@ -78,15 +77,15 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         map<ItemHomeJuTaoVIewModel>(BR.item, R.layout.item_home_jutao)
     }.toItemBinding()
 
-    private val deserveList = AsyncDiffObservableList(itemDiff<ItemHomeDeserveViewModel> { oldItem, newItem ->
+    private val deserveList = AsyncDiffObservableList(itemDiffOf<ItemHomeDeserveViewModel> { oldItem, newItem ->
         oldItem.deserveBean.itemid == newItem.deserveBean.itemid
     })
 
-    private val hotShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
+    private val hotShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeHotViewModel> { oldItem, newItem ->
         oldItem.shopBean.itemid == newItem.shopBean.itemid
     })
 
-    private val juTaoShopList = AsyncDiffObservableList(itemDiff<ItemHomeHotViewModel> { oldItem, newItem ->
+    private val juTaoShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeHotViewModel> { oldItem, newItem ->
         oldItem.shopBean.itemid == newItem.shopBean.itemid
     })
 

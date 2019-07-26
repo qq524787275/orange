@@ -4,9 +4,9 @@ import android.app.Application
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.itemBindingOf
+import com.zhuzichu.mvvm.utils.itemDiffOf
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.itemDiff
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
 /**
@@ -19,7 +19,7 @@ import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 class FlutterLearnViewModel(application: Application) : BaseViewModel(application) {
     val color= ColorGlobal
     val list =
-        DiffObservableList(itemDiff<ItemFlutterLearnViewModel> { oldItem, newItem -> oldItem.title == newItem.title })
+        DiffObservableList(itemDiffOf<ItemFlutterLearnViewModel> { oldItem, newItem -> oldItem.title == newItem.title })
             .apply {
                 update(
                     listOf(

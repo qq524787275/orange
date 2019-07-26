@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.login.viewmodel.LoginViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@mipmap/login_back"
+                android:scaleType="centerCrop"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/black"
+              android:alpha="0.5"/>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srlEnablePureScrollMode="true"
+                app:srlDragRate="0.75">
+
+            <ScrollView android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:paddingLeft="20dp"
+                              android:paddingRight="20dp"
+                              android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="欢迎来到橙子街"
+                            android:textSize="30sp"
+                            android:layout_marginTop="150dp"
+                            android:textColor="@color/white"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/white"
+                            android:layout_marginTop="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/username"
+                                style="@style/StyledTilEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="用户名"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColorHint="@color/white"
+                            android:layout_marginTop="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/password"
+                                style="@style/StyledTilEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="密码"
+                                android:inputType="textPassword"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="忘记密码?"
+                            android:layout_marginTop="20dp"
+                            android:textSize="14sp"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            app:shimmer_base_alpha="1.0"
+                            app:shimmer_highlight_alpha="0.7">
+
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                app:cardCornerRadius="5dp"
+                                android:layout_height="match_parent">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="登录"
+                                    android:layout_gravity="center"
+                                    android:textSize="15sp"/>
+                        </androidx.cardview.widget.CardView>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center"
+                                  android:layout_marginTop="5dp"
+                                  android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="亲,没有账号吗？"
+                                android:textSize="14sp"
+                                android:textColor="@color/white"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:fromHtml='@{"&lt;u&gt;注册&lt;/u&gt;"}'
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </FrameLayout>
+</layout>
