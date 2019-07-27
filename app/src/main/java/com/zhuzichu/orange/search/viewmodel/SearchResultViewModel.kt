@@ -13,7 +13,6 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.itemDiff
 import com.zhuzichu.orange.repository.DbRepositoryImpl
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
@@ -75,7 +74,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
         )
     }
 
-    val itemList = AsyncDiffObservableList(itemDiff<ItemResultViewModel> { oldItem, newItem ->
+    val itemList = AsyncDiffObservableList(itemDiffOf<ItemResultViewModel> { oldItem, newItem ->
         oldItem.searchBean.itemid == newItem.searchBean.itemid
     })
 

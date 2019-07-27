@@ -7,7 +7,7 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.orange.checkLogin
+import com.zhuzichu.orange.utils.checkLogin
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.orange.utils.showTradeDetail
 import me.yokeyword.fragmentation.ISupportFragment

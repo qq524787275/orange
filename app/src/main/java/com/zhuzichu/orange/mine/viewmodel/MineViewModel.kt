@@ -16,6 +16,7 @@ import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.login.fragment.LoginFragment
 import com.zhuzichu.orange.mine.fragment.AboutFragment
 import com.zhuzichu.orange.mine.fragment.CacheFragment
 import com.zhuzichu.orange.mine.fragment.FlutterLearnFragment
@@ -90,6 +91,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickSetting = BindingCommand<Any>({
         "暂未开发".toast()
+        startFragment(LoginFragment())
     })
 
     val onClickActivies = BindingCommand<Any>({

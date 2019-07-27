@@ -18,17 +18,20 @@ abstract class AppDatabase : RoomDatabase() {
         private const val DATABASE_NAME = "orange-db-"
         private val databaseCache = SimpleArrayMap<String, AppDatabase>()
 
-        fun getInstance(): AppDatabase {
-            var appDatabase = databaseCache[AppGlobal.getAccount()]
+        fun getInstance(isAttachUser: Boolean = true): AppDatabase {
+            var key = DATABASE_NAME.plus(AppGlobal.getAccount())
+            if (!isAttachUser)
+                key = DATABASE_NAME
+            var appDatabase = databaseCache[key]
             if (appDatabase == null) {
                 appDatabase = buildDatabase()
-                databaseCache.put(AppGlobal.getAccount(), appDatabase)
+                databaseCache.put(key, appDatabase)
             }
             return appDatabase
         }
 
         private fun buildDatabase(): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME + AppGlobal.getAccount())
+            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME.plus(AppGlobal.getAccount()))
                 .addCallback(object : RoomDatabase.Callback() {
 
                 })
