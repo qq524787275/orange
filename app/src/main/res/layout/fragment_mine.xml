@@ -112,6 +112,7 @@
                                     android:layout_marginRight="10dp"
                                     android:layout_marginTop="15dp"
                                     android:layout_marginBottom="15dp"
+                                    tools:src="@mipmap/ic_user_avatar_two"
                                     app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"
                                     app:civ_border_color="@{viewModel.color.colorPrimary}"
                                     app:civ_border_width="4dp"
@@ -303,9 +304,9 @@
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_attention"/>
 
                             <TextView
@@ -336,9 +337,9 @@
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_collect"/>
 
                             <TextView
@@ -369,9 +370,9 @@
                                 app:onClickCommand="@{viewModel.onClickCollection}"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_recommend"/>
 
                             <TextView
@@ -396,6 +397,48 @@
                                 android:layout_height="50dp"
                                 android:background="@{viewModel.color.contentBackground}"
                                 android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingLeft="15dp"
+                                android:foreground="?attr/selectableItemBackgroundBorderless"
+                                app:onClickCommand="@{viewModel.onClickCollection}"
+                                android:paddingRight="15dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@mipmap/ic_shop_taobao"/>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="10"
+                                    android:text="淘宝账号未授权"
+                                    app:textColor="@{viewModel.color.textColorPrimary}"
+                                    android:textSize="14sp"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="去授权"
+                                    android:layout_marginEnd="15dp"
+                                    app:textColor="@{viewModel.color.colorPrimary}"
+                                    tools:textColor="@color/colorPrimary"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="12sp"
+                                    android:layout_height="12sp"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@mipmap/ic_arrow"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@{viewModel.color.contentBackground}"
+                                android:orientation="horizontal"
                                 android:layout_marginTop="10dp"
                                 app:onClickCommand="@{viewModel.onClickCache}"
                                 android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -403,9 +446,9 @@
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_approve"/>
 
                             <TextView
@@ -436,9 +479,9 @@
                                 android:paddingRight="15dp"
                                 app:onClickCommand="@{viewModel.onClickTheme}">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_message"/>
 
                             <TextView
@@ -476,9 +519,9 @@
                                 android:paddingRight="15dp"
                                 app:onClickCommand="@{viewModel.onClickAbout}">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_about"/>
 
                             <TextView
@@ -509,9 +552,9 @@
                                 app:onClickCommand="@{viewModel.onClickCollection}"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_feedback"/>
 
                             <TextView
@@ -543,9 +586,9 @@
                                 android:paddingLeft="15dp"
                                 android:paddingRight="15dp">
 
-                            <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:src="@mipmap/ic_my_approve"/>
 
                             <TextView

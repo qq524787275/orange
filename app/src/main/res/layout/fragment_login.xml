@@ -90,6 +90,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:text="忘记密码?"
+                            app:onClickCommand="@{viewModel.onClickForget}"
                             android:layout_marginTop="20dp"
                             android:textSize="14sp"/>
 
@@ -126,6 +127,7 @@
                                 app:fromHtml='@{"&lt;u&gt;注册&lt;/u&gt;"}'
                                 android:textSize="16sp"
                                 android:textStyle="bold"
+                                app:onClickCommand="@{viewModel.onClickRegist}"
                                 android:textColor="@color/white"/>
                     </LinearLayout>
 
