@@ -28,11 +28,6 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="NiceBanner">
-        <attr format="dimension" name="contentHorizontalPadding"/>
-        <attr format="dimension" name="contentItemMargin"/>
-    </declare-styleable>
-
     <declare-styleable name="CardView">
         <attr name="cardBackground" format="color"/>
     </declare-styleable>
@@ -46,25 +41,12 @@
         <attr name="circleViewColor" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="StandardGSYVideoPlayer">
-        <attr name="videoUrl" format="string"/>
-        <attr name="videoImage" format="string"/>
-    </declare-styleable>
-
     <declare-styleable name="EditText">
         <attr name="disableInput" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="MaterialHeader">
-        <attr name="mhPrimaryColor" format="color"/>
-        <attr name="mhShadowColor" format="color"/>
-        <attr name="mhShadowRadius" format="dimension"/>
-        <attr name="mhShowBezierWave" format="boolean"/>
-    </declare-styleable>
-
-    <attr name="stickyHeaderId" format="reference"/>
     <declare-styleable name="StickyHeaderLayout">
-        <attr name="stickyHeaderId"/>
+        <attr name="stickyHeaderId" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="Chip">
@@ -151,83 +133,12 @@
         <attr name="onLoadMoreCommand" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="Banner">
-        <attr name="bannerImages"/>
-        <attr name="delay_time" format="integer"/>
-        <attr name="scroll_time" format="integer"/>
-        <attr name="is_auto_play" format="boolean"/>
-        <attr name="title_background" format="color|reference"/>
-        <attr name="title_textcolor" format="color"/>
-        <attr name="title_textsize" format="dimension"/>
-        <attr name="title_height" format="dimension"/>
-        <attr name="indicator_width" format="dimension"/>
-        <attr name="indicator_height" format="dimension"/>
-        <attr name="indicator_margin" format="dimension"/>
-        <attr name="indicator_drawable_selected" format="reference"/>
-        <attr name="indicator_drawable_unselected" format="reference"/>
-        <attr name="banner_layout" format="reference"/>
-        <attr name="banner_default_image" format="reference"/>
-        <attr name="image_scale_type" format="enum">
-            <enum name="center" value="0"/>
-            <enum name="center_crop" value="1"/>
-            <enum name="center_inside" value="2"/>
-            <enum name="fit_center" value="3"/>
-            <enum name="fit_end" value="4"/>
-            <enum name="fit_start" value="5"/>
-            <enum name="fit_xy" value="6"/>
-            <enum name="matrix" value="7"/>
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="FlowLayout">
-        <attr name="flFlow" format="boolean"/>
-        <attr name="flChildSpacing" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
-        </attr>
-        <attr name="flMinChildSpacing" format="dimension"/>
-        <attr name="flChildSpacingForLastRow" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
-            <enum name="align" value="-65537"/>
-        </attr>
-        <attr name="flRowSpacing" format="enum|dimension">
-            <enum name="auto" value="-65536"/>
-        </attr>
-        <attr name="flRtl" format="boolean"/>
-        <attr name="flMaxRows" format="integer"/>
-        <attr name="flRowVerticalGravity" format="enum">
-            <enum name="auto" value="-65536"/>
-            <enum name="top" value="0x30"/>
-            <enum name="center" value="0x10"/>
-            <enum name="bottom" value="0x50"/>
-        </attr>
-        <attr name="android:gravity"/>
-    </declare-styleable>
-
-    <declare-styleable name="SwipeLayout">
-        <attr name="drag_edge">
-            <flag name="left" value="1"/>
-            <flag name="right" value="2"/>
-            <flag name="top" value="4"/>
-            <flag name="bottom" value="8"/>
-        </attr>
-        <attr name="leftEdgeSwipeOffset" format="dimension"/>
-        <attr name="rightEdgeSwipeOffset" format="dimension"/>
-        <attr name="topEdgeSwipeOffset" format="dimension"/>
-        <attr name="bottomEdgeSwipeOffset" format="dimension"/>
-        <attr name="show_mode" format="enum">
-            <enum name="lay_down" value="0"/>
-            <enum name="pull_out" value="1"/>
-        </attr>
-        <attr name="clickToClose" format="boolean"/>
-    </declare-styleable>
-
     <declare-styleable name="BottomNavigationView">
         <attr name="textColor"/>
         <attr name="selectedTextColor" format="color"/>
         <attr name="iconColor" format="color"/>
         <attr name="selectedIconColor" format="color"/>
     </declare-styleable>
-
 
     <declare-styleable name="RibbonView">
         <attr name="ribbon_drawable" format="reference"/>
