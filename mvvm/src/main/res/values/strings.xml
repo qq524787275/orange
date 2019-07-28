@@ -17,6 +17,10 @@
     <string name="collection">收藏</string>
     <string name="advise_time">建议发送时间：</string>
     <string name="rmb">¥</string>
+    <string name="mine_taobao_auth">淘宝账号已授权</string>
+    <string name="mine_taobao_noauth">淘宝账号未授权</string>
+    <string name="mine_taobao_login">去授权</string>
+    <string name="mine_taobao_logout">退出登录</string>
 
     <string name="colors">主题颜色选择</string>
     <string name="select">确定</string>

@@ -44,12 +44,11 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
         val onShowLogoutSnackbarEvent = SingleLiveEvent<Any>()
     }
 
-
-    val onClickLogin = BindingCommand<Any>({
+    val onClickAuthorize = BindingCommand<Any>({
         PlaneMaker.showLoadingDialog(_activity, false)
         AlibcLogin.getInstance().showLogin(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
-                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.isAuth.set(AlibcLogin.getInstance().isLogin)
                 AppGlobal.session.set(AlibcLogin.getInstance().session)
                 PlaneMaker.dismissLodingDialog()
             }
@@ -59,6 +58,11 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
                 PlaneMaker.dismissLodingDialog()
             }
         })
+    })
+
+
+    val onClickLogin = BindingCommand<Any>({
+        startFragment(LoginFragment())
     })
 
     val onClickLogout = BindingCommand<Any>({
@@ -91,7 +95,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickSetting = BindingCommand<Any>({
         "暂未开发".toast()
-        startFragment(LoginFragment())
     })
 
     val onClickActivies = BindingCommand<Any>({

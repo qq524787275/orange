@@ -1,10 +1,13 @@
 package com.zhuzichu.mvvm.http;
 
 import androidx.annotation.NonNull
+import androidx.collection.SimpleArrayMap
 import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.http.converter.MyGsonConverterFactory
 import com.zhuzichu.mvvm.http.interceptor.HttpLoggingInterceptor
+import com.zhuzichu.mvvm.utils.encryptPolicy
 import okhttp3.*
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -21,9 +24,9 @@ import java.util.logging.Level
  */
 object AppRetrofit {
 
-    private val retrofitMap = HashMap<String, Retrofit>()
+    private val retrofitMap = SimpleArrayMap<String, Retrofit>()
 
-    private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean = true) {
+    private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean = true, isEncrypt: Boolean = false) {
         val timeOut = AppConfig.HTTP_TIME_OUT
         val cache = Cache(
             CacheGlobal.getHttpCacheDir(),
@@ -36,7 +39,7 @@ object AppRetrofit {
 
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(timeOut.toLong(), TimeUnit.MILLISECONDS)
-            .addInterceptor(BaseInterceptor())
+            .addInterceptor(BaseInterceptor(isEncrypt))
             .addNetworkInterceptor(NetworkBaseInterceptor())
             .addInterceptor(loggingInterceptor)
             .cache(cache)
@@ -53,11 +56,11 @@ object AppRetrofit {
             builder.addConverterFactory(ScalarsConverterFactory.create())
         }
 
-        retrofitMap["$baseUrl-$isJson"] = builder.build()
+        retrofitMap.put("$baseUrl-$isJson-$isEncrypt", builder.build())
     }
 
-    fun getRetrofit(baseUrl: String, isJson: Boolean = true): Retrofit {
-        val key = "$baseUrl-$isJson"
+    fun getRetrofit(baseUrl: String, isJson: Boolean = true, isEncrypt: Boolean = true): Retrofit {
+        val key = "$baseUrl-$isJson-$isEncrypt"
         if (!retrofitMap.containsKey(key)) {
             createRetrofit(baseUrl, isJson)
         }
@@ -67,25 +70,25 @@ object AppRetrofit {
     /**
      * 拦截器
      */
-    private class BaseInterceptor : Interceptor {
+    private class BaseInterceptor(val encrypt: Boolean) : Interceptor {
         @Throws(IOException::class)
         override fun intercept(@NonNull chain: Interceptor.Chain): Response {
             var request = chain.request()
-            if (request.method() == "POST") {
+            if (request.method() == "POST" && encrypt) {
                 val body = request.body()
                 if (body is FormBody) {
-                    val bodyBuilder = FormBody.Builder()
+                    val jsonObject = JSONObject()
                     //将以前的参数添加
                     for (i in 0 until body.size()) {
-                        bodyBuilder.add(body.encodedName(i), body.encodedValue(i))
+                        jsonObject.put(body.encodedName(i), body.encodedValue(i))
                     }
-                    //添加全局参数
-//                    bodyBuilder.add("sign", "015bea041fa53399019c79fc3195919c")
-//                    bodyBuilder.add(
-//                        "policy",
-//                        "iLL57l2aXeYAWfnMQfItbVoczhdrlTDL0%252FkIVku7c6FgRbs2xLK9YY6HXpkTL3mZtO5ysJwkoyKa%250AXyE%252Fua3Ht0aGluD1cOzOmbznm13ACQwYPE9nYp0zixww1Sua933ZfZ9bE34vIcHl43k3m5DzZU0d%250A2A5zH64ZQ5MUnty%252F9ts%253D%250A"
-//                    )
-                    request = request.newBuilder().post(bodyBuilder.build()).build()
+                    val json = jsonObject.toString()
+                    request = request.newBuilder().post(
+                        FormBody.create(
+                            MediaType.parse("application/json"),
+                            encryptPolicy(json)
+                        )
+                    ).build()
                 }
             }
 

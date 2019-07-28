@@ -16,11 +16,11 @@ import com.zhuzichu.orange.view.plane.PlaneMaker
  */
 
 fun checkLogin(context: Context, funcation: () -> Unit) {
-    if (!AppGlobal.isLogin.get()) {
+    if (!AppGlobal.isAuth.get()) {
         PlaneMaker.showLoadingDialog(context, false)
         AlibcLogin.getInstance().showLogin(object : AlibcLoginCallback {
             override fun onSuccess(i: Int) {
-                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.isAuth.set(AlibcLogin.getInstance().isLogin)
                 AppGlobal.session.set(AlibcLogin.getInstance().session)
                 funcation.invoke()
                 PlaneMaker.dismissLodingDialog()

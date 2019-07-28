@@ -101,7 +101,7 @@
                         <RelativeLayout android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:background="@{viewModel.color.contentBackground}"
-                                        app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSetting}">
+                                        app:onClickCommand="@{!viewModel.global.isAuth?viewModel.onClickLogin:viewModel.onClickSetting}">
 
 
                             <com.zhuzichu.mvvm.view.imageview.CircularImageView
@@ -113,7 +113,7 @@
                                     android:layout_marginTop="15dp"
                                     android:layout_marginBottom="15dp"
                                     tools:src="@mipmap/ic_user_avatar_two"
-                                    app:url="@{viewModel.global.isLogin?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"
+                                    app:url="@{viewModel.global.isAuth?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"
                                     app:civ_border_color="@{viewModel.color.colorPrimary}"
                                     app:civ_border_width="4dp"
                                     app:civ_shadow="false"/>
@@ -124,7 +124,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toRightOf="@+id/avatar"
                                     android:layout_centerVertical="true"
-                                    android:text="@{viewModel.global.isLogin?viewModel.global.session.nick:@string/login}"
+                                    android:text="@{viewModel.global.isAuth?viewModel.global.session.nick:@string/login}"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="16sp"/>
 
@@ -400,7 +400,7 @@
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
                                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                                app:onClickCommand="@{viewModel.onClickCollection}"
+                                app:onClickCommand="@{viewModel.onClickAuthorize}"
                                 android:paddingRight="15dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -414,14 +414,14 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
                                     android:layout_weight="10"
-                                    android:text="淘宝账号未授权"
+                                    android:text='@{viewModel.global.isAuth?@string/mine_taobao_auth:@string/mine_taobao_noauth}'
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="去授权"
+                                    android:text='@{viewModel.global.isAuth?@string/mine_taobao_logout:@string/mine_taobao_login}'
                                     android:layout_marginEnd="15dp"
                                     app:textColor="@{viewModel.color.colorPrimary}"
                                     tools:textColor="@color/colorPrimary"/>
@@ -626,7 +626,7 @@
                                     android:gravity="center"
                                     android:textSize="14sp"
                                     app:textColor="@{viewModel.color.contentBackground}"
-                                    android:visibility="@{viewModel.global.isLogin?View.VISIBLE:View.GONE}"
+                                    android:visibility="@{viewModel.global.isAuth?View.VISIBLE:View.GONE}"
                                     android:textStyle="bold"
                                     android:padding="10dp"
                                     android:background="@{viewModel.color.colorPrimary}"/>

@@ -12,8 +12,8 @@ object AppGlobal {
 
     lateinit var context: Application
 
-
     val isLogin = ObservableBoolean(false)
+    val isAuth = ObservableBoolean(false)
     val session = ObservableField(Session())
 
     fun init(context: Application) {

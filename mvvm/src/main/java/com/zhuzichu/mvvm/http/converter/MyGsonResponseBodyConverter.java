@@ -50,7 +50,10 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
                 case ExceptionHandle.ERROR.NO_DATA:
                     return;
                 default:
-                    throw new ResponseThrowable("不清楚什么原因！", code);
+                    String msg = result.getMsg();
+                    if(msg==null)
+                        msg="不清楚什么原因！";
+                    throw new ResponseThrowable(msg, code);
             }
         }
     }

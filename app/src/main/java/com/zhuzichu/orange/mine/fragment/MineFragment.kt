@@ -68,7 +68,7 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
                 this.setAction("确定") {
                     AlibcLogin.getInstance().logout(object : AlibcLoginCallback {
                         override fun onSuccess(i: Int) {
-                            AppGlobal.isLogin.set(false)
+                            AppGlobal.isAuth.set(false)
                             AppGlobal.session.set(Session())
                         }
 

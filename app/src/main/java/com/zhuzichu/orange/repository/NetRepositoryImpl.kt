@@ -14,6 +14,11 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+
+    override fun regist(username: String, password: String, phone: String, code: String): Flowable<BaseRes<TokenBean>> {
+        return getAppService().regist(username, password, phone, code)
+    }
+
     override fun getHomeBannerList(): Flowable<BaseRes<List<SalesBean>>> {
         return getSalersList(5, 1, 1)
     }

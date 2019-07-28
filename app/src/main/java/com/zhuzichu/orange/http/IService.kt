@@ -12,11 +12,16 @@ import com.zhuzichu.mvvm.http.AppRetrofit
 
 private const val HAODANKU_URL = "http://v2.api.haodanku.com"
 
-//private const val BASE_URL = "http://47.97.153.234:80"
+private const val APP_URL = "http://192.168.0.116:8011"
 
 interface IService {
     fun getHaoDankuService(): HaoDankuService {
         return AppRetrofit.getRetrofit(HAODANKU_URL)
             .create(HaoDankuService::class.java)
+    }
+
+    fun getAppService(isEncrypt: Boolean = true): AppService {
+        return AppRetrofit.getRetrofit(baseUrl = APP_URL, isEncrypt = isEncrypt)
+            .create(AppService::class.java)
     }
 }

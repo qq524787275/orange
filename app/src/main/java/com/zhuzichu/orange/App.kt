@@ -51,7 +51,7 @@ open class App : Application() {
         //电商SDK初始化
         AlibcTradeSDK.asyncInit(this, object : AlibcTradeInitCallback {
             override fun onSuccess() {
-                AppGlobal.isLogin.set(AlibcLogin.getInstance().isLogin)
+                AppGlobal.isAuth.set(AlibcLogin.getInstance().isLogin)
                 AppGlobal.session.set(AlibcLogin.getInstance().session)
                 "初始化成功".plus(AlibcLogin.getInstance().isLogin).logi()
             }

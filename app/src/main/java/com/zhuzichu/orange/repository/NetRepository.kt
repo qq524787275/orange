@@ -13,6 +13,13 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun regist(
+        username: String,
+        password: String,
+        phone: String,
+        code: String
+    ): Flowable<BaseRes<TokenBean>>
+
     fun getVideoList(
         cid: Int,
         back: Int,
