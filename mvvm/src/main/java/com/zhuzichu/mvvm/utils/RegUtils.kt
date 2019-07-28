@@ -6,8 +6,6 @@ import java.util.*
 import java.util.regex.Pattern
 
 
-
-
 /**
  * 正则：电话号码
  */
@@ -68,7 +66,7 @@ const val REGEX_MOBILE_EXACT = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8]
  * @param mobiles
  * @return
  */
-fun isMobile(mobiles: String?): Boolean {
+fun isMobile(mobiles: String): Boolean {
     val p =
         Pattern.compile("^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$")
     val m = p.matcher(mobiles)
@@ -81,7 +79,7 @@ fun isMobile(mobiles: String?): Boolean {
  * @param cardNo
  * @return
  */
-fun isBankCard(cardNo: String?): Boolean {
+fun isBankCard(cardNo: String): Boolean {
     val p =
         Pattern.compile("^\\d{16,19}$|^\\d{6}[- ]\\d{10,13}$|^\\d{4}[- ]\\d{4}[- ]\\d{4}[- ]\\d{4,7}$")
     val m = p.matcher(cardNo)
@@ -94,7 +92,7 @@ fun isBankCard(cardNo: String?): Boolean {
  * @param idCard
  * @return
  */
-fun validateIdCard(idCard: String?): Boolean {
+fun validateIdCard(idCard: String): Boolean {
     // 15位和18位身份证号码的正则表达式
 
     val regIdCard =
@@ -176,7 +174,7 @@ fun isIDCard(string: String): Boolean {
  * @throws ParseException
  */
 fun IDCardValidate(IDStr: String): String {
-    var errorInfo = ""// 记录错误信息
+    var errorInfo: String// 记录错误信息
 
     val ValCodeArr = arrayOf(
         "1", "0", "x", "9", "8", "7", "6", "5", "4",
@@ -226,8 +224,9 @@ fun IDCardValidate(IDStr: String): String {
     val gc = GregorianCalendar()
     val s = SimpleDateFormat("yyyy-MM-dd")
     try {
+        val parse = s.parse("$strYear-$strMonth-$strDay")
         if (gc.get(Calendar.YEAR) - Integer.parseInt(strYear) > 150
-            || gc.time.time - s.parse("$strYear-$strMonth-$strDay").time < 0
+            || gc.time.time - parse.time < 0
         ) {
             errorInfo = "身份证生日不在有效范围。"
             return errorInfo
@@ -251,7 +250,7 @@ fun IDCardValidate(IDStr: String): String {
 
 
     val h = GetAreaCode()
-    if (h.get(Ai.substring(0, 2)) == null) {
+    if (h[Ai.substring(0, 2)] == null) {
         errorInfo = "身份证地区编码错误。"
         return errorInfo
     }
@@ -409,7 +408,7 @@ fun isIP(string: String): Boolean {
  * @param string 要匹配的字符串
  * @return `true`: 匹配<br></br>`false`: 不匹配
  */
-fun isMatch(regex: String?, string: String): Boolean {
+fun isMatch(regex: String, string: String): Boolean {
     return string.isNotBlank() && Pattern.matches(regex, string)
 }
 
@@ -427,7 +426,7 @@ fun isMatch(regex: String?, string: String): Boolean {
  * **电话号码：**这包含从 0 到 9 的一个或多个数字
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkPhone(phone: String?): Boolean {
+fun checkPhone(phone: String): Boolean {
     val regex = "(\\+\\d+)?(\\d{3,4}\\-?)?\\d{7,8}$"
     return Pattern.matches(regex, phone)
 }
@@ -438,7 +437,7 @@ fun checkPhone(phone: String?): Boolean {
  * @param digit 一位或多位0-9之间的整数
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkDigit(digit: String?): Boolean {
+fun checkDigit(digit: String): Boolean {
     val regex = "\\-?[1-9]\\d+"
     return Pattern.matches(regex, digit)
 }
@@ -449,7 +448,7 @@ fun checkDigit(digit: String?): Boolean {
  * @param decimals 一位或多位0-9之间的浮点数，如：1.23，233.30
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkDecimals(decimals: String?): Boolean {
+fun checkDecimals(decimals: String): Boolean {
     val regex = "\\-?[1-9]\\d+(\\.\\d+)?"
     return Pattern.matches(regex, decimals)
 }
@@ -460,7 +459,7 @@ fun checkDecimals(decimals: String?): Boolean {
  * @param blankSpace 空白字符，包括：空格、\t、\n、\r、\f、\x0B
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkBlankSpace(blankSpace: String?): Boolean {
+fun checkBlankSpace(blankSpace: String): Boolean {
     val regex = "\\s+"
     return Pattern.matches(regex, blankSpace)
 }
@@ -471,7 +470,7 @@ fun checkBlankSpace(blankSpace: String?): Boolean {
  * @param birthday 日期，格式：1992-09-03，或1992.09.03
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkBirthday(birthday: String?): Boolean {
+fun checkBirthday(birthday: String): Boolean {
     val regex = "[1-9]{4}([-./])\\d{1,2}\\1\\d{1,2}"
     return Pattern.matches(regex, birthday)
 }
@@ -482,7 +481,7 @@ fun checkBirthday(birthday: String?): Boolean {
  * @param postcode 邮政编码
  * @return 验证成功返回true，验证失败返回false
  */
-fun checkPostcode(postcode: String?): Boolean {
+fun checkPostcode(postcode: String): Boolean {
     val regex = "[1-9]\\d{5}"
     return Pattern.matches(regex, postcode)
 }

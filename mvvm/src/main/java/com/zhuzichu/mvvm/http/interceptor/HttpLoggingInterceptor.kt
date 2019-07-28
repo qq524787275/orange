@@ -150,7 +150,7 @@ class HttpLoggingInterceptor(tag: String) : Interceptor {
                         val bytes =
                             IOUtils.toByteArray(responseBody.byteStream())
                         val contentType = responseBody.contentType()
-                        val body = String(bytes!!, getCharset(contentType)!!)
+                        val body = String(bytes, getCharset(contentType)!!)
                         log("\tbody:$body")
                         responseBody = ResponseBody.create(responseBody.contentType(), bytes)
                         return response.newBuilder().body(responseBody).build()
