@@ -72,9 +72,9 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
 
     fun loadShopSort() {
         NetRepositoryImpl.getShopSort()
-            .compose(bindToLifecycle(getLifecycleProvider()))
-            .compose(schedulersTransformer())
-            .compose(exceptionTransformer())
+            .bindToException()
+            .bindToSchedulers()
+            .bindToLifecycle(getLifecycleProvider())
             .map {
                 val list = mutableListOf<ItemLeftViewModel>()
                 it.general_classify.forEach { itemClassify ->
@@ -95,8 +95,8 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
     private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
         itemLeftViewModel.isSelected.set(true)
         Flowable.fromArray(itemLeftViewModel.sortBean.data)
-            .compose(bindToLifecycle(getLifecycleProvider()))
-            .compose(schedulersTransformer())
+            .bindToLifecycle(getLifecycleProvider())
+            .bindToSchedulers()
             .map {
                 val list = mutableListOf<Any>()
                 it.forEach { itemData ->

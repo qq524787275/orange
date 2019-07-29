@@ -68,8 +68,10 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     api "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     api "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
-    api "com.trello.rxlifecycle3:rxlifecycle:$rootProject.rxlifecycleVersion"
+
+
     api "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxlifecycleVersion"
+
     api "com.afollestad.material-dialogs:core:$rootProject.materialDialogsVersion"
     api "com.afollestad.material-dialogs:color:$rootProject.materialDialogsVersion"
     api "com.afollestad.material-dialogs:bottomsheets:$rootProject.materialDialogsVersion"
