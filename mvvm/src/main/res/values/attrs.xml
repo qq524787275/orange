@@ -118,7 +118,6 @@
         <attr name="onScrollStateChangedCommand" format="reference"/>
         <attr name="gridLayoutManager" format="integer"/>
         <attr name="spanSizeLookup" format="reference"/>
-        <attr name="bindNineImages" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AdapterView">

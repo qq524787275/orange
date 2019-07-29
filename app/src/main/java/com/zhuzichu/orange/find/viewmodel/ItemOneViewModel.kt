@@ -3,10 +3,14 @@ package com.zhuzichu.orange.find.viewmodel
 import android.content.ClipData
 import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.BR
+import com.zhuzichu.orange.R
 import com.zhuzichu.orange.bean.SelectedItemBean
 
 
@@ -22,6 +26,12 @@ class ItemOneViewModel(
     var selectedItemBean: SelectedItemBean
 ) : ItemViewModel<FindOneViewModel>(viewModel) {
     val color = ColorGlobal
+    val list = MutableLiveData<List<Any>>().apply {
+        value = selectedItemBean.itempic.map {
+            ItemOneImageViewModel(viewModel, it.plus("_310x310.jpg"),it,selectedItemBean.itempic)
+        }
+    }
+    val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_one_image)
     val onClickCopy = BindingCommand<Any>({
         //获取剪贴板管理器：
         val cm = ContextCompat.getSystemService(viewModel._context, ClipboardManager::class.java)
