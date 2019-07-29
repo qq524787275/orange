@@ -224,7 +224,7 @@ fun IDCardValidate(IDStr: String): String {
     val gc = GregorianCalendar()
     val s = SimpleDateFormat("yyyy-MM-dd")
     try {
-        val parse = s.parse("$strYear-$strMonth-$strDay")
+        val parse = s.parse("$strYear-$strMonth-$strDay")!!
         if (gc.get(Calendar.YEAR) - Integer.parseInt(strYear) > 150
             || gc.time.time - parse.time < 0
         ) {

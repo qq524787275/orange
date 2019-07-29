@@ -1,6 +1,8 @@
 package com.zhuzichu.orange.login.fragment
 
+import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseFragment
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentRegistBinding
@@ -15,5 +17,13 @@ class RegistFragment : BaseFragment<FragmentRegistBinding, RegistViewModel>() {
     override fun initView() {
         super.initView()
         showSoftInput(username)
+    }
+
+    override fun initViewObservable() {
+        super.initViewObservable()
+        _viewModel.uc.onClickCodeEvent.observe(this, Observer {
+            "点击饿了".toast()
+            timeButton.start(this)
+        })
     }
 }

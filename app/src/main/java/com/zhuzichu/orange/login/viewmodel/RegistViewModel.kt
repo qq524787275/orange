@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
+import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.repository.NetRepositoryImpl
@@ -15,6 +16,16 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
     val confirmPassword = ObservableField<String>("18229858146")
     val phone = ObservableField<String>("18229858146")
     val code = ObservableField<String>("45678")
+
+    val uc = UIChangeObservable()
+
+    inner class UIChangeObservable {
+        val onClickCodeEvent = SingleLiveEvent<Any>()
+    }
+
+    val onClickCode = BindingCommand<Any>({
+        uc.onClickCodeEvent.call()
+    })
 
     val onClickRegist = BindingCommand<Any>({
         val username = username.get()

@@ -113,22 +113,37 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColorHint="@color/white"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="15dp">
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="horizontal"
+                                  android:animateLayoutChanges="true"
+                                  android:layout_marginTop="15dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/phone"
-                                style="@style/StyledTilEditText"
-                                android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="@={viewModel.phone}"
-                                android:hint="手机号"/>
+                                android:textColorHint="@color/white"
+                                android:orientation="horizontal">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/phone"
+                                    style="@style/StyledTilEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@={viewModel.phone}"
+                                    android:hint="手机号"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.zhuzichu.mvvm.view.button.TimeButton
+                                android:id="@+id/timeButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:onClickCommand="@{viewModel.onClickCode}"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/white"/>
+                    </LinearLayout>
 
 
                     <com.google.android.material.textfield.TextInputLayout
