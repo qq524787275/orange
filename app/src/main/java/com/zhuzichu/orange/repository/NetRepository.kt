@@ -13,6 +13,10 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun getRegistCode(
+        phone: String
+    ): Flowable<BaseRes<String>>
+
     fun regist(
         username: String,
         password: String,

@@ -22,7 +22,6 @@ class RegistFragment : BaseFragment<FragmentRegistBinding, RegistViewModel>() {
     override fun initViewObservable() {
         super.initViewObservable()
         _viewModel.uc.onClickCodeEvent.observe(this, Observer {
-            "点击饿了".toast()
             timeButton.start(this)
         })
     }

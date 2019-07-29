@@ -18,4 +18,12 @@ interface AppService {
         @Field("code") code: String
     ): Flowable<BaseRes<TokenBean>>
 
+
+    @FormUrlEncoded
+    @POST("api/sms/getRegistCode")
+    fun getRegistCode(
+        @Field("phone") phone: String
+    ): Flowable<BaseRes<String>>
+
+
 }

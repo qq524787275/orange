@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.map
-import com.zhuzichu.mvvm.utils.schedulersTransformer
-import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.db.SearchHistory
@@ -72,8 +69,8 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     @SuppressLint("CheckResult")
     fun loadHistoryData() {
         DbRepositoryImpl.getSearchHistoryList()
-            .compose(bindToLifecycle(getLifecycleProvider()))
-            .compose(schedulersTransformer())
+            .bindToLifecycle(getLifecycleProvider())
+            .bindToSchedulers()
             .map {
                 val list = mutableListOf<Any>()
                 it.forEach { item ->
@@ -90,8 +87,8 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
 
     fun loadHotKeyData() {
         NetRepositoryImpl.getHotKeyList()
-            .compose(bindToLifecycle(getLifecycleProvider()))
-            .compose(schedulersTransformer())
+            .bindToLifecycle(getLifecycleProvider())
+            .bindToSchedulers()
             .map { it.data }
             .flatMap { Flowable.fromIterable(it) }
             .take(10)

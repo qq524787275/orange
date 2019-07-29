@@ -6,11 +6,12 @@ import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 
 class RegistViewModel(application: Application) : BaseViewModel(application) {
-
+    val preference by lazy { AppPreference() }
     val username = ObservableField<String>("18229858146")
     val password = ObservableField<String>("18229858146")
     val confirmPassword = ObservableField<String>("18229858146")
@@ -25,9 +26,20 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickCode = BindingCommand<Any>({
         uc.onClickCodeEvent.call()
+        getRegistCode()
     })
 
     val onClickRegist = BindingCommand<Any>({
+        loadRegist(false)
+    })
+
+    val onClickRegistAndLogin = BindingCommand<Any>({
+        loadRegist(true)
+    })
+
+
+    @SuppressLint("CheckResult")
+    private fun loadRegist(isLlogin: Boolean) {
         val username = username.get()
         val password = password.get()
         val confirmPassword = confirmPassword.get()
@@ -66,28 +78,60 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                 "验证码不能为空".toast()
                 break
             }
-            loadRegist(username, password, phone, code)
+            NetRepositoryImpl.regist(username, password, phone, code)
+                .bindToSchedulers()
+                .bindToException()
+                .bindToLifecycle(getLifecycleProvider())
+                .doOnSubscribe {
+                    showLoadingDialog()
+                }
+                .doFinally {
+                    hideLoadingDialog()
+                }
+                .subscribe(
+                    {
+                        it.data.token.toast()
+                        preference.token = it.data.token
+                    },
+                    {
+                        handleThrowable(it)
+                    }
+                )
+
         } while (false)
-    })
+
+    }
 
     @SuppressLint("CheckResult")
-    private fun loadRegist(
-        username: String,
-        password: String,
-        phone: String,
-        code: String
-    ) {
-        NetRepositoryImpl.regist(username, password, phone, code)
-            .compose(bindToLifecycle(getLifecycleProvider()))
-            .compose(schedulersTransformer())
-            .compose(exceptionTransformer())
-            .subscribe(
-                {
-                    it.data.token.toast()
-                },
-                {
-                    handleThrowable(it)
+    private fun getRegistCode() {
+        val phone = phone.get()
+        do {
+            if (phone.isNullOrBlank()) {
+                "手机号不能为空".toast()
+                break
+            }
+            if (!isMobileExact(phone)) {
+                "请输入一个有效的手机号".toast()
+                break
+            }
+            NetRepositoryImpl.getRegistCode(phone)
+                .bindToLifecycle(getLifecycleProvider())
+                .bindToException()
+                .bindToSchedulers()
+                .doOnSubscribe {
+                    showLoadingDialog()
                 }
-            )
+                .doFinally {
+                    hideLoadingDialog()
+                }
+                .subscribe(
+                    {
+
+                    },
+                    {
+                        handleThrowable(it)
+                    }
+                )
+        } while (false)
     }
 }

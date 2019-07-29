@@ -14,6 +14,9 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getRegistCode(phone: String): Flowable<BaseRes<String>> {
+        return getAppService(isEncrypt = false).getRegistCode(phone)
+    }
 
     override fun regist(username: String, password: String, phone: String, code: String): Flowable<BaseRes<TokenBean>> {
         return getAppService().regist(username, password, phone, code)

@@ -29,6 +29,7 @@ open class AppPreference {
 
     var isDark by PreferenceDelegates.boolean(defaultValue = false)
     var colorPrimary by PreferenceDelegates.int(defaultValue = R.color.colorPrimary.toColorById())
+    var token by PreferenceDelegates.string(defaultValue = null)
 
 
     private object PreferenceDelegates {

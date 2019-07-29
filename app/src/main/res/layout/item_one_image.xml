@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.zhuzichu.orange.R"/>
         <variable name="item" type="com.zhuzichu.orange.find.viewmodel.ItemOneImageViewModel"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,6 +17,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                     android:scaleType="centerCrop"
                     app:url="@{item.url}"/>
         </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
