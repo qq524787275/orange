@@ -1,6 +1,7 @@
-package com.zhuzichu.orange.bean
+package com.zhuzichu.mvvm.bean
 
-data class ShopDetailBean(
+
+data class SalesBean(
     var activity_type: String = "",
     var activityid: String = "",
     var coupon_condition: String = "",

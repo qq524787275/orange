@@ -2,13 +2,14 @@ package com.zhuzichu.orange.shopdetail.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import androidx.core.os.bundleOf
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.orange.utils.checkLogin
 import com.zhuzichu.orange.main.fragment.MainFragment
+import com.zhuzichu.orange.utils.checkLogin
 import com.zhuzichu.orange.utils.showTradeDetail
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -23,7 +24,11 @@ class ShopDetailViewModel(
 
 
     val onClickHome = BindingCommand<Any>({
-        startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
+        startFragment(
+            MainFragment(), launchMode = ISupportFragment.SINGLETASK, bundle = bundleOf(
+                MainFragment.POSITION to 0
+            )
+        )
     })
 
     val onClickCollection = BindingCommand<Any>({

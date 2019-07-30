@@ -8,7 +8,10 @@ import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.orange.login.fragment.LoginFragment
+import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.orange.repository.NetRepositoryImpl
+import me.yokeyword.fragmentation.ISupportFragment
 
 class RegistViewModel(application: Application) : BaseViewModel(application) {
     val preference by lazy { AppPreference() }
@@ -39,7 +42,7 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
 
 
     @SuppressLint("CheckResult")
-    private fun loadRegist(isLlogin: Boolean) {
+    private fun loadRegist(isLogin: Boolean) {
         val username = username.get()
         val password = password.get()
         val confirmPassword = confirmPassword.get()
@@ -90,8 +93,14 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                 }
                 .subscribe(
                     {
-                        it.data.token.toast()
                         preference.token = it.data.token
+                        if (isLogin) {
+                            "登录成功~".toast()
+                            startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
+                        } else {
+                            "注册成功~".toast()
+                            startFragment(LoginFragment(), launchMode = ISupportFragment.SINGLETASK)
+                        }
                     },
                     {
                         handleThrowable(it)

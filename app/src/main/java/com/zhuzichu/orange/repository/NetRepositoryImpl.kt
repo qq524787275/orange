@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.*
+import com.zhuzichu.mvvm.bean.*
 import com.zhuzichu.orange.http.IService
 import io.reactivex.Flowable
 
@@ -14,6 +14,11 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+
+    override fun login(username: String, password: String): Flowable<BaseRes<TokenBean>> {
+        return getAppService().login(username, password)
+    }
+
     override fun getRegistCode(phone: String): Flowable<BaseRes<String>> {
         return getAppService(isEncrypt = false).getRegistCode(phone)
     }

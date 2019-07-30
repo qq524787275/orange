@@ -1,7 +1,6 @@
-package com.zhuzichu.orange.bean
+package com.zhuzichu.mvvm.bean
 
-
-data class SalesBean(
+data class SearchBean(
     var activity_type: String = "",
     var activityid: String = "",
     var coupon_condition: String = "",
@@ -21,10 +20,11 @@ data class SalesBean(
     var fqcat: String = "",
     var general_index: String = "",
     var guide_article: String = "",
+    var index_name: String = "",
     var is_brand: String = "",
     var is_explosion: String = "",
     var is_live: String = "",
-    var isquality: Any = Any(),
+    var isquality: String = "",
     var itemdesc: String = "",
     var itemendprice: String = "",
     var itemid: String = "",
@@ -35,23 +35,20 @@ data class SalesBean(
     var itemsale2: String = "",
     var itemshorttitle: String = "",
     var itemtitle: String = "",
-    var me: Any = Any(),
+    var me: String = "",
     var online_users: String = "",
     var original_article: String = "",
     var original_img: String = "",
-    var planlink: Any = Any(),
+    var planlink: String = "",
     var product_id: String = "",
-    var report_status: String = "",
     var seller_id: String = "",
     var seller_name: String = "",
     var sellernick: String = "",
     var shopid: String = "",
     var shopname: String = "",
     var shoptype: String = "",
-    var son_category: String = "",
     var start_time: String = "",
     var starttime: String = "",
-    var taobao_image: String = "",
     var tkmoney: String = "",
     var tkrates: String = "",
     var tktype: String = "",

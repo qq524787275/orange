@@ -3,7 +3,7 @@ package com.zhuzichu.orange.home.viewmodel
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.orange.bean.SalesBean
+import com.zhuzichu.mvvm.bean.SalesBean
 import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 
 /**

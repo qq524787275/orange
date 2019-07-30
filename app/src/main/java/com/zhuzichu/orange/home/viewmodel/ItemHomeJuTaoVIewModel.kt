@@ -4,7 +4,7 @@ import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.orange.bean.ShopBean
+import com.zhuzichu.mvvm.bean.ShopBean
 import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 
 /**

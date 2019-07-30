@@ -1,11 +1,16 @@
-package com.zhuzichu.orange.bean
+package com.zhuzichu.mvvm.bean
 
-data class SearchBean(
+/**
+ * Created by Android Studio.
+ * Blog: zhuzichu.com
+ * User: zhuzichu
+ * Date: 2019-06-26
+ * Time: 10:52
+ */
+
+data class SubjectItemBean(
     var activity_type: String = "",
-    var activityid: String = "",
-    var coupon_condition: String = "",
     var couponendtime: String = "",
-    var couponexplain: String = "",
     var couponmoney: String = "",
     var couponnum: String = "",
     var couponreceive: String = "",
@@ -13,18 +18,13 @@ data class SearchBean(
     var couponstarttime: String = "",
     var couponsurplus: String = "",
     var couponurl: String = "",
-    var cuntao: String = "",
     var discount: String = "",
-    var down_type: String = "",
     var end_time: String = "",
     var fqcat: String = "",
     var general_index: String = "",
     var guide_article: String = "",
-    var index_name: String = "",
     var is_brand: String = "",
-    var is_explosion: String = "",
     var is_live: String = "",
-    var isquality: String = "",
     var itemdesc: String = "",
     var itemendprice: String = "",
     var itemid: String = "",
@@ -35,17 +35,13 @@ data class SearchBean(
     var itemsale2: String = "",
     var itemshorttitle: String = "",
     var itemtitle: String = "",
-    var me: String = "",
     var online_users: String = "",
     var original_article: String = "",
     var original_img: String = "",
-    var planlink: String = "",
+    var planlink: Any = Any(),
     var product_id: String = "",
     var seller_id: String = "",
     var seller_name: String = "",
-    var sellernick: String = "",
-    var shopid: String = "",
-    var shopname: String = "",
     var shoptype: String = "",
     var start_time: String = "",
     var starttime: String = "",
@@ -54,6 +50,5 @@ data class SearchBean(
     var tktype: String = "",
     var todaycouponreceive: String = "",
     var todaysale: String = "",
-    var userid: String = "",
     var videoid: String = ""
 )

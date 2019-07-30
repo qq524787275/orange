@@ -5,7 +5,7 @@ import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.*
-import com.zhuzichu.orange.bean.SubjectBean
+import com.zhuzichu.mvvm.bean.SubjectBean
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 
 /**

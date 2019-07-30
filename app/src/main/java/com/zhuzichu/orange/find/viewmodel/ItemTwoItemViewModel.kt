@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.find.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.orange.bean.SubjectHotBean
+import com.zhuzichu.mvvm.bean.SubjectHotBean
 
 /**
  * Created by Android Studio.

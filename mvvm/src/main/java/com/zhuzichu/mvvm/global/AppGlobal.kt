@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.ali.auth.third.core.model.Session
+import com.zhuzichu.mvvm.bean.UserInfoBean
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.global.language.LangGlobal
 import com.zhuzichu.mvvm.global.language.Zh
@@ -13,6 +14,8 @@ object AppGlobal {
     lateinit var context: Application
 
     val isLogin = ObservableBoolean(false)
+    val userInfo = ObservableField(UserInfoBean())
+
     val isAuth = ObservableBoolean(false)
     val session = ObservableField(Session())
 

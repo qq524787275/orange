@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.bean
+package com.zhuzichu.mvvm.bean
 
 class TalentcatBean(
     var clickdata: List<Clickdata> = listOf(),

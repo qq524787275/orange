@@ -5,7 +5,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.ObservableInt
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.orange.bean.SearchBean
+import com.zhuzichu.mvvm.bean.SearchBean
 import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
 
 

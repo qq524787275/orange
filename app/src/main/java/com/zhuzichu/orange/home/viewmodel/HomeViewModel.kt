@@ -13,9 +13,9 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.bean.DeserveBean
-import com.zhuzichu.orange.bean.SalesBean
-import com.zhuzichu.orange.bean.ShopBean
+import com.zhuzichu.mvvm.bean.DeserveBean
+import com.zhuzichu.mvvm.bean.SalesBean
+import com.zhuzichu.mvvm.bean.ShopBean
 import com.zhuzichu.orange.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import io.reactivex.Flowable

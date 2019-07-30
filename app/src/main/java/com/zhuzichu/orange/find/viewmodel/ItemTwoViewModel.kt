@@ -2,7 +2,7 @@ package com.zhuzichu.orange.find.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.mvvm.base.ItemViewModel
-import com.zhuzichu.orange.bean.SubjectHotBean
+import com.zhuzichu.mvvm.bean.SubjectHotBean
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 /**

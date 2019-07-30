@@ -11,7 +11,7 @@ import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.bean.SelectedItemBean
+import com.zhuzichu.mvvm.bean.SelectedItemBean
 
 
 /**

@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.*
+import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 
 /**
@@ -12,6 +12,10 @@ import io.reactivex.Flowable
  * Time: 18:09
  */
 interface NetRepository {
+    fun login(
+        username: String,
+        password: String
+    ): Flowable<BaseRes<TokenBean>>
 
     fun getRegistCode(
         phone: String

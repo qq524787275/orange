@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.http
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.TokenBean
+import com.zhuzichu.mvvm.bean.TokenBean
 import io.reactivex.Flowable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -25,5 +25,12 @@ interface AppService {
         @Field("phone") phone: String
     ): Flowable<BaseRes<String>>
 
+
+    @FormUrlEncoded
+    @POST("api/user/login")
+    fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Flowable<BaseRes<TokenBean>>
 
 }

@@ -119,10 +119,8 @@
  *;
 }
 
--keep class com.zhuzichu.mvvm.base.BaseRes{*;}
-
--dontwarn com.zhuzichu.orange.bean.**
--keep class com.zhuzichu.orange.bean.**{*;}
+-dontwarn com.zhuzichu.mvvm.bean.**
+-keep class com.zhuzichu.mvvm.bean.**{*;}
 
 
 -keepattributes Signature

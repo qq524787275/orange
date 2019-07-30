@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.bean
+package com.zhuzichu.mvvm.bean
 
 
 data class BrandBean(

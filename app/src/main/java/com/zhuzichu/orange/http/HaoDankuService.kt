@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.http
 
 import com.zhuzichu.mvvm.base.BaseRes
-import com.zhuzichu.orange.bean.*
+import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Path
