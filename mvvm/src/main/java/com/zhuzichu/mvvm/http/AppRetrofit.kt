@@ -40,7 +40,7 @@ object AppRetrofit {
             AppConfig.HTTP_MAX_CACHE_SIZE
         )
 
-        val loggingInterceptor = HttpLoggingInterceptor("OkGo")
+        val loggingInterceptor = HttpLoggingInterceptor("Orange")
         loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY)
         loggingInterceptor.setColorLevel(Level.INFO)
 
@@ -98,18 +98,20 @@ object AppRetrofit {
                     ).build()
                 }
             }
-
             val headerBean = HeaderBean()
-            headerBean.token = preference.token
-            headerBean.device = Build.MODEL
-            headerBean.platform = "android"
-            headerBean.version_code = getVersionCode()
-            headerBean.version_name = getVersionName()
-            val toJson = Convert.toJson(headerBean)
-            request = request.newBuilder().addHeader("orange", toJson)
-                .build()
-
-            return chain.proceed(request)
+                .apply {
+                    device = Build.MODEL
+                    platform = "android"
+                    versionCode = getVersionCode()
+                    versionName = getVersionName()
+                }
+            val policy = encryptPolicy(Convert.toJson(headerBean))
+            val builder = request.newBuilder()
+                .addHeader("orange", policy)
+            preference.token?.let {
+                builder.addHeader("token", it)
+            }
+            return chain.proceed(builder.build())
         }
     }
 

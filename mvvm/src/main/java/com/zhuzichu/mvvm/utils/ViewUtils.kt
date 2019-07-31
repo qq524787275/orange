@@ -48,7 +48,7 @@ fun BottomNavigationView.setupWithViewPager(viewPager: ViewPager) {
     this.setOnNavigationItemSelectedListener {
         this@setupWithViewPager.menu.forEachIndexed { index, item ->
             if (it.itemId == item.itemId) {
-                viewPager.currentItem = index
+                viewPager.setCurrentItem(index, false)
             }
         }
         true

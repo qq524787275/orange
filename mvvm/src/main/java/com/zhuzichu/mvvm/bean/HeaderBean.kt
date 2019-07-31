@@ -8,9 +8,8 @@ package com.zhuzichu.mvvm.bean
  * Time: 18:27
  */
 data class HeaderBean(
-    var token: String? = null,
     var platform: String? = null,
     var device: String? = null,
-    var version_code: Int? = null,
-    var version_name: String? = null
+    var versionCode: Int? = null,
+    var versionName: String? = null
 )

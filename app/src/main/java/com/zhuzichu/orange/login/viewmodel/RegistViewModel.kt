@@ -131,14 +131,13 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                 .bindToSchedulers()
                 .doOnSubscribe {
                     showLoadingDialog()
-                    uc.onClickCodeEvent.call()
                 }
                 .doFinally {
                     hideLoadingDialog()
                 }
                 .subscribe(
                     {
-
+                        uc.onClickCodeEvent.call()
                     },
                     {
                         handleThrowable(it)
