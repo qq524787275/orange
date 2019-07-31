@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.mine.viewmodel.SettingViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@{viewModel.color.windowBackground}">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@{viewModel.color.contentBackground}"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:onClickCommand="@{viewModel.onClickSettingUser}"
+                android:paddingRight="15dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="账号设置"
+                    android:textSize="14sp"
+                    app:textColor="@{viewModel.color.textColorPrimary}"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="12sp"
+                    android:layout_height="12sp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@mipmap/ic_arrow"/>
+        </LinearLayout>
+
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@drawable/divider"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@{viewModel.color.contentBackground}"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:paddingRight="15dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="版本检测"
+                    android:textSize="14sp"
+                    app:textColor="@{viewModel.color.textColorPrimary}"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="10"
+                    android:text="V2.8.0"
+                    app:textColor="@{viewModel.color.textColorSecond}"
+                    android:textSize="12sp"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="12sp"
+                    android:layout_height="12sp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@mipmap/ic_arrow"/>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@drawable/divider"/>
+    </LinearLayout>
+</layout>

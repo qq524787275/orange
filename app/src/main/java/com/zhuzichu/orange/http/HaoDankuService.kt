@@ -1,6 +1,6 @@
 package com.zhuzichu.orange.http
 
-import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.GET

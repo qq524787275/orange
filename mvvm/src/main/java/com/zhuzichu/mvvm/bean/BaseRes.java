@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm.base;
+package com.zhuzichu.mvvm.bean;
 
 import java.io.Serializable;
 

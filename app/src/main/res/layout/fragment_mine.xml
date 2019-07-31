@@ -101,7 +101,7 @@
                         <RelativeLayout android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:background="@{viewModel.color.contentBackground}"
-                                        app:onClickCommand="@{!viewModel.global.isAuth?viewModel.onClickLogin:viewModel.onClickSetting}">
+                                        app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSettingUser}">
 
 
                             <com.zhuzichu.mvvm.view.imageview.CircularImageView
@@ -124,7 +124,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toRightOf="@+id/avatar"
                                     android:layout_centerVertical="true"
-                                    android:text="@{viewModel.global.isAuth?viewModel.global.session.nick:@string/login}"
+                                    android:text="@{viewModel.global.isLogin?viewModel.global.userInfo.nickname:@string/login}"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="16sp"/>
 
@@ -400,7 +400,7 @@
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
                                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                                app:onClickCommand="@{viewModel.onClickAuthorize}"
+                                app:onClickCommand="@{viewModel.global.isAuth?viewModel.onClickExitAuthorize:viewModel.onClickAuthorize}"
                                 android:paddingRight="15dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -579,8 +579,9 @@
                                 android:layout_height="50dp"
                                 android:background="@{viewModel.color.contentBackground}"
                                 android:orientation="horizontal"
+                                android:layout_marginBottom="30dp"
                                 android:layout_marginTop="10dp"
-                                app:onClickCommand="@{viewModel.onClickFlutterLearn}"
+                                app:onClickCommand="@{viewModel.onClickSmallProgram}"
                                 android:foreground="?attr/selectableItemBackgroundBorderless"
                                 android:gravity="center"
                                 android:paddingLeft="15dp"
@@ -597,7 +598,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
                                     android:layout_weight="10"
-                                    android:text="Flutter学习"
+                                    android:text="小程序"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
 
@@ -607,30 +608,6 @@
                                     android:layout_gravity="center_vertical"
                                     app:srcCompat="@mipmap/ic_arrow"/>
                         </LinearLayout>
-
-                        <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="20dp"
-                                app:cardCornerRadius="5dp"
-                                android:layout_marginRight="30dp"
-                                app:onClickCommand="@{viewModel.onClickLogout}"
-                                android:animateLayoutChanges="true"
-                                android:layout_marginLeft="30dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="退出当前淘宝账号"
-                                    android:gravity="center"
-                                    android:textSize="14sp"
-                                    app:textColor="@{viewModel.color.contentBackground}"
-                                    android:visibility="@{viewModel.global.isAuth?View.VISIBLE:View.GONE}"
-                                    android:textStyle="bold"
-                                    android:padding="10dp"
-                                    android:background="@{viewModel.color.colorPrimary}"/>
-                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </ScrollView>
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -45,10 +45,6 @@
         <attr name="disableInput" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="StickyHeaderLayout">
-        <attr name="stickyHeaderId" format="reference"/>
-    </declare-styleable>
-
     <declare-styleable name="Chip">
         <attr name="onCloseIconCommand" format="reference"/>
     </declare-styleable>
@@ -79,6 +75,7 @@
         <attr name="strikethrough" format="string"/>
         <attr name="fontPath" format="string"/>
         <attr name="fromHtml" format="string"/>
+        <attr name="bindSex" format="integer"/>
         <attr name="textColor"/>
     </declare-styleable>
 

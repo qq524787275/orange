@@ -9,7 +9,7 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.main.fragment.MainFragment
-import com.zhuzichu.orange.utils.checkLogin
+import com.zhuzichu.orange.utils.checkAuth
 import com.zhuzichu.orange.utils.showTradeDetail
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -36,13 +36,13 @@ class ShopDetailViewModel(
     })
 
     val onClickItemprice = BindingCommand<Any>({
-        checkLogin(_activity) {
+        checkAuth(_activity) {
             itemid.get()?.let { showTradeDetail(_activity, it) }
         }
     })
 
     val onClickItemendprice = BindingCommand<Any>({
-        checkLogin(_activity) {
+        checkAuth(_activity) {
             itemid.get()?.let {
                 showTradeDetail(_activity, it)
             }

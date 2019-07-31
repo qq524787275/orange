@@ -27,23 +27,18 @@
               android:layout_height="match_parent"
               android:background="@color/colorBackground"/>
 
-        <com.zhuzichu.mvvm.widget.StickyHeaderLayout
-                android:id="@+id/sticky_header"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/right_recycler"
                 android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/right_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:items="@{viewModel.rightList}"
-                    app:lineManager="@{LineManagers.both()}"
-                    app:itemBinding="@{viewModel.rightItemBind}"
-                    tools:listitem="@layout/item_sort_right_image"
-                    app:gridLayoutManager="@{3}"
-                    app:spanSizeLookup="@{viewModel.spanSizeLookup}"
-                    tools:itemCount="1"
-            />
-        </com.zhuzichu.mvvm.widget.StickyHeaderLayout>
+                app:items="@{viewModel.rightList}"
+                app:lineManager="@{LineManagers.both()}"
+                app:itemBinding="@{viewModel.rightItemBind}"
+                tools:listitem="@layout/item_sort_right_image"
+                app:gridLayoutManager="@{3}"
+                app:spanSizeLookup="@{viewModel.spanSizeLookup}"
+                tools:itemCount="1"
+        />
     </LinearLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import com.zhuzichu.mvvm.R
 
 /**
  * Created by Android Studio.
@@ -26,5 +27,25 @@ fun fromHtml(textView: TextView, text: String) {
 fun textColor(textView: TextView, @NonNull color: Int? = null) {
     if (color != null) {
         textView.setTextColor(color)
+    }
+}
+
+
+@BindingAdapter("bindSex")
+fun bindSex(textView: TextView, @NonNull sex: Int? = null) {
+    val array = textView.context.resources.getStringArray(R.array.list_sex)
+    when (sex) {
+        0 -> {
+            textView.text = array[0]
+        }
+        1 -> {
+            textView.text = array[1]
+        }
+        2 -> {
+            textView.text = array[2]
+        }
+        else -> {
+            textView.text = array[0]
+        }
     }
 }

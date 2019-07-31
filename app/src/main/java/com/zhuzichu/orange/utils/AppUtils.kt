@@ -3,9 +3,12 @@ package com.zhuzichu.orange.utils
 import android.content.Context
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
+import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.login.fragment.LoginFragment
 import com.zhuzichu.orange.view.plane.PlaneMaker
+import me.yokeyword.fragmentation.ISupportFragment
 
 /**
  * Created by Android Studio.
@@ -15,7 +18,7 @@ import com.zhuzichu.orange.view.plane.PlaneMaker
  * Time: 14:09
  */
 
-fun checkLogin(context: Context, funcation: () -> Unit) {
+fun checkAuth(context: Context, funcation: () -> Unit) {
     if (!AppGlobal.isAuth.get()) {
         PlaneMaker.showLoadingDialog(context, false)
         AlibcLogin.getInstance().showLogin(object : AlibcLoginCallback {
@@ -34,4 +37,13 @@ fun checkLogin(context: Context, funcation: () -> Unit) {
         return
     }
     funcation.invoke()
+}
+
+
+fun BaseViewModel?.checkLogin(login: () -> Unit) {
+    if (!AppGlobal.isLogin.get()) {
+        this?.startFragment(LoginFragment(),launchMode = ISupportFragment.SINGLETASK)
+        return
+    }
+    login.invoke()
 }

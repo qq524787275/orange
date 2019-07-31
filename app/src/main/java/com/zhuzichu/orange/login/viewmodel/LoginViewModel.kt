@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.ForgetFragment
@@ -57,12 +58,10 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                     {
                         val token = it.data.token
                         preference.token = token
+                        AppGlobal.isLogin.set(true)
+                        AppGlobal.userInfo.set(it.data.userInfo)
                         "登录成功～".toast()
                         startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
-//                        viewModelScope.launch {
-//                            withContext(IO) {
-//                            }
-//                        }
                     },
                     {
                         handleThrowable(it)

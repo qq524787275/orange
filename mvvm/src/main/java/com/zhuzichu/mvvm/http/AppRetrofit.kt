@@ -1,11 +1,17 @@
 package com.zhuzichu.mvvm.http;
 
+import android.os.Build
 import androidx.annotation.NonNull
 import androidx.collection.SimpleArrayMap
+import com.zhuzichu.mvvm.bean.HeaderBean
+import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.http.converter.MyGsonConverterFactory
 import com.zhuzichu.mvvm.http.interceptor.HttpLoggingInterceptor
+import com.zhuzichu.mvvm.utils.Convert
 import com.zhuzichu.mvvm.utils.encryptPolicy
+import com.zhuzichu.mvvm.utils.getVersionCode
+import com.zhuzichu.mvvm.utils.getVersionName
 import okhttp3.*
 import org.json.JSONObject
 import retrofit2.Retrofit
@@ -25,6 +31,7 @@ import java.util.logging.Level
 object AppRetrofit {
 
     private val retrofitMap = SimpleArrayMap<String, Retrofit>()
+    val preference by lazy { AppPreference() }
 
     private fun createRetrofit(@NonNull baseUrl: String, isJson: Boolean = true, isEncrypt: Boolean = false) {
         val timeOut = AppConfig.HTTP_TIME_OUT
@@ -92,8 +99,16 @@ object AppRetrofit {
                 }
             }
 
-            request = request.newBuilder()
+            val headerBean = HeaderBean()
+            headerBean.token = preference.token
+            headerBean.device = Build.MODEL
+            headerBean.platform = "android"
+            headerBean.version_code = getVersionCode()
+            headerBean.version_name = getVersionName()
+            val toJson = Convert.toJson(headerBean)
+            request = request.newBuilder().addHeader("orange", toJson)
                 .build()
+
             return chain.proceed(request)
         }
     }

@@ -14,10 +14,10 @@ object AppGlobal {
     lateinit var context: Application
 
     val isLogin = ObservableBoolean(false)
-    val userInfo = ObservableField(UserInfoBean())
+    val userInfo: ObservableField<UserInfoBean> = ObservableField(UserInfoBean())
 
     val isAuth = ObservableBoolean(false)
-    val session = ObservableField(Session())
+    val session: ObservableField<Session> = ObservableField(Session())
 
     fun init(context: Application) {
         AppGlobal.context = context

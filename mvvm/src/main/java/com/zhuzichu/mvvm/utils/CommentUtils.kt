@@ -11,3 +11,4 @@ package com.zhuzichu.mvvm.utils
 fun <T> cast(obj: Any?): T {
     return obj as T
 }
+

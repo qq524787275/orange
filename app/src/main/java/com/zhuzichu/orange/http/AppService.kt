@@ -1,7 +1,8 @@
 package com.zhuzichu.orange.http
 
-import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.TokenBean
+import com.zhuzichu.mvvm.bean.UserInfoBean
 import io.reactivex.Flowable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -33,4 +34,8 @@ interface AppService {
         @Field("password") password: String
     ): Flowable<BaseRes<TokenBean>>
 
+
+    @FormUrlEncoded
+    @POST("api/user/getUserInfo")
+    fun getUserInfo(): Flowable<BaseRes<UserInfoBean>>
 }

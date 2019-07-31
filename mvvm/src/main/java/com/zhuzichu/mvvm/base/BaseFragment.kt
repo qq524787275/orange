@@ -37,7 +37,7 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
     lateinit var _bind: V
     lateinit var _viewModel: VM
-    private lateinit var _contentView: View
+    lateinit var _contentView: View
     private lateinit var _multiStateView: MultiStateView
     private val _delegate by lazy { SupportFragmentDelegate(this) }
     lateinit var _activity: FragmentActivity

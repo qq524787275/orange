@@ -1,8 +1,7 @@
 package com.zhuzichu.mvvm.http.converter;
 
-import android.util.Log;
 import com.google.gson.Gson;
-import com.zhuzichu.mvvm.base.BaseRes;
+import com.zhuzichu.mvvm.bean.BaseRes;
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle;
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable;
 import okhttp3.ResponseBody;

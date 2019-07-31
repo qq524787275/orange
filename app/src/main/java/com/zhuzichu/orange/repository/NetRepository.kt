@@ -1,6 +1,6 @@
 package com.zhuzichu.orange.repository
 
-import com.zhuzichu.mvvm.base.BaseRes
+import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 

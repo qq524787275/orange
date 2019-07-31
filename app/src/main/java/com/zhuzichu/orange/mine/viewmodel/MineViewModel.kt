@@ -6,6 +6,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorPalette
 import com.afollestad.materialdialogs.color.colorChooser
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.ali.auth.third.core.model.Session
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin
 import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -17,9 +18,7 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.login.fragment.LoginFragment
-import com.zhuzichu.orange.mine.fragment.AboutFragment
-import com.zhuzichu.orange.mine.fragment.CacheFragment
-import com.zhuzichu.orange.mine.fragment.FlutterLearnFragment
+import com.zhuzichu.orange.mine.fragment.*
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
 import com.zhuzichu.orange.view.plane.PlaneMaker
@@ -40,8 +39,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
 
     inner class UIChangeObservable {
         val onDarkChangeEvent = SingleLiveEvent<Boolean>()
-
-        val onShowLogoutSnackbarEvent = SingleLiveEvent<Any>()
     }
 
     val onClickAuthorize = BindingCommand<Any>({
@@ -60,13 +57,22 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
         })
     })
 
+    val onClickExitAuthorize = BindingCommand<Any>({
+        AlibcLogin.getInstance().logout(object : AlibcLoginCallback {
+            override fun onSuccess(i: Int) {
+                AppGlobal.isAuth.set(false)
+                AppGlobal.session.set(Session())
+            }
+
+            override fun onFailure(code: Int, msg: String) {
+                msg.toast()
+            }
+        })
+    })
+
 
     val onClickLogin = BindingCommand<Any>({
         startFragment(LoginFragment())
-    })
-
-    val onClickLogout = BindingCommand<Any>({
-        uc.onShowLogoutSnackbarEvent.call()
     })
 
     val getDarkCheckBox = BindingCommand<AppCompatCheckBox>(consumer = {
@@ -94,7 +100,7 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickSetting = BindingCommand<Any>({
-        "暂未开发".toast()
+        startFragment(SettingFragment())
     })
 
     val onClickActivies = BindingCommand<Any>({
@@ -146,7 +152,11 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
         uc.onDarkChangeEvent.value = !color.isDark.value!!
     })
 
-    val onClickFlutterLearn = BindingCommand<Any>({
-        startFragment(FlutterLearnFragment())
+    val onClickSmallProgram = BindingCommand<Any>({
+        startFragment(SmallProgramFragment())
+    })
+
+    val onClickSettingUser = BindingCommand<Any>({
+        startFragment(SettingUserFragment())
     })
 }

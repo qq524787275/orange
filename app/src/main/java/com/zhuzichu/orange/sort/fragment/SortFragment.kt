@@ -24,11 +24,6 @@ class SortFragment : BaseTopbarFragment<FragmentSortBinding, SortViewModel>() {
     override fun setTitle(): String = "超级分类"
 
     override fun initView() {
-        sticky_header.registerTypePinnedHeader(
-            R.layout.item_sort_right_title
-        ) { _, _ ->
-            true
-        }
         _viewModel.showLoading()
     }
 

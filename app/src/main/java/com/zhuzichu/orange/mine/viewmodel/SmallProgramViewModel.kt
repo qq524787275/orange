@@ -16,14 +16,14 @@ import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
  * Date: 2019-07-25
  * Time: 09:32
  */
-class FlutterLearnViewModel(application: Application) : BaseViewModel(application) {
+class SmallProgramViewModel(application: Application) : BaseViewModel(application) {
     val color= ColorGlobal
     val list =
-        DiffObservableList(itemDiffOf<ItemFlutterLearnViewModel> { oldItem, newItem -> oldItem.title == newItem.title })
+        DiffObservableList(itemDiffOf<ItemSmallProgramViewModel> { oldItem, newItem -> oldItem.title == newItem.title })
             .apply {
                 update(
                     listOf(
-                        ItemFlutterLearnViewModel(this@FlutterLearnViewModel, 0, "Flutter-Flare")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 0, "Flutter-Flare")
                     )
                 )
             }

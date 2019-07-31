@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.AppPreference
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.LoginFragment
@@ -28,7 +29,6 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
     }
 
     val onClickCode = BindingCommand<Any>({
-        uc.onClickCodeEvent.call()
         getRegistCode()
     })
 
@@ -96,6 +96,8 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                         preference.token = it.data.token
                         if (isLogin) {
                             "登录成功~".toast()
+                            AppGlobal.isLogin.set(true)
+                            AppGlobal.userInfo.set(it.data.userInfo)
                             startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
                         } else {
                             "注册成功~".toast()
@@ -129,6 +131,7 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                 .bindToSchedulers()
                 .doOnSubscribe {
                     showLoadingDialog()
+                    uc.onClickCodeEvent.call()
                 }
                 .doFinally {
                     hideLoadingDialog()

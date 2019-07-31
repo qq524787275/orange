@@ -13,8 +13,8 @@ import com.zhuzichu.orange.flutter.MainFlutterFragment
  * Date: 2019-07-25
  * Time: 09:51
  */
-class ItemFlutterLearnViewModel(
-    viewModel: FlutterLearnViewModel,
+class ItemSmallProgramViewModel(
+    viewModel: SmallProgramViewModel,
     var id: Int,
     var title: String
 ) : ItemViewModel<BaseViewModel>(viewModel) {
