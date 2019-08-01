@@ -1,5 +1,22 @@
+/*
+ * Copyright 2014-2017 Eduard Ereza Martínez
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.zhuzichu.mvvm.crash
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -16,42 +33,42 @@ import androidx.core.content.res.ResourcesCompat
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.sp2px
 
+
 class DefaultErrorActivity : AppCompatActivity() {
 
+    @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val a = obtainStyledAttributes(R.styleable.AppCompatTheme)
+        if (!a.hasValue(R.styleable.AppCompatTheme_windowActionBar)) {
+            setTheme(R.style.Theme_AppCompat_Light_DarkActionBar)
+        }
+        a.recycle()
         setContentView(R.layout.activity_default_error)
-
         val restartButton = findViewById<View>(R.id.error_activity_restart_button) as Button
-
-        val config = CrashClient.getConfigFromIntent(intent)
-
-        if (config.isShowRestartButton && config.getRestartActivityClass() != null) {
+        val config = CustomActivityOnCrash.getConfigFromIntent(intent)
+        if (config.isShowRestartButton && config.restartActivityClass != null) {
             restartButton.setText(R.string.error_activity_restart_app)
             restartButton.setOnClickListener {
-                CrashClient.restartApplication(
+                CustomActivityOnCrash.restartApplication(
                     this@DefaultErrorActivity,
                     config
                 )
             }
         } else {
             restartButton.setOnClickListener {
-                CrashClient.closeApplication(
+                CustomActivityOnCrash.closeApplication(
                     this@DefaultErrorActivity,
                     config
                 )
             }
         }
-
         val moreInfoButton = findViewById<View>(R.id.error_activity_more_info_button) as Button
-
         if (config.isShowErrorDetails) {
             moreInfoButton.setOnClickListener {
-                //We retrieve all the error data and show it
-
                 val dialog = AlertDialog.Builder(this@DefaultErrorActivity)
                     .setTitle(R.string.error_activity_error_details_title)
-                    .setMessage(CrashClient.getAllErrorDetailsFromIntent(this@DefaultErrorActivity, intent))
+                    .setMessage(CustomActivityOnCrash.getAllErrorDetailsFromIntent(this@DefaultErrorActivity, intent))
                     .setPositiveButton(R.string.error_activity_error_details_close, null)
                     .setNeutralButton(
                         R.string.error_activity_error_details_copy
@@ -64,19 +81,14 @@ class DefaultErrorActivity : AppCompatActivity() {
                         ).show()
                     }
                     .show()
-                val textView = dialog.findViewById(android.R.id.message) as TextView
-                textView.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    sp2px(12f).toFloat()
-                )
+                val textView = dialog.findViewById<View>(android.R.id.message) as TextView
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp2px(12f).toFloat())
             }
         } else {
             moreInfoButton.visibility = View.GONE
         }
-
-        val defaultErrorActivityDrawableId = config.getErrorDrawable()
+        val defaultErrorActivityDrawableId = config.errorDrawable
         val errorImageView = findViewById<View>(R.id.error_activity_image) as ImageView
-
         if (defaultErrorActivityDrawableId != null) {
             errorImageView.setImageDrawable(
                 ResourcesCompat.getDrawable(
@@ -89,13 +101,10 @@ class DefaultErrorActivity : AppCompatActivity() {
     }
 
     private fun copyErrorToClipboard() {
-        val errorInformation = CrashClient.getAllErrorDetailsFromIntent(this@DefaultErrorActivity, intent)
-
+        val errorInformation = CustomActivityOnCrash.getAllErrorDetailsFromIntent(this@DefaultErrorActivity, intent)
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText(
-            getString(R.string.error_activity_error_details_clipboard_label),
-            errorInformation
-        )
+        val clip =
+            ClipData.newPlainText(getString(R.string.error_activity_error_details_clipboard_label), errorInformation)
         clipboard.setPrimaryClip(clip)
     }
 }

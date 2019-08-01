@@ -11,8 +11,10 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.crash.CaocConfig
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.orange.main.activity.MainActivity
 import io.flutter.view.FlutterMain
 import io.reactivex.plugins.RxJavaPlugins
 import me.jessyan.autosize.AutoSize
@@ -44,6 +46,7 @@ open class App : Application() {
         FlutterMain.startInitialization(applicationContext)
         initSdk()
         RxJavaPlugins.setErrorHandler {}
+        initCrash()
     }
 
 
@@ -69,6 +72,35 @@ open class App : Application() {
                 .build()
         )
     }
+    private fun initCrash() {
+        CaocConfig.Builder.create()
+            .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
+            .enabled(true) //是否启动全局异常捕获
+            .showErrorDetails(true) //是否显示错误详细信息
+            .showRestartButton(true) //是否显示重启按钮
+            .trackActivities(true) //是否跟踪Activity
+            .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
+//                .errorDrawable(R.mipmap.ic_launcher)
+            .restartActivity(MainActivity::class.java) //重新启动后的activity
+            .apply()
+    }
+
+
+//    private fun initCrash() {
+//        CrashConfig.initDefault(
+//            CrashConfig.Builder()
+//                .backgroundMode(CrashConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
+//                .enabled(true) //是否启动全局异常捕获
+//                .showErrorDetails(true) //是否显示错误详细信息
+//                .showRestartButton(true) //是否显示重启按钮
+//                .trackActivities(true) //是否跟踪Activity
+//                .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
+//                .errorDrawable(R.drawable.error_image)
+//                .restartActivity(MainActivity::class.java) //重新启动后的activity
+//                .build()//是否跟踪Activity
+//        )
+//    }
+
 
 //    private fun initDebugDb() {
 //        SQLiteStudioService.instance().start(this)

@@ -17,13 +17,14 @@ import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
  * Time: 09:32
  */
 class SmallProgramViewModel(application: Application) : BaseViewModel(application) {
-    val color= ColorGlobal
+    val color = ColorGlobal
     val list =
         DiffObservableList(itemDiffOf<ItemSmallProgramViewModel> { oldItem, newItem -> oldItem.title == newItem.title })
             .apply {
                 update(
                     listOf(
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 0, "Flutter-Flare")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 0, "崩溃测试"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 1, "Flutter-Flare")
                     )
                 )
             }

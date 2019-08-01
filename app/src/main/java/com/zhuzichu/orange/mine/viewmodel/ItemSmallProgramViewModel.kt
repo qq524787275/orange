@@ -4,6 +4,7 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 
 /**
@@ -22,6 +23,9 @@ class ItemSmallProgramViewModel(
     val onItemClick = BindingCommand<Any>({
         when (id) {
             0 -> {
+                (0/0).toString().toast()
+            }
+            1->{
                 viewModel.startFragment(MainFlutterFragment())
             }
             else -> {

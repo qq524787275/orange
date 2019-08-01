@@ -1,6 +1,8 @@
 package com.zhuzichu.mvvm.utils
 
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 /**
  * Created by Android Studio.
@@ -19,7 +21,7 @@ object IOUtils {
     }
 
     @Throws(IOException::class)
-    fun write(inputStream: InputStream, outputStream: OutputStream) {
+    fun write(inputStream: InputStream, outputStream: ByteArrayOutputStream) {
         var len: Int
         val buffer = ByteArray(4096)
         while (inputStream.read(buffer).also { len = it } != -1) outputStream.write(buffer, 0, len)

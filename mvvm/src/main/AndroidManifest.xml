@@ -3,9 +3,16 @@
           package="com.zhuzichu.mvvm">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application>
 
+        <activity android:name=".crash.DefaultErrorActivity"
+                  android:process=":error_activity"/>
+
+        <provider android:authorities="${applicationId}.crashinitprovider"
+                  android:name=".crash.CaocInitProvider"
+                  android:exported="false"
+                  android:initOrder="101"/>
     </application>
 
 </manifest>
