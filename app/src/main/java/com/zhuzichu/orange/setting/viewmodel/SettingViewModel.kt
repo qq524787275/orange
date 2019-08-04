@@ -1,10 +1,10 @@
-package com.zhuzichu.orange.mine.viewmodel
+package com.zhuzichu.orange.setting.viewmodel
 
 import android.app.Application
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.orange.mine.fragment.SettingUserFragment
+import com.zhuzichu.orange.setting.fragment.SettingUserFragment
 import com.zhuzichu.orange.utils.checkLogin
 
 /**

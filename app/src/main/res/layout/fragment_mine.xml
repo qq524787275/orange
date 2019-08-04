@@ -112,8 +112,8 @@
                                     android:layout_marginRight="10dp"
                                     android:layout_marginTop="15dp"
                                     android:layout_marginBottom="15dp"
-                                    tools:src="@mipmap/ic_user_avatar_two"
-                                    app:url="@{viewModel.global.isAuth?viewModel.global.session.avatarUrl:R.mipmap.ic_user_avatar_two}"
+                                    app:url="@{viewModel.global.isLogin()?viewModel.global.userInfo.avatarUrl:R.mipmap.ic_user_avatar_two}"
+                                    app:srcCompat="@mipmap/ic_user_avatar_two"
                                     app:civ_border_color="@{viewModel.color.colorPrimary}"
                                     app:civ_border_width="4dp"
                                     app:civ_shadow="false"/>
@@ -314,7 +314,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="购物车"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -347,7 +347,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="我的收藏"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -380,7 +380,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="我的足迹"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -413,7 +413,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text='@{viewModel.global.isAuth?@string/mine_taobao_auth:@string/mine_taobao_noauth}'
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -456,7 +456,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="清理缓存"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -562,7 +562,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="意见反馈"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
@@ -597,7 +597,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_weight="10"
+                                    android:layout_weight="1"
                                     android:text="小程序"
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>

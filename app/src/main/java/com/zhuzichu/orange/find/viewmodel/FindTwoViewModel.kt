@@ -12,7 +12,7 @@ import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 /**

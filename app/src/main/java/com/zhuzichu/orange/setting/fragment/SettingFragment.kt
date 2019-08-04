@@ -1,10 +1,10 @@
-package com.zhuzichu.orange.mine.fragment
+package com.zhuzichu.orange.setting.fragment
 
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSettingBinding
-import com.zhuzichu.orange.mine.viewmodel.SettingViewModel
+import com.zhuzichu.orange.setting.viewmodel.SettingViewModel
 
 /**
  * Created by Android Studio.

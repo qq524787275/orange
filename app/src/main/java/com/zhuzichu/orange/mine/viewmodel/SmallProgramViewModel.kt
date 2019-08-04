@@ -24,7 +24,8 @@ class SmallProgramViewModel(application: Application) : BaseViewModel(applicatio
                 update(
                     listOf(
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 0, "崩溃测试"),
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 1, "Flutter-Flare")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 1, "Flutter-Flare"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 2, "DialogFragment")
                     )
                 )
             }

@@ -8,7 +8,7 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 /**

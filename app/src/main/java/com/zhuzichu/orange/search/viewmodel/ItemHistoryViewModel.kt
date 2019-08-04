@@ -4,8 +4,8 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.orange.db.SearchHistory
-import com.zhuzichu.orange.repository.DbRepositoryImpl
+import com.zhuzichu.mvvm.db.SearchHistory
+import com.zhuzichu.mvvm.repository.DbRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
 import kotlinx.coroutines.launch
 

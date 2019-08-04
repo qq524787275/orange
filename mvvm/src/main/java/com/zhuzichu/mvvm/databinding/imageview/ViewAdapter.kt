@@ -33,7 +33,8 @@ fun setImageUri(
         imageView.layoutParams.width = getScreenW() - dip2px(margin.toFloat())
         imageView.layoutParams.height = (imageView.layoutParams.width / aspecRatio).toInt()
     }
-    if (url != null) {
+    if (url != null && !(url is String && url.isBlank())) {
+
         //使用Glide框架加载图片
         GlideApp.with(imageView).load(url).apply {
             if (imageView !is CircularImageView)

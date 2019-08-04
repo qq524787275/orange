@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.base
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -34,6 +35,7 @@ import java.lang.reflect.ParameterizedType
  * Date: 2019-05-27
  * Time: 15:15
  */
+@Suppress("PropertyName")
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
     lateinit var _bind: V
     lateinit var _viewModel: VM
@@ -45,6 +47,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
 
+    @SuppressLint("InflateParams")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val type = this.javaClass.genericSuperclass
         if (type is ParameterizedType) _viewModel =

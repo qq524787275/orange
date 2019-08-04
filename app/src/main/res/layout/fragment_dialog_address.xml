@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.setting.viewmodel.AddressDialogViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@{viewModel.color.contentBackground}">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:tabMode="scrollable"
+                        app:onTabSelectedCommand="@{viewModel.onTabSelected}"
+                        app:tabIndicatorColor="@{viewModel.color.colorPrimary}"
+                        app:tabSelectedTextColor="@{viewModel.color.colorPrimary}"
+                        app:tabTextColor="@{viewModel.color.textColorSecond}"/>
+
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    android:textStyle="bold"
+                    app:onClickCommand="@{viewModel.onClickSure}"
+                    app:textColor="@{viewModel.isEnableSure?viewModel.color.colorPrimary:viewModel.color.textColorSecond}"
+                    android:text="确定"
+                    android:textSize="17sp"/>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#DDDDDD"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:items="@{viewModel.list}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:itemBinding="@{viewModel.itemBind}"/>
+
+    </LinearLayout>
+</layout>

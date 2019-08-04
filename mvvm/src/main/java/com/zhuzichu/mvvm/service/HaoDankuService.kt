@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.http
+package com.zhuzichu.mvvm.service
 
 import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*

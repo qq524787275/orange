@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.zhuzichu.orange.setting.viewmodel.ItemAddressViewModel"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    app:onClickCommand="@{item.onClickItem}"
+                    android:layout_height="50dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:text="@{item.name}"
+                tools:text="上海"
+                android:layout_centerVertical="true"
+                app:textColor="@{item.isSeleted?item.color.colorPrimary:item.color.textColorPrimary}"
+                android:textSize="17sp"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="0.5dp"
+              android:background="@drawable/divider"
+              android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</layout>

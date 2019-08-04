@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.setting.viewmodel.EditItemViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@{viewModel.color.windowBackground}">
+
+
+        <com.zhuzichu.mvvm.widget.ClearEditText
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="未设置"
+                android:inputType="text"
+                android:layout_marginTop="10dp"
+                android:background="@{viewModel.color.contentBackground}"
+                android:paddingTop="10dp"
+                tools:background="@null"
+                android:paddingLeft="15dp"
+                android:text="@={viewModel.text}"
+                android:paddingBottom="10dp"
+                android:textColor="@{viewModel.color.textColorPrimary}"
+                android:textSize="16sp"/>
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@{viewModel.tips}"
+                    tools:text="16位以内数字及“-”组成"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    android:textStyle="bold"
+                    app:onClickCommand="@{viewModel.onClickSure}"
+                    app:textColor="@{viewModel.isEnableSure?viewModel.color.colorPrimary:viewModel.color.textColorSecond}"
+                    android:text="确定"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

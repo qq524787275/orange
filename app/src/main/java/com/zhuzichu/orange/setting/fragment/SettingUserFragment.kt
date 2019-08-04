@@ -1,17 +1,22 @@
-package com.zhuzichu.orange.mine.fragment
+package com.zhuzichu.orange.setting.fragment
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
 import com.zhuzichu.mvvm.bean.UserInfoBean
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.http.AppRetrofit.preference
+import com.zhuzichu.mvvm.utils.bindToException
+import com.zhuzichu.mvvm.utils.bindToLifecycle
+import com.zhuzichu.mvvm.utils.bindToSchedulers
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSettingUserBinding
 import com.zhuzichu.orange.main.fragment.MainFragment
-import com.zhuzichu.orange.mine.viewmodel.SettingUserViewModel
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
+import com.zhuzichu.orange.setting.viewmodel.SettingUserViewModel
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**
@@ -32,6 +37,22 @@ class SettingUserFragment : BaseTopbarBackFragment<FragmentSettingUserBinding, S
         addRightIcon(R.mipmap.ic_save) {
             "保存".toast()
         }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun initVariable() {
+        NetRepositoryImpl.getUserInfo()
+            .bindToLifecycle(this)
+            .bindToSchedulers()
+            .bindToException()
+            .subscribe(
+                {
+                    AppGlobal.userInfo.set(it.data)
+                },
+                {
+                    _viewModel.handleThrowable(it)
+                }
+            )
     }
 
     override fun initViewObservable() {

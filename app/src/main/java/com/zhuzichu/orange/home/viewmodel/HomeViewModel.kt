@@ -16,7 +16,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.mvvm.bean.DeserveBean
 import com.zhuzichu.mvvm.bean.SalesBean
 import com.zhuzichu.mvvm.bean.ShopBean
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers

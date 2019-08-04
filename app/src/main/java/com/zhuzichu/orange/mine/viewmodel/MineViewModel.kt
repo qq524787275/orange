@@ -19,6 +19,8 @@ import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.login.fragment.LoginFragment
 import com.zhuzichu.orange.mine.fragment.*
+import com.zhuzichu.orange.setting.fragment.SettingFragment
+import com.zhuzichu.orange.setting.fragment.SettingUserFragment
 import com.zhuzichu.orange.utils.showTradeOrder
 import com.zhuzichu.orange.utils.showTradeShopCart
 import com.zhuzichu.orange.view.plane.PlaneMaker

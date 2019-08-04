@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.db
+package com.zhuzichu.mvvm.db
 
 import androidx.collection.SimpleArrayMap
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.zhuzichu.mvvm.global.AppGlobal
-import com.zhuzichu.orange.App.Companion.context
+import com.zhuzichu.mvvm.global.AppGlobal.context
 
 
 @Database(entities = [SearchHistory::class], version = 1, exportSchema = false)

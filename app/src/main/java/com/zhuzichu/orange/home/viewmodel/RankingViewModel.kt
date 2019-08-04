@@ -17,7 +17,7 @@ import com.zhuzichu.mvvm.utils.schedulersTransformer
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
 class RankingViewModel(application: Application) : BaseViewModel(application) {

@@ -11,9 +11,9 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.db.SearchHistory
-import com.zhuzichu.orange.repository.DbRepositoryImpl
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.db.SearchHistory
+import com.zhuzichu.mvvm.repository.DbRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
 import io.reactivex.Flowable
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList

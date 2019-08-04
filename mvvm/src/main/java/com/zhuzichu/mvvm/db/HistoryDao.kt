@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.db
+package com.zhuzichu.mvvm.db
 
 import androidx.room.*
 import io.reactivex.Flowable

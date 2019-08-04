@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.orange.repository.DbRepositoryImpl
+import com.zhuzichu.mvvm.repository.DbRepositoryImpl
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 

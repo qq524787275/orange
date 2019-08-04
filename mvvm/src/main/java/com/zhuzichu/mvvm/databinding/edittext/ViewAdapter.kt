@@ -1,8 +1,11 @@
 package com.zhuzichu.mvvm.databinding.edittext
 
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
 
 
 /**
@@ -20,4 +23,20 @@ fun disableInput(editText: EditText, disableInput: Boolean = false) {
     } else {
         editText.inputType = InputType.TYPE_CLASS_TEXT//来开启软键盘
     }
+}
+
+
+@BindingAdapter(value = ["onAfterTextCommand"], requireAll = false)
+fun bindTextChanged(editText: EditText, onAfterTextCommand: BindingCommand<Editable>) {
+    editText.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            onAfterTextCommand.execute(s)
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+        }
+    })
 }

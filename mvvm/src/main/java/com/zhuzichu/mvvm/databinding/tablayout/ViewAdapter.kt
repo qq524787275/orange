@@ -4,6 +4,7 @@ import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 import com.zhuzichu.mvvm.R
+import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.toColorById
 
 /**
@@ -32,5 +33,22 @@ fun bindTabLayout(
     if (tabTextColor != null)
         defaultColor = tabTextColor
 
-    view.setTabTextColors(defaultColor,selectedColor)
+    view.setTabTextColors(defaultColor, selectedColor)
+}
+
+
+@BindingAdapter(value = ["onTabSelectedCommand"], requireAll = false)
+fun bindTabSelectedListener(view: TabLayout, onTabSelectedCommand: BindingCommand<Int>) {
+    view.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        override fun onTabReselected(tab: TabLayout.Tab) {
+
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) {
+        }
+
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            onTabSelectedCommand.execute(tab.position)
+        }
+    })
 }

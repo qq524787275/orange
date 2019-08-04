@@ -10,7 +10,7 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.ForgetFragment
 import com.zhuzichu.orange.login.fragment.RegistFragment
 import com.zhuzichu.orange.main.fragment.MainFragment
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**

@@ -13,8 +13,8 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.repository.DbRepositoryImpl
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.DbRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList

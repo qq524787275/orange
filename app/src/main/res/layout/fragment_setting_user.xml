@@ -2,7 +2,7 @@
 <layout>
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel" type="com.zhuzichu.orange.mine.viewmodel.SettingUserViewModel"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.setting.viewmodel.SettingUserViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,11 +40,59 @@
 
                     <LinearLayout
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@{viewModel.color.contentBackground}"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:paddingLeft="15dp"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
+                            android:paddingRight="15dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:text="头像"
+                                android:textSize="12sp"
+                                app:textColor="@{viewModel.color.textColorSecond}"/>
+
+                        <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1">
+
+                            <com.zhuzichu.mvvm.view.imageview.CircularImageView
+                                    android:id="@+id/avatar"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginTop="5dp"
+                                    app:srcCompat="@mipmap/ic_user_avatar_two"
+                                    android:layout_marginBottom="5dp"
+                                    app:url="@{viewModel.userInfo.avatarUrl}"
+                                    app:civ_border_color="@{viewModel.color.colorPrimary}"
+                                    app:civ_border_width="2dp"
+                                    app:civ_shadow="false"/>
+
+                        </FrameLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="12sp"
+                                android:layout_height="12sp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@mipmap/ic_arrow"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                          android:background="@drawable/divider"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
                             android:gravity="center"
                             android:paddingLeft="15dp"
+                            app:onClickCommand="@{viewModel.onClickNickname}"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:paddingRight="15dp">
 
@@ -59,10 +107,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="10"
-                                android:text="@{viewModel.global.userInfo.nickname}"
+                                android:layout_weight="1"
+                                app:bindNoSetting="@{viewModel.userInfo.nickname}"
                                 app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="12sp"/>
+                                android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -95,10 +143,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="10"
-                                app:bindSex="@{viewModel.global.userInfo.sex}"
+                                android:layout_weight="1"
+                                app:bindSex="@{viewModel.userInfo.sex}"
                                 app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="12sp"/>
+                                android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -130,10 +178,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="10"
-                                android:text="@{viewModel.global.userInfo.phone}"
+                                android:layout_weight="1"
+                                android:text="@{viewModel.userInfo.phone}"
                                 app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="12sp"/>
+                                android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -150,6 +198,43 @@
                             android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
                             android:gravity="center"
+                            android:paddingLeft="15dp"
+                            app:onClickCommand="@{viewModel.onClickEmail}"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
+                            android:paddingRight="15dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:text="邮箱"
+                                android:textSize="12sp"
+                                app:textColor="@{viewModel.color.textColorSecond}"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                app:bindNoSetting="@{viewModel.userInfo.email}"
+                                app:textColor="@{viewModel.color.textColorPrimary}"
+                                android:textSize="14sp"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="12sp"
+                                android:layout_height="12sp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@mipmap/ic_arrow"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                          android:background="@drawable/divider"/>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@{viewModel.color.contentBackground}"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            app:onClickCommand="@{viewModel.onClickLocation}"
                             android:paddingLeft="15dp"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:paddingRight="15dp">
@@ -165,10 +250,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="10"
-                                android:text="未设置"
+                                android:layout_weight="1"
+                                app:bindNoSetting="@{viewModel.userInfo.location}"
                                 app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="12sp"/>
+                                android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -187,6 +272,7 @@
                             android:orientation="horizontal"
                             android:gravity="center"
                             android:paddingLeft="15dp"
+                            app:onClickCommand="@{viewModel.onClickSummary}"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:paddingRight="15dp">
 
@@ -201,10 +287,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_weight="10"
-                                android:text="未设置"
+                                android:layout_weight="1"
+                                app:bindNoSetting="@{viewModel.userInfo.summary}"
                                 app:textColor="@{viewModel.color.textColorPrimary}"
-                                android:textSize="12sp"/>
+                                android:textSize="14sp"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="12sp"
@@ -215,7 +301,6 @@
 
                     <View android:layout_width="match_parent" android:layout_height="1dp"
                           android:background="@drawable/divider"/>
-
 
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="0dp"

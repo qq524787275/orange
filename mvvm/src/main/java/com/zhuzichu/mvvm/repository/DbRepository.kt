@@ -1,6 +1,6 @@
-package com.zhuzichu.orange.repository
+package com.zhuzichu.mvvm.repository
 
-import com.zhuzichu.orange.db.SearchHistory
+import com.zhuzichu.mvvm.db.SearchHistory
 import io.reactivex.Flowable
 
 interface DbRepository {

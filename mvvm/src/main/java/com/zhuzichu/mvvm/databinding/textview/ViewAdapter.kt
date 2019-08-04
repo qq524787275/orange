@@ -30,6 +30,14 @@ fun textColor(textView: TextView, @NonNull color: Int? = null) {
     }
 }
 
+@BindingAdapter("bindNoSetting")
+fun bindNoSetting(textView: TextView, @NonNull text: String? = null) {
+    if (text.isNullOrBlank()) {
+        textView.text = "未设置"
+    } else {
+        textView.text = text
+    }
+}
 
 @BindingAdapter("bindSex")
 fun bindSex(textView: TextView, @NonNull sex: Int? = null) {

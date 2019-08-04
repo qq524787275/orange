@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zhuzichu.orange.db
+package com.zhuzichu.mvvm.db
 
 import androidx.room.TypeConverter
 import java.util.Calendar

@@ -6,7 +6,7 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 class TalentViewModel(application: Application) : BaseViewModel(application) {

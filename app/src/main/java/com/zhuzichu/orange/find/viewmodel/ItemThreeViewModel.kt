@@ -6,7 +6,7 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.bean.SubjectBean
-import com.zhuzichu.orange.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 
 /**
  * Created by Android Studio.

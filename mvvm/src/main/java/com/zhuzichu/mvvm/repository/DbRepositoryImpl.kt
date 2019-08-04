@@ -1,7 +1,7 @@
-package com.zhuzichu.orange.repository
+package com.zhuzichu.mvvm.repository
 
-import com.zhuzichu.orange.db.AppDatabase
-import com.zhuzichu.orange.db.SearchHistory
+import com.zhuzichu.mvvm.db.AppDatabase
+import com.zhuzichu.mvvm.db.SearchHistory
 import io.reactivex.Flowable
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
@@ -19,7 +19,11 @@ object DbRepositoryImpl : DbRepository {
 
     override suspend fun addSearchHistory(keyWord: String) {
         withContext(IO) {
-            AppDatabase.getInstance().historyDao().insert(SearchHistory(keyWord))
+            AppDatabase.getInstance().historyDao().insert(
+                SearchHistory(
+                    keyWord
+                )
+            )
         }
     }
 

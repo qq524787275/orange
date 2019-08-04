@@ -6,6 +6,8 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.flutter.MainFlutterFragment
+import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
+import com.zhuzichu.orange.setting.fragment.ShareDialogFragment
 
 /**
  * Created by Android Studio.
@@ -23,10 +25,14 @@ class ItemSmallProgramViewModel(
     val onItemClick = BindingCommand<Any>({
         when (id) {
             0 -> {
-                (0/0).toString().toast()
+                (0 / 0).toString().toast()
             }
-            1->{
+            1 -> {
                 viewModel.startFragment(MainFlutterFragment())
+            }
+            2 -> {
+                val addressFragment = AddressDialogFragment(viewModel._fragment.childFragmentManager)
+                addressFragment.show()
             }
             else -> {
             }
