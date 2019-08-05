@@ -46,6 +46,13 @@ flutter:
   assets:
     - assets/flare/
     - assets/about/
+    - assets/bird-0.png
+    - assets/bird-1.png
+    - assets/bird-0-left.png
+    - assets/bird-1-left.png
+    - assets/cloud-1.png
+    - assets/cloud-2.png
+    - assets/cloud-3.png
   # To add Flutter specific assets to your application, add an assets section, 
   # like this:
   # assets:
