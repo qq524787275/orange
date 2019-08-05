@@ -1,15 +1,19 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:flame/flame.dart';
+import 'package:flame/util.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_cache.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orange_flutter/style.dart';
 import 'package:provider/provider.dart';
 
 import 'about.dart';
+import 'birdgame/birdgame.dart';
 import 'cache.dart';
 import 'channel.dart';
 import 'color.dart';
@@ -70,6 +74,26 @@ Widget _widgetForRoute(String route) {
       break;
     case 'about':
       container = AboutScaffold();
+      break;
+    case 'game_bird':
+      Util flameUtil = Util();
+      flameUtil.fullScreen();
+      flameUtil.setOrientation(DeviceOrientation.portraitUp);
+      Flame.images.loadAll(<String>[
+        'bird-0.png',
+        'bird-1.png',
+        'bird-0-left.png',
+        'bird-1-left.png',
+        'cloud-1.png',
+        'cloud-2.png',
+        'cloud-3.png',
+      ]);
+      BirdGame game = BirdGame();
+      TapGestureRecognizer tapSink = TapGestureRecognizer();
+      tapSink.onTapDown = game.onTapDown;
+      tapSink.onTapUp = game.onTapUp;
+      container = game.widget;
+      flameUtil.addGestureRecognizer(tapSink);
       break;
     default:
       container = Center(

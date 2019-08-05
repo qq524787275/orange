@@ -91,6 +91,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
     api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
+    api 'net.i2p.android.ext:floatingactionbutton:1.9.0'
 
     api "uk.co.chrisjenx:calligraphy:2.3.0"
     api "com.facebook.shimmer:shimmer:0.4.0"

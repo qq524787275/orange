@@ -31,8 +31,8 @@ object ColorGlobal {
             contentBackground.set(R.color.black_333.toColorById())
             windowBackground.set(R.color.colorBackgroundDark.toColorById())
             textColorPrimary.set(R.color.colorPrimaryTextDark.toColorById())
-            textColorSecond.set(R.color.colorSecondText.toColorById())
-            hintColor.set(R.color.colorHintDark.toColorById())
+            textColorSecond.set(R.color.colorHintDark.toColorById())
+            hintColor.set(R.color.gray_light.toColorById())
             bottomBackground.set(R.color.black_333.toColorById())
         } else {
             contentBackground.set(R.color.white.toColorById())

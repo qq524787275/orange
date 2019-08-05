@@ -13,11 +13,11 @@ import java.io.File
  * Time: 15:08
  */
 object CacheGlobal {
-    const val GLIDE_CACHE_DIR_NAME = "/glide_cache"
+    private const val GLIDE_CACHE_DIR_NAME = "/glide_cache"
 
-    const val HTTP_CACHE_DIR_NAME = "/http_response_cache"
+    private const val HTTP_CACHE_DIR_NAME = "/http_response_cache"
 
-    fun getDiskCacheDir(last: String): File {
+    private fun getDiskCacheDir(last: String): File {
         val path: String = if (isSDCardMounted()) {
             AppGlobal.context.externalCacheDir.toString() + last
         } else {

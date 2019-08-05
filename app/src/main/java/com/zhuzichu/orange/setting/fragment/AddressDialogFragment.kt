@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zhuzichu.mvvm.view.dialog.BottomSheetFragment
+import com.zhuzichu.mvvm.base.BaseSheetFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentDialogAddressBinding
@@ -16,7 +16,7 @@ class AddressDialogFragment(
     fm: FragmentManager,
     private var consumer: ((parameter: List<ItemAddressViewModel?>) -> Unit)? = null
 ) :
-    BottomSheetFragment<FragmentDialogAddressBinding, AddressDialogViewModel>(fm) {
+    BaseSheetFragment<FragmentDialogAddressBinding, AddressDialogViewModel>(fm) {
     private val titles = listOf("省份", "城市", "区县")
 
     override fun setLayoutId(): Int = R.layout.fragment_dialog_address

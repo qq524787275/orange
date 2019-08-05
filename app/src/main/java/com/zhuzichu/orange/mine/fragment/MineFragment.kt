@@ -1,6 +1,8 @@
 package com.zhuzichu.orange.mine.fragment
 
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.lifecycle.Observer
@@ -9,10 +11,12 @@ import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.helper.QMUIDrawableHelper
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import com.zhuzichu.mvvm.view.reveal.animation.ViewAnimationUtils
+import com.zhuzichu.mvvm.view.tourguide.TourGuide
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMineBinding
 import com.zhuzichu.orange.mine.viewmodel.MineViewModel
+import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlin.math.hypot
 
 /**
@@ -26,8 +30,18 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
     override fun bindVariableId(): Int = BR.viewModel
     override fun setLayoutId(): Int = R.layout.fragment_mine
 
-    override fun initView() {
-
+    private val tourGuide by lazy {
+        TourGuide.create(_activity) {
+            pointer {}
+            toolTip {
+                title { "友情提示!" }
+                description { "点击这里可以切换夜间模式哦～..." }
+            }
+            overlay {
+                backgroundColor { Color.parseColor("#66000000") }
+                onClickListener { View.OnClickListener { this@create.cleanUp() } }
+            }
+        }
     }
 
     override fun initViewObservable() {
@@ -54,5 +68,19 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
                     QMUIStatusBarHelper.setStatusBarLightMode(_viewModel._activity)
             }
         })
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        if (_viewModel.preference.isShowFirstDarkGuide) {
+            tourGuide.playOn(sun_moon)
+            _viewModel.preference.isShowFirstDarkGuide = false
+        }
+    }
+
+
+    override fun onBackPressedSupport(): Boolean {
+        tourGuide.cleanUp()
+        return super.onBackPressedSupport()
     }
 }

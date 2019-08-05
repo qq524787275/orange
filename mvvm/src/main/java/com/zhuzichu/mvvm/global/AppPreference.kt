@@ -31,6 +31,8 @@ open class AppPreference {
     var colorPrimary by PreferenceDelegates.int(defaultValue = R.color.colorPrimary.toColorById())
     var token by PreferenceDelegates.string(defaultValue = null)
 
+    var isShowFirstDarkGuide by PreferenceDelegates.boolean(defaultValue = true)
+
 
     private object PreferenceDelegates {
 

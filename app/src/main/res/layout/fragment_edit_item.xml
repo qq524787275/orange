@@ -25,6 +25,7 @@
                 android:paddingLeft="15dp"
                 android:text="@={viewModel.text}"
                 android:paddingBottom="10dp"
+                android:textColorHint="@{viewModel.color.hintColor}"
                 android:textColor="@{viewModel.color.textColorPrimary}"
                 android:textSize="16sp"/>
 
@@ -36,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="@{viewModel.tips}"
+                    app:textColor="@{viewModel.color.textColorSecond}"
                     tools:text="16位以内数字及“-”组成"/>
 
             <androidx.appcompat.widget.AppCompatTextView

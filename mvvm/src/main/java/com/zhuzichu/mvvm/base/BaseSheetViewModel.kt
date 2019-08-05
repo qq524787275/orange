@@ -1,14 +1,13 @@
-package com.zhuzichu.mvvm.view.dialog
+package com.zhuzichu.mvvm.base
 
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import com.ali.auth.third.core.util.CommonUtils.toast
 import com.trello.rxlifecycle3.LifecycleProvider
-import com.zhuzichu.mvvm.base.IBaseViewModel
 import com.zhuzichu.mvvm.http.exception.ResponseThrowable
 
-open class BottomSheetViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
+open class BaseSheetViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
     private lateinit var _lifecycle: LifecycleProvider<*>
     lateinit var _fragment: Fragment
 

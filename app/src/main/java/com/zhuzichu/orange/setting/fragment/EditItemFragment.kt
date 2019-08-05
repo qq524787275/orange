@@ -55,8 +55,12 @@ class EditItemFragment(
     override fun initViewObservable() {
         _viewModel.onSureEvent.observe(this, Observer {
             consumer?.invoke(it)
-            hideSoftInput()
             pop()
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideSoftInput()
     }
 }

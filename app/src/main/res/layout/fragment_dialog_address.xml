@@ -12,7 +12,8 @@
                   android:background="@{viewModel.color.contentBackground}">
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@{viewModel.color.windowBackground}">
 
             <RelativeLayout
                     android:layout_width="0dp"
@@ -24,6 +25,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:tabMode="scrollable"
+                        android:background="@{viewModel.color.windowBackground}"
                         app:onTabSelectedCommand="@{viewModel.onTabSelected}"
                         app:tabIndicatorColor="@{viewModel.color.colorPrimary}"
                         app:tabSelectedTextColor="@{viewModel.color.colorPrimary}"

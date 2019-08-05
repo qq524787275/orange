@@ -63,6 +63,8 @@
         <activity android:name=".ui.previewimage.PreviewImageActivity"
                   android:theme="@style/AppTransparentTheme"/>
 
+        <activity android:name=".flutter.BirdFlutterActivity"/>
+
     </application>
 
 </manifest>

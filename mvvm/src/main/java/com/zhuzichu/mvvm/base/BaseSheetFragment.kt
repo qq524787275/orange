@@ -1,4 +1,4 @@
-package com.zhuzichu.mvvm.view.dialog
+package com.zhuzichu.mvvm.base
 
 import android.app.Activity
 import android.app.Dialog
@@ -17,13 +17,13 @@ import com.trello.rxlifecycle3.LifecycleTransformer
 import com.trello.rxlifecycle3.RxLifecycle
 import com.trello.rxlifecycle3.android.FragmentEvent
 import com.trello.rxlifecycle3.android.RxLifecycleAndroid
-import com.zhuzichu.mvvm.base.IBaseFragment
 import com.zhuzichu.mvvm.utils.cast
+import com.zhuzichu.mvvm.view.dialog.BottomSheetDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import java.lang.reflect.ParameterizedType
 
-abstract class BottomSheetFragment<V : ViewDataBinding, VM : BottomSheetViewModel>(
+abstract class BaseSheetFragment<V : ViewDataBinding, VM : BaseSheetViewModel>(
     val fm: FragmentManager
 ) : DialogFragment(), LifecycleProvider<FragmentEvent>, IBaseFragment {
     private val lifecycleSubject: BehaviorSubject<FragmentEvent> =

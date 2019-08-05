@@ -9,12 +9,12 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
-import com.zhuzichu.mvvm.view.dialog.BottomSheetViewModel
+import com.zhuzichu.mvvm.base.BaseSheetViewModel
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
-class AddressDialogViewModel(application: Application) : BottomSheetViewModel(application) {
+class AddressDialogViewModel(application: Application) : BaseSheetViewModel(application) {
     val color = ColorGlobal
 
     val list =

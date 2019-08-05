@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.fragment_find.*
 
 class FindFragment : BaseTopbarFragment<FragmentFindBinding, FindViewModel>() {
 
-    val titles = listOf("精选单品", "好货专场", "趣味发图")
-    val fragments = listOf<Fragment>(FindOneFragment(), FindTwoFragment(), FindThreeFragment())
+    private val titles = listOf("精选单品", "好货专场", "趣味发图")
+    private val fragments = listOf<Fragment>(FindOneFragment(), FindTwoFragment(), FindThreeFragment())
 
     override fun setLayoutId(): Int = R.layout.fragment_find
 

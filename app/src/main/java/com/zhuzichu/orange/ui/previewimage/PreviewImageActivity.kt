@@ -21,7 +21,7 @@ class PreviewImageActivity : AppCompatActivity() {
     private val list by lazy { intent.getStringArrayListExtra("images")!! }
     private val current by lazy { intent.getStringExtra("current")!! }
     private var currentIndex = 0
-    private val adapter by lazy { PreviewImageAdapter(list, currentIndex) }
+    private val adapter by lazy { PreviewImageAdapter(list) }
 
     companion object {
         fun start(context: Context, list: ArrayList<String>, current: String, imageView: ImageView? = null) {

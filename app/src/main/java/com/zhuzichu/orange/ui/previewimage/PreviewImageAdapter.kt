@@ -12,8 +12,7 @@ import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.R
 
 class PreviewImageAdapter(
-    var list: List<String>,
-    var currentIndex: Int
+    var list: List<String>
 ) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`

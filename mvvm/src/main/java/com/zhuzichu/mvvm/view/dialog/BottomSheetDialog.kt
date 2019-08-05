@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
 import android.view.animation.Animation.AnimationListener
-import com.zhuzichu.mvvm.R.style
+import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.utils.helper.QMUIDisplayHelper
 
-class BottomSheetDialog(context: Context) : Dialog(context, style.BottomSheet) {
+class BottomSheetDialog(context: Context) : Dialog(context, R.style.BottomSheet) {
     // 持有 ContentView，为了做动画
     private lateinit var contentView: View
     private var mIsAnimating = false
