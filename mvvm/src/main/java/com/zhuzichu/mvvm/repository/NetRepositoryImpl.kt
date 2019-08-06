@@ -1,6 +1,5 @@
 package com.zhuzichu.mvvm.repository
 
-import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*
 import com.zhuzichu.mvvm.service.IService
 import io.reactivex.Flowable
@@ -14,6 +13,10 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun updateUserInfo(type: Int, value: Any): Flowable<BaseRes<UserInfoBean>> {
+        return getAppService().updateUserInfo(type, value)
+    }
+
     override fun getUserInfo(): Flowable<BaseRes<UserInfoBean>> {
         return getAppService(isEncrypt = false).getUserInfo()
     }

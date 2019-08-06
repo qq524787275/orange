@@ -11,6 +11,13 @@ import retrofit2.http.POST
 interface AppService {
 
     @FormUrlEncoded
+    @POST("api/user/updateUserInfo")
+    fun updateUserInfo(
+        @Field("type") type: Int,
+        @Field("value") value: Any
+    ): Flowable<BaseRes<UserInfoBean>>
+
+    @FormUrlEncoded
     @POST("api/user/regist")
     fun regist(
         @Field("username") username: String,
