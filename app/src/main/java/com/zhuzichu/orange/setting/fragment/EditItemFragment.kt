@@ -16,7 +16,7 @@ class EditItemFragment(
     val text: String,
     var tips: String,
     val maxLength: Int = 11,
-    private var consumer: ((parameter: String?) -> Unit)? = null
+    private var consumer: ((parameter: String?, fragment: EditItemFragment) -> Unit)? = null
 ) : BaseTopbarBackFragment<FragmentEditItemBinding, EditItemViewModel>() {
     override fun setLayoutId(): Int = R.layout.fragment_edit_item
 
@@ -54,13 +54,12 @@ class EditItemFragment(
 
     override fun initViewObservable() {
         _viewModel.onSureEvent.observe(this, Observer {
-            consumer?.invoke(it)
-            pop()
+            consumer?.invoke(it,this)
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         hideSoftInput()
+        super.onDestroyView()
     }
 }

@@ -1,6 +1,5 @@
 package com.zhuzichu.mvvm.repository
 
-import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 
@@ -12,6 +11,8 @@ import io.reactivex.Flowable
  * Time: 18:09
  */
 interface NetRepository {
+    fun updateUserInfo(type: Int, value: Any): Flowable<BaseRes<UserInfoBean>>
+
     fun getUserInfo(): Flowable<BaseRes<UserInfoBean>>
 
     fun login(

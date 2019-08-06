@@ -26,7 +26,7 @@
                 android:text="@={viewModel.text}"
                 android:paddingBottom="10dp"
                 android:textColorHint="@{viewModel.color.hintColor}"
-                android:textColor="@{viewModel.color.textColorPrimary}"
+                app:textColor="@{viewModel.color.textColorPrimary}"
                 android:textSize="16sp"/>
 
         <RelativeLayout android:layout_width="match_parent"

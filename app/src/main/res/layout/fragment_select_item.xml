@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.setting.viewmodel.SelectItemViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@{viewModel.color.contentBackground}">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:items="@{viewModel.list}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:itemBinding="@{viewModel.itemBind}"/>
+
+    </LinearLayout>
+</layout>
