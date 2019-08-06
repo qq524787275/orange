@@ -14,9 +14,11 @@ import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.bindToException
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.bindToSchedulers
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
+import com.zhuzichu.orange.setting.fragment.EditAvatarFragment
 import com.zhuzichu.orange.setting.fragment.EditItemFragment
 import com.zhuzichu.orange.setting.fragment.SelectItemFragment
 
@@ -40,6 +42,10 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
 
     val onClickLogout = BindingCommand<Any>({
         uc.onShowLogoutSnackbarEvent.call()
+    })
+
+    val onClickAvatar = BindingCommand<Any>({
+        startFragment(EditAvatarFragment())
     })
 
     val onClickSex = BindingCommand<Any>({
@@ -107,8 +113,12 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
             .subscribe(
                 {
                     val data = it.data
-                    userInfo.set(data)
-                    global.userInfo.set(data)
+                    userInfo.set(data.apply {
+                        avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
+                    })
+                    global.userInfo.set(data.apply {
+                        avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
+                    })
                     fragment?.pop()
                 },
                 {

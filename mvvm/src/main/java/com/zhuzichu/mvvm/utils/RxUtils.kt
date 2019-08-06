@@ -7,6 +7,7 @@ import com.trello.rxlifecycle3.LifecycleTransformer
 import com.zhuzichu.mvvm.http.exception.ExceptionHandle
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.functions.Function
@@ -91,4 +92,8 @@ fun <T> Flowable<T>.bindToSchedulers(): Flowable<T> =
     }
 
 fun <T, E> Flowable<T>.bindToLifecycle(provider: LifecycleProvider<E>): Flowable<T> =
+    this.compose<T>(provider.bindToLifecycle<T>())
+
+
+fun <T, E> Observable<T>.bindToLifecycle(provider: LifecycleProvider<E>): Observable<T> =
     this.compose<T>(provider.bindToLifecycle<T>())

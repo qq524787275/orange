@@ -75,6 +75,7 @@ dependencies {
     implementation project(path: ':flutter')
     api project(path: ':mvvm')
     testImplementation "junit:junit:$rootProject.junitVersion"
+
 }
 
 apply from: '../spotless.gradle'

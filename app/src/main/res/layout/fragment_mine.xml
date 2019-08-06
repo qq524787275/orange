@@ -45,17 +45,18 @@
                     android:gravity="end|center_vertical"
                     android:orientation="horizontal">
 
-
                 <FrameLayout
                         android:id="@+id/sun_moon"
                         android:layout_width="40dp"
                         android:layout_height="50dp"
                         app:onClickCommand="@{viewModel.onClickDark}">
+
                     <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center"
                             app:url="@{safeUnbox(viewModel.color.isDark())?R.mipmap.ic_theme_sun:R.mipmap.ic_theme_moon}"/>
+
                 </FrameLayout>
 
                 <FrameLayout android:layout_width="40dp"
@@ -67,14 +68,15 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             app:srcCompat="@mipmap/ic_my_set"/>
+
                 </FrameLayout>
+
             </LinearLayout>
 
             <View android:layout_width="match_parent"
                   android:layout_height="1dp"
                   android:background="@drawable/divider"
                   android:layout_alignParentBottom="true"/>
-
 
         </RelativeLayout>
 
@@ -103,7 +105,6 @@
                                         android:background="@{viewModel.color.contentBackground}"
                                         app:onClickCommand="@{!viewModel.global.isLogin?viewModel.onClickLogin:viewModel.onClickSettingUser}">
 
-
                             <com.zhuzichu.mvvm.view.imageview.CircularImageView
                                     android:id="@+id/avatar"
                                     android:layout_width="70dp"
@@ -117,7 +118,6 @@
                                     app:civ_border_color="@{viewModel.color.colorPrimary}"
                                     app:civ_border_width="4dp"
                                     app:civ_shadow="false"/>
-
 
                             <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
@@ -137,7 +137,6 @@
                                     android:src="@mipmap/ic_arrow"/>
                         </RelativeLayout>
 
-
                         <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -145,7 +144,6 @@
                                 app:cardBackground="@{viewModel.color.contentBackground}"
                                 app:cardCornerRadius="5dp"
                                 android:layout_margin="10dp">
-
 
                             <LinearLayout android:layout_width="match_parent"
                                           android:layout_height="wrap_content"
@@ -285,9 +283,7 @@
                                                 android:text="评价"/>
                                     </LinearLayout>
 
-
                                 </LinearLayout>
-
 
                             </LinearLayout>
 
@@ -433,7 +429,6 @@
                                     app:srcCompat="@mipmap/ic_arrow"/>
                         </LinearLayout>
 
-
                         <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -494,7 +489,6 @@
                                     app:textColor="@{viewModel.color.textColorPrimary}"
                                     android:textSize="14sp"/>
 
-
                             <com.zhuzichu.mvvm.widget.CircleView
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
@@ -506,6 +500,7 @@
                                     android:layout_height="12sp"
                                     android:layout_gravity="center_vertical"
                                     app:srcCompat="@mipmap/ic_arrow"/>
+
                         </LinearLayout>
 
                         <LinearLayout

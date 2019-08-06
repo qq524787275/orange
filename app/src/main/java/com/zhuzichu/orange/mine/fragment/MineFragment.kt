@@ -78,7 +78,6 @@ class MineFragment : BaseTopbarFragment<FragmentMineBinding, MineViewModel>() {
         }
     }
 
-
     override fun onBackPressedSupport(): Boolean {
         tourGuide.cleanUp()
         return super.onBackPressedSupport()

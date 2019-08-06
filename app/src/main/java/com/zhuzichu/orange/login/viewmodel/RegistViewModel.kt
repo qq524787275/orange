@@ -12,6 +12,7 @@ import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.LoginFragment
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
+import com.zhuzichu.orange.Constants
 import me.yokeyword.fragmentation.ISupportFragment
 
 class RegistViewModel(application: Application) : BaseViewModel(application) {
@@ -97,7 +98,9 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                         if (isLogin) {
                             "登录成功~".toast()
                             AppGlobal.isLogin.set(true)
-                            AppGlobal.userInfo.set(it.data.userInfo)
+                            AppGlobal.userInfo.set(it.data.userInfo.apply {
+                                avatarUrl= Constants.APP_IMAGE_URL.plus(avatarUrl)
+                            })
                             startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
                         } else {
                             "注册成功~".toast()

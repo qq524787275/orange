@@ -11,6 +11,7 @@ import com.zhuzichu.orange.login.fragment.ForgetFragment
 import com.zhuzichu.orange.login.fragment.RegistFragment
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
+import com.zhuzichu.orange.Constants
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**
@@ -59,7 +60,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         val token = it.data.token
                         preference.token = token
                         AppGlobal.isLogin.set(true)
-                        AppGlobal.userInfo.set(it.data.userInfo)
+                        AppGlobal.userInfo.set(it.data.userInfo.apply {
+                            avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
+                        })
                         "登录成功～".toast()
                         startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
                     },

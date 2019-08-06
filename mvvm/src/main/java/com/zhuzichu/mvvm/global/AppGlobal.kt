@@ -5,6 +5,9 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.ali.auth.third.core.model.Session
 import com.google.gson.reflect.TypeToken
+import com.qiniu.android.common.FixedZone
+import com.qiniu.android.storage.Configuration
+import com.qiniu.android.storage.UploadManager
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bean.AddressBean
 import com.zhuzichu.mvvm.bean.UserInfoBean
@@ -62,5 +65,18 @@ object AppGlobal {
             val type: Type? = object : TypeToken<List<AddressBean>>() {}.type
             it.onNext(Convert.fromJson(jsonSB.toString(), type))
         }, BackpressureStrategy.ERROR)
+    }
+
+
+    private val uploadManager = UploadManager(
+        Configuration
+            .Builder()
+            .connectTimeout(10)           // 链接超时。默认10秒
+            .responseTimeout(60)          // 服务器响应超时。默认60秒
+            .build()
+    )
+
+    fun getUploadManager(): UploadManager {
+        return uploadManager
     }
 }

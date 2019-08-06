@@ -10,6 +10,9 @@ import retrofit2.http.POST
 
 interface AppService {
 
+    @POST("api/user/getAvatarToken")
+    fun getAvatarToken(): Flowable<BaseRes<String>>
+
     @FormUrlEncoded
     @POST("api/user/updateUserInfo")
     fun updateUserInfo(

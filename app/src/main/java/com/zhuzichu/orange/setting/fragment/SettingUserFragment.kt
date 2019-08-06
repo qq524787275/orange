@@ -16,6 +16,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSettingUserBinding
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
+import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.setting.viewmodel.SettingUserViewModel
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -47,7 +48,9 @@ class SettingUserFragment : BaseTopbarBackFragment<FragmentSettingUserBinding, S
             .bindToException()
             .subscribe(
                 {
-                    AppGlobal.userInfo.set(it.data)
+                    AppGlobal.userInfo.set(it.data.apply {
+                        avatarUrl= Constants.APP_IMAGE_URL.plus(avatarUrl)
+                    })
                 },
                 {
                     _viewModel.handleThrowable(it)

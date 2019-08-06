@@ -13,6 +13,10 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getAvatarToken(): Flowable<BaseRes<String>> {
+        return getAppService(isEncrypt = false).getAvatarToken()
+    }
+
     override fun updateUserInfo(type: Int, value: Any): Flowable<BaseRes<UserInfoBean>> {
         return getAppService().updateUserInfo(type, value)
     }

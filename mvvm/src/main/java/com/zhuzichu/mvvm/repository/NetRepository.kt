@@ -11,6 +11,9 @@ import io.reactivex.Flowable
  * Time: 18:09
  */
 interface NetRepository {
+
+    fun getAvatarToken(): Flowable<BaseRes<String>>
+
     fun updateUserInfo(type: Int, value: Any): Flowable<BaseRes<UserInfoBean>>
 
     fun getUserInfo(): Flowable<BaseRes<UserInfoBean>>

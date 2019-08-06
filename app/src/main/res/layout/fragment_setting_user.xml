@@ -44,6 +44,7 @@
                             android:background="@{viewModel.color.contentBackground}"
                             android:orientation="horizontal"
                             android:gravity="center"
+                            app:onClickCommand="@{viewModel.onClickAvatar}"
                             android:paddingLeft="15dp"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:paddingRight="15dp">
