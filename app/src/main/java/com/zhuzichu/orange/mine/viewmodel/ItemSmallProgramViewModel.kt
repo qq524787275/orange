@@ -5,6 +5,7 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.orange.flutter.BallGameFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
 
@@ -32,6 +33,9 @@ class ItemSmallProgramViewModel(
             2 -> {
                 val addressFragment = AddressDialogFragment(viewModel._fragment.childFragmentManager)
                 addressFragment.show()
+            }
+            3 -> {
+                viewModel.startActivity(clz = BallGameFlutterActivity::class.java)
             }
             else -> {
             }

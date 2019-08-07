@@ -88,31 +88,27 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     private fun registorUIChangeLiveDataCallBack() {
         //跳入新Fragment页面
         _viewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
-            run {
-                val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-                val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
-                getSuperTopFragment().start(fragment, launchMode)
-            }
+            val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
+            val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
+            getSuperTopFragment().start(fragment, launchMode)
         })
         //跳转到新Activity页面
         _viewModel.getUC().getStartActivityEvent().observe(this, Observer { params ->
-            run {
-                val clz = params[BaseViewModel.ParameterField.CLASS] as Class<*>
-                val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
-                val options = params[BaseViewModel.ParameterField.OPTIONS] as Bundle?
-                val isPop = params[BaseViewModel.ParameterField.POP] as Boolean?
-                val intent = Intent(activity, clz)
-                bundle?.let {
-                    intent.putExtras(it)
-                }
-                if (options != null) {
-                    startActivity(intent, options)
-                } else {
-                    startActivity(intent)
-                }
-                if (isPop == true) {
-                    _activity.finish()
-                }
+            val clz = params[BaseViewModel.ParameterField.CLASS] as Class<*>
+            val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
+            val options = params[BaseViewModel.ParameterField.OPTIONS] as Bundle?
+            val isPop = params[BaseViewModel.ParameterField.POP] as Boolean?
+            val intent = Intent(activity, clz)
+            bundle?.let {
+                intent.putExtras(it)
+            }
+            if (options != null) {
+                startActivity(intent, options)
+            } else {
+                startActivity(intent)
+            }
+            if (isPop == true) {
+                _activity.finish()
             }
         })
         //直接退出Activity页面
@@ -125,9 +121,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         _viewModel.getUC().getHideLoadingDialogEvent().observe(this, Observer { DialogMaker.dismissLodingDialog() })
 
         _viewModel.getUC().getMultiStateEvent().observe(this, Observer { params ->
-            run {
-                _multiStateView.viewState = params
-            }
+            _multiStateView.viewState = params
         })
 
         _viewModel.getUC().getHideSoftKeyBoardEvent().observe(this, Observer {

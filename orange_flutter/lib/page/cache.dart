@@ -6,9 +6,8 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:orange_flutter/style.dart';
-
-import 'appbar.dart';
+import 'package:orange_flutter/component/appbar.dart';
+import 'package:orange_flutter/theme/style.dart';
 
 class CacheScaffold extends StatefulWidget {
   @override

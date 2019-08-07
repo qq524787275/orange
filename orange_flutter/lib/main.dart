@@ -1,25 +1,52 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:flame/util.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_cache.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:orange_flutter/style.dart';
+import 'package:orange_flutter/channel/channel.dart';
+import 'package:orange_flutter/game/ball/ballgame.dart';
+import 'package:orange_flutter/page/about.dart';
+import 'package:orange_flutter/page/cache.dart';
+import 'package:orange_flutter/theme/color.dart';
+import 'package:orange_flutter/theme/style.dart';
 import 'package:provider/provider.dart';
 
-import 'about.dart';
-import 'cache.dart';
-import 'channel.dart';
-import 'color.dart';
+void main() async {
+  final url = window.defaultRouteName;
+  final split = url.split("?");
+  final route = split[0];
+  final param = json.decode(split[1]);
+  ColorGlobal().isDark = param["isDark"];
+  ColorGlobal().colorPrimary = Color(param["colorPrimary"]);
 
-void main() {
-  FlareCache.doesPrune = false;
-  runApp(MainApp());
+  if (route == "game_ball") {
+    Util flameUtil = Util();
+    await flameUtil.fullScreen();
+    await flameUtil.setOrientation(DeviceOrientation.portraitUp);
+    BallGame game = BallGame();
+    TapGestureRecognizer tapSink = TapGestureRecognizer();
+    tapSink.onTapDown = game.onTapDown;
+    tapSink.onTapUp = game.onTapUp;
+    runApp(game.widget);
+    flameUtil.addGestureRecognizer(tapSink);
+  } else {
+    FlareCache.doesPrune = false;
+    runApp(MainApp(
+      route: route,
+    ));
+  }
 }
 
 class MainApp extends StatefulWidget {
+  final String route;
+
+  const MainApp({Key key, this.route}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _MainAppState();
 }
@@ -27,20 +54,13 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    final url = window.defaultRouteName;
-    final split = url.split("?");
-    final route = split[0];
-    final param = json.decode(split[1]);
-    ColorGlobal().isDark = param["isDark"];
-    ColorGlobal().colorPrimary = Color(param["colorPrimary"]);
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           builder: (_) => ColorGlobal(),
         )
       ],
-      child: _widgetForRoute(route),
+      child: _widgetForRoute(widget.route),
     );
   }
 }

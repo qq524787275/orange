@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
+import 'package:orange_flutter/channel/channel.dart';
+import 'package:orange_flutter/theme/color.dart';
 import 'package:provider/provider.dart';
-
-import 'channel.dart';
-import 'color.dart';
 
 class AboutScaffold extends StatefulWidget {
   @override
