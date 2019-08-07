@@ -60,9 +60,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         val token = it.data.token
                         preference.token = token
                         AppGlobal.isLogin.set(true)
-                        AppGlobal.userInfo.set(it.data.userInfo.apply {
-                            avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
-                        })
+                        AppGlobal.userInfo.value = it.data.userInfo
                         "登录成功～".toast()
                         startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
                     },

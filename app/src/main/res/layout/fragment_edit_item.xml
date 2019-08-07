@@ -25,7 +25,7 @@
                 android:paddingLeft="15dp"
                 android:text="@={viewModel.text}"
                 android:paddingBottom="10dp"
-                android:textColorHint="@{viewModel.color.hintColor}"
+                app:textColorHint="@{viewModel.color.hintColor}"
                 app:textColor="@{viewModel.color.textColorPrimary}"
                 android:textSize="16sp"/>
 

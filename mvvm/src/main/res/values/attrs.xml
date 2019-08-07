@@ -44,6 +44,7 @@
     <declare-styleable name="EditText">
         <attr name="disableInput" format="boolean"/>
         <attr name="onAfterTextCommand" format="reference"/>
+        <attr name="textColorHint" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="Chip">

@@ -2,10 +2,8 @@ package com.zhuzichu.orange.setting.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.bean.UserInfoBean
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
@@ -14,7 +12,6 @@ import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.bindToException
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.bindToSchedulers
-import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
@@ -32,7 +29,7 @@ import com.zhuzichu.orange.setting.fragment.SelectItemFragment
 class SettingUserViewModel(application: Application) : BaseViewModel(application) {
     val color = ColorGlobal
     val global = AppGlobal
-    val userInfo = ObservableField<UserInfoBean>(global.userInfo.get())
+    val userInfo = global.userInfo
 
     val uc = UIChangeObservable()
 
@@ -52,7 +49,7 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
         val selectItemFragment = SelectItemFragment(_fragment.childFragmentManager, consumer = {
             val array = _context.resources.getStringArray(R.array.list_sex)
             array.mapIndexed { index, item ->
-                ItemSelectViewModel(it, item, index, userInfo.get()?.sex == index)
+                ItemSelectViewModel(it, item, index, userInfo.value?.sex == index)
             }
         }) {
             updateUserInfo(Constants.TYPE_SEX, it.value)
@@ -62,7 +59,7 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
     })
 
     val onClickNickname = BindingCommand<Any>({
-        val editItemFragment = EditItemFragment("编辑昵称", userInfo.get()?.nickname ?: "", "15位以内字符组成", 15) { s, f ->
+        val editItemFragment = EditItemFragment("编辑昵称", userInfo.value?.nickname ?: "", "15位以内字符组成", 15) { s, f ->
             s?.let {
                 updateUserInfo(Constants.TYPE_NICKNAME, it, f)
             }
@@ -71,7 +68,7 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
     })
 
     val onClickEmail = BindingCommand<Any>({
-        val editItemFragment = EditItemFragment("编辑邮箱", userInfo.get()?.email ?: "", "请输入有效的邮箱", 100) { s, f ->
+        val editItemFragment = EditItemFragment("编辑邮箱", userInfo.value?.email ?: "", "请输入有效的邮箱", 100) { s, f ->
             s?.let {
                 updateUserInfo(Constants.TYPE_EMAIL, it, f)
             }
@@ -81,7 +78,7 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
 
 
     val onClickSummary = BindingCommand<Any>({
-        val editItemFragment = EditItemFragment("编辑个人简介", userInfo.get()?.summary ?: "", "请输入个人简介", 100) { s, f ->
+        val editItemFragment = EditItemFragment("编辑个人简介", userInfo.value?.summary ?: "", "请输入个人简介", 100) { s, f ->
             s?.let {
                 updateUserInfo(Constants.TYPE_SUMMARY, it, f)
             }
@@ -113,12 +110,8 @@ class SettingUserViewModel(application: Application) : BaseViewModel(application
             .subscribe(
                 {
                     val data = it.data
-                    userInfo.set(data.apply {
-                        avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
-                    })
-                    global.userInfo.set(data.apply {
-                        avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
-                    })
+                    userInfo.value = data
+                    global.userInfo.value = data
                     fragment?.pop()
                 },
                 {

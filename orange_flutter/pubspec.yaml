@@ -30,6 +30,7 @@ dependencies:
   intro_views_flutter:
   provider: ^3.0.0+1
   flare_flutter: ^1.5.4
+  flame: ^0.15.0
 
 dev_dependencies:
   flutter_test:

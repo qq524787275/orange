@@ -3,12 +3,11 @@ package com.zhuzichu.mvvm.global
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.ali.auth.third.core.model.Session
 import com.google.gson.reflect.TypeToken
-import com.qiniu.android.common.FixedZone
 import com.qiniu.android.storage.Configuration
 import com.qiniu.android.storage.UploadManager
-import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bean.AddressBean
 import com.zhuzichu.mvvm.bean.UserInfoBean
 import com.zhuzichu.mvvm.global.color.ColorGlobal
@@ -29,7 +28,7 @@ object AppGlobal {
     lateinit var context: Application
 
     val isLogin = ObservableBoolean(false)
-    val userInfo: ObservableField<UserInfoBean> = ObservableField(UserInfoBean())
+    val userInfo: MutableLiveData<UserInfoBean> = MutableLiveData(UserInfoBean())
 
     val isAuth = ObservableBoolean(false)
     val session: ObservableField<Session> = ObservableField(Session())

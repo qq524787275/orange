@@ -4,20 +4,20 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
-import android.provider.MediaStore
+import androidx.lifecycle.Observer
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
-import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
-import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.global.AppGlobal.getUploadManager
 import com.zhuzichu.mvvm.global.AppGlobal.userInfo
 import com.zhuzichu.mvvm.global.glide.GlideApp
 import com.zhuzichu.mvvm.global.glide.GlideEngine
 import com.zhuzichu.mvvm.permissions.RxPermissions
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.mvvm.utils.bindToException
+import com.zhuzichu.mvvm.utils.bindToLifecycle
+import com.zhuzichu.mvvm.utils.bindToSchedulers
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouch
 import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.BR
@@ -32,13 +32,15 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
     override fun setLayoutId(): Int = R.layout.fragment_edit_avatar
     override fun bindVariableId(): Int = BR.viewModel
 
+    private lateinit var imageView: ImageViewTouch
+
     companion object {
         private const val REQUEST_CODE_CHOOSE = 111
     }
 
     override fun initView() {
         setTitle("编辑头像")
-        val imageView = _contentView.findViewById<ImageViewTouch>(R.id.image)
+        imageView = _contentView.findViewById(R.id.image)
         imageView.displayType = ImageViewTouchBase.DisplayType.FIT_TO_SCREEN
         addRightIcon(R.mipmap.ic_more) {
             val selectItemFragment = SelectItemFragment(childFragmentManager, consumer = {
@@ -47,31 +49,73 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                     ItemSelectViewModel(it, "从相册中选取", 1, false)
                 )
             }) {
-                if (it.value == 1) {
-                    RxPermissions(this)
-                        .request(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .bindToLifecycle(_viewModel.getLifecycleProvider())
-                        .subscribe { granted ->
-                            if (granted) {
-                                Matisse.from(this)
-                                    .choose(MimeType.ofAll())
-                                    .countable(true)
-                                    .showSingleMediaType(true)
-                                    .imageEngine(GlideEngine())
-                                    .forResult(REQUEST_CODE_CHOOSE)
-                            }
-                        }
-                }
+                checkPermissions(it.value.toString().toInt())
             }
             selectItemFragment.show()
         }
-        val avatarUrl = _viewModel.global.userInfo.get()?.avatarUrl
+        val avatarUrl = _viewModel.global.userInfo.value?.avatarUrl
+        updateImage(avatarUrl)
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun checkPermissions(value: Int) {
+        when (value) {
+            0 -> {
+                //拍照权限
+                RxPermissions(this)
+                    .request(Manifest.permission.CAMERA)
+                    .bindToLifecycle(_viewModel.getLifecycleProvider())
+                    .subscribe { granted ->
+                        if (granted) {
+                            //todo 去拍照
+                        } else {
+                            "权限被拒绝".toast()
+                        }
+                    }
+            }
+
+            1 -> {
+                //数据读写权限
+                RxPermissions(this)
+                    .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .bindToLifecycle(_viewModel.getLifecycleProvider())
+                    .subscribe { granted ->
+                        if (granted) {
+                            startPicChoose()
+                        } else {
+                            "权限被拒绝".toast()
+                        }
+                    }
+            }
+            else -> {
+            }
+        }
+    }
+
+
+    private fun startPicChoose() {
+        Matisse.from(this)
+            .choose(MimeType.ofAll())
+            .countable(true)
+            .showSingleMediaType(true)
+            .imageEngine(GlideEngine())
+            .forResult(REQUEST_CODE_CHOOSE)
+    }
+
+
+    private fun updateImage(avatarUrl: String?) {
         if (avatarUrl.isNullOrBlank()) {
             GlideApp.with(imageView).load(R.mipmap.ic_user_avatar_two).into(imageView)
         } else {
             GlideApp.with(imageView).load(avatarUrl).into(imageView)
         }
+    }
 
+    override fun initViewObservable() {
+        userInfo.observe(this, Observer {
+            updateImage(it.avatarUrl)
+        })
     }
 
     @SuppressLint("CheckResult")
@@ -79,45 +123,38 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             val selected = Matisse.obtainPathResult(data)
-            selected.size.toString().logi("zzc")
+            _viewModel.showLoadingDialog()
             NetRepositoryImpl.getAvatarToken()
                 .bindToException()
                 .bindToLifecycle(_viewModel.getLifecycleProvider())
                 .bindToSchedulers()
-                .doOnSubscribe { _viewModel.showLoadingDialog() }
-                .doFinally { _viewModel.hideLoadingDialog() }
                 .subscribe(
                     {
-                        val path = selected[0]!!
-                        val key = "avatar_".plus(userInfo.get()?.id.toString())
-                        val token = it.data!!
-                        AppGlobal.run {
-                            _viewModel.showLoadingDialog()
-                            getUploadManager()
-                                .put(
-                                    path, key, token,
-                                    { _, info, response ->
-                                        if (info.isOK) {
-                                            "上传成功!".toast()
-                                            response.logi("zzc")
-                                            info.host.logi("zzc")
-                                            info.response.logi("zzc")
-                                            updateUserInfo(Constants.TYPE_AVATAR, key)
-                                        } else {
-                                            "上传失败！".toast()
-                                            info.error.logi("zzc")
-                                        }
-                                        _viewModel.hideLoadingDialog()
-                                    }, null
-                                )
-                        }
-                        it.data?.toast()
-                    },
-                    {
+                        val path = selected[0]
+                        val key =
+                            "avatar_".plus(userInfo.value?.id.toString()).plus("_").plus(System.currentTimeMillis())
+                        val token = it.data
+                        uploadAvatar(path, key, token)
+                    }, {
                         _viewModel.handleThrowable(it)
-                    }
-                )
+                        _viewModel.hideLoadingDialog()
+                    })
         }
+    }
+
+
+    private fun uploadAvatar(path: String, key: String, upToken: String) {
+        getUploadManager().put(
+            path, key, upToken,
+            { _, info, _ ->
+                if (info.isOK) {
+                    updateUserInfo(Constants.TYPE_AVATAR, key)
+                } else {
+                    "修改头像失败".toast()
+                    _viewModel.hideLoadingDialog()
+                }
+            }, null
+        )
     }
 
     @SuppressLint("CheckResult")
@@ -126,17 +163,16 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
             .bindToException()
             .bindToLifecycle(_viewModel.getLifecycleProvider())
             .bindToSchedulers()
-            .doOnSubscribe { _viewModel.showLoadingDialog() }
-            .doFinally { _viewModel.hideLoadingDialog() }
             .subscribe(
                 {
                     val data = it.data
-                    userInfo.set(data.apply {
-                        avatarUrl=Constants.APP_IMAGE_URL.plus(avatarUrl)
-                    })
+                    "修改成功".toast()
+                    userInfo.value = data
+                    _viewModel.hideLoadingDialog()
                 },
                 {
-                    _viewModel.handleThrowable(it)
+                    "修改头像失败".toast()
+                    _viewModel.hideLoadingDialog()
                 }
             )
     }

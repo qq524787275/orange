@@ -8,11 +8,10 @@ import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.AppPreference
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.LoginFragment
 import com.zhuzichu.orange.main.fragment.MainFragment
-import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.orange.Constants
 import me.yokeyword.fragmentation.ISupportFragment
 
 class RegistViewModel(application: Application) : BaseViewModel(application) {
@@ -98,9 +97,7 @@ class RegistViewModel(application: Application) : BaseViewModel(application) {
                         if (isLogin) {
                             "登录成功~".toast()
                             AppGlobal.isLogin.set(true)
-                            AppGlobal.userInfo.set(it.data.userInfo.apply {
-                                avatarUrl= Constants.APP_IMAGE_URL.plus(avatarUrl)
-                            })
+                            AppGlobal.userInfo.value=it.data.userInfo
                             startFragment(MainFragment(), launchMode = ISupportFragment.SINGLETASK)
                         } else {
                             "注册成功~".toast()

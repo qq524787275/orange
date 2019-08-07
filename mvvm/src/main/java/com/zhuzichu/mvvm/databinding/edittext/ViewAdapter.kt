@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.annotation.NonNull
 import androidx.databinding.BindingAdapter
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 
@@ -25,6 +26,12 @@ fun disableInput(editText: EditText, disableInput: Boolean = false) {
     }
 }
 
+@BindingAdapter(value = ["textColorHint"], requireAll = false)
+fun bindEditText(editText: EditText, @NonNull textColorHint: Int? = null) {
+    textColorHint?.let {
+        editText.setHintTextColor(it)
+    }
+}
 
 @BindingAdapter(value = ["onAfterTextCommand"], requireAll = false)
 fun bindTextChanged(editText: EditText, onAfterTextCommand: BindingCommand<Editable>) {

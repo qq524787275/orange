@@ -38,8 +38,10 @@ class SelectItemFragment(
 
     override fun initViewObservable() {
         _viewModel.onSelectItemEvent.observe(this, Observer {
-            selectItem?.invoke(it)
             dismiss()
+            recycler.post {
+                selectItem?.invoke(it)
+            }
         })
     }
 }
