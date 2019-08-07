@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.LifecycleProvider
 import com.trello.rxlifecycle3.LifecycleTransformer
@@ -18,10 +19,13 @@ import com.trello.rxlifecycle3.RxLifecycle
 import com.trello.rxlifecycle3.android.FragmentEvent
 import com.trello.rxlifecycle3.android.RxLifecycleAndroid
 import com.zhuzichu.mvvm.utils.cast
+import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.mvvm.view.dialog.BottomSheetDialog
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import java.lang.reflect.ParameterizedType
+import kotlin.math.log
 
 abstract class BaseSheetFragment<V : ViewDataBinding, VM : BaseSheetViewModel>(
     val fm: FragmentManager
@@ -58,13 +62,13 @@ abstract class BaseSheetFragment<V : ViewDataBinding, VM : BaseSheetViewModel>(
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        "onCreateDialog".logi("zzc")
         return BottomSheetDialog(context = context!!)
     }
 
     fun show() {
         show(fm, this::class.java.name)
     }
-
 
     @CheckResult
     override fun lifecycle(): Observable<FragmentEvent> {

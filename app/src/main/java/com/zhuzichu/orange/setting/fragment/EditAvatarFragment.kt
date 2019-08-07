@@ -14,10 +14,7 @@ import com.zhuzichu.mvvm.global.glide.GlideApp
 import com.zhuzichu.mvvm.global.glide.GlideEngine
 import com.zhuzichu.mvvm.permissions.RxPermissions
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.mvvm.utils.bindToException
-import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.bindToSchedulers
-import com.zhuzichu.mvvm.utils.toast
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouch
 import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.BR
@@ -52,6 +49,7 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                 checkPermissions(it.value.toString().toInt())
             }
             selectItemFragment.show()
+            "执行啦show".logi("zzc")
         }
         val avatarUrl = _viewModel.global.userInfo.value?.avatarUrl
         updateImage(avatarUrl)
@@ -65,7 +63,6 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                 //拍照权限
                 RxPermissions(this)
                     .request(Manifest.permission.CAMERA)
-                    .bindToLifecycle(_viewModel.getLifecycleProvider())
                     .subscribe { granted ->
                         if (granted) {
                             //todo 去拍照
@@ -79,7 +76,6 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                 //数据读写权限
                 RxPermissions(this)
                     .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .bindToLifecycle(_viewModel.getLifecycleProvider())
                     .subscribe { granted ->
                         if (granted) {
                             startPicChoose()

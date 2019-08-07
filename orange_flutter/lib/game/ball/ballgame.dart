@@ -6,8 +6,9 @@ import 'package:flutter/gestures.dart';
 
 class BallGame extends Game {
   FlareAnimation flareAnimation;
-
-  bool loaded = false;
+  Size viewport;
+  int direction = 1;
+  double movementSpeed;
 
   BallGame() {
     _start();
@@ -15,16 +16,31 @@ class BallGame extends Game {
 
   @override
   void render(Canvas canvas) {
-    if (loaded) {
-      flareAnimation.render(canvas);
-    }
+    flareAnimation.render(canvas);
   }
 
   @override
   void update(double dt) {
-    if (loaded) {
-      flareAnimation.update(dt);
+    flareAnimation.update(dt);
+    checkCollision();
+    flareAnimation.x += direction * movementSpeed * dt;
+  }
+
+  void checkCollision() {
+    if ( flareAnimation.x >= viewport.width - 100) {
+      direction = -1;
+    } else if ( flareAnimation.x <= 0) {
+      direction = 1;
     }
+  }
+
+  @override
+  void resize(Size size) {
+    viewport = size;
+    movementSpeed = viewport.width / 2;
+
+    flareAnimation.x = viewport.width / 2 - 50;
+    flareAnimation.y = viewport.height / 2 - 50;
   }
 
   void onTapDown(TapDownDetails d) {}
@@ -32,15 +48,11 @@ class BallGame extends Game {
   void onTapUp(TapUpDetails d) {}
 
   void _start() async {
-    flareAnimation = await FlareAnimation.load("assets/flare/day03.flr");
-    flareAnimation.updateAnimation("start");
+    flareAnimation = await FlareAnimation.load("assets/flare/day04.flr");
+    flareAnimation.updateAnimation("start_right");
 
-    flareAnimation.x = 50;
-    flareAnimation.y = 50;
+    flareAnimation.width = 100;
+    flareAnimation.height = 100;
 
-    flareAnimation.width = 200;
-    flareAnimation.height = 200;
-
-    loaded = true;
   }
 }

@@ -12,7 +12,8 @@ import com.zhuzichu.mvvm.http.AppRetrofit
 
 private const val HAODANKU_URL = "http://v2.api.haodanku.com"
 
-private const val APP_URL = "http://192.168.1.142:8011"
+//private const val APP_URL = "http://192.168.56.1:8011"
+private const val APP_URL = "http://47.111.70.169:8011"
 
 interface IService {
     fun getHaoDankuService(): HaoDankuService {

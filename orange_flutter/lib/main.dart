@@ -169,7 +169,12 @@ class DayStyle {
         title: "Day03",
         desc: "一个会身体会变形的球,丑是丑了点",
         flare: "assets/flare/day03.flr",
-        animation: "start")
+        animation: "start"),
+    DayStyle(
+        title: "Day04",
+        desc: "一个会飞的小鸟,丑是丑了点",
+        flare: "assets/flare/day04.flr",
+        animation: "start_right")
   ];
 }
 

@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseSheetFragment
 import com.zhuzichu.mvvm.utils.dip2px
+import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentSelectItemBinding
@@ -34,14 +35,18 @@ class SelectItemFragment(
         list = consumer.invoke(_viewModel)
         recycler.layoutParams.height = dip2px(50f) * list.size
         _viewModel.list.value = list
+        "SelectItemFragment.initView".logi("zzc")
     }
 
     override fun initViewObservable() {
         _viewModel.onSelectItemEvent.observe(this, Observer {
-            dismiss()
-            recycler.post {
-                selectItem?.invoke(it)
-            }
+            selectItem?.invoke(it)
+            dialog?.cancel()
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        "SelectItemFragment.onDestroy".logi("zzc")
     }
 }
