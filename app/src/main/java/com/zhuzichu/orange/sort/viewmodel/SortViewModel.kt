@@ -11,9 +11,9 @@ import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
-import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import io.reactivex.Flowable
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
@@ -90,6 +90,17 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
                 showError()
                 handleThrowable(it)
             })
+
+        NetRepositoryImpl.getCategory(0L)
+            .bindToException()
+            .bindToSchedulers()
+            .bindToLifecycle(getLifecycleProvider())
+            .subscribe(
+                {
+                    it.data.size.toast()
+                },
+                {handleThrowable(it)}
+            )
     }
 
     private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {

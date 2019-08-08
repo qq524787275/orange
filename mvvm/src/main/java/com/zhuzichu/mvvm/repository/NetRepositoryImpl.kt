@@ -13,6 +13,12 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+
+    override fun getCategory(pid:Long): Flowable<BaseRes<List<CategoryBean>>> {
+        return getAppService(isEncrypt = false).getCategory(pid)
+    }
+
+
     override fun getAvatarToken(): Flowable<BaseRes<String>> {
         return getAppService(isEncrypt = false).getAvatarToken()
     }

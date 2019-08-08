@@ -12,6 +12,8 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun getCategory(pid:Long): Flowable<BaseRes<List<CategoryBean>>>
+
     fun getAvatarToken(): Flowable<BaseRes<String>>
 
     fun updateUserInfo(type: Int, value: Any): Flowable<BaseRes<UserInfoBean>>
