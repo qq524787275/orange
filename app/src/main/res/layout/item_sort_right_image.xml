@@ -24,7 +24,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"
-                    app:url="@{item.info.imgurl}"
+                    app:url="@{item.category.image}"
                     app:enableWhiteToAlpha="@{true}"
                     android:layout_marginTop="5dp"
                     app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     tools:text="男装"
                     android:textSize="13sp"
-                    android:text="@{item.info.son_name}"
+                    android:text="@{item.category.name}"
                     android:layout_marginTop="8dp"
                     app:textColor="@{item.color.textColorSecond}"/>
         </LinearLayout>

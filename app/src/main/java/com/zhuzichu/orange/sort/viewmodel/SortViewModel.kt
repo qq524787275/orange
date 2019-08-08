@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
+import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
-import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import io.reactivex.Flowable
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 
@@ -35,22 +38,9 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
         val rightRecyclerToTop = SingleLiveEvent<Any>()
     }
 
-    var current = 0
     val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_left)
-    private val leftLiveData = MutableLiveData<List<ItemLeftViewModel>>().apply { value = ArrayList() }
-    val leftList: LiveData<List<Any>> = Transformations.map(leftLiveData) { it }
-    val leftDiff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if (oldItem is ItemLeftViewModel && newItem is ItemLeftViewModel) {
-                oldItem.sortBean.cid == newItem.sortBean.cid
-            } else oldItem == newItem
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean = oldItem == newItem
-
-    }
-
+    val leftList =
+        DiffObservableList(itemDiffOf<ItemLeftViewModel> { oldItem, newItem -> oldItem.category.id == newItem.category.id })
 
     val rightItemBind = OnItemBindClass<Any>().apply {
         map<ItemImageViewModel>(BR.item, R.layout.item_sort_right_image)
@@ -71,54 +61,53 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
 
 
     fun loadShopSort() {
-        NetRepositoryImpl.getShopSort()
+        NetRepositoryImpl.getCategory(-1L)
             .bindToException()
             .bindToSchedulers()
             .bindToLifecycle(getLifecycleProvider())
             .map {
-                val list = mutableListOf<ItemLeftViewModel>()
-                it.general_classify.forEach { itemClassify ->
-                    list.add(ItemLeftViewModel(this, itemClassify))
-                }
-                list
+                getTreeCategory(it.data)
             }
-            .subscribe({
-                leftLiveData.value = it
-                updateRight(it[current])
-                showContent()
-            }, {
-                showError()
-                handleThrowable(it)
-            })
-    }
-
-    private fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
-        itemLeftViewModel.isSelected.set(true)
-        Flowable.fromArray(itemLeftViewModel.sortBean.data)
-            .bindToLifecycle(getLifecycleProvider())
-            .bindToSchedulers()
-            .map {
-                val list = mutableListOf<Any>()
-                it.forEach { itemData ->
-                    list.add(ItemTitleViewModel(this, itemData))
-                    itemData.info.forEach { itemInfo ->
-                        list.add(ItemImageViewModel(this, itemInfo))
+            .subscribe(
+                {
+                    val data = it.map { item ->
+                        ItemLeftViewModel(this, item)
+                    }.apply {
+                        this[0].isSelected.set(true)
                     }
+                    leftList.update(data)
+                    updateRight(data[0])
+                    showContent()
+                },
+                {
+                    handleThrowable(it)
+                    showError()
                 }
-                list
-            }
-            .subscribe({
-                rightList.value = it
-                uc.rightRecyclerToTop.call()
-            }, {
-                handleThrowable(it)
-            })
+            )
     }
 
-    fun selectLeftItem(itemLeftViewModel: ItemLeftViewModel) {
-        itemLeftViewModel.isSelected.set(true)
-        leftLiveData.value?.get(current)?.isSelected?.set(false)
-        current = leftLiveData.value?.indexOf(itemLeftViewModel)!!
-        updateRight(itemLeftViewModel)
+    private fun getTreeCategory(all: List<CategoryBean>): List<CategoryBean> {
+        val list = mutableListOf<CategoryBean>()
+        all.forEach {
+            if (it.pid == 0L)
+                list.add(it)
+            all.forEach { item ->
+                if (it.id == item.pid) {
+                    it.childs.add(item)
+                }
+            }
+        }
+        return list
+    }
+
+    fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
+        val data = mutableListOf<Any>()
+        itemLeftViewModel.category.childs.forEach {
+            data.add(ItemTitleViewModel(this, it))
+            it.childs.forEach { item ->
+                data.add(ItemImageViewModel(this, item))
+            }
+        }
+        rightList.value = data
     }
 }

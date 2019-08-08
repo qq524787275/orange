@@ -1,6 +1,7 @@
 package com.zhuzichu.mvvm.service
 
 import com.zhuzichu.mvvm.bean.BaseRes
+import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.bean.TokenBean
 import com.zhuzichu.mvvm.bean.UserInfoBean
 import io.reactivex.Flowable
@@ -9,6 +10,12 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface AppService {
+
+    @FormUrlEncoded
+    @POST("api/category/getCategory")
+    fun getCategory(
+        @Field("pid") pid: Long
+    ): Flowable<BaseRes<List<CategoryBean>>>
 
     @POST("api/user/getAvatarToken")
     fun getAvatarToken(): Flowable<BaseRes<String>>

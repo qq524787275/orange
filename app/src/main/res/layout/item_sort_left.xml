@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{item.sortBean.main_name}"
+                android:text="@{item.category.name}"
                 app:textColor='@{item.selected?item.color.colorPrimary:item.color.textColorPrimary}'
                 android:textSize="15sp"
                 tools:text="男装"/>
