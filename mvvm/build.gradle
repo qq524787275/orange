@@ -50,12 +50,18 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     api "androidx.core:core-ktx:$rootProject.ktxVersion"
     api "androidx.palette:palette-ktx:$rootProject.paletteVersion"
+    api "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
-    api "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
-    api "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+
     api "androidx.room:room-runtime:$rootProject.roomVersion"
     api "androidx.room:room-rxjava2:$rootProject.roomVersion"
+
+    api "androidx.camera:camera-core:$rootProject.cameraxVersion"
+    api "androidx.camera:camera-camera2:$rootProject.cameraxVersion"
+
     api "com.google.android:flexbox:$rootProject.flexboxVerson"
     api("com.github.bumptech.glide:glide:$rootProject.glideVersion") {
         exclude group: "com.android.support"
@@ -63,9 +69,11 @@ dependencies {
     api "com.github.bumptech.glide:okhttp3-integration:$rootProject.glideVersion"
     api "com.google.android.material:material:$rootProject.materialVersion"
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
+
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+
     api "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     api "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 
@@ -76,6 +84,7 @@ dependencies {
     api "com.afollestad.material-dialogs:color:$rootProject.materialDialogsVersion"
     api "com.afollestad.material-dialogs:bottomsheets:$rootProject.materialDialogsVersion"
     api "com.afollestad.material-dialogs:lifecycle:$rootProject.materialDialogsVersion"
+
     api "com.orhanobut:logger:$rootProject.loggerVersion"
     api "com.jakewharton.rxbinding3:rxbinding-core:$rootProject.rxbindingVersion"
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'

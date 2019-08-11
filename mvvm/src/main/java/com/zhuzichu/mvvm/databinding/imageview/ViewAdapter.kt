@@ -9,7 +9,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.zhuzichu.mvvm.global.glide.GlideApp
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
+import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.mvvm.view.imageview.CircularImageView
+import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouch
+import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.mvvm.widget.WhiteToAlphaTransformation
 
 /**
@@ -60,4 +63,23 @@ fun bindCircularImageView(imageView: CircularImageView, @NonNull shadow_color: I
         imageView.shadowColor = shadow_color
     if (border_color != null)
         imageView.borderColor = border_color
+}
+
+
+@BindingAdapter(value = ["displayType"], requireAll = false)
+fun bindImageViewTouch(imageView: ImageViewTouch, value: Int) {
+    "hahaha:".plus(value).logi()
+    when (value) {
+        0 -> {
+            imageView.displayType = ImageViewTouchBase.DisplayType.NONE
+        }
+        1 -> {
+            imageView.displayType = ImageViewTouchBase.DisplayType.FIT_TO_SCREEN
+        }
+        2 -> {
+            imageView.displayType = ImageViewTouchBase.DisplayType.FIT_IF_BIGGER
+        }
+        else -> {
+        }
+    }
 }

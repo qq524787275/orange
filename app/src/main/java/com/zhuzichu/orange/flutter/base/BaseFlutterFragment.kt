@@ -59,7 +59,7 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
     private fun initParam(param: Map<String, Any>?): String {
         val jsonObject = JSONObject()
         jsonObject.put("isDark", ColorGlobal.isDark.value)
-        jsonObject.put("colorPrimary",ColorGlobal.colorPrimary.value)
+        jsonObject.put("colorPrimary", ColorGlobal.colorPrimary.value)
         param?.entries?.map {
             jsonObject.put(it.key, it.value)
         }
@@ -71,17 +71,14 @@ abstract class BaseFlutterFragment : Fragment(), ISupportFragment, BasicMessageC
         _flutterView = Flutter.createView(_activity, lifecycle, setRoute().plus("?").plus(initParam(setParam())))
         _flutterView.setZOrderOnTop(true)
         _flutterView.holder.setFormat(PixelFormat.TRANSLUCENT)
-        val loadingLayout = _contentView.findViewById<View>(R.id.layout_loading)
+        val maskLayout = _contentView.findViewById<View>(R.id.layout_mask)
         val containerLayout = _contentView.findViewById<FrameLayout>(R.id.container)
-        ColorGlobal.textColorPrimary.get()?.let {
-            _contentView.findViewById<TextView>(R.id.info).setTextColor(it)
-        }
         ColorGlobal.contentBackground.get()?.let {
-            loadingLayout.setBackgroundColor(it)
+            maskLayout.setBackgroundColor(it)
         }
         _flutterView.addFirstFrameListener {
             _contentView.postDelayed({
-                loadingLayout.visibility = View.GONE
+                maskLayout.visibility = View.GONE
             }, 100)
         }
         MethodChannel(

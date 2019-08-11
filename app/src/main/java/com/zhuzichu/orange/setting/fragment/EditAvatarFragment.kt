@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
@@ -20,9 +22,11 @@ import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.camerax.CameraActivity
 import com.zhuzichu.orange.databinding.FragmentEditAvatarBinding
 import com.zhuzichu.orange.setting.viewmodel.EditAvatarViewModel
 import com.zhuzichu.orange.setting.viewmodel.ItemSelectViewModel
+import java.io.ByteArrayOutputStream
 
 
 class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, EditAvatarViewModel>() {
@@ -65,7 +69,7 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                     .request(Manifest.permission.CAMERA)
                     .subscribe { granted ->
                         if (granted) {
-                            //todo 去拍照
+                            _viewModel.startActivity(CameraActivity::class.java)
                         } else {
                             "权限被拒绝".toast()
                         }
@@ -119,29 +123,42 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             val selected = Matisse.obtainPathResult(data)
-            _viewModel.showLoadingDialog()
-            NetRepositoryImpl.getAvatarToken()
-                .bindToException()
-                .bindToLifecycle(_viewModel.getLifecycleProvider())
-                .bindToSchedulers()
-                .subscribe(
-                    {
-                        val path = selected[0]
-                        val key =
-                            "avatar_".plus(userInfo.value?.id.toString()).plus("_").plus(System.currentTimeMillis())
-                        val token = it.data
-                        uploadAvatar(path, key, token)
-                    }, {
-                        _viewModel.handleThrowable(it)
-                        _viewModel.hideLoadingDialog()
-                    })
+            val fragment = CropImageFragment { bitmap ->
+                _viewModel.showLoadingDialog()
+                NetRepositoryImpl.getAvatarToken()
+                    .bindToException()
+                    .bindToLifecycle(_viewModel.getLifecycleProvider())
+                    .bindToSchedulers()
+                    .subscribe(
+                        {
+                            val key =
+                                "avatar_".plus(userInfo.value?.id.toString()).plus("_").plus(System.currentTimeMillis())
+                            val token = it.data
+                            uploadAvatar(bitmap, key, token)
+                        }, {
+                            _viewModel.handleThrowable(it)
+                            _viewModel.hideLoadingDialog()
+                        })
+            }
+            _viewModel.startFragment(
+                fragment, bundle = bundleOf(
+                    CropImageFragment.PATH to selected[0]
+                )
+            )
         }
     }
 
 
-    private fun uploadAvatar(path: String, key: String, upToken: String) {
+    private fun uploadAvatar(bitmap: Bitmap?, key: String, upToken: String) {
+        if (bitmap == null) {
+            "数据异常".toast()
+            return
+        }
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val datas = baos.toByteArray()
         getUploadManager().put(
-            path, key, upToken,
+            datas, key, upToken,
             { _, info, _ ->
                 if (info.isOK) {
                     updateUserInfo(Constants.TYPE_AVATAR, key)

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.sort.fragment
+package com.zhuzichu.orange.category.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -7,9 +7,9 @@ import com.zhuzichu.mvvm.base.BaseTopbarFragment
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.databinding.FragmentSortBinding
-import com.zhuzichu.orange.sort.viewmodel.SortViewModel
-import kotlinx.android.synthetic.main.fragment_sort.*
+import com.zhuzichu.orange.category.viewmodel.CategoryViewModel
+import com.zhuzichu.orange.databinding.FragmentCategoryBinding
+import kotlinx.android.synthetic.main.fragment_category.*
 
 /**
  * Created by Android Studio.
@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.fragment_sort.*
  * Date: 2019-06-12
  * Time: 16:40
  */
-class SortFragment : BaseTopbarFragment<FragmentSortBinding, SortViewModel>() {
-    override fun setLayoutId(): Int = R.layout.fragment_sort
+class CategoryFragment : BaseTopbarFragment<FragmentCategoryBinding, CategoryViewModel>() {
+    override fun setLayoutId(): Int = R.layout.fragment_category
     override fun bindVariableId(): Int = BR.viewModel
     override fun setTitle(): String = "超级分类"
 
@@ -32,7 +32,8 @@ class SortFragment : BaseTopbarFragment<FragmentSortBinding, SortViewModel>() {
     }
 
     override fun initViewObservable() {
-        setErrorCommand(BindingCommand( {
+        setErrorCommand(BindingCommand({
+            _viewModel.showLoading()
             _viewModel.loadShopSort()
         }))
 

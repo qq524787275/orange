@@ -35,7 +35,7 @@ object ColorGlobal {
             hintColor.set(R.color.gray_light.toColorById())
             bottomBackground.set(R.color.black_333.toColorById())
         } else {
-            contentBackground.set(R.color.white.toColorById())
+            contentBackground.set(R.color.colorContent.toColorById())
             windowBackground.set(R.color.colorBackground.toColorById())
             textColorPrimary.set(R.color.colorPrimaryText.toColorById())
             textColorSecond.set(R.color.colorSecondText.toColorById())

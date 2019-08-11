@@ -70,9 +70,6 @@ public abstract class ImageViewTouchBase extends AppCompatImageView implements I
         FIT_IF_BIGGER
     }
 
-    ;
-
-
     public static final String LOG_TAG = "ImageViewTouchBase";
     protected static final boolean LOG_ENABLED = false;
 

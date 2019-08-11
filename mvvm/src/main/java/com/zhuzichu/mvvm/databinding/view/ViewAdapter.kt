@@ -1,20 +1,26 @@
 package com.zhuzichu.mvvm.databinding.view
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import androidx.databinding.BindingAdapter
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.view.longClicks
+import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.databinding.command.ResponseCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.getScreenW
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
+import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.mvvm.utils.toColorById
 import com.zhuzichu.mvvm.widget.CycleInterpolator
 import java.util.concurrent.TimeUnit
 
@@ -126,6 +132,27 @@ fun setWidthHeightRatio(view: View, ratio: Float, padding: Int, isScreenW: Boole
         layoutParams.width = widh
     }
 
+}
+
+@BindingAdapter(value = ["backgroundNormal", "backgroundPress"], requireAll = false)
+fun bindBackgroundColor(view: View, @Nullable backgroundNormal: Int? = null, @Nullable backgroundPress: Int? = null) {
+    var backgroundNormalTmp: Int = R.color.colorPrimary.toColorById()
+    var backgroundPressTmp: Int = R.color.colorPrimary.toColorById()
+    backgroundNormal?.let {
+        backgroundNormalTmp = it
+    }
+    backgroundPress?.let {
+        backgroundPressTmp = it
+    }
+
+    val colors = intArrayOf(backgroundPressTmp, backgroundPressTmp, backgroundNormalTmp)
+    val states = arrayOfNulls<IntArray>(3)
+
+    states[0] = intArrayOf(android.R.attr.state_pressed)
+    states[1] = intArrayOf(-android.R.attr.state_enabled)
+    states[2] = intArrayOf()
+
+    ViewCompat.setBackgroundTintList(view, ColorStateList(states, colors))
 }
 
 @BindingAdapter("onTouchCommand")

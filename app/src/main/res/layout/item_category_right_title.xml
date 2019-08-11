@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="item" type="com.zhuzichu.orange.sort.viewmodel.ItemTitleViewModel"/>
+        <variable name="item" type="com.zhuzichu.orange.category.viewmodel.ItemTitleViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:tools="http://schemas.android.com/tools"

@@ -17,6 +17,8 @@ object CacheGlobal {
 
     private const val HTTP_CACHE_DIR_NAME = "/http_response_cache"
 
+    private const val CAMERA_CACHE_DIR_NAME = "/camera_cache"
+
     private fun getDiskCacheDir(last: String): File {
         val path: String = if (isSDCardMounted()) {
             AppGlobal.context.externalCacheDir.toString() + last
@@ -28,6 +30,10 @@ object CacheGlobal {
             file.mkdirs()
         }
         return file.absoluteFile
+    }
+
+    fun getCameraCacheDir(): File {
+        return getDiskCacheDir(CAMERA_CACHE_DIR_NAME)
     }
 
     /**

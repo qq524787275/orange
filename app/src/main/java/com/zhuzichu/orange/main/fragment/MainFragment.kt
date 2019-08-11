@@ -14,7 +14,7 @@ import com.zhuzichu.orange.find.fragment.FindFragment
 import com.zhuzichu.orange.home.fragment.HomeFragment
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
-import com.zhuzichu.orange.sort.fragment.SortFragment
+import com.zhuzichu.orange.category.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -36,7 +36,7 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
 
     private val mFragments = listOf<Fragment>(
         HomeFragment(),
-        SortFragment(),
+        CategoryFragment(),
         FindFragment(),
         MineFragment()
     )

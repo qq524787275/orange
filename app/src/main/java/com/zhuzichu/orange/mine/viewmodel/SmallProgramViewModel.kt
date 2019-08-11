@@ -25,8 +25,9 @@ class SmallProgramViewModel(application: Application) : BaseViewModel(applicatio
                     listOf(
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 0, "崩溃测试"),
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 1, "Flutter-Flare"),
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 2, "DialogFragment"),
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 3, "Ball-Game")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 2, "AddressSelector"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 3, "Camerax"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 4, "Ball-Game")
                     )
                 )
             }

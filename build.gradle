@@ -5,7 +5,7 @@ buildscript {
     ext {
         // Sdk and tools
         compileSdkVersion = 29
-        minSdkVersion = 17
+        minSdkVersion = 21
         targetSdkVersion = 29
         buildToolsVersion = "29.0.0"
         versionCode = 1
@@ -46,6 +46,7 @@ buildscript {
         fragmentationxVersion = "1.0.1"
         flexboxVerson = "1.1.0"
         paletteVersion = "1.0.0"
+        cameraxVersion = "1.0.0-alpha04"
     }
 
     repositories {

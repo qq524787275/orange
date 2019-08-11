@@ -17,6 +17,12 @@
     <color name="blue_219">#2196F3</color>
     <color name="yellow">#FFFFEB3B</color>
 
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
+
+    <color name="color_green_disable">#a2efe0</color>
+    <color name="color_green">#ff00D3A9</color>
 
     <color name="lavender">#e5de63b3</color>
     <color name="bright_lavender">#e254ff</color>
@@ -45,10 +51,11 @@
     </array>
 
     <!--basic light color-->
+    <color name="colorContent">#FDFDFC</color>
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondText">#727272</color>
-    <color name="colorBackground">#eaeaea</color>
+    <color name="colorBackground">#EAEAEA</color>
     <color name="colorHint">#999999</color>
     <color name="colorBackgroundAccent">#ffffff</color>
 

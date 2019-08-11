@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.camerax.viewmodel.CameraViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+        <TextureView android:id="@+id/viewFinder"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"/>
+
+        <ImageButton
+                android:id="@+id/backBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_back"/>
+
+        <ImageButton
+                android:id="@+id/switchBtn"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="92dp"
+                android:layout_marginLeft="32dp"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_switch"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+                android:id="@+id/captureBtn"
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                android:layout_marginBottom="80dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/ic_shutter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+                android:id="@+id/photoBtn"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="92dp"
+                android:layout_marginRight="32dp"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/ic_outer_circle"
+                app:srcCompat="@drawable/ic_photo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

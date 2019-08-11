@@ -5,6 +5,7 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import androidx.lifecycle.Observer
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
+import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentEditItemBinding
@@ -12,12 +13,21 @@ import com.zhuzichu.orange.setting.viewmodel.EditItemViewModel
 import kotlinx.android.synthetic.main.fragment_edit_item.*
 
 class EditItemFragment(
-    val title: String,
-    val text: String,
-    var tips: String,
-    val maxLength: Int = 11,
     private var consumer: ((parameter: String?, fragment: EditItemFragment) -> Unit)? = null
 ) : BaseTopbarBackFragment<FragmentEditItemBinding, EditItemViewModel>() {
+
+    private val title: String by bindArgument(TITLE)
+    private val text: String by bindArgument(TEXT)
+    private val tips: String by bindArgument(TIPS)
+    private val maxLength: Int by bindArgument(MAXLENGTH)
+
+    companion object {
+        const val TITLE = "title"
+        const val TEXT = "text"
+        const val TIPS = "tips"
+        const val MAXLENGTH = "maxLength"
+    }
+
     override fun setLayoutId(): Int = R.layout.fragment_edit_item
 
     override fun bindVariableId(): Int = BR.viewModel
@@ -54,7 +64,7 @@ class EditItemFragment(
 
     override fun initViewObservable() {
         _viewModel.onSureEvent.observe(this, Observer {
-            consumer?.invoke(it,this)
+            consumer?.invoke(it, this)
         })
     }
 

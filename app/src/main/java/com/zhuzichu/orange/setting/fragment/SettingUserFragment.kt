@@ -33,10 +33,6 @@ class SettingUserFragment : BaseTopbarBackFragment<FragmentSettingUserBinding, S
 
     override fun initView() {
         setTitle("账号设置")
-
-        addRightIcon(R.mipmap.ic_save) {
-            "保存".toast()
-        }
     }
 
     @SuppressLint("CheckResult")

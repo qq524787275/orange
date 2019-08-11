@@ -1,11 +1,8 @@
-package com.zhuzichu.orange.sort.viewmodel
+package com.zhuzichu.orange.category.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
@@ -15,8 +12,6 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.R
-import io.reactivex.Flowable
-import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
@@ -27,10 +22,10 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
  * User: zhuzichu
  * Date: 2019-06-12
  * Time: 16:42
- * @see R.layout.fragment_sort
+ * @see R.layout.fragment_category
  */
 @SuppressLint("CheckResult")
-class SortViewModel(application: Application) : BaseViewModel(application) {
+class CategoryViewModel(application: Application) : BaseViewModel(application) {
     val color = ColorGlobal
     val uc = UIChangeObservable()
 
@@ -38,13 +33,13 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
         val rightRecyclerToTop = SingleLiveEvent<Any>()
     }
 
-    val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_sort_left)
+    val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_category_left)
     val leftList =
         DiffObservableList(itemDiffOf<ItemLeftViewModel> { oldItem, newItem -> oldItem.category.id == newItem.category.id })
 
     val rightItemBind = OnItemBindClass<Any>().apply {
-        map<ItemImageViewModel>(BR.item, R.layout.item_sort_right_image)
-        map<ItemTitleViewModel>(BR.item, R.layout.item_sort_right_title)
+        map<ItemImageViewModel>(BR.item, R.layout.item_category_right_image)
+        map<ItemTitleViewModel>(BR.item, R.layout.item_category_right_title)
     }.toItemBinding()
 
     val rightList = MutableLiveData<List<Any>>().apply { value = ArrayList() }
@@ -109,5 +104,6 @@ class SortViewModel(application: Application) : BaseViewModel(application) {
             }
         }
         rightList.value = data
+        uc.rightRecyclerToTop.call()
     }
 }

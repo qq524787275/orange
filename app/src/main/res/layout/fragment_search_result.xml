@@ -104,6 +104,7 @@
                 app:msv_emptyView="@layout/empty_view"
                 app:msv_errorView="@layout/error_view"
                 app:msv_loadingView="@layout/loading_view"
+                app:msv_viewState="loading"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:onErrorCommand="@{viewModel.onErrorCommand}"
                 app:viewState="@{viewModel.viewState}">

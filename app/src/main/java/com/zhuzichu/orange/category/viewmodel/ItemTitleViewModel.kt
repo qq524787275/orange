@@ -1,15 +1,14 @@
-package com.zhuzichu.orange.sort.viewmodel
+package com.zhuzichu.orange.category.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.mvvm.bean.SortBean
 
 class ItemTitleViewModel(
-    viewModel: SortViewModel,
+    viewModel: CategoryViewModel,
     var category: CategoryBean
 ) :
-    ItemViewModel<SortViewModel>(viewModel) {
+    ItemViewModel<CategoryViewModel>(viewModel) {
     val color = ColorGlobal
 
 }

@@ -1,11 +1,10 @@
-package com.zhuzichu.orange.sort.viewmodel
+package com.zhuzichu.orange.category.viewmodel
 
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.mvvm.bean.SortBean
 import com.zhuzichu.orange.search.fragment.SearchResultFragment
 
 /**
@@ -17,10 +16,10 @@ import com.zhuzichu.orange.search.fragment.SearchResultFragment
  */
 class ItemImageViewModel
     (
-    viewModel: SortViewModel,
+    viewModel: CategoryViewModel,
     var category: CategoryBean
 ) :
-    ItemViewModel<SortViewModel>(viewModel) {
+    ItemViewModel<CategoryViewModel>(viewModel) {
     val color = ColorGlobal
     val clickItem = BindingCommand<Any>({
         viewModel.startFragment(

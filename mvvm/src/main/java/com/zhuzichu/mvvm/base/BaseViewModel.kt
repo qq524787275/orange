@@ -53,6 +53,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         return _uc
     }
 
+    fun back() {
+        _uc.getOnBackPressedEvent().call()
+    }
+
     fun showLoadingDialog() {
         _uc.getShowLoadingDialogEvent().call()
     }

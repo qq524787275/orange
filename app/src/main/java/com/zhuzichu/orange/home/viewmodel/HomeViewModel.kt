@@ -3,6 +3,7 @@ package com.zhuzichu.orange.home.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.bean.BaseRes
@@ -17,6 +18,7 @@ import com.zhuzichu.mvvm.bean.DeserveBean
 import com.zhuzichu.mvvm.bean.SalesBean
 import com.zhuzichu.mvvm.bean.ShopBean
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
+import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +41,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 class HomeViewModel(application: Application) : BaseViewModel(application) {
     val color = ColorGlobal
     val uc = UIChangeObservable()
+    val viewState = MutableLiveData(MultiStateView.VIEW_STATE_LOADING)
 
     inner class UIChangeObservable {
         val finishRefreshing = SingleLiveEvent<Any>()
@@ -108,6 +111,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    val onErrorCommand = BindingCommand<Any>({
+        viewState.value = MultiStateView.VIEW_STATE_LOADING
+        loadHomeData()
+    })
 
     val onClickSearch = BindingCommand<Any>({
         startFragment(SearchFragment(), launchMode = ISupportFragment.SINGLETASK)
@@ -151,7 +158,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 juTaoShopList.update(it.jutaoList.data.map { item ->
                     ItemHomeJuTaoVIewModel(this@HomeViewModel, item)
                 })
+
+                viewState.value = MultiStateView.VIEW_STATE_CONTENT
             }, {
+                viewState.value = MultiStateView.VIEW_STATE_ERROR
                 handleThrowable(it)
             })
     }

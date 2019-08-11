@@ -17,21 +17,20 @@
 package com.zhuzichu.mvvm.crash
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.zhuzichu.mvvm.R
-import com.zhuzichu.mvvm.utils.sp2px
+import com.zhuzichu.mvvm.utils.toStringById
+import com.zhuzichu.mvvm.utils.toast
 
 
 class DefaultErrorActivity : AppCompatActivity() {
@@ -66,23 +65,21 @@ class DefaultErrorActivity : AppCompatActivity() {
         val moreInfoButton = findViewById<View>(R.id.error_activity_more_info_button) as Button
         if (config.isShowErrorDetails) {
             moreInfoButton.setOnClickListener {
-                val dialog = AlertDialog.Builder(this@DefaultErrorActivity)
-                    .setTitle(R.string.error_activity_error_details_title)
-                    .setMessage(CustomActivityOnCrash.getAllErrorDetailsFromIntent(this@DefaultErrorActivity, intent))
-                    .setPositiveButton(R.string.error_activity_error_details_close, null)
-                    .setNeutralButton(
-                        R.string.error_activity_error_details_copy
-                    ) { _, _ ->
-                        copyErrorToClipboard()
-                        Toast.makeText(
+
+                MaterialDialog(this, BottomSheet()).show {
+                    title(R.string.error_activity_error_details_title)
+                    message(
+                        text = CustomActivityOnCrash.getAllErrorDetailsFromIntent(
                             this@DefaultErrorActivity,
-                            R.string.error_activity_error_details_copied,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            intent
+                        )
+                    )
+                    positiveButton(R.string.error_activity_error_details_close)
+                    negativeButton(R.string.error_activity_error_details_copy) {
+                        copyErrorToClipboard()
+                        R.string.error_activity_error_details_copied.toStringById().toast()
                     }
-                    .show()
-                val textView = dialog.findViewById<View>(android.R.id.message) as TextView
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp2px(12f).toFloat())
+                }
             }
         } else {
             moreInfoButton.visibility = View.GONE

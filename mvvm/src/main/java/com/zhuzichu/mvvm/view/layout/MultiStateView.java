@@ -99,7 +99,7 @@ public class MultiStateView extends FrameLayout {
         }
 
         int viewState = a.getInt(R.styleable.MultiStateView_msv_viewState, VIEW_STATE_CONTENT);
-        mAnimateViewChanges = a.getBoolean(R.styleable.MultiStateView_msv_animateViewChanges, false);
+        mAnimateViewChanges = a.getBoolean(R.styleable.MultiStateView_msv_animateViewChanges, true);
 
         switch (viewState) {
             case VIEW_STATE_CONTENT:

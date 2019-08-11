@@ -16,7 +16,7 @@
                 app:widthPadding="@{80}"
                 app:isScreenW="@{true}"
                 app:widthHeightRatio="@{0.408f}"
-                app:msv_loadingView="@layout/loading_material_view"
+                app:msv_loadingView="@layout/loading_view"
                 app:viewState="@{viewModel.list.size()==0?3:0}">
 
             <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView

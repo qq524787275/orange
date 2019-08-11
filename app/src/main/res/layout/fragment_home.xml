@@ -10,117 +10,117 @@
             android:clipToPadding="false"
             android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refresh"
+        <com.zhuzichu.mvvm.view.layout.MultiStateView
                 android:layout_width="match_parent"
-                app:srlAccentColor="@color/white"
                 android:layout_height="match_parent"
-                android:clipChildren="true"
-                app:onLoadMoreCommand="@null"
-                android:paddingTop="80dp">
+                app:msv_emptyView="@layout/empty_view"
+                app:msv_errorView="@layout/error_view"
+                app:onErrorCommand="@{viewModel.onErrorCommand}"
+                app:viewState="@{viewModel.viewState}"
+                app:msv_viewState="loading"
+                app:msv_loadingView="@layout/loading_view">
 
-            <com.scwang.smartrefresh.layout.header.TwoLevelHeader
-                    android:id="@+id/header"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refresh"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srlEnableTwoLevel="false">
-                <ImageView
-                        android:id="@+id/secondfloor"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/image_secondfloor"/>
-                <ImageView
-                        android:id="@+id/secondfloor_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/image_secondfloor_content"
-                        android:alpha="0"/>
-                <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                        android:id="@+id/classics"
+                    android:layout_height="match_parent"
+                    app:srlAccentColor="@color/white"
+                    android:clipChildren="true"
+                    android:paddingTop="80dp"
+                    app:onLoadMoreCommand="@null">
+
+                <com.scwang.smartrefresh.layout.header.TwoLevelHeader
+                        android:id="@+id/header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="80dp"/>
-            </com.scwang.smartrefresh.layout.header.TwoLevelHeader>
-
-            <FrameLayout android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:background="@{viewModel.color.windowBackground}">
-
-                <androidx.coordinatorlayout.widget.CoordinatorLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <com.google.android.material.appbar.AppBarLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            app:elevation="1dp"
-                            android:layout_height="wrap_content"
-                            android:background="@{viewModel.color.contentBackground}">
-
-                        <com.zhuzichu.mvvm.view.layout.MultiStateView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:widthPadding="@{150}"
-                                app:layout_scrollFlags="scroll"
-                                app:isScreenW="@{true}"
-                                app:widthHeightRatio="@{1f}"
-                                app:msv_loadingView="@layout/loading_material_view"
-                                app:viewState="@{viewModel.listBanner.size()==0?3:0}">
-                            <FrameLayout android:layout_width="match_parent"
-                                         android:layout_height="match_parent">
-
-                                <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
-                                        android:id="@+id/banner"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        app:items="@{viewModel.listBanner}"
-                                        android:layout_marginLeft="15dp"
-                                        android:layout_marginRight="15dp"
-                                        app:itemBinding="@{viewModel.itemBindBanner}"/>
-                            </FrameLayout>
-
-                        </com.zhuzichu.mvvm.view.layout.MultiStateView>
-
-
-                        <com.zhuzichu.mvvm.widget.DotsIndicator
-                                android:id="@+id/dots"
-                                android:layout_width="match_parent"
-                                android:layout_gravity="bottom|center_horizontal"
-                                android:layout_marginTop="5dp"
-                                app:layout_scrollFlags="scroll"
-                                android:layout_height="10dp"
-                                app:dot_tint="@{viewModel.color.textColorPrimary}"/>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_navigation"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:gridLayoutManager="@{5}"
-                                app:layout_scrollFlags="scroll"
-                                android:scrollbars="none"
-                                android:overScrollMode="never"
-                                app:itemBinding="@{viewModel.itemBindNavigation}"
-                                app:items="@{viewModel.listNavigation}"/>
-
-                    </com.google.android.material.appbar.AppBarLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
+                        app:srlEnableTwoLevel="false">
+                    <ImageView
+                            android:id="@+id/secondfloor"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:itemBinding="@{viewModel.itemBind}"
-                            app:gridLayoutManager="@{2}"
-                            app:spanSizeLookup="@{viewModel.spanSizeLookup}"
-                            app:items="@{viewModel.list}"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/image_secondfloor"/>
+                    <ImageView
+                            android:id="@+id/secondfloor_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/image_secondfloor_content"
+                            android:alpha="0"/>
+                    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                            android:id="@+id/classics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="80dp"/>
+                </com.scwang.smartrefresh.layout.header.TwoLevelHeader>
 
-                </androidx.coordinatorlayout.widget.CoordinatorLayout>
-            </FrameLayout>
+                <FrameLayout android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:background="@{viewModel.color.windowBackground}">
 
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.google.android.material.appbar.AppBarLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                app:elevation="1dp"
+                                android:layout_height="wrap_content"
+                                android:background="@{viewModel.color.contentBackground}">
 
 
+                            <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
+                                    android:id="@+id/banner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:widthPadding="@{150}"
+                                    app:layout_scrollFlags="scroll"
+                                    app:isScreenW="@{true}"
+                                    app:widthHeightRatio="@{1f}"
+                                    app:items="@{viewModel.listBanner}"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    app:itemBinding="@{viewModel.itemBindBanner}"/>
+
+
+                            <com.zhuzichu.mvvm.widget.DotsIndicator
+                                    android:id="@+id/dots"
+                                    android:layout_width="match_parent"
+                                    android:layout_gravity="bottom|center_horizontal"
+                                    android:layout_marginTop="5dp"
+                                    app:layout_scrollFlags="scroll"
+                                    android:layout_height="10dp"
+                                    app:dot_tint="@{viewModel.color.textColorPrimary}"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recycler_navigation"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:gridLayoutManager="@{5}"
+                                    app:layout_scrollFlags="scroll"
+                                    android:scrollbars="none"
+                                    android:overScrollMode="never"
+                                    app:itemBinding="@{viewModel.itemBindNavigation}"
+                                    app:items="@{viewModel.listNavigation}"/>
+
+                        </com.google.android.material.appbar.AppBarLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:itemBinding="@{viewModel.itemBind}"
+                                app:gridLayoutManager="@{2}"
+                                app:spanSizeLookup="@{viewModel.spanSizeLookup}"
+                                app:items="@{viewModel.list}"
+                                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                </FrameLayout>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </com.zhuzichu.mvvm.view.layout.MultiStateView>
         <FrameLayout
                 android:id="@+id/search_layout"
                 android:layout_width="match_parent"

@@ -64,6 +64,8 @@
         <attr name="widthPadding" format="dimension"/>
         <attr name="isScreenW" format="boolean"/>
         <attr name="enablePaddingStatusbarHeight" format="boolean"/>
+        <attr name="backgroundNormal" format="color"/>
+        <attr name="backgroundPress" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="SmartRefreshLayout">
@@ -220,4 +222,25 @@
     <declare-styleable name="TabLayout">
         <attr name="onTabSelectedCommand" format="reference"/>
     </declare-styleable>
+
+
+    <declare-styleable name="KropView">
+        <attr name="krop_offset" format="dimension"/>
+        <attr name="krop_aspectX" format="integer"/>
+        <attr name="krop_aspectY" format="integer"/>
+        <attr name="krop_overlayColor" format="color"/>
+        <attr name="krop_shape" format="integer">
+            <enum name="oval" value="0"/>
+            <enum name="rect" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ImageViewTouch">
+        <attr name="displayType" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="fit_to_screen" value="1"/>
+            <enum name="fit_if_bigger" value="2"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

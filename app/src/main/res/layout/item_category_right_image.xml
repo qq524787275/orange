@@ -2,7 +2,7 @@
 <layout>
     <data>
         <import type="com.zhuzichu.orange.R"/>
-        <variable name="item" type="com.zhuzichu.orange.sort.viewmodel.ItemImageViewModel"/>
+        <variable name="item" type="com.zhuzichu.orange.category.viewmodel.ItemImageViewModel"/>
     </data>
     <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"

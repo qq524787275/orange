@@ -31,11 +31,12 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="52dp"
                     app:textColor="@{viewModel.color.textColorPrimary}"
                     app:selectedTextColor="@{viewModel.color.colorPrimary}"
                     app:iconColor="@{viewModel.color.textColorPrimary}"
                     app:selectedIconColor="@{viewModel.color.colorPrimary}"
+                    app:itemIconSize="18dp"
                     app:menu="@menu/navigation"
                     app:labelVisibilityMode="labeled"
                     android:background="@{viewModel.color.bottomBackground}"/>

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.sort.viewmodel
+package com.zhuzichu.orange.category.viewmodel
 
 import androidx.databinding.ObservableBoolean
 import com.zhuzichu.mvvm.base.ItemViewModel
@@ -7,9 +7,9 @@ import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 
 class ItemLeftViewModel(
-    viewModel: SortViewModel,
+    viewModel: CategoryViewModel,
     val category: CategoryBean
-) : ItemViewModel<SortViewModel>(viewModel) {
+) : ItemViewModel<CategoryViewModel>(viewModel) {
     val isSelected = ObservableBoolean()
     val color = ColorGlobal
     val clickItem = BindingCommand<Any>({

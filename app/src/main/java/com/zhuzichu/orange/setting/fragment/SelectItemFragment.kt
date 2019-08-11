@@ -40,8 +40,10 @@ class SelectItemFragment(
 
     override fun initViewObservable() {
         _viewModel.onSelectItemEvent.observe(this, Observer {
-            selectItem?.invoke(it)
             dialog?.cancel()
+            view?.postDelayed({
+                selectItem?.invoke(it)
+            }, 150)
         })
     }
 
