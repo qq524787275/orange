@@ -135,7 +135,6 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, CameraViewModel>() {
             exc?.printStackTrace()
         }
 
-        @Suppress("DEPRECATION")
         override fun onImageSaved(photoFile: File) {
             Log.d(TAG, "Photo capture succeeded: ${photoFile.absolutePath}")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

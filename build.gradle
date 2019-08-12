@@ -46,7 +46,7 @@ buildscript {
         fragmentationxVersion = "1.0.1"
         flexboxVerson = "1.1.0"
         paletteVersion = "1.0.0"
-        cameraxVersion = "1.0.0-alpha04"
+        cameraxVersion = "1.0.0-alpha03"
     }
 
     repositories {
