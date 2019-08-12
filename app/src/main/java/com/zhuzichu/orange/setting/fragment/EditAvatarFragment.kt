@@ -75,7 +75,6 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                         }
                     }
             }
-
             1 -> {
                 //数据读写权限
                 RxPermissions(this)

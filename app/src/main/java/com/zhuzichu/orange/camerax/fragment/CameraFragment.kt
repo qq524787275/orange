@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.camerax.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
@@ -23,9 +24,12 @@ import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.databinding.view.CLICK_INTERVAL
 import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.global.glide.GlideApp
+import com.zhuzichu.mvvm.permissions.RxPermissions
 import com.zhuzichu.mvvm.utils.dip2px
+import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.camerax.CameraActivity
 import com.zhuzichu.orange.camerax.utils.ANIMATION_FAST_MILLIS
 import com.zhuzichu.orange.camerax.utils.ANIMATION_SLOW_MILLIS
 import com.zhuzichu.orange.camerax.utils.AutoFitPreviewBuilder
@@ -60,12 +64,24 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, CameraViewModel>() {
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
 
+    @SuppressLint("CheckResult")
     override fun initView() {
         super.initView()
+        RxPermissions(this)
+            .request(Manifest.permission.CAMERA)
+            .subscribe { granted ->
+                if (granted) {
+                    initCamera()
+                } else {
+                    "权限被拒绝".toast()
+                }
+            }
+    }
+
+    private fun initCamera() {
         post {
             bindCameraUseCases()
             updateCameraUi()
-
             lifecycleScope.launch(IO) {
                 CacheGlobal.getCameraCacheDir().listFiles { file ->
                     arrayOf("JPG").contains(file.extension.toUpperCase())
@@ -73,7 +89,6 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, CameraViewModel>() {
                     setGalleryThumbnail(it)
                 }
             }
-
         }
     }
 
