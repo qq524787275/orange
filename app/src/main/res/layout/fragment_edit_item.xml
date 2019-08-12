@@ -48,6 +48,7 @@
                     app:onClickCommand="@{viewModel.onClickSure}"
                     app:textColor="@{viewModel.isEnableSure?viewModel.color.colorPrimary:viewModel.color.textColorSecond}"
                     android:text="确定"
+                    android:visibility="gone"
                     android:layout_alignParentRight="true"
                     android:textSize="14sp"/>
 

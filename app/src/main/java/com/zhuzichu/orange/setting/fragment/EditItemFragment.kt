@@ -34,6 +34,12 @@ class EditItemFragment(
 
     override fun initView() {
         setTitle(title)
+
+        addRightIcon(R.drawable.ic_choose) {
+            hideSoftInput()
+            _viewModel.onClickSure.execute()
+        }
+
         _viewModel.text.set(text)
         edit.post {
             edit.setSelection(edit.text?.length ?: 0)

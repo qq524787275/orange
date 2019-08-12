@@ -1,12 +1,12 @@
-package com.zhuzichu.orange.camerax.fragment
+package com.zhuzichu.orange.ui.camerax.fragment
 
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.camerax.viewmodel.AlbumViewModel
-import com.zhuzichu.orange.camerax.viewmodel.ItemAlbumViewModel
 import com.zhuzichu.orange.databinding.FragmentAlbumBinding
+import com.zhuzichu.orange.ui.camerax.viewmodel.AlbumViewModel
+import com.zhuzichu.orange.ui.camerax.viewmodel.ItemAlbumViewModel
 
 class AlbumFragment : BaseFragment<FragmentAlbumBinding, AlbumViewModel>() {
 

@@ -5,12 +5,10 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.orange.camerax.CameraActivity
-import com.zhuzichu.orange.camerax.fragment.CameraFragment
+import com.zhuzichu.orange.ui.camerax.CameraActivity
 import com.zhuzichu.orange.flutter.BallGameFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
-import com.zhuzichu.orange.setting.fragment.CropImageFragment
 
 /**
  * Created by Android Studio.

@@ -98,14 +98,24 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
             val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
             val options = params[BaseViewModel.ParameterField.OPTIONS] as Bundle?
             val isPop = params[BaseViewModel.ParameterField.POP] as Boolean?
+            val requestCode = params[BaseViewModel.ParameterField.REQUEST_CODE] as Int?
             val intent = Intent(activity, clz)
             bundle?.let {
                 intent.putExtras(it)
             }
-            if (options != null) {
-                startActivity(intent, options)
+
+            if (requestCode != null) {
+                if (options != null) {
+                    startActivityForResult(intent, requestCode, options)
+                } else {
+                    startActivityForResult(intent, requestCode)
+                }
             } else {
-                startActivity(intent)
+                if (options != null) {
+                    startActivity(intent, options)
+                } else {
+                    startActivity(intent)
+                }
             }
             if (isPop == true) {
                 _activity.finish()

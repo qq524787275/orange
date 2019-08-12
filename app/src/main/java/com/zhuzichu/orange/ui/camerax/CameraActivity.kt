@@ -1,15 +1,19 @@
-package com.zhuzichu.orange.camerax
+package com.zhuzichu.orange.ui.camerax
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import com.zhuzichu.mvvm.base.BaseActivity
 import com.zhuzichu.mvvm.utils.helper.QMUIDisplayHelper
-import com.zhuzichu.orange.camerax.fragment.CameraFragment
+import com.zhuzichu.orange.ui.camerax.fragment.CameraFragment
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 class CameraActivity : BaseActivity() {
+
+    companion object {
+        const val EXTRA_PATH = "EXTRA_PATH"
+    }
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -65,6 +65,10 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
             }
             .subscribe(
                 {
+                    if (it.isNullOrEmpty()) {
+                        showEmpty()
+                        return@subscribe
+                    }
                     val data = it.map { item ->
                         ItemLeftViewModel(this, item)
                     }.apply {

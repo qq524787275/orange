@@ -6,12 +6,11 @@ import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.AppPreference
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.login.fragment.ForgetFragment
 import com.zhuzichu.orange.login.fragment.RegistFragment
 import com.zhuzichu.orange.main.fragment.MainFragment
-import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.orange.Constants
 import me.yokeyword.fragmentation.ISupportFragment
 
 /**
@@ -34,6 +33,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickLogin = BindingCommand<Any>({
+        hideSoftKeyBoard()
         val username = username.get()
         val password = password.get()
         do {

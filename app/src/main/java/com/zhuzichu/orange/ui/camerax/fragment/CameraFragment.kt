@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.camerax.fragment
+package com.zhuzichu.orange.ui.camerax.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -29,11 +29,10 @@ import com.zhuzichu.mvvm.utils.dip2px
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.camerax.CameraActivity
-import com.zhuzichu.orange.camerax.utils.ANIMATION_FAST_MILLIS
-import com.zhuzichu.orange.camerax.utils.ANIMATION_SLOW_MILLIS
-import com.zhuzichu.orange.camerax.utils.AutoFitPreviewBuilder
-import com.zhuzichu.orange.camerax.viewmodel.CameraViewModel
+import com.zhuzichu.orange.ui.camerax.utils.ANIMATION_FAST_MILLIS
+import com.zhuzichu.orange.ui.camerax.utils.ANIMATION_SLOW_MILLIS
+import com.zhuzichu.orange.ui.camerax.utils.AutoFitPreviewBuilder
+import com.zhuzichu.orange.ui.camerax.viewmodel.CameraViewModel
 import com.zhuzichu.orange.databinding.FragmentCameraBinding
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.coroutines.Dispatchers.IO

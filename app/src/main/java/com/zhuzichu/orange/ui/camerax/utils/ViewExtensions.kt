@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zhuzichu.orange.camerax.utils
+package com.zhuzichu.orange.ui.camerax.utils
 
 import android.os.Build
 import android.view.DisplayCutout

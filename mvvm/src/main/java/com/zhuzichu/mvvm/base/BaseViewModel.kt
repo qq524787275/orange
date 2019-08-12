@@ -106,12 +106,19 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         _uc.getStartFragmentEvent().postValue(params)
     }
 
-    fun startActivity(clz: Class<*>, bundle: Bundle? = null, isPop: Boolean? = false, options: Bundle? = null) {
+    fun startActivity(
+        clz: Class<*>,
+        bundle: Bundle? = null,
+        isPop: Boolean? = false,
+        options: Bundle? = null,
+        requestCode: Int? = null
+    ) {
         val params = HashMap<String, Any>()
         params[ParameterField.CLASS] = clz
         bundle?.let { params[ParameterField.BUNDLE] = it }
         options?.let { params[ParameterField.OPTIONS] = it }
         isPop?.let { params[ParameterField.POP] = it }
+        requestCode?.let { params[ParameterField.REQUEST_CODE] = it }
         _uc.getStartActivityEvent().postValue(params)
     }
 
@@ -175,6 +182,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         const val BUNDLE = "BUNDLE"
         const val POP = "POP"
         const val OPTIONS = "OPTIONS"
+        const val REQUEST_CODE = "REQUEST_CODE"
     }
 
 }

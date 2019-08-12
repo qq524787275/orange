@@ -65,7 +65,10 @@
                   android:theme="@style/AppTransparentTheme"/>
 
 
-        <activity android:name=".camerax.CameraActivity"
+        <activity android:name="com.zhuzichu.orange.ui.camerax.CameraActivity"
+                  android:theme="@style/AppTransparentTheme"/>
+
+        <activity android:name="com.zhuzichu.orange.ui.picture.PictureActivity"
                   android:theme="@style/AppTransparentTheme"/>
 
         <activity

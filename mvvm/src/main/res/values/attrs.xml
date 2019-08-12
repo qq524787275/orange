@@ -223,7 +223,6 @@
         <attr name="onTabSelectedCommand" format="reference"/>
     </declare-styleable>
 
-
     <declare-styleable name="KropView">
         <attr name="krop_offset" format="dimension"/>
         <attr name="krop_aspectX" format="integer"/>
@@ -241,6 +240,10 @@
             <enum name="fit_to_screen" value="1"/>
             <enum name="fit_if_bigger" value="2"/>
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ViewPager">
+        <attr name="onPageSelectedCommand" format="reference"/>
     </declare-styleable>
 
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.zhuzichu.orange.camerax.viewmodel.CameraViewModel"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.ui.camerax.viewmodel.CameraViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

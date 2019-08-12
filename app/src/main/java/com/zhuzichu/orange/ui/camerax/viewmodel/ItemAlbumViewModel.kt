@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.camerax.viewmodel
+package com.zhuzichu.orange.ui.camerax.viewmodel
 
 import com.zhuzichu.mvvm.base.ItemViewModel
 import java.io.File

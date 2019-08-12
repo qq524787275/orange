@@ -2,7 +2,7 @@
 <layout>
     <data>
         <import type="com.zhuzichu.orange.R"/>
-        <variable name="item" type="com.zhuzichu.orange.camerax.viewmodel.ItemAlbumViewModel"/>
+        <variable name="item" type="com.zhuzichu.orange.ui.camerax.viewmodel.ItemAlbumViewModel"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:app="http://schemas.android.com/apk/res-auto"

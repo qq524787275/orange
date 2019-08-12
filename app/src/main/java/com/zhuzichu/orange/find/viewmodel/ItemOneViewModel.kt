@@ -5,13 +5,13 @@ import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.bean.SelectedItemBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.itemBindingOf
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.mvvm.bean.SelectedItemBean
 
 
 /**
@@ -27,8 +27,8 @@ class ItemOneViewModel(
 ) : ItemViewModel<FindOneViewModel>(viewModel) {
     val color = ColorGlobal
     val list = MutableLiveData<List<Any>>().apply {
-        value = selectedItemBean.itempic.map {
-            ItemOneImageViewModel(viewModel, it.plus("_310x310.jpg"),it,selectedItemBean.itempic)
+        value = selectedItemBean.itempic.mapIndexed{index,item->
+            ItemOneImageViewModel(viewModel, item.plus("_310x310.jpg"),index,selectedItemBean.itempic)
         }
     }
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_one_image)

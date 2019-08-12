@@ -22,7 +22,7 @@ import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.camerax.CameraActivity
+import com.zhuzichu.orange.ui.camerax.CameraActivity
 import com.zhuzichu.orange.databinding.FragmentEditAvatarBinding
 import com.zhuzichu.orange.setting.viewmodel.EditAvatarViewModel
 import com.zhuzichu.orange.setting.viewmodel.ItemSelectViewModel
@@ -37,6 +37,7 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
 
     companion object {
         private const val REQUEST_CODE_CHOOSE = 111
+        private const val REQUEST_CODE_PHOTO = 112
     }
 
     override fun initView() {
@@ -69,7 +70,7 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
                     .request(Manifest.permission.CAMERA)
                     .subscribe { granted ->
                         if (granted) {
-                            _viewModel.startActivity(CameraActivity::class.java)
+                            _viewModel.startActivity(CameraActivity::class.java, requestCode = REQUEST_CODE_PHOTO)
                         } else {
                             "权限被拒绝".toast()
                         }
@@ -92,7 +93,6 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
         }
     }
 
-
     private fun startPicChoose() {
         Matisse.from(this)
             .choose(MimeType.ofAll())
@@ -101,7 +101,6 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
             .imageEngine(GlideEngine())
             .forResult(REQUEST_CODE_CHOOSE)
     }
-
 
     private fun updateImage(avatarUrl: String?) {
         if (avatarUrl.isNullOrBlank()) {
@@ -122,31 +121,43 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             val selected = Matisse.obtainPathResult(data)
-            val fragment = CropImageFragment { bitmap ->
-                _viewModel.showLoadingDialog()
-                NetRepositoryImpl.getAvatarToken()
-                    .bindToException()
-                    .bindToLifecycle(_viewModel.getLifecycleProvider())
-                    .bindToSchedulers()
-                    .subscribe(
-                        {
-                            val key =
-                                "avatar_".plus(userInfo.value?.id.toString()).plus("_").plus(System.currentTimeMillis())
-                            val token = it.data
-                            uploadAvatar(bitmap, key, token)
-                        }, {
-                            _viewModel.handleThrowable(it)
-                            _viewModel.hideLoadingDialog()
-                        })
+            startCropFragment(selected[0])
+        }
+
+        if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
+            val path = data?.getStringExtra(CameraActivity.EXTRA_PATH)
+            if (path == null) {
+                "选择的图片未空".toast()
+                return
             }
-            _viewModel.startFragment(
-                fragment, bundle = bundleOf(
-                    CropImageFragment.PATH to selected[0]
-                )
-            )
+            startCropFragment(path)
         }
     }
 
+    private fun startCropFragment(path: String) {
+        val fragment = CropImageFragment { bitmap ->
+            _viewModel.showLoadingDialog()
+            NetRepositoryImpl.getAvatarToken()
+                .bindToException()
+                .bindToLifecycle(_viewModel.getLifecycleProvider())
+                .bindToSchedulers()
+                .subscribe(
+                    {
+                        val key =
+                            "avatar_".plus(userInfo.value?.id.toString()).plus("_").plus(System.currentTimeMillis())
+                        val token = it.data
+                        uploadAvatar(bitmap, key, token)
+                    }, {
+                        _viewModel.handleThrowable(it)
+                        _viewModel.hideLoadingDialog()
+                    })
+        }
+        _viewModel.startFragment(
+            fragment, bundle = bundleOf(
+                CropImageFragment.PATH to path
+            )
+        )
+    }
 
     private fun uploadAvatar(bitmap: Bitmap?, key: String, upToken: String) {
         if (bitmap == null) {

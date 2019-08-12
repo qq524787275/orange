@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zhuzichu.orange.camerax.utils
+package com.zhuzichu.orange.ui.camerax.utils
 
 import android.content.Context
 import android.graphics.Matrix

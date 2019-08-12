@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.zhuzichu.orange.camerax.viewmodel.AlbumViewModel"/>
+        <variable name="viewModel" type="com.zhuzichu.orange.ui.camerax.viewmodel.AlbumViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:items="@{viewModel.list}"
-                app:itemBinding="@{viewModel.itemBind}"/>
+                app:itemBinding="@{viewModel.itemBind}"
+                app:onPageSelectedCommand="@{viewModel.onPageSelectedCommand}"/>
 
         <ImageButton
                 app:layout_constraintTop_toTopOf="parent"
