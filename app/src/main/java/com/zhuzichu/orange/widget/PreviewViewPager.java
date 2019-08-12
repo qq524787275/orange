@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.ui.previewimage;
+package com.zhuzichu.orange.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

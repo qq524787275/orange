@@ -17,18 +17,6 @@ class PictureActivity : BaseActivity() {
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val decorView: android.view.View = window.decorView
-        var systemUi: Int = decorView.systemUiVisibility
-        systemUi = systemUi or android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            systemUi = systemUi or (android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            systemUi = systemUi or android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        }
-        decorView.systemUiVisibility = systemUi
         QMUIDisplayHelper.setFullScreen(this)
     }
 

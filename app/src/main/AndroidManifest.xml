@@ -61,10 +61,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.previewimage.PreviewImageActivity"
-                  android:theme="@style/AppTransparentTheme"/>
-
-
         <activity android:name="com.zhuzichu.orange.ui.camerax.CameraActivity"
                   android:theme="@style/AppTransparentTheme"/>
 

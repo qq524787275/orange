@@ -11,7 +11,7 @@
             android:background="@color/black">
 
 
-        <com.zhuzichu.orange.ui.previewimage.PreviewViewPager
+        <com.zhuzichu.orange.widget.PreviewViewPager
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:items="@{viewModel.list}"

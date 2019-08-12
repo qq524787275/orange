@@ -26,8 +26,8 @@ class ShopDetailOneViewModel(application: Application) : BaseViewModel(applicati
             .subscribe({
                 val list = it.data.taobao_image.split(",").toList()
                 listBanner.update(
-                    list.map { item ->
-                        ItemShopDetalBannerViewModel(this@ShopDetailOneViewModel, list, item)
+                    list.mapIndexed { index, item ->
+                        ItemShopDetalBannerViewModel(this@ShopDetailOneViewModel, list,item, index)
                     }
                 )
 

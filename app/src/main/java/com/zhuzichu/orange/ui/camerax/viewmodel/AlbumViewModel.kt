@@ -15,8 +15,9 @@ import com.zhuzichu.orange.ui.camerax.CameraActivity
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 
 class AlbumViewModel(application: Application) : BaseViewModel(application) {
-    val list = AsyncDiffObservableList(itemDiffOf<ItemAlbumViewModel> { oldItem, newItem -> oldItem == newItem })
-
+    val list = AsyncDiffObservableList(itemDiffOf<ItemAlbumViewModel> { oldItem, newItem ->
+        oldItem.resource.path == newItem.resource.path
+    })
     val itemBind = itemBindingOf<Any>(BR.item, R.layout.item_album)
 
     private val current = MutableLiveData(0)

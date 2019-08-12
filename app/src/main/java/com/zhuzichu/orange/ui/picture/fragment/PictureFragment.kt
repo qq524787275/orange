@@ -7,7 +7,9 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentPictureBinding
 import com.zhuzichu.orange.ui.picture.PictureActivity.Companion.POSITION
 import com.zhuzichu.orange.ui.picture.PictureActivity.Companion.URLS
+import com.zhuzichu.orange.ui.picture.viewmodel.ItemPictureViewModel
 import com.zhuzichu.orange.ui.picture.viewmodel.PictureViewModel
+import kotlinx.android.synthetic.main.fragment_picture.*
 
 /**
  * Created by Android Studio.
@@ -27,6 +29,12 @@ class PictureFragment : BaseFragment<FragmentPictureBinding, PictureViewModel>()
 
     override fun initView() {
         super.initView()
-
+        _viewModel.list.update(
+            list.map {
+                ItemPictureViewModel(_viewModel, it)
+            }
+        )
+        _viewModel.numInfo.value = position.inc().toString().plus("/").plus(list.size)
+        viewPager.currentItem = position
     }
 }
