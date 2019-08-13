@@ -10,6 +10,7 @@ import com.qiniu.android.storage.Configuration
 import com.qiniu.android.storage.UploadManager
 import com.zhuzichu.mvvm.bean.AddressBean
 import com.zhuzichu.mvvm.bean.UserInfoBean
+import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.global.language.LangGlobal
 import com.zhuzichu.mvvm.global.language.Zh
@@ -38,6 +39,7 @@ object AppGlobal {
         //初始化颜色
         ColorGlobal.initColor()
         LangGlobal.initLang(Zh())
+        CacheGlobal.initDir()
     }
 
     fun getAccount(): String? {

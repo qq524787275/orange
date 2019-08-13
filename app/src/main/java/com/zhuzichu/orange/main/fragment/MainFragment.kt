@@ -9,12 +9,12 @@ import com.zhuzichu.mvvm.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.mvvm.utils.setupWithViewPager
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
+import com.zhuzichu.orange.category.fragment.CategoryFragment
 import com.zhuzichu.orange.databinding.FragmentMainBinding
 import com.zhuzichu.orange.find.fragment.FindFragment
 import com.zhuzichu.orange.home.fragment.HomeFragment
 import com.zhuzichu.orange.main.viewmodel.MainViewModel
 import com.zhuzichu.orange.mine.fragment.MineFragment
-import com.zhuzichu.orange.category.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -58,6 +58,11 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
         content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, mFragments)
         initTabs()
         tabs.setupWithViewPager(viewPager = content)
+    }
+
+    override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
+        super.onEnterAnimationEnd(savedInstanceState)
+        _viewModel.checkUpdate()
     }
 
     private fun initTabs() {

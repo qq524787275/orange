@@ -5,6 +5,7 @@
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
@@ -49,6 +50,7 @@
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:onClickCommand="@{viewModel.onClickUpdate}"
                 android:paddingRight="15dp">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -63,9 +65,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="V2.8.0"
+                    tools:text="V2.8.0"
+                    android:text="@{viewModel.versionName}"
+                    android:gravity="right"
+                    android:paddingRight="8dp"
                     app:textColor="@{viewModel.color.textColorSecond}"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="12sp"

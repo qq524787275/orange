@@ -19,6 +19,15 @@ object CacheGlobal {
 
     private const val CAMERA_CACHE_DIR_NAME = "/camera_cache"
 
+    private const val DOWNLOAD_CACHE_DIR_NAME = "/download_cache"
+
+    fun initDir() {
+        getGlideCacheDir()
+        getHttpCacheDir()
+        getCameraCacheDir()
+        getDownLoadCacheDir()
+    }
+
     private fun getDiskCacheDir(last: String): File {
         val path: String = if (isSDCardMounted()) {
             AppGlobal.context.externalCacheDir.toString() + last
@@ -30,6 +39,10 @@ object CacheGlobal {
             file.mkdirs()
         }
         return file.absoluteFile
+    }
+
+    fun getDownLoadCacheDir(): File {
+        return getDiskCacheDir(DOWNLOAD_CACHE_DIR_NAME)
     }
 
     fun getCameraCacheDir(): File {

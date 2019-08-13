@@ -13,8 +13,11 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun checkUpdate(): Flowable<BaseRes<VersionBean>> {
+        return getAppService(isEncrypt = false).checkUpdate()
+    }
 
-    override fun getCategory(pid:Long): Flowable<BaseRes<List<CategoryBean>>> {
+    override fun getCategory(pid: Long): Flowable<BaseRes<List<CategoryBean>>> {
         return getAppService(isEncrypt = true).getCategory(pid)
     }
 

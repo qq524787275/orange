@@ -30,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig
  * Date: 2019-05-27
  * Time: 16:17
  */
-open class App : Application() {
+class App : Application() {
     companion object {
         lateinit var context: Application
     }
@@ -48,7 +48,6 @@ open class App : Application() {
         RxJavaPlugins.setErrorHandler {}
         initCrash()
     }
-
 
     private fun initSdk() {
         //电商SDK初始化
@@ -72,6 +71,7 @@ open class App : Application() {
                 .build()
         )
     }
+
     private fun initCrash() {
         CaocConfig.Builder.create()
             .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
@@ -84,23 +84,6 @@ open class App : Application() {
             .restartActivity(MainActivity::class.java) //重新启动后的activity
             .apply()
     }
-
-
-//    private fun initCrash() {
-//        CrashConfig.initDefault(
-//            CrashConfig.Builder()
-//                .backgroundMode(CrashConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
-//                .enabled(true) //是否启动全局异常捕获
-//                .showErrorDetails(true) //是否显示错误详细信息
-//                .showRestartButton(true) //是否显示重启按钮
-//                .trackActivities(true) //是否跟踪Activity
-//                .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
-//                .errorDrawable(R.drawable.error_image)
-//                .restartActivity(MainActivity::class.java) //重新启动后的activity
-//                .build()//是否跟踪Activity
-//        )
-//    }
-
 
 //    private fun initDebugDb() {
 //        SQLiteStudioService.instance().start(this)

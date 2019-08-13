@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path name="图片缓存" path="glide_cache/"/>
+    <cache-path name="http数据缓存" path="http_response_cache/"/>
+    <cache-path name="拍照缓存" path="camera_cache/"/>
+    <cache-path name="文件下载缓存" path="download_cache/"/>
+
+    <external-cache-path name="图片缓存" path="glide_cache/"/>
+    <external-cache-path name="http数据缓存" path="http_response_cache/"/>
+    <external-cache-path name="拍照缓存" path="camera_cache/"/>
+    <external-cache-path name="文件下载缓存" path="download_cache/"/>
+</paths>

@@ -50,8 +50,10 @@ class AddressDialogFragment(
         })
 
         _viewModel.uc.onSelectSureEvent.observe(this, Observer {
-            consumer?.invoke(_viewModel.currentList)
-            dismiss()
+            dialog?.cancel()
+            view?.postDelayed({
+                consumer?.invoke(_viewModel.currentList)
+            }, 150)
         })
     }
 

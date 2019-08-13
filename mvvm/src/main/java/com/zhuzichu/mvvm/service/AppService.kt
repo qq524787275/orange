@@ -1,9 +1,6 @@
 package com.zhuzichu.mvvm.service
 
-import com.zhuzichu.mvvm.bean.BaseRes
-import com.zhuzichu.mvvm.bean.CategoryBean
-import com.zhuzichu.mvvm.bean.TokenBean
-import com.zhuzichu.mvvm.bean.UserInfoBean
+import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -54,4 +51,8 @@ interface AppService {
 
     @POST("api/user/getUserInfo")
     fun getUserInfo(): Flowable<BaseRes<UserInfoBean>>
+
+
+    @POST("api/version/checkUpdate")
+    fun checkUpdate(): Flowable<BaseRes<VersionBean>>
 }

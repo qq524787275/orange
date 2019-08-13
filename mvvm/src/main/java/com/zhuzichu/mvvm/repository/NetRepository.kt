@@ -12,7 +12,9 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
-    fun getCategory(pid:Long): Flowable<BaseRes<List<CategoryBean>>>
+    fun checkUpdate(): Flowable<BaseRes<VersionBean>>
+
+    fun getCategory(pid: Long): Flowable<BaseRes<List<CategoryBean>>>
 
     fun getAvatarToken(): Flowable<BaseRes<String>>
 
