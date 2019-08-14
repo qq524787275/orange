@@ -2,6 +2,7 @@ package com.zhuzichu.mvvm.base
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
@@ -9,8 +10,8 @@ import androidx.appcompat.widget.ContentFrameLayout
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.global.AppPreference
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
-import com.zhuzichu.mvvm.utils.toColorById
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -26,9 +27,12 @@ import java.util.*
 
 abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
 
-    private val _delegate = SupportActivityDelegate(this)
-    abstract fun setRootFragment(): ISupportFragment
+    private val _delegate by lazy {
+        SupportActivityDelegate(this)
+    }
 
+    abstract fun setRootFragment(): ISupportFragment
+    private val preference by lazy { AppPreference() }
     override fun getSupportDelegate(): SupportActivityDelegate {
         return _delegate
     }
@@ -58,6 +62,15 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         QMUIStatusBarHelper.translucent(this)
         _delegate.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
+
+        if (preference.isDark)
+            QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        else
+            QMUIStatusBarHelper.setStatusBarLightMode(this)
+
+        ColorGlobal.isDark.observe(this, androidx.lifecycle.Observer {
+            window.setBackgroundDrawable(ColorGlobal.windowBackground.get()?.let { color -> ColorDrawable(color) })
+        })
     }
 
     private fun initContainer(savedInstanceState: Bundle?) {

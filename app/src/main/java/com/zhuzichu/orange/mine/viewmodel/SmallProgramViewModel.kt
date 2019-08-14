@@ -27,7 +27,8 @@ class SmallProgramViewModel(application: Application) : BaseViewModel(applicatio
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 1, "Flutter-Flare"),
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 2, "AddressSelector"),
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 3, "Camerax"),
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 4, "Ball-Game")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 4, "Ball-Game"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 5, "文件管理器")
                     )
                 )
             }

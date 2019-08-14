@@ -22,10 +22,10 @@ import com.zhuzichu.mvvm.view.imagezoom.ImageViewTouchBase
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.Constants
 import com.zhuzichu.orange.R
-import com.zhuzichu.orange.ui.camerax.CameraActivity
 import com.zhuzichu.orange.databinding.FragmentEditAvatarBinding
 import com.zhuzichu.orange.setting.viewmodel.EditAvatarViewModel
 import com.zhuzichu.orange.setting.viewmodel.ItemSelectViewModel
+import com.zhuzichu.orange.ui.camerax.CameraActivity
 import java.io.ByteArrayOutputStream
 
 
@@ -165,7 +165,7 @@ class EditAvatarFragment : BaseTopbarBackFragment<FragmentEditAvatarBinding, Edi
             return
         }
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, cast(baos))
         val datas = baos.toByteArray()
         getUploadManager().put(
             datas, key, upToken,

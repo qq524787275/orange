@@ -5,10 +5,11 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
-import com.zhuzichu.orange.ui.camerax.CameraActivity
 import com.zhuzichu.orange.flutter.BallGameFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
+import com.zhuzichu.orange.ui.camerax.CameraActivity
+import com.zhuzichu.orange.ui.file.FileActivity
 
 /**
  * Created by Android Studio.
@@ -40,6 +41,9 @@ class ItemSmallProgramViewModel(
             }
             4 -> {
                 viewModel.startActivity(clz = BallGameFlutterActivity::class.java)
+            }
+            5 -> {
+                viewModel.startActivity(clz = FileActivity::class.java)
             }
             else -> {
             }

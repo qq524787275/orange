@@ -3,13 +3,13 @@ package com.zhuzichu.orange.setting.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableBoolean
+import com.zhuzichu.mvvm.base.BaseSheetViewModel
 import com.zhuzichu.mvvm.bean.AddressBean
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.repository.LocalRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
-import com.zhuzichu.mvvm.base.BaseSheetViewModel
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
@@ -100,7 +100,7 @@ class AddressDialogViewModel(application: Application) : BaseSheetViewModel(appl
 
     @SuppressLint("CheckResult")
     fun loadAddress() {
-        AppGlobal.getAddress()
+        LocalRepositoryImpl.getAddress()
             .bindToSchedulers()
             .bindToLifecycle(getLifecycleProvider())
             .subscribe({

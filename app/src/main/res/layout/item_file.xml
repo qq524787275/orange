@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.zhuzichu.orange.ui.file.viewmodel.ItemFileViewModel"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="60dp"
+                  android:background="?attr/selectableItemBackground"
+                  android:clickable="true"
+                  android:gravity="center_vertical"
+                  android:orientation="horizontal"
+                  app:onClickCommand="@{item.onClickItem}"
+                  android:focusable="true">
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                app:url="@{item.fileIcon}"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="File Icon"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:ellipsize="middle"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#FF48282c"
+                android:text="@{item.fileName}"
+                android:textSize="16sp"
+                tools:text="SD 存储卡SD 存储卡SD"/>
+
+    </LinearLayout>
+</layout>

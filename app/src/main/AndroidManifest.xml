@@ -67,6 +67,9 @@
         <activity android:name="com.zhuzichu.orange.ui.picture.PictureActivity"
                   android:theme="@style/AppTransparentTheme"/>
 
+        <activity android:name=".ui.file.FileActivity"
+                  android:theme="@style/AppTransparentTheme"/>
+
         <activity
                 android:name=".flutter.BallGameFlutterActivity"
                 android:launchMode="singleTop"

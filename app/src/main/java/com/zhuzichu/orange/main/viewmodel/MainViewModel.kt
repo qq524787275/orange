@@ -37,7 +37,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                                 text = "更新提示"
                             )
                             message(
-                                text = "亲，有新版本了,是否需要下载?"
+                                text = "亲，有新版本了，是否需要下载?"
                             )
                             positiveButton(
                                 text = "去下载"
