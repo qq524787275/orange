@@ -1,13 +1,7 @@
 package com.zhuzichu.orange.main.fragment
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import androidx.annotation.NonNull
-import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
 import com.jakewharton.rxbinding3.view.clicks
 import com.liulishuo.okdownload.DownloadListener
@@ -25,7 +19,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentUpdateBinding
 import com.zhuzichu.orange.main.viewmodel.UpdateViewModel
 import com.zhuzichu.orange.ui.file.FileActivity
-import com.zhuzichu.orange.widget.NotificationSampleListener
+import com.zhuzichu.orange.widget.NotificationDownListener
 import kotlinx.android.synthetic.main.fragment_update.*
 import java.io.File
 
@@ -42,11 +36,9 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
 
     override fun bindVariableId(): Int = BR.viewModel
 
-    private lateinit var listener: NotificationSampleListener
+    private lateinit var listener: NotificationDownListener
 
     private lateinit var task: DownloadTask
-
-    private lateinit var cancelReceiver: CancelReceiver
 
     fun installApk() {
         val file = File(
@@ -90,10 +82,6 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
         initListener()
         initTask()
 
-        val filter = IntentFilter(CancelReceiver.ACTION)
-        cancelReceiver = CancelReceiver(task)
-        _activity.registerReceiver(cancelReceiver, filter)
-
 
         GlobalTaskManager.impl.attachListener(task, listener)
         GlobalTaskManager.impl.addAutoRemoveListenersWhenTaskEnd(task.id)
@@ -105,44 +93,17 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
     }
 
     private fun initListener() {
-        listener = NotificationSampleListener(requireContext())
-        listener.attachTaskEndRunnable(Runnable {
-            startBtn.text = "下载"
-        })
-
-        val intent = Intent(CancelReceiver.ACTION)
-        val cancelPendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        listener.setAction(NotificationCompat.Action(0, "Cancel", cancelPendingIntent))
-        listener.initNotification()
+        listener = NotificationDownListener(requireContext())
     }
 
     private fun initTask() {
 
         task = DownloadTask.Builder(info.url, CacheGlobal.getDownLoadCacheDir())
-            .setFilename("notification-file.apk")
-            // if there is the same task has been completed download, just delete it and
-            // re-download automatically.
+            .setFilename(MimeUtils.getFileNameFormUrl(info.url))
             .setPassIfAlreadyCompleted(false)
             .setMinIntervalMillisCallbackProcess(80)
-            // because for the notification we don't need make sure invoke on the ui thread, so
-            // just let callback no need callback to the ui thread.
             .setAutoCallbackToUIThread(false)
             .build()
-    }
-
-    internal class CancelReceiver(@param:NonNull private val task: DownloadTask) : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            this.task.cancel()
-        }
-
-        companion object {
-            val ACTION = "cancelOkdownload"
-        }
     }
 
     internal class GlobalTaskManager private constructor() {
@@ -172,11 +133,5 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
             val impl: GlobalTaskManager
                 get() = ClassHolder.INSTANCE
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _activity.unregisterReceiver(cancelReceiver)
-        listener.releaseTaskEndRunnable()
     }
 }
