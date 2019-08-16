@@ -13,6 +13,7 @@ import com.zhuzichu.mvvm.utils.bindToException
 import com.zhuzichu.mvvm.utils.bindToLifecycle
 import com.zhuzichu.mvvm.utils.bindToSchedulers
 import com.zhuzichu.mvvm.utils.getVersionName
+import com.zhuzichu.orange.main.fragment.UpdateDialog
 import com.zhuzichu.orange.main.fragment.UpdateFragment
 import com.zhuzichu.orange.setting.fragment.SettingUserFragment
 import com.zhuzichu.orange.utils.checkLogin
@@ -49,26 +50,7 @@ class SettingViewModel(application: Application) : BaseViewModel(application) {
             .subscribe(
                 { version ->
                     if (version.data.isUpdate) {
-                        MaterialDialog(_activity).show {
-                            title(
-                                text = "更新提示"
-                            )
-                            message(
-                                text = "亲，有新版本了,是否需要下载?"
-                            )
-                            positiveButton(
-                                text = "去下载"
-                            ) {
-                                startFragment(
-                                    UpdateFragment(), bundle = bundleOf(
-                                        UpdateFragment.VERSION_INFO to version.data.info
-                                    )
-                                )
-                            }
-                            negativeButton(
-                                text = "取消"
-                            )
-                        }
+                        UpdateDialog(_activity).show()
                     }
                 },
                 {

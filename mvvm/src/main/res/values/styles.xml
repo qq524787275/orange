@@ -19,7 +19,7 @@
     </style>
 
 
-    <style name="loading_dialog_style" parent="@android:style/Theme.Dialog">
+    <style name="dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
         <item name="android:windowIsFloating">true</item>

@@ -16,7 +16,7 @@ class PlaneDialog : AppCompatDialog {
 
     private val mLayoutId: Int
 
-    constructor(context: Context?) : this(context, R.style.loading_dialog_style, R.layout.dialog_plane)
+    constructor(context: Context?) : this(context, R.style.dialog_style, R.layout.dialog_plane)
 
 
     constructor(context: Context?, style: Int, layout: Int) : super(context, style) {

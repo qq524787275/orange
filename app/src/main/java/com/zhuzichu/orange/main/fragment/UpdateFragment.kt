@@ -77,12 +77,8 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
             }
         }
 
-
-
         initListener()
         initTask()
-
-
         GlobalTaskManager.impl.attachListener(task, listener)
         GlobalTaskManager.impl.addAutoRemoveListenersWhenTaskEnd(task.id)
 
