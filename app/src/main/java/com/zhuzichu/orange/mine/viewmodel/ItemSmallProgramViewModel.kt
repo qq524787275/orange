@@ -7,6 +7,7 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.flutter.BallGameFlutterActivity
 import com.zhuzichu.orange.flutter.MainFlutterFragment
+import com.zhuzichu.orange.mine.fragment.ServiceTestFragment
 import com.zhuzichu.orange.setting.fragment.AddressDialogFragment
 import com.zhuzichu.orange.ui.camerax.CameraActivity
 import com.zhuzichu.orange.ui.file.FileActivity
@@ -44,6 +45,9 @@ class ItemSmallProgramViewModel(
             }
             5 -> {
                 viewModel.startActivity(clz = FileActivity::class.java)
+            }
+            6 -> {
+                viewModel.startFragment(ServiceTestFragment())
             }
             else -> {
             }

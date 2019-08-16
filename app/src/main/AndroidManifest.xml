@@ -82,5 +82,10 @@
                     android:value="true"/>
         </activity>
 
+        <service android:name=".OrangeService"
+                 android:enabled="true"
+                 android:exported="true"
+                 android:process=":orange_remote"/>
+
     </application>
 </manifest>

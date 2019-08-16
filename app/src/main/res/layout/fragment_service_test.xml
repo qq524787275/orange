@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.zhuzichu.orange.mine.viewmodel.ServiceTestViewModel"/>
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:divider="@drawable/divider">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="start远程服务"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="bind远程服务"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fun1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="调用远程方法"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/unbind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="unbind远程服务"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/stop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="stop远程服务"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

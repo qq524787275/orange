@@ -28,7 +28,8 @@ class SmallProgramViewModel(application: Application) : BaseViewModel(applicatio
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 2, "AddressSelector"),
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 3, "Camerax"),
                         ItemSmallProgramViewModel(this@SmallProgramViewModel, 4, "Ball-Game"),
-                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 5, "文件管理器")
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 5, "文件管理器"),
+                        ItemSmallProgramViewModel(this@SmallProgramViewModel, 6, "跨进程服务测试")
                     )
                 )
             }

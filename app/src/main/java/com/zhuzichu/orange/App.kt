@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zhuzichu.mvvm.R
 import com.zhuzichu.mvvm.crash.CaocConfig
 import com.zhuzichu.mvvm.global.AppGlobal
+import com.zhuzichu.mvvm.utils.isAppMainProcess
 import com.zhuzichu.mvvm.utils.logi
 import com.zhuzichu.orange.main.activity.MainActivity
 import io.flutter.view.FlutterMain
@@ -39,14 +40,18 @@ class App : Application() {
         super.onCreate()
         context = this
         AppGlobal.init(context)
-        initAutoSize()
-        initFragmention()
+        if (isAppMainProcess()) {
+            initAutoSize()
+            initFragmention()
 //        initDebugDb()
-        initFont()
-        FlutterMain.startInitialization(applicationContext)
-        initSdk()
-        RxJavaPlugins.setErrorHandler {}
-        initCrash()
+            initFont()
+            FlutterMain.startInitialization(applicationContext)
+            initSdk()
+            RxJavaPlugins.setErrorHandler {}
+            initCrash()
+        } else {
+            "不是主进程".logi("ahhahahahaha")
+        }
     }
 
     private fun initSdk() {
