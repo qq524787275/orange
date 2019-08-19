@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.login.fragment
 
+import android.media.MediaPlayer
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -19,8 +20,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
+    private lateinit var player: MediaPlayer
+
     override fun initView() {
         super.initView()
         showSoftInput(username)
+        player = MediaPlayer.create(requireContext(), R.raw.zhaozilong)
+        player.isLooping = true
+        player.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.stop()
+        player.release()
     }
 }

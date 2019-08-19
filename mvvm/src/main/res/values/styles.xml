@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
 
         <item name="md_color_button_text">@color/colorPrimary</item>
+        <item name="md_color_title">@color/colorPrimaryText</item>
     </style>
 
 

@@ -1,11 +1,21 @@
 package com.zhuzichu.orange
 
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.IBinder
+import android.os.Process
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.Builder
 import com.zhuzichu.mvvm.base.OkBinder
 import com.zhuzichu.mvvm.utils.logi
+
 
 /**
  * Created by Android Studio.
@@ -17,11 +27,13 @@ import com.zhuzichu.mvvm.utils.logi
 class OrangeService : Service() {
 
     companion object {
+        private val NOTIFICATION_ID = Process.myPid()
         const val TAG = "OrangeService"
     }
 
     override fun onCreate() {
         super.onCreate()
+        startForeground(NOTIFICATION_ID, getNotification())
         "onCreate".logi(TAG)
     }
 
@@ -41,10 +53,11 @@ class OrangeService : Service() {
         Thread {
             val list = listOf("1", "2", "3", "4")
             list.forEach {
-                Thread.sleep(3000)
+                Thread.sleep(4000)
                 "执行了".plus(it).logi(TAG)
             }
         }.start()
+        stopForeground(true)
         return super.onStartCommand(intent, START_STICKY_COMPATIBILITY, startId)
     }
 
@@ -69,5 +82,26 @@ class OrangeService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         "onBind".logi(TAG)
         return okBinder
+    }
+
+    private fun getNotification(): Notification {
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "orange"
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                "orange_service",
+                NotificationManager.IMPORTANCE_MIN
+            )
+            manager.createNotificationChannel(channel)
+        }
+        val builder = Builder(this, channelId)
+        builder.setDefaults(Notification.DEFAULT_ALL)
+            .setOngoing(true).setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setContentTitle("服务运行于前台")
+            .setContentText("service正在后台运行...")
+            .setSmallIcon(R.mipmap.ic_launcher)
+        return builder.build()
     }
 }

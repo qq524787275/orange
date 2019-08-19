@@ -26,8 +26,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
  * Time: 15:20
  */
 class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
-    companion object{
-        const val POSITION="position"
+    companion object {
+        const val POSITION = "position"
     }
 
     override fun setLayoutId(): Int = R.layout.fragment_main
@@ -44,7 +44,7 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
     override fun onNewBundle(args: Bundle) {
         super.onNewBundle(args)
         val position = args.getInt(POSITION, -1)
-        if(position!=-1){
+        if (position != -1) {
             content.setCurrentItem(position, false)
         }
     }
@@ -58,11 +58,10 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
         content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, mFragments)
         initTabs()
         tabs.setupWithViewPager(viewPager = content)
-    }
 
-    override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        super.onEnterAnimationEnd(savedInstanceState)
-        _viewModel.checkUpdate()
+        view?.postDelayed({
+            _viewModel.checkUpdate()
+        }, 500)
     }
 
     private fun initTabs() {

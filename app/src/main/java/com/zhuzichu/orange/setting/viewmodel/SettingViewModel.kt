@@ -50,7 +50,7 @@ class SettingViewModel(application: Application) : BaseViewModel(application) {
             .subscribe(
                 { version ->
                     if (version.data.isUpdate) {
-                        UpdateDialog(_activity).show()
+                        UpdateDialog(_activity,version.data.info).show()
                     }
                 },
                 {

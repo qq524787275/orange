@@ -34,27 +34,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
             .subscribe(
                 { version ->
                     if (version.data.isUpdate) {
-                        UpdateDialog(_activity).show()
-//                        MaterialDialog(_activity).show {
-//                            title(
-//                                text = "更新提示"
-//                            )
-//                            message(
-//                                text = "亲，有新版本了，是否需要下载?"
-//                            )
-//                            positiveButton(
-//                                text = "去下载"
-//                            ) {
-//                                startFragment(
-//                                    UpdateFragment(), bundle = bundleOf(
-//                                        UpdateFragment.VERSION_INFO to version.data.info
-//                                    )
-//                                )
-//                            }
-//                            negativeButton(
-//                                text = "取消"
-//                            )
-//                        }
+                        UpdateDialog(_activity, version.data.info).show()
                     }
                 },
                 {

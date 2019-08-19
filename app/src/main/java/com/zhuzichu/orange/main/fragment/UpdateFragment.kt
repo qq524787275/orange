@@ -40,19 +40,6 @@ class UpdateFragment : BaseTopbarBackFragment<FragmentUpdateBinding, UpdateViewM
 
     private lateinit var task: DownloadTask
 
-    fun installApk() {
-        val file = File(
-            CacheGlobal.getDownLoadCacheDir(),
-            "app-release.apk"
-        )
-        val intent = Intent(Intent.ACTION_VIEW)
-        FileProvider7.setIntentDataAndType(
-            requireContext(),
-            intent, "application/vnd.android.package-archive", file, true
-        )
-        startActivity(intent)
-    }
-
     @SuppressLint("CheckResult")
     override fun initView() {
         setTitle("版本更新")
