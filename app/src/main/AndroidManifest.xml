@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
             tools:ignore="GoogleAppIndexingWarning"
             android:allowBackup="true"

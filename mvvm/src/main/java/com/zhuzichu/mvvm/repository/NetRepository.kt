@@ -12,6 +12,12 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun searchGoods(
+        pageSize: Long,
+        pageNo: Long,
+        keyWord: String
+    ): Flowable<BaseRes<GoodsBean>>
+
     fun checkUpdate(): Flowable<BaseRes<VersionBean>>
 
     fun getCategory(pid: Long): Flowable<BaseRes<List<CategoryBean>>>

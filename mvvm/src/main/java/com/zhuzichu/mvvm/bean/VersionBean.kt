@@ -18,6 +18,7 @@ data class VersionBean(
         var platform: String = "",
         var url: String = "",
         var versionCode: Int = 0,
-        var versionName: String = ""
+        var versionName: String = "",
+        var content: String = ""
     ) : Serializable
 }

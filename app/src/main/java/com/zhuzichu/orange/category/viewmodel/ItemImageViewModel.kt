@@ -5,7 +5,7 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.orange.search.fragment.SearchResultFragment
+import com.zhuzichu.orange.search.fragment.SearchResultPlusFragment
 
 /**
  * Created by Android Studio.
@@ -23,9 +23,9 @@ class ItemImageViewModel
     val color = ColorGlobal
     val clickItem = BindingCommand<Any>({
         viewModel.startFragment(
-            SearchResultFragment(),
+            SearchResultPlusFragment(),
             bundleOf(
-                SearchResultFragment.KEYWORD to category.name
+                SearchResultPlusFragment.KEYWORD to category.name
             )
         )
     })

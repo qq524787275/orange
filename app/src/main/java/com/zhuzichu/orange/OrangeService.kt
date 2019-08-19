@@ -57,7 +57,7 @@ class OrangeService : Service() {
                 "执行了".plus(it).logi(TAG)
             }
         }.start()
-        stopForeground(true)
+//        stopForeground(true)
         return super.onStartCommand(intent, START_STICKY_COMPATIBILITY, startId)
     }
 
@@ -98,7 +98,7 @@ class OrangeService : Service() {
         val builder = Builder(this, channelId)
         builder.setDefaults(Notification.DEFAULT_ALL)
             .setOngoing(true).setOnlyAlertOnce(true)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setPriority(NotificationCompat.PRIORITY_MIN)
             .setContentTitle("服务运行于前台")
             .setContentText("service正在后台运行...")
             .setSmallIcon(R.mipmap.ic_launcher)

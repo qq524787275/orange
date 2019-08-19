@@ -8,15 +8,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.core.text.HtmlCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.jakewharton.rxbinding3.view.clicks
 import com.zhuzichu.mvvm.base.BaseDialog
 import com.zhuzichu.mvvm.bean.VersionBean
 import com.zhuzichu.mvvm.global.cache.CacheGlobal
 import com.zhuzichu.mvvm.utils.*
-import com.zhuzichu.orange.DownLoaderWorker
 import com.zhuzichu.orange.R
 import java.io.File
 
@@ -28,7 +26,7 @@ class UpdateDialog(
     @SuppressLint("CheckResult")
     override fun initView() {
         val layoutParams = findViewById<CardView>(R.id.card)?.layoutParams
-        layoutParams?.height = (getScreenH() * 0.8).toInt()
+        layoutParams?.height = (getScreenH() * 0.6).toInt()
         layoutParams?.width = (getScreenW() * 0.8).toInt()
 
         findViewById<TextView>(R.id.left)?.clicks()?.subscribe {
@@ -39,6 +37,9 @@ class UpdateDialog(
             downLoadApk(info.url)
             cancel()
         }
+
+        findViewById<TextView>(R.id.text)?.text =
+            HtmlCompat.fromHtml(info.content, HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
 
@@ -62,11 +63,14 @@ class UpdateDialog(
 
         if (NetUtils.isWifiConnected(context)) {
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
-            downloadManager?.enqueue(request)
+            downloadManager?.let {
+                val id = it.enqueue(request)
+                "出发了:".plus(id).toast()
+            }
         } else {
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
             MaterialDialog(context).show {
-                title(text = "友情提示" )
+                title(text = "友情提示")
                 message(text = "当前不是在wifi环境中，确定要下载么?")
                 positiveButton(text = "确定") {
                     downloadManager?.enqueue(request)

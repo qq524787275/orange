@@ -7,6 +7,13 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface AppService {
+    @FormUrlEncoded
+    @POST("api/taobao/seach")
+    fun searchGoods(
+        @Field("pageSize") pageSize: Long,
+        @Field("pageNo") pageNo: Long,
+        @Field("keyWord") keyWord: String
+    ): Flowable<BaseRes<GoodsBean>>
 
     @FormUrlEncoded
     @POST("api/category/getCategory")

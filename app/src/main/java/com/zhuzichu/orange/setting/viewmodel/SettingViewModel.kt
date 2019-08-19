@@ -2,19 +2,13 @@ package com.zhuzichu.orange.setting.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
-import com.afollestad.materialdialogs.MaterialDialog
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.mvvm.utils.bindToException
-import com.zhuzichu.mvvm.utils.bindToLifecycle
-import com.zhuzichu.mvvm.utils.bindToSchedulers
-import com.zhuzichu.mvvm.utils.getVersionName
+import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.orange.main.fragment.UpdateDialog
-import com.zhuzichu.orange.main.fragment.UpdateFragment
 import com.zhuzichu.orange.setting.fragment.SettingUserFragment
 import com.zhuzichu.orange.utils.checkLogin
 
@@ -51,6 +45,8 @@ class SettingViewModel(application: Application) : BaseViewModel(application) {
                 { version ->
                     if (version.data.isUpdate) {
                         UpdateDialog(_activity,version.data.info).show()
+                    }else{
+                        "当前已是最新版本".toast()
                     }
                 },
                 {
