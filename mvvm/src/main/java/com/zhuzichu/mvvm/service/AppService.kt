@@ -12,7 +12,8 @@ interface AppService {
     fun searchGoods(
         @Field("pageSize") pageSize: Long,
         @Field("pageNo") pageNo: Long,
-        @Field("keyWord") keyWord: String
+        @Field("keyWord") keyWord: String,
+        @Field("sort") sort: String?
     ): Flowable<BaseRes<GoodsBean>>
 
     @FormUrlEncoded

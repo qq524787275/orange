@@ -4,16 +4,19 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.repository.DbRepositoryImpl
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.search.fragment.SearchFragment
+import kotlinx.coroutines.launch
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -35,15 +38,16 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
 
     val color = ColorGlobal
     private val pageSize = 20L
-    private var pageNo = 1L
-    private var keyWord = ""
+    internal var pageNo = 1L
+    internal lateinit var keyWord: String
+    var sort: String? = null
     val spanSize = ObservableInt(2)
     val navItemBind = itemBindingOf<ItemSearchNavViewModel>(BR.item, R.layout.item_search_nav)
     val navList = MutableLiveData<List<ItemSearchNavViewModel>>().also {
         it.value = listOf(
-            ItemSearchNavViewModel(this, "综合"),
-            ItemSearchNavViewModel(this, "销量"),
-            ItemSearchNavViewModel(this, "价格")
+            ItemSearchNavViewModel(this, "综合", null),
+            ItemSearchNavViewModel(this, "销量", "total_sales_des"),
+            ItemSearchNavViewModel(this, "价格", "price")
         ).apply {
             this.forEachIndexed { index, item ->
                 if (index == 0)
@@ -60,9 +64,11 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
 
 
     @SuppressLint("CheckResult")
-    fun loadData(keyword: String) {
-        this.keyWord = keyword
-        NetRepositoryImpl.searchGoods(pageSize, pageNo, keyword)
+    fun loadData() {
+        viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyWord) }
+        if (pageNo == 1L)
+            viewState.set(MultiStateView.VIEW_STATE_LOADING)
+        NetRepositoryImpl.searchGoods(pageSize, pageNo, keyWord, sort)
             .bindToException()
             .bindToLifecycle(getLifecycleProvider())
             .bindToSchedulers()
@@ -72,17 +78,21 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
                         ItemResultPlusViewModel(this, item, spanSize)
                     }
                     if (pageNo == 1L) {
-                        list.update(data)
-                        uc.finishRefreshing.call()
+                        list.update(listOf())
+                        postDelayed({
+                            list.update(data)
+                            viewState.set(MultiStateView.VIEW_STATE_CONTENT)
+                            uc.finishRefreshing.call()
+                        }, 150)
                     } else {
                         list.update(list.plus(data))
+                        viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                     }
                     if (data.size < pageSize) {
                         uc.finishLoadMoreWithNoMoreData.call()
                     } else {
                         uc.finishLoadmore.call()
                     }
-                    viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                 },
                 {
                     handleThrowable(it)
@@ -94,15 +104,15 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
 
     val onRefreshCommand = BindingCommand<Any>({
         pageNo = 1L
-        loadData(this.keyWord)
+        loadData()
     })
     val onLoadMoreCommand = BindingCommand<Any>({
         pageNo = pageNo.inc()
-        loadData(this.keyWord)
+        loadData()
     })
 
     val onErrorCommand = BindingCommand<Any>({
-        loadData(this.keyWord)
+        loadData()
     })
 
 

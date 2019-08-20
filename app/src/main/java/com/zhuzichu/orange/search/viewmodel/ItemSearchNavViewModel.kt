@@ -16,7 +16,8 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
  */
 class ItemSearchNavViewModel(
     viewModel: SearchResultPlusViewModel,
-    title: String
+    title: String,
+    sort: String?
 ) : ItemViewModel<SearchResultPlusViewModel>(viewModel) {
     val color = ColorGlobal
     val title = MutableLiveData(title)
@@ -24,10 +25,18 @@ class ItemSearchNavViewModel(
     val position = ObservableInt(0)
 
     val onClickItem = BindingCommand<Any>({
+        if (selected.get()) {
+
+            return@BindingCommand
+        }
+
         viewModel.navList.value = viewModel.navList.value?.map { item ->
             item.also {
                 it.selected.set(it.position.get() == this.position.get())
             }
         }
+        viewModel.sort = sort
+        viewModel.pageNo = 1
+        viewModel.loadData()
     })
 }

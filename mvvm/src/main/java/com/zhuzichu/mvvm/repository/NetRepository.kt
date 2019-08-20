@@ -15,7 +15,8 @@ interface NetRepository {
     fun searchGoods(
         pageSize: Long,
         pageNo: Long,
-        keyWord: String
+        keyWord: String,
+        sort: String?
     ): Flowable<BaseRes<GoodsBean>>
 
     fun checkUpdate(): Flowable<BaseRes<VersionBean>>

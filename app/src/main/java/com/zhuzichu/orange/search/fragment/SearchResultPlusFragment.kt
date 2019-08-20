@@ -35,7 +35,8 @@ class SearchResultPlusFragment : BaseTopbarBackFragment<FragmentSearchResultPlus
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        _viewModel.loadData(keyWord)
+        _viewModel.keyWord=keyWord
+        _viewModel.loadData()
     }
 
     override fun initViewObservable() {

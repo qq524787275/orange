@@ -92,6 +92,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         throwable.printStackTrace()
     }
 
+    fun postDelayed(r: () -> Unit, delayMillis: Long) {
+        _fragment.view?.postDelayed(r, delayMillis)
+    }
+
     fun startFragment(
         fragment: Fragment,
         bundle: Bundle? = null,
