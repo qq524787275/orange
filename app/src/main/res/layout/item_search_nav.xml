@@ -38,11 +38,13 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="12dp"
                         android:layout_height="12dp"
+                        app:srcColor="@{(!item.isDes&amp;&amp;item.selected)?item.color.colorPrimary:item.color.textColorSecond}"
                         android:src="@mipmap/ic_up"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="12dp"
                         android:layout_height="12dp"
+                        app:srcColor="@{(item.isDes&amp;&amp;item.selected)?item.color.colorPrimary:item.color.textColorSecond}"
                         android:src="@mipmap/ic_down"/>
 
             </LinearLayout>

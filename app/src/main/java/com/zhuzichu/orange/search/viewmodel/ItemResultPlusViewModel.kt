@@ -5,6 +5,8 @@ import androidx.databinding.ObservableInt
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.bean.GoodsBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
+import com.zhuzichu.mvvm.utils.logi
+import com.zhuzichu.mvvm.utils.toast
 
 /**
  * Created by Android Studio.
@@ -28,6 +30,7 @@ class ItemResultPlusViewModel(
     val couponmoney = ObservableField(goodsBean.coupon_amount)
 
     val onClickItem = BindingCommand<Any>({
-
+        itemid.toast()
+        itemid.logi("ItemResultPlusViewModel")
     })
 }

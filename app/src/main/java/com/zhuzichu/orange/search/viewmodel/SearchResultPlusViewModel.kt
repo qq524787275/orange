@@ -46,7 +46,7 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
     val navList = MutableLiveData<List<ItemSearchNavViewModel>>().also {
         it.value = listOf(
             ItemSearchNavViewModel(this, "综合", null),
-            ItemSearchNavViewModel(this, "销量", "total_sales_des"),
+            ItemSearchNavViewModel(this, "销量", "total_sales"),
             ItemSearchNavViewModel(this, "价格", "price")
         ).apply {
             this.forEachIndexed { index, item ->
@@ -66,8 +66,6 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
     @SuppressLint("CheckResult")
     fun loadData() {
         viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyWord) }
-        if (pageNo == 1L)
-            viewState.set(MultiStateView.VIEW_STATE_LOADING)
         NetRepositoryImpl.searchGoods(pageSize, pageNo, keyWord, sort)
             .bindToException()
             .bindToLifecycle(getLifecycleProvider())
@@ -78,12 +76,9 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
                         ItemResultPlusViewModel(this, item, spanSize)
                     }
                     if (pageNo == 1L) {
-                        list.update(listOf())
-                        postDelayed({
-                            list.update(data)
-                            viewState.set(MultiStateView.VIEW_STATE_CONTENT)
-                            uc.finishRefreshing.call()
-                        }, 150)
+                        list.update(data)
+                        uc.finishRefreshing.call()
+                        hideLoadingDialog()
                     } else {
                         list.update(list.plus(data))
                         viewState.set(MultiStateView.VIEW_STATE_CONTENT)
@@ -93,6 +88,7 @@ class SearchResultPlusViewModel(application: Application) : BaseViewModel(applic
                     } else {
                         uc.finishLoadmore.call()
                     }
+                    viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                 },
                 {
                     handleThrowable(it)

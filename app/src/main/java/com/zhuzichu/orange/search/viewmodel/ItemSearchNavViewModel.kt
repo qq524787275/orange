@@ -18,15 +18,19 @@ class ItemSearchNavViewModel(
     viewModel: SearchResultPlusViewModel,
     title: String,
     sort: String?
+
 ) : ItemViewModel<SearchResultPlusViewModel>(viewModel) {
     val color = ColorGlobal
     val title = MutableLiveData(title)
     val selected = ObservableBoolean(false)
     val position = ObservableInt(0)
 
-    val onClickItem = BindingCommand<Any>({
-        if (selected.get()) {
+    //是否倒叙
+    val isDes = ObservableBoolean(true)
 
+    val onClickItem = BindingCommand<Any>({
+
+        if (selected.get() && position.get() != 2) {
             return@BindingCommand
         }
 
@@ -35,8 +39,22 @@ class ItemSearchNavViewModel(
                 it.selected.set(it.position.get() == this.position.get())
             }
         }
-        viewModel.sort = sort
+
+        if (sort.isNullOrBlank()) {
+            viewModel.sort = sort
+        } else {
+            if (isDes.get()) {
+                viewModel.sort = sort.plus("_asc")
+                isDes.set(false)
+            } else {
+                viewModel.sort = sort.plus("_des")
+                isDes.set(true)
+            }
+        }
+
         viewModel.pageNo = 1
+        viewModel.showLoadingDialog()
         viewModel.loadData()
+
     })
 }

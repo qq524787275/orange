@@ -2,6 +2,7 @@ package com.zhuzichu.orange.search.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseTopbarBackFragment
 import com.zhuzichu.mvvm.utils.bindArgument
 import com.zhuzichu.orange.BR
@@ -30,12 +31,12 @@ class SearchResultPlusFragment : BaseTopbarBackFragment<FragmentSearchResultPlus
     override fun initView() {
         setTitle(keyWord)
         addRightIcon(R.mipmap.ic_top) {
-
+            (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
         }
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        _viewModel.keyWord=keyWord
+        _viewModel.keyWord = keyWord
         _viewModel.loadData()
     }
 
@@ -47,6 +48,9 @@ class SearchResultPlusFragment : BaseTopbarBackFragment<FragmentSearchResultPlus
         _viewModel.uc.finishRefreshing.observe(this, Observer {
             refresh.finishRefresh()
             refresh.setNoMoreData(false)
+            post {
+                (recycler.layoutManager as GridLayoutManager).scrollToPositionWithOffset(0, 0)
+            }
         })
 
         _viewModel.uc.finishLoadMoreWithNoMoreData.observe(this, Observer {
