@@ -14,6 +14,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.main.fragment.MainFragment
 import com.zhuzichu.orange.utils.checkAuth
 import com.zhuzichu.orange.utils.showTradeDetail
+import com.zhuzichu.orange.utils.showTradeUrl
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -26,6 +27,7 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
         AsyncDiffObservableList(itemDiffOf<ItemGoodsBannerViewModel> { oldItem, newItem -> oldItem.url == newItem.url })
     val bannerItemBind = itemBindingOf<Any>(BR.item, R.layout.item_goods_banner)
     val title = ObservableField<CharSequence>()
+    lateinit var url: String
 
     val onClickHome = BindingCommand<Any>({
         startFragment(
@@ -47,9 +49,10 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
 
     val onClickItemendprice = BindingCommand<Any>({
         checkAuth(_activity) {
-            itemid.get()?.let {
-                showTradeDetail(_activity, it)
-            }
+            //            itemid.get()?.let {
+//                showTradeDetail(_activity, it)
+//            }
+            showTradeUrl(_activity, "https:".plus(url))
         }
     })
 

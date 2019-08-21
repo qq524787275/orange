@@ -164,5 +164,13 @@
             </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+        <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:lottie_fileName="music.json"
+                app:lottie_loop="true"
+                android:layout_gravity="end"
+                app:lottie_autoPlay="true"/>
+
     </FrameLayout>
 </layout>

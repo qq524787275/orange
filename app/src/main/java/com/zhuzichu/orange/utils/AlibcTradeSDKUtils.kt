@@ -29,7 +29,8 @@ private var alibcShowParams: AlibcShowParams = AlibcShowParams(OpenType.Native, 
 //淘客参数，包括pid，unionid，subPid
 private var alibcTaokeParams: AlibcTaokeParams = AlibcTaokeParams().apply {
     pid = "mm_440730086_576500325_109076000438"
-    extraParams = mapOf(Pair("taokeAppkey", "27640838"))
+    adzoneid = "27640838"
+//    extraParams = mapOf(Pair("taokeAppkey", "27640838"))
 }
 
 private val tradeCallback = object : AlibcTradeCallback {

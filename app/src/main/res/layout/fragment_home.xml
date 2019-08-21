@@ -121,6 +121,7 @@
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         </com.zhuzichu.mvvm.view.layout.MultiStateView>
+
         <FrameLayout
                 android:id="@+id/search_layout"
                 android:layout_width="match_parent"

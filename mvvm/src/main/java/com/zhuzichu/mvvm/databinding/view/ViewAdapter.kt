@@ -165,7 +165,7 @@ fun onTouchCommand(view: View, onTouchCommand: ResponseCommand<MotionEvent, Bool
 @BindingAdapter("enablePaddingStatusbarHeight")
 fun enablePaddingStatusbarHeight(view: View, @NonNull isPadding: Boolean = false) {
     if (isPadding) {
-        view.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(AppGlobal.context), 0, 0);
+        view.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(AppGlobal.context), 0, 0)
     }
 }
 

@@ -1,8 +1,13 @@
 package com.zhuzichu.orange.goods.fragment
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
+import com.ali.auth.third.core.context.KernelContext.getApplicationContext
+import com.scwang.smartrefresh.layout.util.SmartUtil
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bean.GoodsBean
+import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.*
 import com.zhuzichu.mvvm.view.banner.ScaleLayoutManager
 import com.zhuzichu.orange.BR
@@ -32,7 +37,10 @@ class GoodsFragment : BaseFragment<FragmentGoodsBinding, GoodsViewModel>() {
 
     override fun bindVariableId(): Int = BR.viewModel
 
+    private var mScrollY = 0
+
     override fun initView() {
+        _viewModel.url = info.coupon_share_url
         _viewModel.itemid.set(info.item_id.toString())
         _viewModel.itemprice.set(info.zk_final_price)
         _viewModel.itemendprice.set((info.zk_final_price.toDouble() - info.coupon_amount.toDouble()).format2())
@@ -42,6 +50,28 @@ class GoodsFragment : BaseFragment<FragmentGoodsBinding, GoodsViewModel>() {
         val text = "".spannable().append(iconId, 30, 30).append(" ").append(info.title)
         _viewModel.title.set(text)
         initBanner()
+
+        scroll.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            private var lastScrollY = 0
+            private val h = SmartUtil.dp2px(80f)
+            private val color: Int = ColorGlobal.colorPrimary.value!! and 0x00ffffff
+            override fun onScrollChange(
+                v: NestedScrollView?,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+                var y = scrollY
+                if (lastScrollY < h) {
+                    y = h.coerceAtMost(y)
+                    mScrollY = if (y > h) h else y
+                    title.alpha = 1f * mScrollY / h
+                    topbar.setBackgroundColor(255 * mScrollY / h shl 24 or color)
+                }
+                lastScrollY = y
+            }
+        })
     }
 
 

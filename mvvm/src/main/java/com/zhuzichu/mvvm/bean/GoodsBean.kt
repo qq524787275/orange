@@ -65,7 +65,7 @@ data class GoodsBean(
             ) : Serializable {
                 data class SmallImages(
                     var string: List<String> = listOf()
-                )
+                ) : Serializable
             }
         }
     }
