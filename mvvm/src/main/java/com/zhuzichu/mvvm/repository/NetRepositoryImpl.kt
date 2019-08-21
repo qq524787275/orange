@@ -13,13 +13,17 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getIpAddr(): Flowable<String> {
+        return getAppService(isJson = false).getIpAddr()
+    }
+
     override fun searchGoods(
         pageSize: Long,
         pageNo: Long,
         keyWord: String,
         sort: String?
     ): Flowable<BaseRes<GoodsBean>> {
-        return getAppService(isEncrypt = true).searchGoods(pageSize, pageNo, keyWord,sort)
+        return getAppService(isEncrypt = true).searchGoods(pageSize, pageNo, keyWord, sort)
     }
 
     override fun checkUpdate(): Flowable<BaseRes<VersionBean>> {

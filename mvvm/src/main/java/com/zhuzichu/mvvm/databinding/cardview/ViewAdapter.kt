@@ -13,7 +13,7 @@ import androidx.databinding.BindingAdapter
  */
 
 @BindingAdapter("cardBackground")
-fun textColor(cardView: CardView, @NonNull color: Int? = null) {
+fun bindCardView(cardView: CardView, @NonNull color: Int? = null) {
     if (color != null) {
         cardView.setCardBackgroundColor(color)
     }

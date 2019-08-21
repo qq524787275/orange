@@ -1,5 +1,7 @@
 package com.zhuzichu.mvvm.bean
 
+import java.io.Serializable
+
 /**
  * Created by Android Studio.
  * Blog: zhuzichu.com
@@ -60,7 +62,7 @@ data class GoodsBean(
                 var white_image: String = "",
                 var x_id: String = "",
                 var zk_final_price: String = ""
-            ) {
+            ) : Serializable {
                 data class SmallImages(
                     var string: List<String> = listOf()
                 )

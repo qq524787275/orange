@@ -12,6 +12,8 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun getIpAddr(): Flowable<String>
+
     fun searchGoods(
         pageSize: Long,
         pageNo: Long,

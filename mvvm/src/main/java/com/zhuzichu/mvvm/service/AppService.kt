@@ -4,9 +4,13 @@ import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AppService {
+    @GET("https://ifconfig.co/ip")
+    fun getIpAddr(): Flowable<String>
+
     @FormUrlEncoded
     @POST("api/taobao/seach")
     fun searchGoods(

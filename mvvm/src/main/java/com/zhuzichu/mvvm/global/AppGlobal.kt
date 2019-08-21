@@ -24,6 +24,8 @@ object AppGlobal {
     val isAuth = ObservableBoolean(false)
     val session: ObservableField<Session> = ObservableField(Session())
 
+    val ip = ObservableField<String>()
+
     fun init(context: Application) {
         AppGlobal.context = context
         //初始化颜色
