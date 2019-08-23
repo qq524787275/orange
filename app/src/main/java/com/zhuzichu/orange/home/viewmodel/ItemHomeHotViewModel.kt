@@ -2,9 +2,9 @@ package com.zhuzichu.orange.home.viewmodel
 
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.bean.GoodsBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.bean.ShopBean
-import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
+import com.zhuzichu.orange.goods.fragment.GoodsFragment
 
 /**
  * Created by Android Studio.
@@ -15,16 +15,13 @@ import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
  */
 class ItemHomeHotViewModel(
     viewModel: HomeViewModel,
-    var shopBean: ShopBean
+    var goodsBean: GoodsBean
 ) : ItemViewModel<HomeViewModel>(viewModel) {
 
     val onClickItem = BindingCommand<Any>({
         viewModel.startFragment(
-            ShopDetailFragment(), bundleOf(
-                ShopDetailFragment.ITEMID to shopBean.itemid,
-                ShopDetailFragment.TYPE to shopBean.shoptype,
-                ShopDetailFragment.ITEMENDPRICE to shopBean.itemendprice,
-                ShopDetailFragment.ITEMPRICE to shopBean.itemprice
+            GoodsFragment(), bundleOf(
+                GoodsFragment.GOODS_INFO to goodsBean
             )
         )
     })

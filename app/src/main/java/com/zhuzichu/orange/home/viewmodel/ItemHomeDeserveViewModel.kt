@@ -2,10 +2,10 @@ package com.zhuzichu.orange.home.viewmodel
 
 import androidx.core.os.bundleOf
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.bean.GoodsBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.mvvm.bean.DeserveBean
-import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
+import com.zhuzichu.orange.goods.fragment.GoodsFragment
 
 /**
  * Created by Android Studio.
@@ -16,16 +16,13 @@ import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
  */
 class ItemHomeDeserveViewModel(
     viewModel: HomeViewModel,
-    var deserveBean: DeserveBean
+    var goodsBean: GoodsBean
 ) : ItemViewModel<HomeViewModel>(viewModel) {
     val color = ColorGlobal
     val onClickItem = BindingCommand<Any>({
         viewModel.startFragment(
-            ShopDetailFragment(), bundleOf(
-                ShopDetailFragment.ITEMID to deserveBean.itemid,
-                ShopDetailFragment.TYPE to deserveBean.shoptype,
-                ShopDetailFragment.ITEMENDPRICE to deserveBean.itemendprice,
-                ShopDetailFragment.ITEMPRICE to deserveBean.itemprice
+            GoodsFragment(), bundleOf(
+                GoodsFragment.GOODS_INFO to goodsBean
             )
         )
     })

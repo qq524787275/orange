@@ -17,21 +17,12 @@ object NetRepositoryImpl : NetRepository, IService {
         return getAppService(isJson = false).getIpAddr()
     }
 
-    override fun searchGoods(
-        pageSize: Long,
-        pageNo: Long,
-        keyWord: String,
-        sort: String?
-    ): Flowable<BaseRes<GoodsBean>> {
-        return getAppService(isEncrypt = true).searchGoods(pageSize, pageNo, keyWord, sort)
-    }
-
     override fun checkUpdate(): Flowable<BaseRes<VersionBean>> {
         return getAppService(isEncrypt = false).checkUpdate()
     }
 
-    override fun getCategory(pid: Long): Flowable<BaseRes<List<CategoryBean>>> {
-        return getAppService(isEncrypt = true).getCategory(pid)
+    override fun getCategory(): Flowable<BaseRes<List<CategoryBean>>> {
+        return getHaoDankuService().getCategory()
     }
 
 
@@ -59,15 +50,15 @@ object NetRepositoryImpl : NetRepository, IService {
         return getAppService().regist(username, password, phone, code)
     }
 
-    override fun getHomeBannerList(): Flowable<BaseRes<List<SalesBean>>> {
+    override fun getHomeBannerList(): Flowable<BaseRes<List<GoodsBean>>> {
         return getSalersList(5, 1, 1)
     }
 
-    override fun getHomeJuTaoShopList(): Flowable<BaseRes<List<ShopBean>>> {
+    override fun getHomeJuTaoShopList(): Flowable<BaseRes<List<GoodsBean>>> {
         return getShopList(2, 0, 20, 1)
     }
 
-    override fun getHomeHotShopList(): Flowable<BaseRes<List<ShopBean>>> {
+    override fun getHomeHotShopList(): Flowable<BaseRes<List<GoodsBean>>> {
         return getShopList(5, 0, 20, 1)
     }
 
@@ -96,7 +87,7 @@ object NetRepositoryImpl : NetRepository, IService {
         cid: Int,
         back: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<ShopBean>>> {
+    ): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().getShopList(4, cid, back, min_id)
     }
 
@@ -108,7 +99,7 @@ object NetRepositoryImpl : NetRepository, IService {
         return getHaoDankuService().getBrandList(back, min_id)
     }
 
-    override fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>> {
+    override fun getDeserveList(): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().getDeserveList()
     }
 
@@ -121,7 +112,7 @@ object NetRepositoryImpl : NetRepository, IService {
         back: Int,
         sale_type: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<SalesBean>>> {
+    ): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().getSalersList(back, sale_type, min_id)
     }
 
@@ -131,12 +122,8 @@ object NetRepositoryImpl : NetRepository, IService {
         sort: Int,
         cid: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<SearchBean>>> {
+    ): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().searchShop(keyword, back, sort, cid, min_id)
-    }
-
-    override fun getShopSort(): Flowable<BaseRes<List<SortBean>>> {
-        return getHaoDankuService().getShopSort()
     }
 
     override fun getShopList(
@@ -144,7 +131,7 @@ object NetRepositoryImpl : NetRepository, IService {
         cid: Int,
         back: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<ShopBean>>> {
+    ): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().getShopList(nav, cid, back, min_id)
     }
 

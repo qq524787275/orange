@@ -16,7 +16,6 @@ import com.zhuzichu.mvvm.utils.bindToSchedulers
 import com.zhuzichu.mvvm.utils.helper.QMUIDisplayHelper
 import com.zhuzichu.mvvm.utils.toast
 import com.zhuzichu.orange.main.activity.MainActivity
-
 /**
  * Created by Android Studio.
  * Blog: zhuzichu.com

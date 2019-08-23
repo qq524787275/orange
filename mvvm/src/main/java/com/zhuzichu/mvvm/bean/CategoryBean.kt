@@ -8,9 +8,17 @@ package com.zhuzichu.mvvm.bean
  * Time: 18:32
  */
 data class CategoryBean(
-    var id: Long = 0L,
-    var name: String = "",
-    var image: String = "",
-    var pid: Long = 0L,
-    var childs: MutableList<CategoryBean> = mutableListOf()
-)
+    var `data`: List<Data> = listOf(),
+    var cid: Int = 0,
+    var main_name: String = ""
+) {
+    data class Data(
+        var info: List<Info> = listOf(),
+        var next_name: String = ""
+    ) {
+        data class Info(
+            var imgurl: String = "",
+            var son_name: String = ""
+        )
+    }
+}

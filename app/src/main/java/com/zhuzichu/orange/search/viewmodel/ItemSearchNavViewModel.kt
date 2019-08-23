@@ -15,16 +15,15 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
  * Time: 15:01
  */
 class ItemSearchNavViewModel(
-    viewModel: SearchResultPlusViewModel,
+    viewModel: SearchResultViewModel,
     title: String,
-    sort: String?
-
-) : ItemViewModel<SearchResultPlusViewModel>(viewModel) {
+    vararg sort: Int
+) : ItemViewModel<SearchResultViewModel>(viewModel) {
     val color = ColorGlobal
     val title = MutableLiveData(title)
     val selected = ObservableBoolean(false)
     val position = ObservableInt(0)
-
+    var currentSort = sort[0]
     //是否倒叙
     val isDes = ObservableBoolean(true)
 
@@ -40,19 +39,17 @@ class ItemSearchNavViewModel(
             }
         }
 
-        if (sort.isNullOrBlank()) {
-            viewModel.sort = sort
-        } else {
+        if (sort.size == 2) {
             if (isDes.get()) {
-                viewModel.sort = sort.plus("_asc")
+                currentSort = sort[0]
                 isDes.set(false)
             } else {
-                viewModel.sort = sort.plus("_des")
+                currentSort = sort[1]
                 isDes.set(true)
             }
         }
-
-        viewModel.pageNo = 1
+        viewModel.minId = 1
+        viewModel.sort = currentSort
         viewModel.showLoadingDialog()
         viewModel.loadData()
 

@@ -6,7 +6,7 @@ import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.db.SearchHistory
 import com.zhuzichu.mvvm.repository.DbRepositoryImpl
-import com.zhuzichu.orange.search.fragment.SearchResultPlusFragment
+import com.zhuzichu.orange.search.fragment.SearchResultFragment
 import kotlinx.coroutines.launch
 
 class ItemHistoryViewModel(
@@ -19,9 +19,9 @@ class ItemHistoryViewModel(
     val clickItem = BindingCommand<Any>({
         viewModel.hideSoftKeyBoard()
         viewModel.startFragment(
-            SearchResultPlusFragment(),
+            SearchResultFragment(),
             bundleOf(
-                SearchResultPlusFragment.KEYWORD to searchHistory.keyWord
+                SearchResultFragment.KEYWORD to searchHistory.keyWord
             )
         )
     })

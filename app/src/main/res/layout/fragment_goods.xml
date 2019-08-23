@@ -27,7 +27,8 @@
 
                     <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@{viewModel.color.contentBackground}">
 
                         <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
                                 android:id="@+id/banner"
@@ -52,6 +53,21 @@
                                     android:layout_height="10dp"
                                     app:dot_tint="@color/white"/>
                         </androidx.cardview.widget.CardView>
+
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:shimmer_base_alpha="1.0"
+                                app:shimmer_dropoff="0.2"
+                                app:isGone="@{viewModel.showBanner}"
+                                app:shimmer_duration="1000"
+                                app:shimmer_highlight_alpha="0.0">
+
+                            <View android:layout_width="match_parent"
+                                  android:layout_height="match_parent"
+                                  android:background="@{viewModel.color.windowBackground}"/>
+                        </com.facebook.shimmer.ShimmerFrameLayout>
 
                     </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
 
@@ -82,6 +98,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="18dp"
+                                    app:textColor="@{viewModel.color.textColorSecond}"
                                     android:text="已抢1.5万件"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -89,6 +106,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginStart="18dp"
+                                    app:textColor="@{viewModel.color.textColorSecond}"
                                     android:text="券后¥29"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -96,12 +114,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_marginEnd="18dp"
+                                    app:textColor="@{viewModel.color.textColorSecond}"
                                     android:text="包邮"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="距结束4天17:00:20"
+                                    app:textColor="@{viewModel.color.textColorSecond}"
                                     android:layout_marginEnd="18dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_alignParentRight="true"/>
@@ -221,7 +241,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:layout_centerInParent="true"
-                            android:text="标题"/>
+                            android:text="宝贝详情"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -246,11 +266,12 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
+                        app:srcColor="@{viewModel.color.textColorPrimary}"
                         app:srcCompat="@mipmap/ic_shopdetail_home"/>
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryText"
+                        app:textColor="@{viewModel.color.textColorPrimary}"
                         android:textSize="12sp"
                         android:text="首页"/>
             </LinearLayout>
@@ -265,12 +286,13 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
+                        app:srcColor="@{viewModel.color.textColorPrimary}"
                         app:srcCompat="@mipmap/ic_shopdetail_collection"/>
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/colorPrimaryText"
+                        app:textColor="@{viewModel.color.textColorPrimary}"
                         android:text="收藏"/>
             </LinearLayout>
 

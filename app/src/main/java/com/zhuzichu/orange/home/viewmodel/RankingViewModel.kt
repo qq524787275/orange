@@ -37,7 +37,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
     val diff: DiffUtil.ItemCallback<Any> = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return if (oldItem is ItemRankingViewModel && newItem is ItemRankingViewModel) {
-                ((oldItem.salesBean.itemid == newItem.salesBean.itemid) && (oldItem.salesBean.itemendprice == newItem.salesBean.itemendprice))
+                ((oldItem.goodsBean.itemid == newItem.goodsBean.itemid) && (oldItem.goodsBean.itemendprice == newItem.goodsBean.itemendprice))
             } else oldItem == newItem
         }
 
@@ -119,7 +119,7 @@ class RankingViewModel(application: Application) : BaseViewModel(application) {
                             item,
                             (list.size + index + 1).toString()
                         ).apply {
-                            this.salesBean.itempic = this.salesBean.itempic.plus("_310x310.jpg")
+                            this.goodsBean.itempic = this.goodsBean.itempic.plus("_310x310.jpg")
                         })
                 }
                 mutableList

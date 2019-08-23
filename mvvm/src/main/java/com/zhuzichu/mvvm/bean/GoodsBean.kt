@@ -2,71 +2,63 @@ package com.zhuzichu.mvvm.bean
 
 import java.io.Serializable
 
-/**
- * Created by Android Studio.
- * Blog: zhuzichu.com
- * User: zhuzichu
- * Date: 2019-08-19
- * Time: 14:23
- */
+
 data class GoodsBean(
-    var tbk_dg_material_optional_response: TbkDgMaterialOptionalResponse = TbkDgMaterialOptionalResponse()
-) {
-    data class TbkDgMaterialOptionalResponse(
-        var request_id: String = "",
-        var result_list: ResultList = ResultList(),
-        var total_results: Int = 0
-    ) {
-        data class ResultList(
-            var map_data: List<MapData> = listOf()
-        ) {
-            data class MapData(
-                var category_id: Int = 0,
-                var category_name: String = "",
-                var commission_rate: String = "",
-                var commission_type: String = "",
-                var coupon_amount: String = "",
-                var coupon_end_time: String = "",
-                var coupon_id: String = "",
-                var coupon_info: String = "",
-                var coupon_remain_count: Int = 0,
-                var coupon_share_url: String = "",
-                var coupon_start_fee: String = "",
-                var coupon_start_time: String = "",
-                var coupon_total_count: Int = 0,
-                var include_dxjh: String = "",
-                var include_mkt: String = "",
-                var info_dxjh: String = "",
-                var item_description: String = "",
-                var item_id: Long = 0,
-                var item_url: String = "",
-                var level_one_category_id: Int = 0,
-                var level_one_category_name: String = "",
-                var nick: String = "",
-                var num_iid: Long = 0,
-                var pict_url: String = "",
-                var provcity: String = "",
-                var real_post_fee: String = "",
-                var reserve_price: String = "",
-                var seller_id: Long = 0,
-                var shop_dsr: Int = 0,
-                var shop_title: String = "",
-                var short_title: String = "",
-                var small_images: SmallImages = SmallImages(),
-                var title: String = "",
-                var tk_total_commi: String = "",
-                var tk_total_sales: String = "",
-                var url: String = "",
-                var user_type: Int = 0,
-                var volume: Int = 0,
-                var white_image: String = "",
-                var x_id: String = "",
-                var zk_final_price: String = ""
-            ) : Serializable {
-                data class SmallImages(
-                    var string: List<String> = listOf()
-                ) : Serializable
-            }
-        }
-    }
-}
+    var activity_type: String = "",
+    var activityid: String = "",
+    var coupon_condition: String = "",
+    var couponendtime: String = "",
+    var couponexplain: String = "",
+    var couponmoney: String = "",
+    var couponnum: String = "",
+    var couponreceive: String = "",
+    var couponreceive2: String = "",
+    var couponstarttime: String = "",
+    var couponsurplus: String = "",
+    var couponurl: String = "",
+    var cuntao: String = "",
+    var discount: String = "",
+    var down_type: String = "",
+    var end_time: String = "",
+    var fqcat: String = "",
+    var general_index: String = "",
+    var guide_article: String = "",
+    var is_brand: String = "",
+    var is_explosion: String = "",
+    var is_live: String = "",
+    var isquality: Any = Any(),
+    var itemdesc: String = "",
+    var itemendprice: String = "",
+    var itemid: String = "",
+    var itempic: String = "",
+    var itempic_copy: String = "",
+    var itemprice: String = "",
+    var itemsale: String = "",
+    var itemsale2: String = "",
+    var itemshorttitle: String = "",
+    var itemtitle: String = "",
+    var me: Any = Any(),
+    var online_users: String = "",
+    var original_article: String = "",
+    var original_img: String = "",
+    var planlink: Any = Any(),
+    var product_id: String = "",
+    var report_status: String = "",
+    var seller_id: String = "",
+    var seller_name: String = "",
+    var sellernick: String = "",
+    var shopid: String = "",
+    var shopname: String = "",
+    var shoptype: String = "",
+    var son_category: String = "",
+    var start_time: String = "",
+    var starttime: String = "",
+    var taobao_image: String = "",
+    var tkmoney: String = "",
+    var tkrates: String = "",
+    var tktype: String = "",
+    var todaycouponreceive: String = "",
+    var todaysale: String = "",
+    var userid: String = "",
+    var videoid: String = ""
+) : Serializable

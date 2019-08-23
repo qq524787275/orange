@@ -30,7 +30,7 @@
                     android:layout_marginRight="15dp"
                     android:transitionName="@string/transition_search"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:onClickCommand="@{viewModel.clickSearchLayout}"
+                    app:onClickCommand="@{viewModel.onClickSearchLayout}"
                     app:cardElevation="1dp"
                     app:cardCornerRadius="5dp">
                 <LinearLayout
@@ -65,7 +65,6 @@
                           android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_indicator"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="45dp"
@@ -73,19 +72,20 @@
                         app:gridLayoutManager="@{3}"
                         android:scrollbars="none"
                         android:overScrollMode="never"
-                        app:itemBinding="@{viewModel.itemBindIndicator}"
-                        app:items="@{viewModel.listIndicator}"
+                        app:itemBinding="@{viewModel.navItemBind}"
+                        app:items="@{viewModel.navList}"
                 />
 
                 <FrameLayout
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        app:onClickCommand="@{viewModel.onChangeSpanSize}"
+                        app:onClickCommand="@{viewModel.onClickSpanSizie}"
                         android:paddingEnd="15dp">
                     <androidx.appcompat.widget.AppCompatImageView
                             android:src="@mipmap/ic_col"
                             android:layout_width="25dp"
                             app:url="@{viewModel.spanSize==1?R.mipmap.ic_col:R.mipmap.ic_row}"
+                            app:srcColor="@{viewModel.color.textColorSecond}"
                             android:layout_gravity="center"
                             android:layout_height="25dp"/>
                 </FrameLayout>
@@ -96,7 +96,6 @@
                   android:layout_height="0.5dp"
                   android:background="@drawable/divider"/>
         </com.google.android.material.appbar.AppBarLayout>
-
 
         <com.zhuzichu.mvvm.view.layout.MultiStateView
                 android:layout_width="match_parent"
@@ -131,7 +130,7 @@
                         app:gridLayoutManager="@{viewModel.spanSize}"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_search_result"
-                        app:items="@{viewModel.itemList}"/>
+                        app:items="@{viewModel.list}"/>
 
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

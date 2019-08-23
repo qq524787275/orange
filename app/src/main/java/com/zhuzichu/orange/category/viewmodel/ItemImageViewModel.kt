@@ -1,11 +1,12 @@
 package com.zhuzichu.orange.category.viewmodel
 
 import androidx.core.os.bundleOf
+import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.ItemViewModel
 import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
-import com.zhuzichu.orange.search.fragment.SearchResultPlusFragment
+import com.zhuzichu.orange.search.fragment.SearchResultFragment
 
 /**
  * Created by Android Studio.
@@ -17,15 +18,17 @@ import com.zhuzichu.orange.search.fragment.SearchResultPlusFragment
 class ItemImageViewModel
     (
     viewModel: CategoryViewModel,
-    var category: CategoryBean
+    val category: CategoryBean.Data.Info
 ) :
     ItemViewModel<CategoryViewModel>(viewModel) {
+    val name = ObservableField(category.son_name)
+    val image = ObservableField(category.imgurl)
     val color = ColorGlobal
     val clickItem = BindingCommand<Any>({
         viewModel.startFragment(
-            SearchResultPlusFragment(),
+            SearchResultFragment(),
             bundleOf(
-                SearchResultPlusFragment.KEYWORD to category.name
+                SearchResultFragment.KEYWORD to category.son_name
             )
         )
     })

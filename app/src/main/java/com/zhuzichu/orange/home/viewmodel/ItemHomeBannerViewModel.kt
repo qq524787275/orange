@@ -1,10 +1,11 @@
 package com.zhuzichu.orange.home.viewmodel
 
 import androidx.core.os.bundleOf
+import androidx.databinding.ObservableField
 import com.zhuzichu.mvvm.base.ItemViewModel
+import com.zhuzichu.mvvm.bean.GoodsBean
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
-import com.zhuzichu.mvvm.bean.SalesBean
-import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
+import com.zhuzichu.orange.goods.fragment.GoodsFragment
 
 /**
  * Created by Android Studio.
@@ -15,15 +16,16 @@ import com.zhuzichu.orange.shopdetail.fragment.ShopDetailFragment
  */
 class ItemHomeBannerViewModel(
     viewModel: HomeViewModel,
-    var salesBean: SalesBean
+    var goodsBean: GoodsBean
 ) : ItemViewModel<HomeViewModel>(viewModel) {
+
+    val itempic = ObservableField(goodsBean.itempic)
+    val itemshorttitle = ObservableField(goodsBean.itemshorttitle)
+
     val onItemClick = BindingCommand<Any>({
         viewModel.startFragment(
-            ShopDetailFragment(), bundleOf(
-                ShopDetailFragment.ITEMID to salesBean.itemid,
-                ShopDetailFragment.TYPE to salesBean.shoptype,
-                ShopDetailFragment.ITEMENDPRICE to salesBean.itemendprice,
-                ShopDetailFragment.ITEMPRICE to salesBean.itemprice
+            GoodsFragment(), bundleOf(
+                GoodsFragment.GOODS_INFO to goodsBean
             )
         )
     })

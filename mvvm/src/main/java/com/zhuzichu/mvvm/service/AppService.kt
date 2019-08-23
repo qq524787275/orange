@@ -12,15 +12,6 @@ interface AppService {
     fun getIpAddr(): Flowable<String>
 
     @FormUrlEncoded
-    @POST("api/taobao/seach")
-    fun searchGoods(
-        @Field("pageSize") pageSize: Long,
-        @Field("pageNo") pageNo: Long,
-        @Field("keyWord") keyWord: String,
-        @Field("sort") sort: String?
-    ): Flowable<BaseRes<GoodsBean>>
-
-    @FormUrlEncoded
     @POST("api/category/getCategory")
     fun getCategory(
         @Field("pid") pid: Long

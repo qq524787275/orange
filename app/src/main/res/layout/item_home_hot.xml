@@ -29,7 +29,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:url="@{item.shopBean.itempic}"
+                        app:url="@{item.goodsBean.itempic}"
                         app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                         tools:src="@drawable/ic_launcher_background"/>
 
@@ -45,7 +45,7 @@
                             android:gravity="start|center_vertical"
                             android:layout_marginStart="5dp"
                             android:textColor="@color/white"
-                            android:text="@{item.shopBean.itemshorttitle}"
+                            android:text="@{item.goodsBean.itemshorttitle}"
                             android:singleLine="true"
                             android:ellipsize="end"
                             tools:text="哈哈哈哈哈哈"/>
@@ -58,7 +58,7 @@
                             android:textSize="16sp"
                             app:fontPath="@string/font_bold"
                             android:textColor="@color/colorLimePrimary"
-                            android:text='@{@string/rmb+item.shopBean.itemendprice}'/>
+                            android:text='@{@string/rmb+item.goodsBean.itemendprice}'/>
 
                 </LinearLayout>
             </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>

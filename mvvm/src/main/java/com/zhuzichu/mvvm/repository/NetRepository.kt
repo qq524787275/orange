@@ -14,16 +14,9 @@ interface NetRepository {
 
     fun getIpAddr(): Flowable<String>
 
-    fun searchGoods(
-        pageSize: Long,
-        pageNo: Long,
-        keyWord: String,
-        sort: String?
-    ): Flowable<BaseRes<GoodsBean>>
-
     fun checkUpdate(): Flowable<BaseRes<VersionBean>>
 
-    fun getCategory(pid: Long): Flowable<BaseRes<List<CategoryBean>>>
+    fun getCategory(): Flowable<BaseRes<List<CategoryBean>>>
 
     fun getAvatarToken(): Flowable<BaseRes<String>>
 
@@ -51,7 +44,7 @@ interface NetRepository {
         cid: Int,
         back: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<ShopBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
 
     fun getShopList(
@@ -59,12 +52,7 @@ interface NetRepository {
         cid: Int,
         back: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<ShopBean>>>
-
-
-    fun getShopSort(
-    ): Flowable<BaseRes<List<SortBean>>>
-
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     fun searchShop(
         keyword: String,
@@ -72,17 +60,17 @@ interface NetRepository {
         sort: Int,
         cid: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<SearchBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     fun getSalersList(
         back: Int,
         sale_type: Int,
         min_id: Int
-    ): Flowable<BaseRes<List<SalesBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>>
 
-    fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>>
+    fun getDeserveList(): Flowable<BaseRes<List<GoodsBean>>>
 
     fun getBrandList(
         back: Int,
@@ -105,9 +93,9 @@ interface NetRepository {
 
     fun getShopDetail(itemid: String): Flowable<BaseRes<ShopDetailBean>>
 
-    fun getHomeHotShopList(): Flowable<BaseRes<List<ShopBean>>>
+    fun getHomeHotShopList(): Flowable<BaseRes<List<GoodsBean>>>
 
-    fun getHomeJuTaoShopList(): Flowable<BaseRes<List<ShopBean>>>
+    fun getHomeJuTaoShopList(): Flowable<BaseRes<List<GoodsBean>>>
 
-    fun getHomeBannerList(): Flowable<BaseRes<List<SalesBean>>>
+    fun getHomeBannerList(): Flowable<BaseRes<List<GoodsBean>>>
 }

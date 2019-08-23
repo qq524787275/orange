@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.BR
 import com.zhuzichu.mvvm.base.BaseViewModel
-import com.zhuzichu.mvvm.bean.CategoryBean
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.repository.NetRepositoryImpl
@@ -35,7 +34,7 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
 
     val leftItemBind = itemBindingOf<Any>(BR.item, R.layout.item_category_left)
     val leftList =
-        DiffObservableList(itemDiffOf<ItemLeftViewModel> { oldItem, newItem -> oldItem.category.id == newItem.category.id })
+        DiffObservableList(itemDiffOf<ItemLeftViewModel> { oldItem, newItem -> oldItem.category.cid == newItem.category.cid })
 
     val rightItemBind = OnItemBindClass<Any>().apply {
         map<ItemImageViewModel>(BR.item, R.layout.item_category_right_image)
@@ -56,12 +55,12 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
 
 
     fun loadShopSort() {
-        NetRepositoryImpl.getCategory(-1L)
+        NetRepositoryImpl.getCategory()
             .bindToException()
             .bindToSchedulers()
             .bindToLifecycle(getLifecycleProvider())
             .map {
-                getTreeCategory(it.data)
+                it.general_classify
             }
             .subscribe(
                 {
@@ -85,25 +84,25 @@ class CategoryViewModel(application: Application) : BaseViewModel(application) {
             )
     }
 
-    private fun getTreeCategory(all: List<CategoryBean>): List<CategoryBean> {
-        val list = mutableListOf<CategoryBean>()
-        all.forEach {
-            if (it.pid == 0L)
-                list.add(it)
-            all.forEach { item ->
-                if (it.id == item.pid) {
-                    it.childs.add(item)
-                }
-            }
-        }
-        return list
-    }
+//    private fun getTreeCategory(all: List<CategoryBean>): List<CategoryBean> {
+//        val list = mutableListOf<CategoryBean>()
+//        all.forEach {
+//            if (it.pid == 0L)
+//                list.add(it)
+//            all.forEach { item ->
+//                if (it.id == item.pid) {
+//                    it.childs.add(item)
+//                }
+//            }
+//        }
+//        return list
+//    }
 
     fun updateRight(itemLeftViewModel: ItemLeftViewModel) {
         val data = mutableListOf<Any>()
-        itemLeftViewModel.category.childs.forEach {
+        itemLeftViewModel.category.data.forEach {
             data.add(ItemTitleViewModel(this, it))
-            it.childs.forEach { item ->
+            it.info.forEach { item ->
                 data.add(ItemImageViewModel(this, item))
             }
         }

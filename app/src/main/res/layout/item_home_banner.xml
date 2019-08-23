@@ -26,16 +26,16 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:placeholderRes="@{R.mipmap.ic_silent_plate_max}"
+                    app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                     android:scaleType="centerCrop"
-                    app:url="@{item.salesBean.itempic}"/>
+                    app:url="@{item.itempic}"/>
 
             <com.zhuzichu.mvvm.view.ribbon.ShimmerRibbonView
                     android:layout_width="180dp"
                     android:layout_height="50dp"
                     android:layout_gravity="bottom|center_horizontal"
                     app:shimmer_ribbon_drawable="@drawable/ribbon02"
-                    app:shimmer_ribbon_text="@{item.salesBean.itemshorttitle}"
+                    app:shimmer_ribbon_text="@{item.itemshorttitle}"
                     app:shimmer_ribbon_textColor="@color/white"
                     app:shimmer_base_alpha="1.0"
                     app:shimmer_ribbon_maxLines="1"

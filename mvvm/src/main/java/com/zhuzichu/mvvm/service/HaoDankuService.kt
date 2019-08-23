@@ -1,6 +1,5 @@
 package com.zhuzichu.mvvm.service
 
-import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.GET
@@ -21,12 +20,11 @@ interface HaoDankuService {
         @Path("cid") cid: Int,
         @Path("back") back: Int,
         @Path("min_id") min_id: Int
-    ): Flowable<BaseRes<List<ShopBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     @GET("super_classify/apikey/zhuzichu")
-    fun getShopSort(
-
-    ): Flowable<BaseRes<List<SortBean>>>
+    fun getCategory(
+    ): Flowable<BaseRes<List<CategoryBean>>>
 
     @GET("get_keyword_items/apikey/zhuzichu/keyword/{keyword}/back/{back}/sort/{sort}/cid/{cid}/min_id/{min_id}")
     fun searchShop(
@@ -35,20 +33,20 @@ interface HaoDankuService {
         @Path("sort") sort: Int,
         @Path("cid") cid: Int,
         @Path("min_id") min_id: Int
-    ): Flowable<BaseRes<List<SearchBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     @GET("sales_list/apikey/zhuzichu/sale_type/{sale_type}/back/{back}/min_id/{min_id}")
     fun getSalersList(
         @Path("back") back: Int,
         @Path("sale_type") sale_type: Int,
         @Path("min_id") min_id: Int
-    ): Flowable<BaseRes<List<SalesBean>>>
+    ): Flowable<BaseRes<List<GoodsBean>>>
 
     @GET("hot_key/apikey/zhuzichu")
     fun getHotKeyList(): Flowable<BaseRes<List<HotKeyBean>>>
 
     @GET("get_deserve_item/apikey/zhuzichu")
-    fun getDeserveList(): Flowable<BaseRes<List<DeserveBean>>>
+    fun getDeserveList(): Flowable<BaseRes<List<GoodsBean>>>
 
     @GET("brand/apikey/zhuzichu/back/{back}/min_id/{min_id}")
     fun getBrandList(

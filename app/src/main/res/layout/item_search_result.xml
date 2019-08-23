@@ -33,7 +33,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:url="@{item.searchBean.itempic}"
+                        app:url="@{item.itempic}"
                         app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                         tools:src="@drawable/ic_launcher_background"/>
 
@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@{item.searchBean.itemshorttitle}"
+                        android:text="@{item.itemshorttitle}"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp"
                         android:textColor="@color/colorPrimaryText"
@@ -66,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="¥ 123123123123123"
-                            android:text='@{@string/rmb+item.searchBean.itemendprice}'
+                            android:text='@{@string/rmb+item.itemendprice}'
                             android:textSize="16sp"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -77,14 +77,14 @@
                             android:id="@+id/itemprice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:strikethrough='@{item.searchBean.itemprice}'
+                            app:strikethrough='@{item.itemprice}'
                             tools:text="123123123123123123"
                             android:textSize="12sp"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:layout_marginTop="5dp"
                             android:layout_marginStart="5dp"
-                            app:fontPath="@string/font_book"
+                            app:fontPath="@string/font_medium"
                             android:layout_toEndOf="@+id/itemendprice"
                             android:textColor="@color/colorHint"
                     />
@@ -92,11 +92,11 @@
                     <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text='@{item.searchBean.itemsale+@string/personal_payment}'
+                            android:text='@{item.itemsale+@string/personal_payment}'
                             android:textSize="12sp"
                             android:maxLines="1"
                             tools:text="销量 213132"
-                            app:fontPath="@string/font_book"
+                            app:fontPath="@string/font_medium"
                             android:layout_below="@+id/itemendprice"
                             android:ellipsize="end"
                             android:textColor="@color/colorSecondText"
@@ -108,7 +108,7 @@
                             app:shimmer_ribbon_drawable="@mipmap/bg_coupon_sc9"
                             android:layout_alignParentEnd="true"
                             android:layout_below="@+id/itemprice"
-                            app:shimmer_ribbon_text="@{item.searchBean.couponmoney+@string/rmb}"
+                            app:shimmer_ribbon_text="@{item.couponmoney+@string/rmb}"
                             app:shimmer_ribbon_textColor="@color/white"
                             app:shimmer_base_alpha="1.0"
                             app:shimmer_ribbon_maxLines="1"
@@ -127,7 +127,7 @@
                     android:id="@+id/itempic"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:url="@{item.searchBean.itempic}"
+                    app:url="@{item.itempic}"
                     android:layout_margin="10dp"
                     app:placeholderRes="@{R.mipmap.ic_silent_plate_mix}"
                     tools:src="@drawable/ic_launcher_background"/>
@@ -135,7 +135,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.searchBean.itemshorttitle}"
+                    android:text="@{item.itemshorttitle}"
                     android:textSize="14sp"
                     android:layout_marginBottom="4dp"
                     android:textColor="@color/colorPrimaryText"
@@ -152,7 +152,7 @@
                     android:layout_width="60dp"
                     android:layout_height="20dp"
                     app:shimmer_ribbon_drawable="@mipmap/bg_coupon_sc9"
-                    app:shimmer_ribbon_text="@{item.searchBean.couponmoney+@string/rmb}"
+                    app:shimmer_ribbon_text="@{item.couponmoney+@string/rmb}"
                     app:shimmer_ribbon_textColor="@color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
@@ -173,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="¥ 123123123123123"
-                        android:text='@{@string/rmb+item.searchBean.itemendprice}'
+                        android:text='@{@string/rmb+item.itemendprice}'
                         android:textSize="16sp"
                         android:maxLines="1"
                         android:ellipsize="end"
@@ -184,12 +184,12 @@
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:strikethrough='@{item.searchBean.itemprice}'
+                        app:strikethrough='@{item.itemprice}'
                         tools:text="123123123123123123"
                         android:textSize="12sp"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        app:fontPath="@string/font_book"
+                        app:fontPath="@string/font_medium"
                         android:textColor="@color/colorHint"
                 />
             </LinearLayout>
@@ -197,7 +197,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{item.searchBean.itemsale+@string/personal_payment}'
+                    android:text='@{item.itemsale+@string/personal_payment}'
                     android:textSize="12sp"
                     android:maxLines="1"
                     tools:text="销量 213132"
@@ -205,7 +205,7 @@
                     android:layout_toEndOf="@+id/itempic"
                     android:layout_above="@+id/layout_itemendprice"
                     android:textColor="@color/colorSecondText"
-                    app:fontPath="@string/font_book"
+                    app:fontPath="@string/font_medium"
                     android:layout_marginBottom="5dp"
             />
         </RelativeLayout>

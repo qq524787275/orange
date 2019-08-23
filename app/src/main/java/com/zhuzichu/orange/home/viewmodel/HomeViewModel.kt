@@ -3,22 +3,19 @@ package com.zhuzichu.orange.home.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
-import com.zhuzichu.mvvm.bean.BaseRes
 import com.zhuzichu.mvvm.base.BaseViewModel
+import com.zhuzichu.mvvm.bean.BaseRes
+import com.zhuzichu.mvvm.bean.GoodsBean
 import com.zhuzichu.mvvm.bus.event.SingleLiveEvent
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
+import com.zhuzichu.mvvm.repository.NetRepositoryImpl
 import com.zhuzichu.mvvm.utils.*
+import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
-import com.zhuzichu.mvvm.bean.DeserveBean
-import com.zhuzichu.mvvm.bean.SalesBean
-import com.zhuzichu.mvvm.bean.ShopBean
-import com.zhuzichu.mvvm.repository.NetRepositoryImpl
-import com.zhuzichu.mvvm.view.layout.MultiStateView
 import com.zhuzichu.orange.search.fragment.SearchFragment
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -59,16 +56,16 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     val listNavigation = ObservableArrayList<ItemNavigationViewModel>().apply {
         addAll(
             listOf(
-                ItemNavigationViewModel(this@HomeViewModel, "榜单", R.mipmap.a1),
-                ItemNavigationViewModel(this@HomeViewModel, "品牌", R.mipmap.a2),
-                ItemNavigationViewModel(this@HomeViewModel, "抢购", R.mipmap.a3),
-                ItemNavigationViewModel(this@HomeViewModel, "抖商", R.mipmap.a4),
-                ItemNavigationViewModel(this@HomeViewModel, "达人说", R.mipmap.a5),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a6),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a7),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a8),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a9),
-                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.a10)
+                ItemNavigationViewModel(this@HomeViewModel, "榜单", R.mipmap.baitu),
+                ItemNavigationViewModel(this@HomeViewModel, "品牌", R.mipmap.bianfu),
+                ItemNavigationViewModel(this@HomeViewModel, "抢购", R.mipmap.bianselong),
+                ItemNavigationViewModel(this@HomeViewModel, "抖商", R.mipmap.daishu),
+                ItemNavigationViewModel(this@HomeViewModel, "达人说", R.mipmap.daxiang),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.gongji),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.hainiu),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.huanxiong),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.jiakechong),
+                ItemNavigationViewModel(this@HomeViewModel, "xxx", R.mipmap.jingyu)
             )
         )
     }
@@ -81,15 +78,15 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     }.toItemBinding()
 
     private val deserveList = AsyncDiffObservableList(itemDiffOf<ItemHomeDeserveViewModel> { oldItem, newItem ->
-        oldItem.deserveBean.itemid == newItem.deserveBean.itemid
+        oldItem.goodsBean.itemid == newItem.goodsBean.itemid
     })
 
     private val hotShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeHotViewModel> { oldItem, newItem ->
-        oldItem.shopBean.itemid == newItem.shopBean.itemid
+        oldItem.goodsBean.itemid == newItem.goodsBean.itemid
     })
 
     private val juTaoShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeHotViewModel> { oldItem, newItem ->
-        oldItem.shopBean.itemid == newItem.shopBean.itemid
+        oldItem.goodsBean.itemid == newItem.goodsBean.itemid
     })
 
     val list: MergeObservableList<Any> = MergeObservableList<Any>()
@@ -134,7 +131,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
             NetRepositoryImpl.getHomeJuTaoShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
                 bindToLifecycle(getLifecycleProvider())
             ).take(12),
-            Function4<BaseRes<List<SalesBean>>, BaseRes<List<DeserveBean>>, BaseRes<List<ShopBean>>, BaseRes<List<ShopBean>>, HomeData> { t1, t2, t3, t4 ->
+            Function4<BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, HomeData> { t1, t2, t3, t4 ->
                 HomeData(t1, t2, t3, t4)
             }
         ).observeOn(AndroidSchedulers.mainThread())
@@ -147,7 +144,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                     ItemHomeBannerViewModel(this@HomeViewModel, item)
                 }
 
-                deserveList.update(it.deserveList.item_info.map { item ->
+                deserveList.update(it.goodsList.item_info.map { item ->
                     ItemHomeDeserveViewModel(this@HomeViewModel, item)
                 })
 
@@ -167,9 +164,9 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     }
 
     data class HomeData(
-        var salesList: BaseRes<List<SalesBean>>,
-        var deserveList: BaseRes<List<DeserveBean>>,
-        var hotList: BaseRes<List<ShopBean>>,
-        var jutaoList: BaseRes<List<ShopBean>>
+        var salesList: BaseRes<List<GoodsBean>>,
+        var goodsList: BaseRes<List<GoodsBean>>,
+        var hotList: BaseRes<List<GoodsBean>>,
+        var jutaoList: BaseRes<List<GoodsBean>>
     )
 }

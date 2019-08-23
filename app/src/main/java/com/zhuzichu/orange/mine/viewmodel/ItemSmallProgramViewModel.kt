@@ -25,6 +25,7 @@ class ItemSmallProgramViewModel(
     var title: String
 ) : ItemViewModel<BaseViewModel>(viewModel) {
     val color = ColorGlobal
+    @Suppress("DIVISION_BY_ZERO")
     val onItemClick = BindingCommand<Any>({
         when (id) {
             0 -> {

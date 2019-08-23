@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                tools:src="@mipmap/cheng_search_j_xuxia"
+                tools:src="@mipmap/mao"
                 app:url="@{item.iconId}"/>
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
