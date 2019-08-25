@@ -26,7 +26,6 @@ data class GoodsBean(
     var is_brand: String = "",
     var is_explosion: String = "",
     var is_live: String = "",
-    var isquality: Any = Any(),
     var itemdesc: String = "",
     var itemendprice: String = "",
     var itemid: String = "",
@@ -37,11 +36,9 @@ data class GoodsBean(
     var itemsale2: String = "",
     var itemshorttitle: String = "",
     var itemtitle: String = "",
-    var me: Any = Any(),
     var online_users: String = "",
     var original_article: String = "",
     var original_img: String = "",
-    var planlink: Any = Any(),
     var product_id: String = "",
     var report_status: String = "",
     var seller_id: String = "",
@@ -60,5 +57,6 @@ data class GoodsBean(
     var todaycouponreceive: String = "",
     var todaysale: String = "",
     var userid: String = "",
-    var videoid: String = ""
+    var videoid: String = "",
+    var smallimages: List<String> = listOf()
 ) : Serializable

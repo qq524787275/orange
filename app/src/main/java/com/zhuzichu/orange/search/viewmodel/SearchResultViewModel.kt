@@ -38,12 +38,11 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
     }
 
     val color = ColorGlobal
-    private var back = 20
-    private var cid = 0
-     var sort = 0
-    var minId = 1
+    val pageSize = 20
+    var pageNo = 1
+    var sort = 0
     private var lastMinId = 1
-    internal lateinit var keyWord: String
+    internal lateinit var keyword: String
     val spanSize = ObservableInt(2)
     val navItemBind = itemBindingOf<ItemSearchNavViewModel>(BR.item, R.layout.item_search_nav)
     val navList = MutableLiveData<List<ItemSearchNavViewModel>>().also {
@@ -68,8 +67,8 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
     @SuppressLint("CheckResult")
     fun loadData() {
-        viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyWord) }
-        NetRepositoryImpl.searchShop(keyWord, back, sort, cid, minId)
+        viewModelScope.launch { DbRepositoryImpl.addSearchHistory(keyword) }
+        NetRepositoryImpl.searchGoods(pageSize, pageNo, keyword, sort)
             .bindToException()
             .bindToLifecycle(getLifecycleProvider())
             .bindToSchedulers()
@@ -78,7 +77,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                     val data = it.data.map { item ->
                         ItemResultViewModel(this, item, spanSize)
                     }
-                    if (minId == 1) {
+                    if (pageNo == 1) {
                         list.update(data)
                         uc.finishRefreshing.call()
                         hideLoadingDialog()
@@ -86,7 +85,7 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
                         list.update(list.plus(data))
                         viewState.set(MultiStateView.VIEW_STATE_CONTENT)
                     }
-                    if (data.size < back) {
+                    if (data.size < pageSize) {
                         uc.finishLoadMoreWithNoMoreData.call()
                     } else {
                         lastMinId = it.min_id
@@ -103,11 +102,11 @@ class SearchResultViewModel(application: Application) : BaseViewModel(applicatio
 
 
     val onRefreshCommand = BindingCommand<Any>({
-        minId = 1
+        pageNo = 1
         loadData()
     })
     val onLoadMoreCommand = BindingCommand<Any>({
-        minId = lastMinId
+        pageNo = pageNo.inc()
         loadData()
     })
 

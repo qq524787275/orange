@@ -12,6 +12,19 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun getRecommend(
+        itemId: Long
+    ): Flowable<BaseRes<List<GoodsBean>>>
+
+    fun getHomeData(): Flowable<BaseRes<List<HomeBean>>>
+
+    fun searchGoods(
+        pageSize: Int,
+        pageNo: Int,
+        keyword: String,
+        sort: Int
+    ): Flowable<BaseRes<List<GoodsBean>>>
+
     fun getIpAddr(): Flowable<String>
 
     fun checkUpdate(): Flowable<BaseRes<VersionBean>>

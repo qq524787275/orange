@@ -36,7 +36,7 @@ class SearchResultFragment : BaseTopbarBackFragment<FragmentSearchResultBinding,
     }
 
     override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        _viewModel.keyWord = keyWord
+        _viewModel.keyword = keyWord
         _viewModel.loadData()
     }
 

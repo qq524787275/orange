@@ -11,6 +11,16 @@ interface AppService {
     @GET("https://ifconfig.co/ip")
     fun getIpAddr(): Flowable<String>
 
+
+    @FormUrlEncoded
+    @POST("api/taobao/search")
+    fun searchGoods(
+        @Field("pageSize") pageSize: Int,
+        @Field("pageNo") pageNo: Int,
+        @Field("keyword") keyword: String,
+        @Field("sort") sort: Int
+    ): Flowable<BaseRes<List<GoodsBean>>>
+
     @FormUrlEncoded
     @POST("api/category/getCategory")
     fun getCategory(
@@ -58,4 +68,13 @@ interface AppService {
 
     @POST("api/version/checkUpdate")
     fun checkUpdate(): Flowable<BaseRes<VersionBean>>
+
+    @POST("api/taobao/getHomeData")
+    fun getHomeData(): Flowable<BaseRes<List<HomeBean>>>
+
+    @FormUrlEncoded
+    @POST("api/taobao/getRecommend")
+    fun getRecommend(
+        @Field("itemId") itemId: Long
+    ): Flowable<BaseRes<List<GoodsBean>>>
 }

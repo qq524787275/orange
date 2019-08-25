@@ -13,6 +13,23 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun getRecommend(itemId: Long): Flowable<BaseRes<List<GoodsBean>>> {
+        return getAppService(isEncrypt = true).getRecommend(itemId)
+    }
+
+    override fun getHomeData(): Flowable<BaseRes<List<HomeBean>>> {
+        return getAppService(isEncrypt = false).getHomeData()
+    }
+
+    override fun searchGoods(
+        pageSize: Int,
+        pageNo: Int,
+        keyword: String,
+        sort: Int
+    ): Flowable<BaseRes<List<GoodsBean>>> {
+        return getAppService(isEncrypt = true).searchGoods(pageSize, pageNo, keyword, sort)
+    }
+
     override fun getIpAddr(): Flowable<String> {
         return getAppService(isJson = false).getIpAddr()
     }
@@ -125,6 +142,7 @@ object NetRepositoryImpl : NetRepository, IService {
     ): Flowable<BaseRes<List<GoodsBean>>> {
         return getHaoDankuService().searchShop(keyword, back, sort, cid, min_id)
     }
+
 
     override fun getShopList(
         nav: Int,

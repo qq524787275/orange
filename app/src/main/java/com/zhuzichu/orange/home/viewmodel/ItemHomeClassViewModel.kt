@@ -14,7 +14,6 @@ import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 class ItemHomeClassViewModel(
     viewModel: HomeViewModel,
     var title: String,
-    var list: AsyncDiffObservableList<Any>,
     var background: Int
 ) : ItemViewModel<HomeViewModel>(viewModel) {
     val color = ColorGlobal

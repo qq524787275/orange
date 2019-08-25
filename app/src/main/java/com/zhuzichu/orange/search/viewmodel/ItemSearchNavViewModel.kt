@@ -48,7 +48,7 @@ class ItemSearchNavViewModel(
                 isDes.set(true)
             }
         }
-        viewModel.minId = 1
+        viewModel.pageNo = 1
         viewModel.sort = currentSort
         viewModel.showLoadingDialog()
         viewModel.loadData()

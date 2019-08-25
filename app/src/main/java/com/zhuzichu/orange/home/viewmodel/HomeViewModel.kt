@@ -2,6 +2,7 @@ package com.zhuzichu.orange.home.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.widget.Toast
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,6 +40,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     val color = ColorGlobal
     val uc = UIChangeObservable()
     val viewState = MutableLiveData(MultiStateView.VIEW_STATE_LOADING)
+    private val imageList = listOf(R.drawable.background02, R.drawable.background01, R.drawable.background03)
 
     inner class UIChangeObservable {
         val finishRefreshing = SingleLiveEvent<Any>()
@@ -85,17 +87,17 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         oldItem.goodsBean.itemid == newItem.goodsBean.itemid
     })
 
-    private val juTaoShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeHotViewModel> { oldItem, newItem ->
+    private val juTaoShopList = AsyncDiffObservableList(itemDiffOf<ItemHomeJuTaoVIewModel> { oldItem, newItem ->
         oldItem.goodsBean.itemid == newItem.goodsBean.itemid
     })
 
-    val list: MergeObservableList<Any> = MergeObservableList<Any>()
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList, R.drawable.background02))
-        .insertList(deserveList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList, R.drawable.background01))
-        .insertList(hotShopList)
-        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList, R.drawable.background03))
-        .insertList(juTaoShopList)
+    val list: ObservableArrayList<Any> = ObservableArrayList()
+//        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "今日值得买", deserveList, R.drawable.background02))
+//        .insertList(deserveList)
+//        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "爆单系列", hotShopList, R.drawable.background01))
+//        .insertList(hotShopList)
+//        .insertItem(ItemHomeClassViewModel(this@HomeViewModel, "聚淘专区", juTaoShopList, R.drawable.background03))
+//        .insertList(juTaoShopList)
 
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
@@ -118,49 +120,96 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     })
 
     fun loadHomeData() {
-        Flowable.zip(
-            NetRepositoryImpl.getHomeBannerList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
-                bindToLifecycle(getLifecycleProvider())
-            ),
-            NetRepositoryImpl.getDeserveList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
-                bindToLifecycle(getLifecycleProvider())
-            ),
-            NetRepositoryImpl.getHomeHotShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
-                bindToLifecycle(getLifecycleProvider())
-            ).take(12),
-            NetRepositoryImpl.getHomeJuTaoShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
-                bindToLifecycle(getLifecycleProvider())
-            ).take(12),
-            Function4<BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, HomeData> { t1, t2, t3, t4 ->
-                HomeData(t1, t2, t3, t4)
-            }
-        ).observeOn(AndroidSchedulers.mainThread())
-            .compose(bindToLifecycle(getLifecycleProvider()))
+        NetRepositoryImpl.getHomeData()
+            .bindToException()
+            .bindToLifecycle(getLifecycleProvider())
+            .bindToSchedulers()
             .doFinally {
                 uc.finishRefreshing.call()
             }
             .subscribe({
-                listBanner.value = it.salesList.data.map { item ->
-                    ItemHomeBannerViewModel(this@HomeViewModel, item)
+                listBanner.value = it.data[0].list.map { item ->
+                    ItemHomeBannerViewModel(this, item)
                 }
 
-                deserveList.update(it.goodsList.item_info.map { item ->
-                    ItemHomeDeserveViewModel(this@HomeViewModel, item)
-                })
+                val data = mutableListOf<Any>()
+                it.data.subList(1, it.data.size).mapIndexed { index, item ->
+                    data.add(ItemHomeClassViewModel(this, item.name, imageList[index % 3]))
+                    when (item.showType) {
+                        1 -> {
+                            data.addAll(item.list.map { child ->
+                                ItemHomeDeserveViewModel(this, child)
+                            })
+                        }
+                        2 -> {
+                            data.addAll(item.list.map { child ->
+                                ItemHomeHotViewModel(this, child)
+                            })
+                        }
+                        3 -> {
+                            data.addAll(item.list.map { child ->
+                                ItemHomeJuTaoVIewModel(this, child)
+                            })
+                        }
+                        else -> {
+                            data.addAll(item.list.map { child ->
+                                ItemHomeDeserveViewModel(this, child)
+                            })
+                        }
+                    }
 
-                hotShopList.update(it.hotList.data.map { item ->
-                    ItemHomeHotViewModel(this@HomeViewModel, item)
-                })
-
-                juTaoShopList.update(it.jutaoList.data.map { item ->
-                    ItemHomeJuTaoVIewModel(this@HomeViewModel, item)
-                })
-
+                }
+                list.clear()
+                list.addAll(data)
                 viewState.value = MultiStateView.VIEW_STATE_CONTENT
             }, {
                 viewState.value = MultiStateView.VIEW_STATE_ERROR
                 handleThrowable(it)
             })
+
+//        Flowable.zip(
+//            NetRepositoryImpl.getHomeBannerList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
+//                bindToLifecycle(getLifecycleProvider())
+//            ),
+//            NetRepositoryImpl.getDeserveList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
+//                bindToLifecycle(getLifecycleProvider())
+//            ),
+//            NetRepositoryImpl.getHomeHotShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
+//                bindToLifecycle(getLifecycleProvider())
+//            ).take(12),
+//            NetRepositoryImpl.getHomeJuTaoShopList().subscribeOn(Schedulers.io()).compose(exceptionTransformer()).compose(
+//                bindToLifecycle(getLifecycleProvider())
+//            ).take(12),
+//            Function4<BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, BaseRes<List<GoodsBean>>, HomeData> { t1, t2, t3, t4 ->
+//                HomeData(t1, t2, t3, t4)
+//            }
+//        ).observeOn(AndroidSchedulers.mainThread())
+//            .compose(bindToLifecycle(getLifecycleProvider()))
+//            .doFinally {
+//                uc.finishRefreshing.call()
+//            }
+//            .subscribe({
+//                listBanner.value = it.salesList.data.map { item ->
+//                    ItemHomeBannerViewModel(this@HomeViewModel, item)
+//                }
+//
+//                deserveList.update(it.goodsList.item_info.map { item ->
+//                    ItemHomeDeserveViewModel(this@HomeViewModel, item)
+//                })
+//
+//                hotShopList.update(it.hotList.data.map { item ->
+//                    ItemHomeHotViewModel(this@HomeViewModel, item)
+//                })
+//
+//                juTaoShopList.update(it.jutaoList.data.map { item ->
+//                    ItemHomeJuTaoVIewModel(this@HomeViewModel, item)
+//                })
+//
+//                viewState.value = MultiStateView.VIEW_STATE_CONTENT
+//            }, {
+//                viewState.value = MultiStateView.VIEW_STATE_ERROR
+//                handleThrowable(it)
+//            })
     }
 
     data class HomeData(

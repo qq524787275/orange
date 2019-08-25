@@ -102,7 +102,8 @@ abstract class BaseTopbarFragment<V : ViewDataBinding, VM : BaseViewModel> : Bas
 
     fun setTitle(title: String) {
         _title.text = title
-        showTopBar()
+        if (_topBar.visibility == View.GONE)
+            showTopBar()
     }
 
     fun showTopBar() {

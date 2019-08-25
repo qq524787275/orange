@@ -15,6 +15,7 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentGoodsBinding
 import com.zhuzichu.orange.goods.viewmodel.GoodsViewModel
+import com.zhuzichu.orange.goods.viewmodel.ItemGoodsBannerViewModel
 import kotlinx.android.synthetic.main.fragment_goods.*
 
 
@@ -41,7 +42,7 @@ class GoodsFragment : BaseFragment<FragmentGoodsBinding, GoodsViewModel>() {
 
     override fun initView() {
         _viewModel.url = info.couponurl
-        _viewModel.itemid.set(info.itemid)
+        _viewModel.itemid = info.itemid
         _viewModel.itemprice.set(info.itemprice)
         _viewModel.itemendprice.set(info.itemendprice)
         var iconId = R.mipmap.ic_taobao
@@ -74,20 +75,21 @@ class GoodsFragment : BaseFragment<FragmentGoodsBinding, GoodsViewModel>() {
         })
     }
 
+    override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
+        _viewModel.loadRecommendData()
+    }
+
 
     private fun initBanner() {
         val scaleLayoutManager = ScaleLayoutManager(_activity, dip2px(5f))
         scaleLayoutManager.minScale = 0.9f
         banner.layoutManager = scaleLayoutManager
 
-    }
-
-    override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
-        super.onEnterAnimationEnd(savedInstanceState)
-        _viewModel.loadShopDetail(info.itemid) {
-            view?.postDelayed({
-                dots.attachRecyclerView(banner)
-            }, 150)
-        }
+        _viewModel.bannerList.update(info.smallimages.map {
+            ItemGoodsBannerViewModel(_viewModel, it.plus("_500x500.jpg"))
+        })
+        view?.postDelayed({
+            dots.attachRecyclerView(banner)
+        }, 150)
     }
 }
