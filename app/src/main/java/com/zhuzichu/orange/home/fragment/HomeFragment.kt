@@ -43,6 +43,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun initSearchBar() {
         val layoutParams = search_card.layoutParams as FrameLayout.LayoutParams
         layoutParams.topMargin = layoutParams.topMargin + QMUIStatusBarHelper.getStatusbarHeight(context)
+
+        search_layout.post {
+            refresh.setPadding(0, search_layout.bottom, 0, 0)
+        }
     }
 
     private fun initRefresh() {

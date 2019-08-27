@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.zhuzichu.orange.goods.viewmodel.ItemGoodsHeaderViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+
+            <com.zhuzichu.mvvm.view.layout.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@{item.color.contentBackground}">
+
+                <com.zhuzichu.mvvm.view.banner.AutoPlayRecyclerView
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:currentView="@{item.initBanner}"
+                        app:items="@{item.bannerList}"
+                        app:itemBinding="@{item.bannerItemBind}"/>
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/black_translucent_33"
+                        android:layout_marginBottom="5dp">
+                    <com.zhuzichu.mvvm.widget.DotsIndicator
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_height="10dp"
+                            app:currentView="@{item.initDots}"
+                            app:dot_tint="@color/white"/>
+                </androidx.cardview.widget.CardView>
+
+            </com.zhuzichu.mvvm.view.layout.SquareRelativeLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:background="@{item.color.contentBackground}"
+                          android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="@{item.title}"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="18dp"
+                        android:textStyle="bold"
+                        tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
+                        android:lineSpacingExtra="8dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        app:textColor="@{item.color.textColorPrimary}"/>
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_height="60dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            app:textColor="@{item.color.textColorSecond}"
+                            android:text="已抢1.5万件"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="18dp"
+                            app:textColor="@{item.color.textColorSecond}"
+                            android:text="券后¥29"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="18dp"
+                            app:textColor="@{item.color.textColorSecond}"
+                            android:text="包邮"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="距结束4天17:00:20"
+                            app:textColor="@{item.color.textColorSecond}"
+                            android:layout_marginEnd="18dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="3dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginBottom="10dp"
+                        tools:cardBackgroundColor="@color/colorPrimary"
+                        app:cardBackground="@{item.color.colorPrimary}">
+
+
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="match_parent"
+                                  android:orientation="horizontal">
+                        <LinearLayout android:layout_width="0dp"
+                                      android:layout_height="match_parent"
+                                      android:orientation="vertical"
+                                      android:gravity="center"
+                                      android:layout_weight="1">
+
+                            <LinearLayout android:layout_width="match_parent"
+                                          android:layout_height="wrap_content"
+                                          android:gravity="center"
+                                          android:orientation="horizontal">
+                                <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                                        android:textSize="35sp"
+                                        app:fontPath="@string/font_bold"
+                                        android:text="40"/>
+                                <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="20sp"
+                                        android:textColor="@color/white"
+                                        android:text="元优惠券"/>
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="使用期限 2019.08.21-2019.08.26"
+                                    android:textSize="13sp"
+                                    android:gravity="center"
+                                    app:fontPath="@string/font_medium"
+                                    android:textColor="@color/white"/>
+                        </LinearLayout>
+
+                        <View android:layout_width="1dp" android:layout_height="match_parent"
+                              android:background="@color/white"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="立即领券"
+                                android:gravity="center"
+                                android:textSize="20sp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/white"/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+                            android:background="@{item.color.contentBackground}">
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

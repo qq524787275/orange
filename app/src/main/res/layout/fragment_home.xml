@@ -26,7 +26,6 @@
                     android:layout_height="match_parent"
                     app:srlAccentColor="@color/white"
                     android:clipChildren="true"
-                    android:paddingTop="80dp"
                     app:onLoadMoreCommand="@null">
 
                 <com.scwang.smartrefresh.layout.header.TwoLevelHeader
@@ -125,7 +124,7 @@
         <FrameLayout
                 android:id="@+id/search_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:background="@{viewModel.color.windowBackground}">
 
             <androidx.cardview.widget.CardView
@@ -135,6 +134,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_scrollFlags="scroll"
                     android:transitionName="@string/transition_search"
                     app:onClickCommand="@{viewModel.onClickSearch}"

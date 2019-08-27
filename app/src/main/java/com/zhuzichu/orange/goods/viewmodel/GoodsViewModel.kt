@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.core.os.bundleOf
 import androidx.databinding.ObservableField
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zhuzichu.mvvm.base.BaseViewModel
 import com.zhuzichu.mvvm.databinding.command.BindingCommand
 import com.zhuzichu.mvvm.global.color.ColorGlobal
@@ -16,16 +17,37 @@ import com.zhuzichu.orange.utils.checkAuth
 import com.zhuzichu.orange.utils.showTradeDetail
 import com.zhuzichu.orange.utils.showTradeUrl
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
+import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList
+import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 import me.yokeyword.fragmentation.ISupportFragment
 
 class GoodsViewModel(application: Application) : BaseViewModel(application) {
     val color = ColorGlobal
     val itemprice = ObservableField<String>()
     val itemendprice = ObservableField<String>()
-    val bannerList =
-        AsyncDiffObservableList(itemDiffOf<ItemGoodsBannerViewModel> { oldItem, newItem -> oldItem.url == newItem.url })
-    val bannerItemBind = itemBindingOf<Any>(BR.item, R.layout.item_goods_banner)
-    val title = ObservableField<CharSequence>()
+
+    val itemBind = OnItemBindClass<Any>().apply {
+        map<ItemGoodsHeaderViewModel>(BR.item, R.layout.item_goods_header)
+        map<ItemGoodsViewModel>(BR.item, R.layout.item_goods)
+    }.toItemBinding()
+
+    private val deserveList = AsyncDiffObservableList(itemDiffOf<ItemGoodsViewModel> { oldItem, newItem ->
+        oldItem.goodsBean.itemid == newItem.goodsBean.itemid
+    })
+
+    val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            val item = list[position]
+            if (item is ItemGoodsHeaderViewModel)
+                return 2
+            return 1
+        }
+    }
+
+    val headerViewModel = ItemGoodsHeaderViewModel(this)
+    val list = MergeObservableList<Any>()
+        .insertItem(headerViewModel)
+        .insertList(deserveList)
 
     lateinit var itemid: String
     lateinit var url: String
@@ -65,7 +87,9 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
             .bindToLifecycle(getLifecycleProvider())
             .bindToSchedulers()
             .subscribe({
-                it.data.size.toast()
+                deserveList.update(it.data.map { item ->
+                    ItemGoodsViewModel(this, item)
+                })
             }, {
                 handleThrowable(it)
             })
