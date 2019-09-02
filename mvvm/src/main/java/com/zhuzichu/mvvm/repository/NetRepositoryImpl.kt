@@ -13,6 +13,14 @@ import io.reactivex.Flowable
  * Time: 18:11
  */
 object NetRepositoryImpl : NetRepository, IService {
+    override fun addFoot(
+        itemId: Long,
+        title: String,
+        pictUrl: String
+    ): Flowable<BaseRes<String>> {
+        return getAppService(isEncrypt = true).addFoot(itemId, title, pictUrl)
+    }
+
     override fun getRecommend(itemId: Long): Flowable<BaseRes<List<GoodsBean>>> {
         return getAppService(isEncrypt = true).getRecommend(itemId)
     }
@@ -63,7 +71,12 @@ object NetRepositoryImpl : NetRepository, IService {
         return getAppService(isEncrypt = false).getRegistCode(phone)
     }
 
-    override fun regist(username: String, password: String, phone: String, code: String): Flowable<BaseRes<TokenBean>> {
+    override fun regist(
+        username: String,
+        password: String,
+        phone: String,
+        code: String
+    ): Flowable<BaseRes<TokenBean>> {
         return getAppService().regist(username, password, phone, code)
     }
 

@@ -8,15 +8,16 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.flutter-io.cn/audioplayers-0.13.1/android" />
-            <option value="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.flutter-io.cn/path_provider-1.2.0/android" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/mvvm" />
             <option value="$PROJECT_DIR$/orange_flutter/.android/Flutter" />
+            <option value="$USER_HOME$/Dev/flutter/.pub-cache/hosted/dart-pub.mirrors.sjtug.sjtu.edu.cn%47/audioplayers-0.13.1/android" />
+            <option value="$USER_HOME$/Dev/flutter/.pub-cache/hosted/dart-pub.mirrors.sjtug.sjtu.edu.cn%47/path_provider-1.2.0/android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

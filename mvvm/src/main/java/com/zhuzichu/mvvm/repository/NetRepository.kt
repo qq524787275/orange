@@ -12,6 +12,12 @@ import io.reactivex.Flowable
  */
 interface NetRepository {
 
+    fun addFoot(
+        itemId: Long,
+        title: String,
+        pictUrl: String
+    ): Flowable<BaseRes<String>>
+
     fun getRecommend(
         itemId: Long
     ): Flowable<BaseRes<List<GoodsBean>>>

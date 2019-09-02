@@ -8,6 +8,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AppService {
+    @FormUrlEncoded
+    @POST("api/user/addFoot")
+    fun addFoot(
+        @Field("itemId") itemId: Long,
+        @Field("title") title: String,
+        @Field("pictUrl") pictUrl: String
+    ): Flowable<BaseRes<String>>
+
     @GET("https://ifconfig.co/ip")
     fun getIpAddr(): Flowable<String>
 

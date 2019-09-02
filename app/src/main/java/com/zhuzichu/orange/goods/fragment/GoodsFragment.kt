@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.util.SmartUtil
 import com.zhuzichu.mvvm.base.BaseFragment
 import com.zhuzichu.mvvm.bean.GoodsBean
+import com.zhuzichu.mvvm.global.AppGlobal
 import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.append
 import com.zhuzichu.mvvm.utils.bindArgument
@@ -13,6 +14,7 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentGoodsBinding
 import com.zhuzichu.orange.goods.viewmodel.GoodsViewModel
+import com.zhuzichu.orange.utils.isTrue
 import kotlinx.android.synthetic.main.fragment_goods.*
 
 
@@ -69,6 +71,10 @@ class GoodsFragment : BaseFragment<FragmentGoodsBinding, GoodsViewModel>() {
         _viewModel.headerViewModel.title.set(text)
         view?.post {
             _viewModel.headerViewModel.updateBanner(info.smallimages)
+        }
+
+        AppGlobal.isLogin.get().isTrue {
+
         }
     }
 

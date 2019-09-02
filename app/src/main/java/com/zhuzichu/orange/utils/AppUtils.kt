@@ -42,8 +42,20 @@ fun checkAuth(context: Context, funcation: () -> Unit) {
 
 fun BaseViewModel?.checkLogin(login: () -> Unit) {
     if (!AppGlobal.isLogin.get()) {
-        this?.startFragment(LoginFragment(),launchMode = ISupportFragment.SINGLETASK)
+        this?.startFragment(LoginFragment(), launchMode = ISupportFragment.SINGLETASK)
         return
     }
     login.invoke()
+}
+
+fun Boolean.isTrue(funcation: () -> Unit) {
+    if (this) {
+        funcation.invoke()
+    }
+}
+
+fun Boolean.isFalse(funcation: () -> Unit) {
+    if (!this) {
+        funcation.invoke()
+    }
 }
