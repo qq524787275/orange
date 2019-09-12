@@ -3,7 +3,6 @@ package com.zhuzichu.orange.widget
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ViewFlipper
-import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.zhuzichu.mvvm.utils.logi

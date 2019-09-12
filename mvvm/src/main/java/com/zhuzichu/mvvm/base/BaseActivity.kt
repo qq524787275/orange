@@ -52,9 +52,9 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         resources.updateConfiguration(resources.configuration, resources.displayMetrics)
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initConfiguration()
