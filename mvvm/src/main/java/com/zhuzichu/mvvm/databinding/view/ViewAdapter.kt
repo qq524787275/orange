@@ -36,7 +36,7 @@ const val CLICK_INTERVAL = 500
 
 @SuppressLint("CheckResult")
 @BindingAdapter(value = ["onClickCommand", "isThrottleFirst", "isScale"], requireAll = false)
-fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst: Boolean, isScale: Boolean) {
+    fun onClickCommand(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst: Boolean, isScale: Boolean) {
     if (isThrottleFirst) {
         view.clicks()
             .subscribe {

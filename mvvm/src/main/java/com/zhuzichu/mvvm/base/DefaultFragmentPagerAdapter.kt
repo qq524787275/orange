@@ -1,5 +1,6 @@
 package com.zhuzichu.mvvm.base
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter
  * Date: 2019-07-18
  * Time: 11:35
  */
+@SuppressLint("WrongConstant")
 @Suppress("DEPRECATION")
 class DefaultFragmentPagerAdapter(
     fm: FragmentManager,

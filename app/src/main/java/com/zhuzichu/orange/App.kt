@@ -21,8 +21,6 @@ import io.reactivex.plugins.RxJavaPlugins
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 import me.yokeyword.fragmentation.Fragmentation
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-
 
 /**
  * Created by Android Studio.
@@ -44,7 +42,6 @@ class App : Application() {
             initAutoSize()
             initFragmention()
 //        initDebugDb()
-            initFont()
             FlutterMain.startInitialization(applicationContext)
             initSdk()
             RxJavaPlugins.setErrorHandler {}
@@ -69,14 +66,6 @@ class App : Application() {
         })
     }
 
-    private fun initFont() {
-        CalligraphyConfig.initDefault(
-            CalligraphyConfig.Builder()
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        )
-    }
-
     private fun initCrash() {
         CaocConfig.Builder.create()
             .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //背景模式,开启沉浸式
@@ -85,7 +74,7 @@ class App : Application() {
             .showRestartButton(true) //是否显示重启按钮
             .trackActivities(true) //是否跟踪Activity
             .minTimeBetweenCrashesMs(2000) //崩溃的间隔时间(毫秒)
-//                .errorDrawable(R.mipmap.ic_launcher)
+//            .errorDrawable(R.mipmap.ic_launcher)
             .restartActivity(MainActivity::class.java) //重新启动后的activity
             .apply()
     }

@@ -53,6 +53,10 @@ class MainFragment : BaseMainFragment<FragmentMainBinding, MainViewModel>() {
     override fun initViewObservable() {
     }
 
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+    }
+
     override fun initView() {
         content.offscreenPageLimit = mFragments.size
         content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, mFragments)

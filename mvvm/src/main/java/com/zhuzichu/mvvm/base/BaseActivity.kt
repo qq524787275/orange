@@ -1,7 +1,6 @@
 package com.zhuzichu.mvvm.base
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MotionEvent
@@ -14,8 +13,6 @@ import com.zhuzichu.mvvm.global.color.ColorGlobal
 import com.zhuzichu.mvvm.utils.helper.QMUIStatusBarHelper
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-import java.util.*
 
 /**
  * Created by Android Studio.
@@ -27,12 +24,10 @@ import java.util.*
 
 abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
 
-    private val _delegate by lazy {
-        SupportActivityDelegate(this)
-    }
-
     abstract fun setRootFragment(): ISupportFragment
-    private val preference by lazy { AppPreference() }
+    private val _delegate by lazy { SupportActivityDelegate(this) }
+    private val _preference by lazy { AppPreference() }
+
     override fun getSupportDelegate(): SupportActivityDelegate {
         return _delegate
     }
@@ -45,31 +40,23 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         return _delegate.extraTransaction()
     }
 
-    @Suppress("DEPRECATION")
-    private fun initConfiguration() {
-        Locale.setDefault(Locale.CHINA)
-        resources.configuration.locale = Locale.CHINESE
-        resources.updateConfiguration(resources.configuration, resources.displayMetrics)
-    }
-
-//    override fun attachBaseContext(newBase: Context?) {
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        initConfiguration()
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
         _delegate.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
 
-        if (preference.isDark)
+        if (_preference.isDark)
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         else
             QMUIStatusBarHelper.setStatusBarLightMode(this)
 
         ColorGlobal.isDark.observe(this, androidx.lifecycle.Observer {
-            window.setBackgroundDrawable(ColorGlobal.windowBackground.get()?.let { color -> ColorDrawable(color) })
+            window.setBackgroundDrawable(ColorGlobal.windowBackground.get()?.let { color ->
+                ColorDrawable(
+                    color
+                )
+            })
         })
     }
 
@@ -81,7 +68,6 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
             _delegate.loadRootFragment(R.id.delegate_containe, setRootFragment())
         }
     }
-
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -174,7 +160,11 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
     /**
      * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
      */
-    fun loadMultipleRootFragment(containerId: Int, showPosition: Int, vararg toFragments: ISupportFragment) {
+    fun loadMultipleRootFragment(
+        containerId: Int,
+        showPosition: Int,
+        vararg toFragments: ISupportFragment
+    ) {
         _delegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
     }
 
@@ -236,7 +226,11 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * @see .popTo
      * @see .start
      */
-    fun startWithPopTo(toFragment: ISupportFragment, targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
+    fun startWithPopTo(
+        toFragment: ISupportFragment,
+        targetFragmentClass: Class<*>,
+        includeTargetFragment: Boolean
+    ) {
         _delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
     }
 
@@ -272,7 +266,11 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
      * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
      */
-    fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean, afterPopTransactionRunnable: Runnable) {
+    fun popTo(
+        targetFragmentClass: Class<*>,
+        includeTargetFragment: Boolean,
+        afterPopTransactionRunnable: Runnable
+    ) {
         _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
     }
 
@@ -282,7 +280,12 @@ abstract class BaseActivity : RxAppCompatActivity(), ISupportActivity {
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popTo(
+            targetFragmentClass,
+            includeTargetFragment,
+            afterPopTransactionRunnable,
+            popAnim
+        )
     }
 
     /**
