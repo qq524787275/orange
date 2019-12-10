@@ -104,7 +104,6 @@ dependencies {
 
     api 'com.zhihu.android:matisse:0.5.2-beta5'
     api 'com.qiniu:qiniu-android-sdk:7.3.15'
-    api "uk.co.chrisjenx:calligraphy:2.3.0"
     api "com.facebook.shimmer:shimmer:0.4.0"
 
     api "com.liulishuo.okdownload:okhttp:1.0.5"

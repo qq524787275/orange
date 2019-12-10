@@ -73,15 +73,14 @@
                 android:theme="@style/AppTransparentTheme" />
 
         <activity
-                android:name="com.zhuzichu.orange.ui.picture.PictureActivity"
+                android:name=".ui.exoplayer.PlayerActivity"/>
+
+        <activity
+                android:name=".ui.picture.PictureActivity"
                 android:theme="@style/AppTransparentTheme" />
 
         <activity
                 android:name=".ui.file.FileActivity"
-                android:theme="@style/AppTransparentTheme" />
-
-        <activity
-                android:name=".ui.exoplayer.PlayerActivity"
                 android:theme="@style/AppTransparentTheme" />
 
         <activity

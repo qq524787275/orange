@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentationMagician
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.zhuzichu.mvvm.R
@@ -36,7 +37,8 @@ import java.lang.reflect.ParameterizedType
  * Time: 15:15
  */
 @Suppress("PropertyName")
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), ISupportFragment, IBaseFragment {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(),
+    ISupportFragment, IBaseFragment {
     lateinit var _bind: V
     lateinit var _viewModel: VM
     lateinit var _contentView: View
@@ -48,10 +50,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
     abstract fun bindVariableId(): Int
 
     @SuppressLint("InflateParams")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val type = this.javaClass.genericSuperclass
         if (type is ParameterizedType) _viewModel =
-            ViewModelProviders.of(this).get(cast(type.actualTypeArguments[1]))
+            ViewModelProvider(this).get(cast(type.actualTypeArguments[1]))
         lifecycle.addObserver(_viewModel)
         _viewModel.injectLifecycleProvider(this)
         _viewModel.injectFragment(this)
@@ -89,7 +95,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         //跳入新Fragment页面
         _viewModel.getUC().getStartFragmentEvent().observe(this, Observer { params ->
             val fragment = params[BaseViewModel.ParameterField.FRAGMENT] as ISupportFragment
-            val launchMode = (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
+            val launchMode =
+                (params[BaseViewModel.ParameterField.FRAGMENT_LAUNCHMODE] as String).toInt()
             getSuperTopFragment().start(fragment, launchMode)
         })
         //跳转到新Activity页面
@@ -124,11 +131,13 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         //直接退出Activity页面
         _viewModel.getUC().getFinishEvent().observe(this, Observer { _activity.finish() })
         //有Fragment 退出fragment
-        _viewModel.getUC().getOnBackPressedEvent().observe(this, Observer { _activity.onBackPressed() })
+        _viewModel.getUC().getOnBackPressedEvent()
+            .observe(this, Observer { _activity.onBackPressed() })
 
         _viewModel.getUC().getShowLoadingDialogEvent()
             .observe(this, Observer { DialogMaker.showLoadingDialog(_activity) })
-        _viewModel.getUC().getHideLoadingDialogEvent().observe(this, Observer { DialogMaker.dismissLodingDialog() })
+        _viewModel.getUC().getHideLoadingDialogEvent()
+            .observe(this, Observer { DialogMaker.dismissLodingDialog() })
 
         _viewModel.getUC().getMultiStateEvent().observe(this, Observer { params ->
             _multiStateView.viewState = params
@@ -219,7 +228,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * 前面的事务全部执行后 执行该Action
      *
      */
-    @Deprecated("Use {@link #post(Runnable)} instead.", ReplaceWith("_delegate.enqueueAction(runnable)"))
+    @Deprecated(
+        "Use {@link #post(Runnable)} instead.",
+        ReplaceWith("_delegate.enqueueAction(runnable)")
+    )
     override fun enqueueAction(runnable: Runnable) {
         _delegate.post(runnable)
     }
@@ -391,14 +403,23 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         _delegate.loadRootFragment(containerId, toFragment)
     }
 
-    fun loadRootFragment(containerId: Int, toFragment: ISupportFragment, addToBackStack: Boolean, allowAnim: Boolean) {
+    fun loadRootFragment(
+        containerId: Int,
+        toFragment: ISupportFragment,
+        addToBackStack: Boolean,
+        allowAnim: Boolean
+    ) {
         _delegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim)
     }
 
     /**
      * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
      */
-    fun loadMultipleRootFragment(containerId: Int, showPosition: Int, vararg toFragments: ISupportFragment) {
+    fun loadMultipleRootFragment(
+        containerId: Int,
+        showPosition: Int,
+        vararg toFragments: ISupportFragment
+    ) {
         _delegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
     }
 
@@ -451,7 +472,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * @see .popTo
      * @see .start
      */
-    fun startWithPopTo(toFragment: ISupportFragment, targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
+    fun startWithPopTo(
+        toFragment: ISupportFragment,
+        targetFragmentClass: Class<*>,
+        includeTargetFragment: Boolean
+    ) {
         _delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
     }
 
@@ -489,7 +514,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
      * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
      */
-    fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean, afterPopTransactionRunnable: Runnable) {
+    fun popTo(
+        targetFragmentClass: Class<*>,
+        includeTargetFragment: Boolean,
+        afterPopTransactionRunnable: Runnable
+    ) {
         _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
     }
 
@@ -499,7 +528,12 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        _delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popTo(
+            targetFragmentClass,
+            includeTargetFragment,
+            afterPopTransactionRunnable,
+            popAnim
+        )
     }
 
     fun popToChild(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
@@ -511,7 +545,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         includeTargetFragment: Boolean,
         afterPopTransactionRunnable: Runnable
     ) {
-        _delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
+        _delegate.popToChild(
+            targetFragmentClass,
+            includeTargetFragment,
+            afterPopTransactionRunnable
+        )
     }
 
     fun popToChild(
@@ -520,7 +558,12 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
         afterPopTransactionRunnable: Runnable,
         popAnim: Int
     ) {
-        _delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+        _delegate.popToChild(
+            targetFragmentClass,
+            includeTargetFragment,
+            afterPopTransactionRunnable,
+            popAnim
+        )
     }
 
     /**

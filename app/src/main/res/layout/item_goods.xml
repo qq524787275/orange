@@ -69,7 +69,7 @@
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:textColor="@color/colorRedPrimary"
-                            app:fontPath="@string/font_bold"/>
+                            android:textStyle="bold"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/itemprice"
@@ -82,7 +82,7 @@
                             android:ellipsize="end"
                             android:layout_marginTop="5dp"
                             android:layout_marginStart="5dp"
-                            app:fontPath="@string/font_medium"
+                            android:textStyle="normal"
                             android:layout_toEndOf="@+id/itemendprice"
                             app:textColor="@{item.color.textColorSecond}"/>
 
@@ -93,7 +93,7 @@
                             android:textSize="12sp"
                             android:maxLines="1"
                             tools:text="销量 213132"
-                            app:fontPath="@string/font_medium"
+                            android:textStyle="normal"
                             android:layout_below="@+id/itemendprice"
                             android:ellipsize="end"
                             app:textColor="@{item.color.textColorSecond}"

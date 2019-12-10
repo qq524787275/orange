@@ -133,7 +133,7 @@
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/white"
                                         android:textSize="35sp"
-                                        app:fontPath="@string/font_bold"
+                                        android:textStyle="bold"
                                         android:text="40"/>
                                 <androidx.appcompat.widget.AppCompatTextView
                                         android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
                                     android:text="使用期限 2019.08.21-2019.08.26"
                                     android:textSize="13sp"
                                     android:gravity="center"
-                                    app:fontPath="@string/font_medium"
+                                    android:textStyle="normal"
                                     android:textColor="@color/white"/>
                         </LinearLayout>
 

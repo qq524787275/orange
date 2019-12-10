@@ -48,7 +48,7 @@ public class GlobalGlideModel extends AppGlideModule {
                     Response response = chain.proceed(request);
                     ResponseProgressListener listener = new DispatchingProgressListener();
                     return response.newBuilder()
-                            .body(new OkHttpProgressResponseBody(request.url(), response.body(), listener))
+                                .body(new OkHttpProgressResponseBody(request.url(), response.body(), listener))
                             .build();
                 })
                 .build();

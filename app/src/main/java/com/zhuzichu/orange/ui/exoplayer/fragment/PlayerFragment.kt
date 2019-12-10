@@ -36,6 +36,5 @@ class PlayerFragment : BaseFragment<FragmentPlayerBinding, PlayerViewModel>() {
         )
         playerView.player=player
         player.playWhenReady=true
-        player.seekTo()
     }
 }

@@ -80,7 +80,7 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textColor="@color/colorRedPrimary"
-                        app:fontPath="@string/font_bold"
+                        android:textStyle="bold"
                 />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -91,7 +91,7 @@
                         android:textSize="12sp"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        app:fontPath="@string/font_medium"
+                        android:textStyle="normal"
                         app:textColor="@{item.color.textColorSecond}"
                 />
             </LinearLayout>
@@ -107,7 +107,7 @@
                     android:layout_toEndOf="@+id/itempic"
                     android:layout_above="@+id/layout_itemendprice"
                     app:textColor="@{item.color.textColorSecond}"
-                    app:fontPath="@string/font_medium"
+                    android:textStyle="normal"
                     android:layout_marginBottom="5dp"
             />
         </RelativeLayout>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
-        <import type="com.zhuzichu.orange.R"/>
-        <variable name="viewModel" type="com.zhuzichu.orange.main.viewmodel.MainViewModel"/>
+
+        <import type="com.zhuzichu.orange.R" />
+
+        <variable
+                name="viewModel"
+                type="com.zhuzichu.orange.main.viewmodel.MainViewModel" />
     </data>
-    <com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <com.zhuzichu.mvvm.view.reveal.widget.RevealFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -13,33 +18,32 @@
         <FrameLayout
                 android:id="@+id/layout_overlay"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         <LinearLayout
                 android:id="@+id/layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@{viewModel.color.windowBackground}">
+                android:background="@{viewModel.color.windowBackground}"
+                android:orientation="vertical">
 
             <androidx.viewpager.widget.ViewPager
                     android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    app:textColor="@{viewModel.color.textColorSecond}"
+                    android:background="@{viewModel.color.bottomBackground}"
                     app:iconColor="@{viewModel.color.textColorSecond}"
-                    app:selectedTextColor="@{viewModel.color.colorPrimary}"
-                    app:selectedIconColor="@{viewModel.color.colorPrimary}"
                     app:itemIconSize="24dp"
                     app:menu="@menu/navigation"
-                    app:labelVisibilityMode="labeled"
-                    android:background="@{viewModel.color.bottomBackground}"/>
+                    app:selectedIconColor="@{viewModel.color.colorPrimary}"
+                    app:selectedTextColor="@{viewModel.color.colorPrimary}"
+                    app:textColor="@{viewModel.color.textColorSecond}" />
         </LinearLayout>
 
 

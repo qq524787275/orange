@@ -130,7 +130,6 @@ class MineViewModel(application: Application) : BaseViewModel(application) {
     })
 
     val onClickTheme = BindingCommand<Any>({
-        R.attr.md_color_button_text
         MaterialDialog(_activity).show {
             cornerRadius(10f)
             title(text = "选择主题颜色")
