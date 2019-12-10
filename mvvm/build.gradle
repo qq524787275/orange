@@ -99,7 +99,7 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
-    api("com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion")
+    api "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
     api 'net.i2p.android.ext:floatingactionbutton:1.9.0'
 
     api 'com.zhihu.android:matisse:0.5.2-beta5'
@@ -110,6 +110,9 @@ dependencies {
     api "com.liulishuo.okdownload:okhttp:1.0.5"
     api "com.liulishuo.okdownload:sqlite:1.0.5"
     api "com.liulishuo.okdownload:okdownload:1.0.5"
+
+    api "com.google.android.exoplayer:exoplayer-core:2.9.0"
+    api "com.google.android.exoplayer:exoplayer-ui:2.9.0"
 
     //fastjson
     api 'com.alibaba:fastjson:1.2.9'
